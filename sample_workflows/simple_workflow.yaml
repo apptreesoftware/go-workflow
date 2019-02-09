@@ -1,0 +1,15 @@
+webhook: &webhook
+  webhook:
+    api_key: "1111"
+
+workflows:
+  testbed:
+    name: Test Workflow
+    triggers:
+      <<: *webhook
+    steps:
+      - string_length@1.0:
+          runIf: "true == true"
+          inputs:
+            String: count this string
+      - print_inputs@1.0: {}
