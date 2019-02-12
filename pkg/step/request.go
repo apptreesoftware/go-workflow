@@ -1,4 +1,4 @@
-package go_workflow
+package step
 
 import (
 	"flag"

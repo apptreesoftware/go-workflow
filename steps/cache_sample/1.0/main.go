@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "github.com/apptreesoftware/go-workflow"
+	. "github.com/apptreesoftware/go-workflow/pkg/step"
 )
 
 func main() {

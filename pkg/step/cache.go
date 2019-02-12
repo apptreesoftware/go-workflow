@@ -1,8 +1,7 @@
-package go_workflow
+package step
 
 import (
 	"context"
-	. "github.com/apptreesoftware/go-workflow/pkg/cache"
 	"github.com/mongodb/mongo-go-driver/bson"
 	"google.golang.org/grpc"
 	"os"
@@ -46,17 +45,6 @@ func (c *Cache) PutRecord(id string, record interface{}, metadata map[string]int
 			Environment: GetEnvironment(),
 		})
 	return err
-}
-
-func GetEnvironment() *Environment {
-	runId := os.Getenv("RUN_ID")
-	appId := os.Getenv("APP")
-	workflowId := os.Getenv("WORKFLOW_ID")
-	return &Environment{
-		App:        appId,
-		WorkflowId: workflowId,
-		RunId:      runId,
-	}
 }
 
 func (c *Cache) PullRecord(id string, record interface{}, cacheName string) (metadata map[string]interface{}, err error) {
