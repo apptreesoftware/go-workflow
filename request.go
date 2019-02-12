@@ -1,21 +1,34 @@
 package go_workflow
 
 import (
+	"flag"
 	"github.com/json-iterator/go"
 	"io"
 	"os"
+	"strings"
 )
 
 func BindInputs(data interface{}) {
-	err := ReadInputs(os.Stdin, data)
+	var input string
+	flag.StringVar(&input, "input", "", "Pass input on startup rathr than stdin")
+	flag.Parse()
+	var reader io.Reader
+	if len(input) > 0 {
+		reader = strings.NewReader(input)
+	} else {
+		reader = os.Stdin
+	}
+	err := ReadInputs(reader, data)
 	if err != nil {
 		ReportError(err)
 	}
 }
 
 func ReportError(err error) {
-	println(err.Error())
-	os.Exit(1)
+	if err != nil {
+		println(err.Error())
+		os.Exit(1)
+	}
 }
 
 func SetOutput(data interface{}) {

@@ -13,3 +13,4 @@ workflows:
           inputs:
             String: count this string
       - print_inputs@1.0: {}
+      - cache_sample@1.0: {}

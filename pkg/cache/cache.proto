@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/cache";
+
+message CachePushRequest {
+    string id = 1;
+    bytes metadata = 2;
+    bytes record = 3;
+    string cacheName = 4;
+    Environment environment = 5;
+}
+
+message CachePushResponse {
+
+}
+
+message Environment {
+    string app = 1;
+    string workflowId = 2;
+    string runId = 3;
+}
+
+message CachePullRequest {
+    string id = 1;
+    string cacheName = 2;
+    Environment environment = 3;
+}
+
+message CachePullResponse {
+    bytes record = 1;
+    bytes metadata = 2;
+}
+
+service Cache {
+    rpc Push (CachePushRequest) returns (CachePushResponse);
+    rpc Pull (CachePullRequest) returns (CachePullResponse);
+}
