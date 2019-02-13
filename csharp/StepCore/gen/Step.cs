@@ -30,22 +30,23 @@ public static partial class StepReflection {
           "CHN0ZXBOYW1lGAQgASgJEhMKC3N0ZXBWZXJzaW9uGAUgASgJEhEKCWlucHV0",
           "RmlsZRgGIAEoCSJUChBDYWNoZVB1bGxSZXF1ZXN0EgoKAmlkGAEgASgJEhEK",
           "CWNhY2hlTmFtZRgCIAEoCRIhCgtlbnZpcm9ubWVudBgDIAEoCzIMLkVudmly",
-          "b25tZW50IjUKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQ",
-          "CghtZXRhZGF0YRgCIAEoDCKTAQoHUGFja2FnZRIMCgRuYW1lGAEgASgJEgwK",
-          "BGxhbmcYAiABKAkSDAoEZXhlYxgDIAEoCRIiCgVzdGVwcxgEIAMoCzITLlBh",
-          "Y2thZ2UuU3RlcHNFbnRyeRo6CgpTdGVwc0VudHJ5EgsKA2tleRgBIAEoCRIb",
-          "CgV2YWx1ZRgCIAEoCzIMLlBhY2thZ2VTdGVwOgI4ASLwAQoLUGFja2FnZVN0",
-          "ZXASEwoLZGVzY3JpcHRpb24YASABKAkSKAoGaW5wdXRzGAIgAygLMhguUGFj",
-          "a2FnZVN0ZXAuSW5wdXRzRW50cnkSKgoHb3V0cHV0cxgDIAMoCzIZLlBhY2th",
-          "Z2VTdGVwLk91dHB1dHNFbnRyeRo5CgtJbnB1dHNFbnRyeRILCgNrZXkYASAB",
-          "KAkSGQoFdmFsdWUYAiABKAsyCi5JbnB1dEluZm86AjgBGjsKDE91dHB1dHNF",
-          "bnRyeRILCgNrZXkYASABKAkSGgoFdmFsdWUYAiABKAsyCy5PdXRwdXRJbmZv",
-          "OgI4ASIyCglJbnB1dEluZm8SEAoIcmVxdWlyZWQYASABKAgSEwoLZGVzY3Jp",
-          "cHRpb24YAiABKAkiIQoKT3V0cHV0SW5mbxITCgtkZXNjcmlwdGlvbhgBIAEo",
-          "CTJlCgVDYWNoZRItCgRQdXNoEhEuQ2FjaGVQdXNoUmVxdWVzdBoSLkNhY2hl",
-          "UHVzaFJlc3BvbnNlEi0KBFB1bGwSES5DYWNoZVB1bGxSZXF1ZXN0GhIuQ2Fj",
-          "aGVQdWxsUmVzcG9uc2VCMVovZ2l0aHViLmNvbS9hcHB0cmVlc29mdHdhcmUv",
-          "Z28td29ya2Zsb3cvcGtnL3N0ZXBiBnByb3RvMw=="));
+          "b25tZW50IkcKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQ",
+          "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCKTAQoHUGFja2Fn",
+          "ZRIMCgRuYW1lGAEgASgJEgwKBGxhbmcYAiABKAkSDAoEZXhlYxgDIAEoCRIi",
+          "CgVzdGVwcxgEIAMoCzITLlBhY2thZ2UuU3RlcHNFbnRyeRo6CgpTdGVwc0Vu",
+          "dHJ5EgsKA2tleRgBIAEoCRIbCgV2YWx1ZRgCIAEoCzIMLlBhY2thZ2VTdGVw",
+          "OgI4ASLwAQoLUGFja2FnZVN0ZXASEwoLZGVzY3JpcHRpb24YASABKAkSKAoG",
+          "aW5wdXRzGAIgAygLMhguUGFja2FnZVN0ZXAuSW5wdXRzRW50cnkSKgoHb3V0",
+          "cHV0cxgDIAMoCzIZLlBhY2thZ2VTdGVwLk91dHB1dHNFbnRyeRo5CgtJbnB1",
+          "dHNFbnRyeRILCgNrZXkYASABKAkSGQoFdmFsdWUYAiABKAsyCi5JbnB1dElu",
+          "Zm86AjgBGjsKDE91dHB1dHNFbnRyeRILCgNrZXkYASABKAkSGgoFdmFsdWUY",
+          "AiABKAsyCy5PdXRwdXRJbmZvOgI4ASIyCglJbnB1dEluZm8SEAoIcmVxdWly",
+          "ZWQYASABKAgSEwoLZGVzY3JpcHRpb24YAiABKAkiIQoKT3V0cHV0SW5mbxIT",
+          "CgtkZXNjcmlwdGlvbhgBIAEoCTJlCgVDYWNoZRItCgRQdXNoEhEuQ2FjaGVQ",
+          "dXNoUmVxdWVzdBoSLkNhY2hlUHVzaFJlc3BvbnNlEi0KBFB1bGwSES5DYWNo",
+          "ZVB1bGxSZXF1ZXN0GhIuQ2FjaGVQdWxsUmVzcG9uc2VCMVovZ2l0aHViLmNv",
+          "bS9hcHB0cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtnL3N0ZXBiBnByb3Rv",
+          "Mw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -53,7 +54,7 @@ public static partial class StepReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePushResponse), global::CachePushResponse.Parser, null, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Environment), global::Environment.Parser, new[]{ "App", "WorkflowId", "RunId", "StepName", "StepVersion", "InputFile" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePullRequest), global::CachePullRequest.Parser, new[]{ "Id", "CacheName", "Environment" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::CachePullResponse), global::CachePullResponse.Parser, new[]{ "Record", "Metadata" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::CachePullResponse), global::CachePullResponse.Parser, new[]{ "Record", "Metadata", "NotFound" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Package), global::Package.Parser, new[]{ "Name", "Lang", "Exec", "Steps" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::PackageStep), global::PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::InputInfo), global::InputInfo.Parser, new[]{ "Required", "Description" }, null, null, null),
@@ -899,6 +900,7 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
   public CachePullResponse(CachePullResponse other) : this() {
     record_ = other.record_;
     metadata_ = other.metadata_;
+    notFound_ = other.notFound_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -929,6 +931,17 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
     }
   }
 
+  /// <summary>Field number for the "notFound" field.</summary>
+  public const int NotFoundFieldNumber = 3;
+  private bool notFound_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public bool NotFound {
+    get { return notFound_; }
+    set {
+      notFound_ = value;
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as CachePullResponse);
@@ -944,6 +957,7 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
     }
     if (Record != other.Record) return false;
     if (Metadata != other.Metadata) return false;
+    if (NotFound != other.NotFound) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -952,6 +966,7 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
     int hash = 1;
     if (Record.Length != 0) hash ^= Record.GetHashCode();
     if (Metadata.Length != 0) hash ^= Metadata.GetHashCode();
+    if (NotFound != false) hash ^= NotFound.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -973,6 +988,10 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
       output.WriteRawTag(18);
       output.WriteBytes(Metadata);
     }
+    if (NotFound != false) {
+      output.WriteRawTag(24);
+      output.WriteBool(NotFound);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -986,6 +1005,9 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
     }
     if (Metadata.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeBytesSize(Metadata);
+    }
+    if (NotFound != false) {
+      size += 1 + 1;
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -1004,6 +1026,9 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
     if (other.Metadata.Length != 0) {
       Metadata = other.Metadata;
     }
+    if (other.NotFound != false) {
+      NotFound = other.NotFound;
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1021,6 +1046,10 @@ public sealed partial class CachePullResponse : pb::IMessage<CachePullResponse> 
         }
         case 18: {
           Metadata = input.ReadBytes();
+          break;
+        }
+        case 24: {
+          NotFound = input.ReadBool();
           break;
         }
       }

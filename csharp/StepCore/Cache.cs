@@ -8,13 +8,11 @@ using Newtonsoft.Json.Bson;
 
 namespace StepCore {
     public interface ICache {
-        Task PutRecord(
-            string id,
-            object record,
-            string cacheName = null,
-            Dictionary<string, object> meta = null);
+        Task PutRecord<T>(
+            CacheRecord<T> record,
+            string cacheName = "");
 
-        Task<CacheRecord<T>> PullRecord<T>(string id, string cacheName = null);
+        Task<CacheRecord<T>> PullRecord<T>(string id, string cacheName = "");
     }
 
     public class Cache : ICache {
@@ -24,24 +22,15 @@ namespace StepCore {
             _client = client;
         }
 
-        public async Task PutRecord(
-            string id,
-            object record,
-            string cacheName = null,
-            Dictionary<string, object> meta = null) {
-            var memoryStream = new MemoryStream();
-            using (BsonDataWriter writer = new BsonDataWriter(memoryStream)) {
-                var serializer = new JsonSerializer();
-                serializer.Serialize(writer, record);
-            }
-
+        public async Task PutRecord<T>(
+            CacheRecord<T> cacheRecord,
+            string cacheName = "") {
             var req = new CachePushRequest();
-            req.Record = GetBytes(record);
-            if (meta != null) {
-                req.Metadata = GetBytes(meta);
+            req.Record = GetBytes(cacheRecord.Record);
+            if (cacheRecord.Metadata != null) {
+                req.Metadata = GetBytes(cacheRecord.Metadata);
             }
-
-            req.Id = id;
+            req.Id = cacheRecord.Id;
             req.Environment = Util.GetEnvironment();
             req.CacheName = cacheName;
             await _client.PushAsync(req);
@@ -52,19 +41,28 @@ namespace StepCore {
                 Console.WriteLine("WARNING: Request record from cache with a null id");
                 return null;
             }
-            
-            
+
+            Console.WriteLine($"{id} - {cacheName} - {Util.GetEnvironment()}");
             var req = new CachePullRequest {
                 Id = id, Environment = Util.GetEnvironment(), CacheName = cacheName
             };
 
             var response = await _client.PullAsync(req);
+            if (response.NotFound) {
+                return null;
+            }
+
+            if (response.Record == null) {
+                return null;
+            }
+
             var record = Deserialize<T>(response.Record);
             var meta = response.Metadata.Length > 0
                 ? Deserialize<Dictionary<string, object>>(response.Metadata)
                 : new Dictionary<string, object>();
 
             return new CacheRecord<T> {
+                Id = id,
                 Record = record,
                 Metadata = meta,
             };
@@ -83,14 +81,15 @@ namespace StepCore {
             using (var writer = new BsonDataWriter(memoryStream)) {
                 var serializer = new JsonSerializer();
                 serializer.Serialize(writer, record);
+                return ByteString.CopyFrom(memoryStream.ToArray());
             }
-
-            return ByteString.FromStream(memoryStream);
         }
     }
 
     public class NoOpCache : ICache {
-        public Task PutRecord(string id, object record, string cacheName = null, Dictionary<string, object> meta = null) {
+        public Task PutRecord<T>(
+            CacheRecord<T> cacheRecord,
+            string cacheName = null) {
             return Task.CompletedTask;
         }
 
@@ -100,6 +99,14 @@ namespace StepCore {
     }
 
     public class CacheRecord<T> {
+        public CacheRecord(string id, T record, Dictionary<string, object> metadata) {
+            Id = id;
+            Record = record;
+            Metadata = metadata;
+        }
+
+        public CacheRecord() { }
+        public string Id { get; set; }
         public T Record { get; set; }
         public Dictionary<string, object> Metadata { get; set; }
     }

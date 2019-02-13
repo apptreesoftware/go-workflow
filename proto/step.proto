@@ -32,6 +32,7 @@ message CachePullRequest {
 message CachePullResponse {
     bytes record = 1;
     bytes metadata = 2;
+    bool notFound = 3;
 }
 
 service Cache {
