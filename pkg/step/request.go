@@ -57,11 +57,8 @@ func ReadInputs(reader io.Reader, data interface{}) error {
 }
 
 func WriteOutputsTo(writer io.Writer, data interface{}) error {
-	response := Response{
-		Outputs: data,
-	}
 	enc := jsoniter.NewEncoder(writer)
-	return enc.Encode(&response)
+	return enc.Encode(data)
 }
 
 type Response struct {

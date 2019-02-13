@@ -29,9 +29,9 @@ type CachePushRequest struct {
 	Record               []byte       `protobuf:"bytes,3,opt,name=record,proto3" json:"record,omitempty"`
 	CacheName            string       `protobuf:"bytes,4,opt,name=cacheName,proto3" json:"cacheName,omitempty"`
 	Environment          *Environment `protobuf:"bytes,5,opt,name=environment,proto3" json:"environment,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte       `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32        `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *CachePushRequest) Reset()         { *m = CachePushRequest{} }
@@ -94,9 +94,9 @@ func (m *CachePushRequest) GetEnvironment() *Environment {
 }
 
 type CachePushResponse struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *CachePushResponse) Reset()         { *m = CachePushResponse{} }
@@ -129,9 +129,9 @@ type Environment struct {
 	RunId                string   `protobuf:"bytes,3,opt,name=runId,proto3" json:"runId,omitempty"`
 	StepName             string   `protobuf:"bytes,4,opt,name=stepName,proto3" json:"stepName,omitempty"`
 	StepVersion          string   `protobuf:"bytes,5,opt,name=stepVersion,proto3" json:"stepVersion,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *Environment) Reset()         { *m = Environment{} }
@@ -197,9 +197,9 @@ type CachePullRequest struct {
 	Id                   string       `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	CacheName            string       `protobuf:"bytes,2,opt,name=cacheName,proto3" json:"cacheName,omitempty"`
 	Environment          *Environment `protobuf:"bytes,3,opt,name=environment,proto3" json:"environment,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte       `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32        `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *CachePullRequest) Reset()         { *m = CachePullRequest{} }
@@ -250,9 +250,9 @@ func (m *CachePullRequest) GetEnvironment() *Environment {
 type CachePullResponse struct {
 	Record               []byte   `protobuf:"bytes,1,opt,name=record,proto3" json:"record,omitempty"`
 	Metadata             []byte   `protobuf:"bytes,2,opt,name=metadata,proto3" json:"metadata,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *CachePullResponse) Reset()         { *m = CachePullResponse{} }
@@ -298,9 +298,9 @@ type Package struct {
 	Lang                 string                  `protobuf:"bytes,2,opt,name=lang,proto3" json:"lang,omitempty"`
 	Exec                 string                  `protobuf:"bytes,3,opt,name=exec,proto3" json:"exec,omitempty"`
 	Steps                map[string]*PackageStep `protobuf:"bytes,4,rep,name=steps,proto3" json:"steps,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}                `json:"-"`
-	XXX_unrecognized     []byte                  `json:"-"`
-	XXX_sizecache        int32                   `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}                `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte                  `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32                   `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *Package) Reset()         { *m = Package{} }
@@ -359,9 +359,9 @@ type PackageStep struct {
 	Description          string                 `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
 	Inputs               map[string]*InputInfo  `protobuf:"bytes,2,rep,name=inputs,proto3" json:"inputs,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
 	Outputs              map[string]*OutputInfo `protobuf:"bytes,3,rep,name=outputs,proto3" json:"outputs,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"bytes,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}               `json:"-"`
-	XXX_unrecognized     []byte                 `json:"-"`
-	XXX_sizecache        int32                  `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}               `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte                 `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32                  `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *PackageStep) Reset()         { *m = PackageStep{} }
@@ -412,9 +412,9 @@ func (m *PackageStep) GetOutputs() map[string]*OutputInfo {
 type InputInfo struct {
 	Required             bool     `protobuf:"varint,1,opt,name=required,proto3" json:"required,omitempty"`
 	Description          string   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *InputInfo) Reset()         { *m = InputInfo{} }
@@ -457,9 +457,9 @@ func (m *InputInfo) GetDescription() string {
 
 type OutputInfo struct {
 	Description          string   `protobuf:"bytes,1,opt,name=description,proto3" json:"description,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-"`
 }
 
 func (m *OutputInfo) Reset()         { *m = OutputInfo{} }
