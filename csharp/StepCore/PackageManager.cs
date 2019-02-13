@@ -26,16 +26,23 @@ namespace StepCore {
                 return 0;
             }
 
-
-            var stdin = Console.ReadLine();
+            string input = "";
             var step = GetStep(stepName, stepVersion);
+            
+            if (!string.IsNullOrEmpty(environment.InputFile)) {
+                input = File.ReadAllText(environment.InputFile);
+            } else {
+                input = Console.ReadLine();    
+            }
+            
+            
             if (step == null) {
                 Console.WriteLine($"Could not find step {stepName}@{stepVersion}");
                 return -1;
             }
 
             try {
-                step.BindInputs(stdin);
+                step.BindInputs(input);
                 await step.ExecuteAsync();
                 var output = step.GetOutputs();
                 
@@ -95,7 +102,7 @@ namespace StepCore {
                 var stepDef = type.GetCustomAttribute<StepDescription>();
                 var stepId = $"{stepDef.Name}@{stepDef.Version}";
                 var packageStep = new PackageStep {
-                    Description = stepDef.Description,
+                    Description = stepDef.Description ?? "",
                 };
 
                 var properties = type.GetProperties();

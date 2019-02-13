@@ -20,6 +20,7 @@ message Environment {
     string runId = 3;
     string stepName = 4;
     string stepVersion = 5;
+    string inputFile = 6;
 }
 
 message CachePullRequest {

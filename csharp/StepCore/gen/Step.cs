@@ -25,33 +25,33 @@ public static partial class StepReflection {
           "ChBwcm90by9zdGVwLnByb3RvInYKEENhY2hlUHVzaFJlcXVlc3QSCgoCaWQY",
           "ASABKAkSEAoIbWV0YWRhdGEYAiABKAwSDgoGcmVjb3JkGAMgASgMEhEKCWNh",
           "Y2hlTmFtZRgEIAEoCRIhCgtlbnZpcm9ubWVudBgFIAEoCzIMLkVudmlyb25t",
-          "ZW50IhMKEUNhY2hlUHVzaFJlc3BvbnNlImQKC0Vudmlyb25tZW50EgsKA2Fw",
+          "ZW50IhMKEUNhY2hlUHVzaFJlc3BvbnNlIncKC0Vudmlyb25tZW50EgsKA2Fw",
           "cBgBIAEoCRISCgp3b3JrZmxvd0lkGAIgASgJEg0KBXJ1bklkGAMgASgJEhAK",
-          "CHN0ZXBOYW1lGAQgASgJEhMKC3N0ZXBWZXJzaW9uGAUgASgJIlQKEENhY2hl",
-          "UHVsbFJlcXVlc3QSCgoCaWQYASABKAkSEQoJY2FjaGVOYW1lGAIgASgJEiEK",
-          "C2Vudmlyb25tZW50GAMgASgLMgwuRW52aXJvbm1lbnQiNQoRQ2FjaGVQdWxs",
-          "UmVzcG9uc2USDgoGcmVjb3JkGAEgASgMEhAKCG1ldGFkYXRhGAIgASgMIpMB",
-          "CgdQYWNrYWdlEgwKBG5hbWUYASABKAkSDAoEbGFuZxgCIAEoCRIMCgRleGVj",
-          "GAMgASgJEiIKBXN0ZXBzGAQgAygLMhMuUGFja2FnZS5TdGVwc0VudHJ5GjoK",
-          "ClN0ZXBzRW50cnkSCwoDa2V5GAEgASgJEhsKBXZhbHVlGAIgASgLMgwuUGFj",
-          "a2FnZVN0ZXA6AjgBIvABCgtQYWNrYWdlU3RlcBITCgtkZXNjcmlwdGlvbhgB",
-          "IAEoCRIoCgZpbnB1dHMYAiADKAsyGC5QYWNrYWdlU3RlcC5JbnB1dHNFbnRy",
-          "eRIqCgdvdXRwdXRzGAMgAygLMhkuUGFja2FnZVN0ZXAuT3V0cHV0c0VudHJ5",
-          "GjkKC0lucHV0c0VudHJ5EgsKA2tleRgBIAEoCRIZCgV2YWx1ZRgCIAEoCzIK",
-          "LklucHV0SW5mbzoCOAEaOwoMT3V0cHV0c0VudHJ5EgsKA2tleRgBIAEoCRIa",
-          "CgV2YWx1ZRgCIAEoCzILLk91dHB1dEluZm86AjgBIjIKCUlucHV0SW5mbxIQ",
-          "CghyZXF1aXJlZBgBIAEoCBITCgtkZXNjcmlwdGlvbhgCIAEoCSIhCgpPdXRw",
-          "dXRJbmZvEhMKC2Rlc2NyaXB0aW9uGAEgASgJMmUKBUNhY2hlEi0KBFB1c2gS",
-          "ES5DYWNoZVB1c2hSZXF1ZXN0GhIuQ2FjaGVQdXNoUmVzcG9uc2USLQoEUHVs",
-          "bBIRLkNhY2hlUHVsbFJlcXVlc3QaEi5DYWNoZVB1bGxSZXNwb25zZUIxWi9n",
-          "aXRodWIuY29tL2FwcHRyZWVzb2Z0d2FyZS9nby13b3JrZmxvdy9wa2cvc3Rl",
-          "cGIGcHJvdG8z"));
+          "CHN0ZXBOYW1lGAQgASgJEhMKC3N0ZXBWZXJzaW9uGAUgASgJEhEKCWlucHV0",
+          "RmlsZRgGIAEoCSJUChBDYWNoZVB1bGxSZXF1ZXN0EgoKAmlkGAEgASgJEhEK",
+          "CWNhY2hlTmFtZRgCIAEoCRIhCgtlbnZpcm9ubWVudBgDIAEoCzIMLkVudmly",
+          "b25tZW50IjUKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQ",
+          "CghtZXRhZGF0YRgCIAEoDCKTAQoHUGFja2FnZRIMCgRuYW1lGAEgASgJEgwK",
+          "BGxhbmcYAiABKAkSDAoEZXhlYxgDIAEoCRIiCgVzdGVwcxgEIAMoCzITLlBh",
+          "Y2thZ2UuU3RlcHNFbnRyeRo6CgpTdGVwc0VudHJ5EgsKA2tleRgBIAEoCRIb",
+          "CgV2YWx1ZRgCIAEoCzIMLlBhY2thZ2VTdGVwOgI4ASLwAQoLUGFja2FnZVN0",
+          "ZXASEwoLZGVzY3JpcHRpb24YASABKAkSKAoGaW5wdXRzGAIgAygLMhguUGFj",
+          "a2FnZVN0ZXAuSW5wdXRzRW50cnkSKgoHb3V0cHV0cxgDIAMoCzIZLlBhY2th",
+          "Z2VTdGVwLk91dHB1dHNFbnRyeRo5CgtJbnB1dHNFbnRyeRILCgNrZXkYASAB",
+          "KAkSGQoFdmFsdWUYAiABKAsyCi5JbnB1dEluZm86AjgBGjsKDE91dHB1dHNF",
+          "bnRyeRILCgNrZXkYASABKAkSGgoFdmFsdWUYAiABKAsyCy5PdXRwdXRJbmZv",
+          "OgI4ASIyCglJbnB1dEluZm8SEAoIcmVxdWlyZWQYASABKAgSEwoLZGVzY3Jp",
+          "cHRpb24YAiABKAkiIQoKT3V0cHV0SW5mbxITCgtkZXNjcmlwdGlvbhgBIAEo",
+          "CTJlCgVDYWNoZRItCgRQdXNoEhEuQ2FjaGVQdXNoUmVxdWVzdBoSLkNhY2hl",
+          "UHVzaFJlc3BvbnNlEi0KBFB1bGwSES5DYWNoZVB1bGxSZXF1ZXN0GhIuQ2Fj",
+          "aGVQdWxsUmVzcG9uc2VCMVovZ2l0aHViLmNvbS9hcHB0cmVlc29mdHdhcmUv",
+          "Z28td29ya2Zsb3cvcGtnL3N0ZXBiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePushRequest), global::CachePushRequest.Parser, new[]{ "Id", "Metadata", "Record", "CacheName", "Environment" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePushResponse), global::CachePushResponse.Parser, null, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Environment), global::Environment.Parser, new[]{ "App", "WorkflowId", "RunId", "StepName", "StepVersion" }, null, null, null),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Environment), global::Environment.Parser, new[]{ "App", "WorkflowId", "RunId", "StepName", "StepVersion", "InputFile" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePullRequest), global::CachePullRequest.Parser, new[]{ "Id", "CacheName", "Environment" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePullResponse), global::CachePullResponse.Parser, new[]{ "Record", "Metadata" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Package), global::Package.Parser, new[]{ "Name", "Lang", "Exec", "Steps" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
@@ -442,6 +442,7 @@ public sealed partial class Environment : pb::IMessage<Environment> {
     runId_ = other.runId_;
     stepName_ = other.stepName_;
     stepVersion_ = other.stepVersion_;
+    inputFile_ = other.inputFile_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -505,6 +506,17 @@ public sealed partial class Environment : pb::IMessage<Environment> {
     }
   }
 
+  /// <summary>Field number for the "inputFile" field.</summary>
+  public const int InputFileFieldNumber = 6;
+  private string inputFile_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string InputFile {
+    get { return inputFile_; }
+    set {
+      inputFile_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as Environment);
@@ -523,6 +535,7 @@ public sealed partial class Environment : pb::IMessage<Environment> {
     if (RunId != other.RunId) return false;
     if (StepName != other.StepName) return false;
     if (StepVersion != other.StepVersion) return false;
+    if (InputFile != other.InputFile) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -534,6 +547,7 @@ public sealed partial class Environment : pb::IMessage<Environment> {
     if (RunId.Length != 0) hash ^= RunId.GetHashCode();
     if (StepName.Length != 0) hash ^= StepName.GetHashCode();
     if (StepVersion.Length != 0) hash ^= StepVersion.GetHashCode();
+    if (InputFile.Length != 0) hash ^= InputFile.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -567,6 +581,10 @@ public sealed partial class Environment : pb::IMessage<Environment> {
       output.WriteRawTag(42);
       output.WriteString(StepVersion);
     }
+    if (InputFile.Length != 0) {
+      output.WriteRawTag(50);
+      output.WriteString(InputFile);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -589,6 +607,9 @@ public sealed partial class Environment : pb::IMessage<Environment> {
     }
     if (StepVersion.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(StepVersion);
+    }
+    if (InputFile.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(InputFile);
     }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
@@ -615,6 +636,9 @@ public sealed partial class Environment : pb::IMessage<Environment> {
     }
     if (other.StepVersion.Length != 0) {
       StepVersion = other.StepVersion;
+    }
+    if (other.InputFile.Length != 0) {
+      InputFile = other.InputFile;
     }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
@@ -645,6 +669,10 @@ public sealed partial class Environment : pb::IMessage<Environment> {
         }
         case 42: {
           StepVersion = input.ReadString();
+          break;
+        }
+        case 50: {
+          InputFile = input.ReadString();
           break;
         }
       }

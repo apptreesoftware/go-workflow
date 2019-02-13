@@ -10,7 +10,7 @@ namespace StepCore {
     public abstract class StepAsync {
         public abstract Task ExecuteAsync();
 
-        private Cache _cache;
+        private ICache _cache;
 
         public void BindInputs(string input) {
             var jObject = JObject.Parse(input);
@@ -26,13 +26,18 @@ namespace StepCore {
             }
         }
 
-        public Cache GetCache() {
+        public ICache GetCache() {
             if (_cache != null) {
                 return _cache;
             }
 
             var conn = System.Environment.GetEnvironmentVariable("WORKFLOW_CACHE_CONNECTION");
-            Console.WriteLine(conn);
+            if (string.IsNullOrEmpty(conn)) {
+                Console.WriteLine("Not connected to cache service. Returning a dummy cache");
+                _cache = new NoOpCache();
+                return _cache;
+            }
+           
             var channel = new Channel(conn, ChannelCredentials.Insecure);
             var client = new global::Cache.CacheClient(channel);
             _cache = new Cache(client);
