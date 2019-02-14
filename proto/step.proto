@@ -43,7 +43,7 @@ service Cache {
 message Package {
     string name = 1;
     string lang = 2;
-    int64 version = 3;
+    string version = 3;
     string exec = 4;
     map<string, PackageStep> steps = 5;
 }

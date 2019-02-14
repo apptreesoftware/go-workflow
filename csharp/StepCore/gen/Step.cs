@@ -33,7 +33,7 @@ public static partial class StepReflection {
           "b25tZW50IkcKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQ",
           "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCKkAQoHUGFja2Fn",
           "ZRIMCgRuYW1lGAEgASgJEgwKBGxhbmcYAiABKAkSDwoHdmVyc2lvbhgDIAEo",
-          "AxIMCgRleGVjGAQgASgJEiIKBXN0ZXBzGAUgAygLMhMuUGFja2FnZS5TdGVw",
+          "CRIMCgRleGVjGAQgASgJEiIKBXN0ZXBzGAUgAygLMhMuUGFja2FnZS5TdGVw",
           "c0VudHJ5GjoKClN0ZXBzRW50cnkSCwoDa2V5GAEgASgJEhsKBXZhbHVlGAIg",
           "ASgLMgwuUGFja2FnZVN0ZXA6AjgBIvABCgtQYWNrYWdlU3RlcBITCgtkZXNj",
           "cmlwdGlvbhgBIAEoCRIoCgZpbnB1dHMYAiADKAsyGC5QYWNrYWdlU3RlcC5J",
@@ -1120,12 +1120,12 @@ public sealed partial class Package : pb::IMessage<Package> {
 
   /// <summary>Field number for the "version" field.</summary>
   public const int VersionFieldNumber = 3;
-  private long version_;
+  private string version_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-  public long Version {
+  public string Version {
     get { return version_; }
     set {
-      version_ = value;
+      version_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
     }
   }
 
@@ -1176,7 +1176,7 @@ public sealed partial class Package : pb::IMessage<Package> {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (Lang.Length != 0) hash ^= Lang.GetHashCode();
-    if (Version != 0L) hash ^= Version.GetHashCode();
+    if (Version.Length != 0) hash ^= Version.GetHashCode();
     if (Exec.Length != 0) hash ^= Exec.GetHashCode();
     hash ^= Steps.GetHashCode();
     if (_unknownFields != null) {
@@ -1200,9 +1200,9 @@ public sealed partial class Package : pb::IMessage<Package> {
       output.WriteRawTag(18);
       output.WriteString(Lang);
     }
-    if (Version != 0L) {
-      output.WriteRawTag(24);
-      output.WriteInt64(Version);
+    if (Version.Length != 0) {
+      output.WriteRawTag(26);
+      output.WriteString(Version);
     }
     if (Exec.Length != 0) {
       output.WriteRawTag(34);
@@ -1223,8 +1223,8 @@ public sealed partial class Package : pb::IMessage<Package> {
     if (Lang.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Lang);
     }
-    if (Version != 0L) {
-      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Version);
+    if (Version.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Version);
     }
     if (Exec.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Exec);
@@ -1247,7 +1247,7 @@ public sealed partial class Package : pb::IMessage<Package> {
     if (other.Lang.Length != 0) {
       Lang = other.Lang;
     }
-    if (other.Version != 0L) {
+    if (other.Version.Length != 0) {
       Version = other.Version;
     }
     if (other.Exec.Length != 0) {
@@ -1273,8 +1273,8 @@ public sealed partial class Package : pb::IMessage<Package> {
           Lang = input.ReadString();
           break;
         }
-        case 24: {
-          Version = input.ReadInt64();
+        case 26: {
+          Version = input.ReadString();
           break;
         }
         case 34: {
