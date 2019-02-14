@@ -31,22 +31,22 @@ public static partial class StepReflection {
           "RmlsZRgGIAEoCSJUChBDYWNoZVB1bGxSZXF1ZXN0EgoKAmlkGAEgASgJEhEK",
           "CWNhY2hlTmFtZRgCIAEoCRIhCgtlbnZpcm9ubWVudBgDIAEoCzIMLkVudmly",
           "b25tZW50IkcKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQ",
-          "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCKTAQoHUGFja2Fn",
-          "ZRIMCgRuYW1lGAEgASgJEgwKBGxhbmcYAiABKAkSDAoEZXhlYxgDIAEoCRIi",
-          "CgVzdGVwcxgEIAMoCzITLlBhY2thZ2UuU3RlcHNFbnRyeRo6CgpTdGVwc0Vu",
-          "dHJ5EgsKA2tleRgBIAEoCRIbCgV2YWx1ZRgCIAEoCzIMLlBhY2thZ2VTdGVw",
-          "OgI4ASLwAQoLUGFja2FnZVN0ZXASEwoLZGVzY3JpcHRpb24YASABKAkSKAoG",
-          "aW5wdXRzGAIgAygLMhguUGFja2FnZVN0ZXAuSW5wdXRzRW50cnkSKgoHb3V0",
-          "cHV0cxgDIAMoCzIZLlBhY2thZ2VTdGVwLk91dHB1dHNFbnRyeRo5CgtJbnB1",
-          "dHNFbnRyeRILCgNrZXkYASABKAkSGQoFdmFsdWUYAiABKAsyCi5JbnB1dElu",
-          "Zm86AjgBGjsKDE91dHB1dHNFbnRyeRILCgNrZXkYASABKAkSGgoFdmFsdWUY",
-          "AiABKAsyCy5PdXRwdXRJbmZvOgI4ASIyCglJbnB1dEluZm8SEAoIcmVxdWly",
-          "ZWQYASABKAgSEwoLZGVzY3JpcHRpb24YAiABKAkiIQoKT3V0cHV0SW5mbxIT",
-          "CgtkZXNjcmlwdGlvbhgBIAEoCTJlCgVDYWNoZRItCgRQdXNoEhEuQ2FjaGVQ",
-          "dXNoUmVxdWVzdBoSLkNhY2hlUHVzaFJlc3BvbnNlEi0KBFB1bGwSES5DYWNo",
-          "ZVB1bGxSZXF1ZXN0GhIuQ2FjaGVQdWxsUmVzcG9uc2VCMVovZ2l0aHViLmNv",
-          "bS9hcHB0cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtnL3N0ZXBiBnByb3Rv",
-          "Mw=="));
+          "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCKkAQoHUGFja2Fn",
+          "ZRIMCgRuYW1lGAEgASgJEgwKBGxhbmcYAiABKAkSDwoHdmVyc2lvbhgDIAEo",
+          "AxIMCgRleGVjGAQgASgJEiIKBXN0ZXBzGAUgAygLMhMuUGFja2FnZS5TdGVw",
+          "c0VudHJ5GjoKClN0ZXBzRW50cnkSCwoDa2V5GAEgASgJEhsKBXZhbHVlGAIg",
+          "ASgLMgwuUGFja2FnZVN0ZXA6AjgBIvABCgtQYWNrYWdlU3RlcBITCgtkZXNj",
+          "cmlwdGlvbhgBIAEoCRIoCgZpbnB1dHMYAiADKAsyGC5QYWNrYWdlU3RlcC5J",
+          "bnB1dHNFbnRyeRIqCgdvdXRwdXRzGAMgAygLMhkuUGFja2FnZVN0ZXAuT3V0",
+          "cHV0c0VudHJ5GjkKC0lucHV0c0VudHJ5EgsKA2tleRgBIAEoCRIZCgV2YWx1",
+          "ZRgCIAEoCzIKLklucHV0SW5mbzoCOAEaOwoMT3V0cHV0c0VudHJ5EgsKA2tl",
+          "eRgBIAEoCRIaCgV2YWx1ZRgCIAEoCzILLk91dHB1dEluZm86AjgBIjIKCUlu",
+          "cHV0SW5mbxIQCghyZXF1aXJlZBgBIAEoCBITCgtkZXNjcmlwdGlvbhgCIAEo",
+          "CSIhCgpPdXRwdXRJbmZvEhMKC2Rlc2NyaXB0aW9uGAEgASgJMmUKBUNhY2hl",
+          "Ei0KBFB1c2gSES5DYWNoZVB1c2hSZXF1ZXN0GhIuQ2FjaGVQdXNoUmVzcG9u",
+          "c2USLQoEUHVsbBIRLkNhY2hlUHVsbFJlcXVlc3QaEi5DYWNoZVB1bGxSZXNw",
+          "b25zZUIxWi9naXRodWIuY29tL2FwcHRyZWVzb2Z0d2FyZS9nby13b3JrZmxv",
+          "dy9wa2cvc3RlcGIGcHJvdG8z"));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -55,7 +55,7 @@ public static partial class StepReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::Environment), global::Environment.Parser, new[]{ "App", "WorkflowId", "RunId", "StepName", "StepVersion", "InputFile" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePullRequest), global::CachePullRequest.Parser, new[]{ "Id", "CacheName", "Environment" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePullResponse), global::CachePullResponse.Parser, new[]{ "Record", "Metadata", "NotFound" }, null, null, null),
-          new pbr::GeneratedClrTypeInfo(typeof(global::Package), global::Package.Parser, new[]{ "Name", "Lang", "Exec", "Steps" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::Package), global::Package.Parser, new[]{ "Name", "Lang", "Version", "Exec", "Steps" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::PackageStep), global::PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::InputInfo), global::InputInfo.Parser, new[]{ "Required", "Description" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::OutputInfo), global::OutputInfo.Parser, new[]{ "Description" }, null, null, null)
@@ -1085,6 +1085,7 @@ public sealed partial class Package : pb::IMessage<Package> {
   public Package(Package other) : this() {
     name_ = other.name_;
     lang_ = other.lang_;
+    version_ = other.version_;
     exec_ = other.exec_;
     steps_ = other.steps_.Clone();
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1117,8 +1118,19 @@ public sealed partial class Package : pb::IMessage<Package> {
     }
   }
 
+  /// <summary>Field number for the "version" field.</summary>
+  public const int VersionFieldNumber = 3;
+  private long version_;
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public long Version {
+    get { return version_; }
+    set {
+      version_ = value;
+    }
+  }
+
   /// <summary>Field number for the "exec" field.</summary>
-  public const int ExecFieldNumber = 3;
+  public const int ExecFieldNumber = 4;
   private string exec_ = "";
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public string Exec {
@@ -1129,9 +1141,9 @@ public sealed partial class Package : pb::IMessage<Package> {
   }
 
   /// <summary>Field number for the "steps" field.</summary>
-  public const int StepsFieldNumber = 4;
+  public const int StepsFieldNumber = 5;
   private static readonly pbc::MapField<string, global::PackageStep>.Codec _map_steps_codec
-      = new pbc::MapField<string, global::PackageStep>.Codec(pb::FieldCodec.ForString(10), pb::FieldCodec.ForMessage(18, global::PackageStep.Parser), 34);
+      = new pbc::MapField<string, global::PackageStep>.Codec(pb::FieldCodec.ForString(10), pb::FieldCodec.ForMessage(18, global::PackageStep.Parser), 42);
   private readonly pbc::MapField<string, global::PackageStep> steps_ = new pbc::MapField<string, global::PackageStep>();
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public pbc::MapField<string, global::PackageStep> Steps {
@@ -1153,6 +1165,7 @@ public sealed partial class Package : pb::IMessage<Package> {
     }
     if (Name != other.Name) return false;
     if (Lang != other.Lang) return false;
+    if (Version != other.Version) return false;
     if (Exec != other.Exec) return false;
     if (!Steps.Equals(other.Steps)) return false;
     return Equals(_unknownFields, other._unknownFields);
@@ -1163,6 +1176,7 @@ public sealed partial class Package : pb::IMessage<Package> {
     int hash = 1;
     if (Name.Length != 0) hash ^= Name.GetHashCode();
     if (Lang.Length != 0) hash ^= Lang.GetHashCode();
+    if (Version != 0L) hash ^= Version.GetHashCode();
     if (Exec.Length != 0) hash ^= Exec.GetHashCode();
     hash ^= Steps.GetHashCode();
     if (_unknownFields != null) {
@@ -1186,8 +1200,12 @@ public sealed partial class Package : pb::IMessage<Package> {
       output.WriteRawTag(18);
       output.WriteString(Lang);
     }
+    if (Version != 0L) {
+      output.WriteRawTag(24);
+      output.WriteInt64(Version);
+    }
     if (Exec.Length != 0) {
-      output.WriteRawTag(26);
+      output.WriteRawTag(34);
       output.WriteString(Exec);
     }
     steps_.WriteTo(output, _map_steps_codec);
@@ -1204,6 +1222,9 @@ public sealed partial class Package : pb::IMessage<Package> {
     }
     if (Lang.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Lang);
+    }
+    if (Version != 0L) {
+      size += 1 + pb::CodedOutputStream.ComputeInt64Size(Version);
     }
     if (Exec.Length != 0) {
       size += 1 + pb::CodedOutputStream.ComputeStringSize(Exec);
@@ -1225,6 +1246,9 @@ public sealed partial class Package : pb::IMessage<Package> {
     }
     if (other.Lang.Length != 0) {
       Lang = other.Lang;
+    }
+    if (other.Version != 0L) {
+      Version = other.Version;
     }
     if (other.Exec.Length != 0) {
       Exec = other.Exec;
@@ -1249,11 +1273,15 @@ public sealed partial class Package : pb::IMessage<Package> {
           Lang = input.ReadString();
           break;
         }
-        case 26: {
-          Exec = input.ReadString();
+        case 24: {
+          Version = input.ReadInt64();
           break;
         }
         case 34: {
+          Exec = input.ReadString();
+          break;
+        }
+        case 42: {
           steps_.AddEntriesFrom(input, _map_steps_codec);
           break;
         }

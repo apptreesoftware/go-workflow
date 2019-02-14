@@ -43,8 +43,9 @@ service Cache {
 message Package {
     string name = 1;
     string lang = 2;
-    string exec = 3;
-    map<string, PackageStep> steps = 4;
+    int64 version = 3;
+    string exec = 4;
+    map<string, PackageStep> steps = 5;
 }
 
 message PackageStep {
