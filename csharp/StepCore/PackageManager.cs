@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using CommandLine;
 using Google.Protobuf.Collections;
+using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using YamlDotNet.Serialization;
@@ -12,55 +14,44 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace StepCore {
     public static class PackageManager {
-
         public static async Task<int> Run(string[] args) {
-            var environment = Util.GetEnvironment();
-            var stepName = environment.StepName;
-            var stepVersion = environment.StepVersion;
-            if (string.IsNullOrEmpty(stepVersion)) {
-                stepVersion = "1.0.0";
-            }
-            if (string.IsNullOrEmpty(stepName)) {
-                var yaml = GeneratePackageInfoYaml();
-                Console.WriteLine(yaml);
-                return 0;
-            }
+            Parser.Default.ParseArguments<Options>(args)
+                .WithParsed(
+                    async options => {
+                        if (options.Serve) {
+                            Server.RunServer(args);
+                        } else {
+                            await Run();
+                        }
+                    });
+            return 0;
+        }
 
-            string input = "";
-            var step = GetStep(stepName, stepVersion);
-            
+        public static async Task Run() {
+            var environment = Util.GetEnvironment();
+            var input = "";
             if (!string.IsNullOrEmpty(environment.InputFile)) {
                 input = File.ReadAllText(environment.InputFile);
             } else {
-                input = Console.ReadLine();    
-            }
-            
-            
-            if (step == null) {
-                Console.WriteLine($"Could not find step {stepName}@{stepVersion}");
-                return -1;
+                input = Console.ReadLine();
             }
 
             try {
-                step.BindInputs(input);
-                await step.ExecuteAsync();
-                var output = step.GetOutputs();
-                
+                var output = await StepRunner.Run(environment, input);
                 var outputLoc = System.Environment.GetEnvironmentVariable("WORKFLOW_OUTPUT");
                 if (output != null && output.Count > 0) {
                     var outString = JsonConvert.SerializeObject(output);
                     if (string.IsNullOrEmpty(outputLoc)) {
                         Console.WriteLine(outString);
                     } else {
-                        File.WriteAllText(outputLoc, outString);   
+                        File.WriteAllText(outputLoc, outString);
                     }
-                }
+                }    
             } catch (Exception e) {
                 Console.WriteLine($"Step failed with exception: {e}");
             }
-            return 0;
         }
-        
+
         public static StepAsync GetStep(string name, string version) {
             return GetStepInAssembly(Assembly.GetEntryAssembly(), name, version);
         }
@@ -142,7 +133,9 @@ namespace StepCore {
                 .Build();
             return serializer.Serialize(GeneratePackageInfo());
         }
-        
     }
-   
+
+    class Options {
+        [Option("serve")] public bool Serve { get; set; }
+    }
 }

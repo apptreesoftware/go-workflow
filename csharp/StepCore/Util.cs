@@ -1,5 +1,5 @@
 namespace StepCore {
-    public class Util {
+    public static class Util {
         public static Environment GetEnvironment() {
             return new Environment {
                 App = System.Environment.GetEnvironmentVariable("APP") ?? "",
