@@ -4,7 +4,7 @@ import "os"
 
 func GetEnvironment() *Environment {
 	return &Environment{
-		App:         os.Getenv("APP"),
+		App:         os.Getenv("PROJECT"),
 		WorkflowId:  os.Getenv("WORKFLOW_ID"),
 		RunId:       os.Getenv("RUN_ID"),
 		StepName:    os.Getenv("STEP_NAME"),

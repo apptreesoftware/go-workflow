@@ -2,7 +2,7 @@ namespace StepCore {
     public static class Util {
         public static Environment GetEnvironment() {
             return new Environment {
-                App = System.Environment.GetEnvironmentVariable("APP") ?? "",
+                App = System.Environment.GetEnvironmentVariable("PROJECT") ?? "",
                 RunId = System.Environment.GetEnvironmentVariable("RUN_ID") ?? "",
                 WorkflowId = System.Environment.GetEnvironmentVariable("WORKFLOW_ID") ?? "",
                 StepName = System.Environment.GetEnvironmentVariable("STEP_NAME") ?? "",
