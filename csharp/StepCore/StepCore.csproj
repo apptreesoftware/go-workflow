@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <PackageVersion>1.0.0-alpha</PackageVersion>
+    <PackageVersion>1.0.0-alpha2</PackageVersion>
     <Description>A lightweight convenience SDK for building AppTree Workflow steps  </Description>
     <PackageProjectUrl>https://github.com/apptreesoftware/go-workflow</PackageProjectUrl>
     <RepositoryUrl>https://github.com/apptreesoftware/go-workflow</RepositoryUrl>
