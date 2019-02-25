@@ -10,7 +10,7 @@ import (
 
 func BindInputs(data interface{}) {
 	var input string
-	flag.StringVar(&input, "input", "", "Pass input on startup rathr than stdin")
+	flag.StringVar(&input, "input", "", "Pass input on startup rather than stdin")
 	flag.Parse()
 	var reader io.Reader
 	if len(input) > 0 {
