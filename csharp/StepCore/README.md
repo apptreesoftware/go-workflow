@@ -8,7 +8,7 @@ You must also have the AppTree Nuget publish API Key.
 Modify StepCore Project to increment the `Nuget Version`
 
 ### 2. Package the SDK
-`dotnet publish -c Release`
+`dotnet pack -c Release`
 
 ### 3. Publish the new version to NUGET
 
