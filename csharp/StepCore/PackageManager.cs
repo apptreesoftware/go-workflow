@@ -1,29 +1,26 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CommandLine;
-using Google.Protobuf.Collections;
-using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace StepCore {
     public static class PackageManager {
         public static async Task<int> Run(string[] args) {
-            Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(
-                    async options => {
-                        if (options.Serve) {
-                            Server.RunServer(args);
-                        } else {
-                            await Run();
-                        }
-                    });
+            bool serveMode = false;
+            foreach (var s in args) {
+                if (s == "--serve") {
+                    serveMode = true;
+                }
+            }
+            if (serveMode) {
+                Server.RunServer(args);
+            } else {
+                await Run();
+            }
             return 0;
         }
 
@@ -133,9 +130,5 @@ namespace StepCore {
                 .Build();
             return serializer.Serialize(GeneratePackageInfo());
         }
-    }
-
-    class Options {
-        [Option("serve")] public bool Serve { get; set; }
     }
 }

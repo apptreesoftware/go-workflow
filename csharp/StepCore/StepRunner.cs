@@ -11,7 +11,6 @@ namespace StepCore {
         public static async Task<Dictionary<string, object>>  Run(Environment environment, string input) {
             var stepName = environment.StepName;
             var stepVersion = environment.StepVersion;
-            Console.WriteLine($"Running step: {stepName} - {stepVersion}");
             if (string.IsNullOrEmpty(stepVersion)) {
                 stepVersion = "1.0.0";
             }

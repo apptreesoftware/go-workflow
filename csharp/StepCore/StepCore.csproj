@@ -3,14 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <PackageVersion>1.0.0-alpha2</PackageVersion>
+    <PackageVersion>1.0.0-alpha3</PackageVersion>
     <Description>A lightweight convenience SDK for building AppTree Workflow steps  </Description>
     <PackageProjectUrl>https://github.com/apptreesoftware/go-workflow</PackageProjectUrl>
     <RepositoryUrl>https://github.com/apptreesoftware/go-workflow</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.4.3" />
     <PackageReference Include="Google.Protobuf" Version="3.6.1" />
     <PackageReference Include="Grpc" Version="1.18.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.2" />
