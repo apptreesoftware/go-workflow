@@ -35,18 +35,18 @@ public static partial class StepReflection {
           "ZRIMCgRuYW1lGAEgASgJEgwKBGxhbmcYAiABKAkSDwoHdmVyc2lvbhgDIAEo",
           "CRIMCgRleGVjGAQgASgJEiIKBXN0ZXBzGAUgAygLMhMuUGFja2FnZS5TdGVw",
           "c0VudHJ5GjoKClN0ZXBzRW50cnkSCwoDa2V5GAEgASgJEhsKBXZhbHVlGAIg",
-          "ASgLMgwuUGFja2FnZVN0ZXA6AjgBIvABCgtQYWNrYWdlU3RlcBITCgtkZXNj",
+          "ASgLMgwuUGFja2FnZVN0ZXA6AjgBIoACCgtQYWNrYWdlU3RlcBITCgtkZXNj",
           "cmlwdGlvbhgBIAEoCRIoCgZpbnB1dHMYAiADKAsyGC5QYWNrYWdlU3RlcC5J",
           "bnB1dHNFbnRyeRIqCgdvdXRwdXRzGAMgAygLMhkuUGFja2FnZVN0ZXAuT3V0",
-          "cHV0c0VudHJ5GjkKC0lucHV0c0VudHJ5EgsKA2tleRgBIAEoCRIZCgV2YWx1",
-          "ZRgCIAEoCzIKLklucHV0SW5mbzoCOAEaOwoMT3V0cHV0c0VudHJ5EgsKA2tl",
-          "eRgBIAEoCRIaCgV2YWx1ZRgCIAEoCzILLk91dHB1dEluZm86AjgBIjIKCUlu",
-          "cHV0SW5mbxIQCghyZXF1aXJlZBgBIAEoCBITCgtkZXNjcmlwdGlvbhgCIAEo",
-          "CSIhCgpPdXRwdXRJbmZvEhMKC2Rlc2NyaXB0aW9uGAEgASgJMmUKBUNhY2hl",
-          "Ei0KBFB1c2gSES5DYWNoZVB1c2hSZXF1ZXN0GhIuQ2FjaGVQdXNoUmVzcG9u",
-          "c2USLQoEUHVsbBIRLkNhY2hlUHVsbFJlcXVlc3QaEi5DYWNoZVB1bGxSZXNw",
-          "b25zZUIxWi9naXRodWIuY29tL2FwcHRyZWVzb2Z0d2FyZS9nby13b3JrZmxv",
-          "dy9wa2cvc3RlcGIGcHJvdG8z"));
+          "cHV0c0VudHJ5Eg4KBnNhbXBsZRgEIAEoCRo5CgtJbnB1dHNFbnRyeRILCgNr",
+          "ZXkYASABKAkSGQoFdmFsdWUYAiABKAsyCi5JbnB1dEluZm86AjgBGjsKDE91",
+          "dHB1dHNFbnRyeRILCgNrZXkYASABKAkSGgoFdmFsdWUYAiABKAsyCy5PdXRw",
+          "dXRJbmZvOgI4ASIyCglJbnB1dEluZm8SEAoIcmVxdWlyZWQYASABKAgSEwoL",
+          "ZGVzY3JpcHRpb24YAiABKAkiIQoKT3V0cHV0SW5mbxITCgtkZXNjcmlwdGlv",
+          "bhgBIAEoCTJlCgVDYWNoZRItCgRQdXNoEhEuQ2FjaGVQdXNoUmVxdWVzdBoS",
+          "LkNhY2hlUHVzaFJlc3BvbnNlEi0KBFB1bGwSES5DYWNoZVB1bGxSZXF1ZXN0",
+          "GhIuQ2FjaGVQdWxsUmVzcG9uc2VCMVovZ2l0aHViLmNvbS9hcHB0cmVlc29m",
+          "dHdhcmUvZ28td29ya2Zsb3cvcGtnL3N0ZXBiBnByb3RvMw=="));
     descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
         new pbr::FileDescriptor[] { },
         new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -56,7 +56,7 @@ public static partial class StepReflection {
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePullRequest), global::CachePullRequest.Parser, new[]{ "Id", "CacheName", "Environment" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::CachePullResponse), global::CachePullResponse.Parser, new[]{ "Record", "Metadata", "NotFound" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::Package), global::Package.Parser, new[]{ "Name", "Lang", "Version", "Exec", "Steps" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
-          new pbr::GeneratedClrTypeInfo(typeof(global::PackageStep), global::PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+          new pbr::GeneratedClrTypeInfo(typeof(global::PackageStep), global::PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs", "Sample" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
           new pbr::GeneratedClrTypeInfo(typeof(global::InputInfo), global::InputInfo.Parser, new[]{ "Required", "Description" }, null, null, null),
           new pbr::GeneratedClrTypeInfo(typeof(global::OutputInfo), global::OutputInfo.Parser, new[]{ "Description" }, null, null, null)
         }));
@@ -1319,6 +1319,7 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
     description_ = other.description_;
     inputs_ = other.inputs_.Clone();
     outputs_ = other.outputs_.Clone();
+    sample_ = other.sample_;
     _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
   }
 
@@ -1358,6 +1359,17 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
     get { return outputs_; }
   }
 
+  /// <summary>Field number for the "sample" field.</summary>
+  public const int SampleFieldNumber = 4;
+  private string sample_ = "";
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+  public string Sample {
+    get { return sample_; }
+    set {
+      sample_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+    }
+  }
+
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
   public override bool Equals(object other) {
     return Equals(other as PackageStep);
@@ -1374,6 +1386,7 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
     if (Description != other.Description) return false;
     if (!Inputs.Equals(other.Inputs)) return false;
     if (!Outputs.Equals(other.Outputs)) return false;
+    if (Sample != other.Sample) return false;
     return Equals(_unknownFields, other._unknownFields);
   }
 
@@ -1383,6 +1396,7 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
     if (Description.Length != 0) hash ^= Description.GetHashCode();
     hash ^= Inputs.GetHashCode();
     hash ^= Outputs.GetHashCode();
+    if (Sample.Length != 0) hash ^= Sample.GetHashCode();
     if (_unknownFields != null) {
       hash ^= _unknownFields.GetHashCode();
     }
@@ -1402,6 +1416,10 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
     }
     inputs_.WriteTo(output, _map_inputs_codec);
     outputs_.WriteTo(output, _map_outputs_codec);
+    if (Sample.Length != 0) {
+      output.WriteRawTag(34);
+      output.WriteString(Sample);
+    }
     if (_unknownFields != null) {
       _unknownFields.WriteTo(output);
     }
@@ -1415,6 +1433,9 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
     }
     size += inputs_.CalculateSize(_map_inputs_codec);
     size += outputs_.CalculateSize(_map_outputs_codec);
+    if (Sample.Length != 0) {
+      size += 1 + pb::CodedOutputStream.ComputeStringSize(Sample);
+    }
     if (_unknownFields != null) {
       size += _unknownFields.CalculateSize();
     }
@@ -1431,6 +1452,9 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
     }
     inputs_.Add(other.inputs_);
     outputs_.Add(other.outputs_);
+    if (other.Sample.Length != 0) {
+      Sample = other.Sample;
+    }
     _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
   }
 
@@ -1452,6 +1476,10 @@ public sealed partial class PackageStep : pb::IMessage<PackageStep> {
         }
         case 26: {
           outputs_.AddEntriesFrom(input, _map_outputs_codec);
+          break;
+        }
+        case 34: {
+          Sample = input.ReadString();
           break;
         }
       }
