@@ -52,6 +52,7 @@ message PackageStep {
     string description = 1;
     map<string, InputInfo> inputs = 2;
     map<string, OutputInfo> outputs = 3;
+    string sample = 4;
 }
 
 message InputInfo {
