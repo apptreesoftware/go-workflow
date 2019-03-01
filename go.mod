@@ -12,5 +12,4 @@ require (
 	github.com/tidwall/pretty v0.0.0-20180105212114-65a9db5fad51 // indirect
 	golang.org/x/net v0.0.0-20190206173232-65e2d4e15006
 	google.golang.org/grpc v1.18.0
-	gopkg.in/yaml.v2 v2.2.2
 )
