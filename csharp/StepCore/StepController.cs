@@ -15,6 +15,8 @@ namespace StepCore {
                     request.Environment, JsonConvert.SerializeObject(request.Inputs));
                 return output;
             } catch (Exception e) {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
                return new BadRequestObjectResult(e.ToString());
             }
         }

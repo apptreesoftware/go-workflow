@@ -11,13 +11,22 @@ namespace StepCore {
     public static class PackageManager {
         public static async Task<int> Run(string[] args) {
             bool serveMode = false;
-            foreach (var s in args) {
-                if (s == "--serve") {
+            var port = 5000;
+            for (var i = 0; i < args.Length; i++)
+            {
+                if (args[i] == "--serve")
+                {
                     serveMode = true;
-                }
+                    
+                    if (args.Length > i + 1)
+                    {
+                        var portString = args[i + 1];
+                        int.TryParse(portString, out port);
+                    }
+                } 
             }
             if (serveMode) {
-                Server.RunServer(args);
+                Server.RunServer(args, port);
             } else {
                 await Run();
             }

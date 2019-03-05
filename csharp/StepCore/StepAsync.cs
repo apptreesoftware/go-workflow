@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Grpc.Core;
@@ -12,8 +13,13 @@ namespace StepCore {
 
         private ICache _cache;
 
-        public void BindInputs(string input) {
-            var jObject = JObject.Parse(input);
+        public void BindInputs(string input)
+        {
+            
+            //var jObject = JObject.Parse(input);
+            var jsonReader = new JsonTextReader(new StringReader(input));
+            jsonReader.DateParseHandling = DateParseHandling.None;
+            var jObject = JObject.Load(jsonReader);
             var type = GetType();
 
             foreach (var propertyInfo in type.GetProperties()) {
