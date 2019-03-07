@@ -1,0 +1,34 @@
+// API for a `remote` to communicate back to the `host` engine.
+// Uses Twirp for communication
+// The Authorization used is a JWT token that was given to
+// the remote engine during the registration process.
+
+
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+import "common.proto";
+
+service EngineAPI {
+    rpc AuthorizedPing (EmptyMessage) returns (EmptyMessage);
+    rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
+
+    rpc SpawnWorkflow (SpawnWorkflowRequest) returns (SpawnWorkflowResponse);
+
+    rpc CachePush (CachePushRequest) returns (CachePushResponse);
+    rpc CachePull (CachePullRequest) returns (CachePullResponse);
+}
+
+
+message SpawnWorkflowRequest {
+    Environment environment = 1;
+    string workflow = 2;
+    bytes input = 3;
+}
+
+message SpawnWorkflowResponse {
+    string queueId = 1;
+}

@@ -1,9 +1,12 @@
 package step
 
-import "os"
+import (
+	"github.com/apptreesoftware/go-workflow/pkg/core"
+	"os"
+)
 
-func GetEnvironment() *Environment {
-	return &Environment{
+func GetEnvironment() *core.Environment {
+	return &core.Environment{
 		App:         os.Getenv("PROJECT"),
 		WorkflowId:  os.Getenv("WORKFLOW_ID"),
 		RunId:       os.Getenv("RUN_ID"),

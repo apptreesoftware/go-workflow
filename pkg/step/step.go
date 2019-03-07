@@ -2,6 +2,7 @@ package step
 
 import (
 	"fmt"
+	"github.com/apptreesoftware/go-workflow/pkg/core"
 )
 
 type Step interface {
@@ -14,7 +15,7 @@ func Id(s Step) string {
 	return fmt.Sprintf("%s@%s", s.Name(), s.Version())
 }
 
-func StepNameAndVersion(environment *Environment) string {
+func StepNameAndVersion(environment *core.Environment) string {
 	return fmt.Sprintf("%s@%s", environment.StepName, environment.StepVersion)
 }
 
