@@ -20,8 +20,9 @@ build: |
 	protoc -I proto --go_out=paths=source_relative:pkg/core --twirp_out=paths=source_relative:pkg/core engine_api.proto api.proto
 
 
+	protoc-go-inject-tag -input=pkg/core/api.pb.go -XXX_skip=yaml,xml,bson
+	protoc-go-inject-tag -input=pkg/core/common.pb.go -XXX_skip=yaml,xml,bson
 	protoc-go-inject-tag -input=pkg/core/engine_api.pb.go -XXX_skip=yaml,xml,bson
-
 	protoc-go-inject-tag -input=pkg/core/step.pb.go -XXX_skip=yaml,xml,bson
 #
 #	#Generate Client API

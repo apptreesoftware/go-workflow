@@ -21,9 +21,9 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 type RemoteEngineHealthRequest struct {
 	Name                 string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Project              string   `protobuf:"bytes,2,opt,name=project,proto3" json:"project,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *RemoteEngineHealthRequest) Reset()         { *m = RemoteEngineHealthRequest{} }
@@ -66,9 +66,9 @@ func (m *RemoteEngineHealthRequest) GetProject() string {
 
 type RemoteEngineHealthResponse struct {
 	Status               string   `protobuf:"bytes,1,opt,name=status,proto3" json:"status,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *RemoteEngineHealthResponse) Reset()         { *m = RemoteEngineHealthResponse{} }
@@ -104,9 +104,9 @@ func (m *RemoteEngineHealthResponse) GetStatus() string {
 
 type ListRemoteEnginesResponse struct {
 	Engines              []*RemoteEngine `protobuf:"bytes,1,rep,name=engines,proto3" json:"engines,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}        `json:"-"`
-	XXX_unrecognized     []byte          `json:"-"`
-	XXX_sizecache        int32           `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}        `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte          `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32           `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *ListRemoteEnginesResponse) Reset()         { *m = ListRemoteEnginesResponse{} }
@@ -145,9 +145,9 @@ type RemoteEngine struct {
 	Host                 string   `protobuf:"bytes,2,opt,name=host,proto3" json:"host,omitempty"`
 	ApiKey               string   `protobuf:"bytes,3,opt,name=apiKey,proto3" json:"apiKey,omitempty"`
 	Cert                 []byte   `protobuf:"bytes,4,opt,name=cert,proto3" json:"cert,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *RemoteEngine) Reset()         { *m = RemoteEngine{} }
@@ -205,9 +205,9 @@ func (m *RemoteEngine) GetCert() []byte {
 type RemoteEngineRequest struct {
 	Project              string   `protobuf:"bytes,1,opt,name=project,proto3" json:"project,omitempty"`
 	Engine               string   `protobuf:"bytes,2,opt,name=engine,proto3" json:"engine,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *RemoteEngineRequest) Reset()         { *m = RemoteEngineRequest{} }
@@ -254,9 +254,9 @@ type RegisterRemoteEngineRequest struct {
 	ClientCert           []byte   `protobuf:"bytes,3,opt,name=clientCert,proto3" json:"clientCert,omitempty"`
 	ApiKey               string   `protobuf:"bytes,4,opt,name=apiKey,proto3" json:"apiKey,omitempty"`
 	Project              string   `protobuf:"bytes,5,opt,name=project,proto3" json:"project,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *RegisterRemoteEngineRequest) Reset()         { *m = RegisterRemoteEngineRequest{} }
@@ -320,9 +320,9 @@ func (m *RegisterRemoteEngineRequest) GetProject() string {
 
 type ProjectRequest struct {
 	Project              string   `protobuf:"bytes,1,opt,name=project,proto3" json:"project,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *ProjectRequest) Reset()         { *m = ProjectRequest{} }
@@ -358,9 +358,9 @@ func (m *ProjectRequest) GetProject() string {
 
 type ListWorkflowResponse struct {
 	Workflows            []*WorkflowOverview `protobuf:"bytes,1,rep,name=workflows,proto3" json:"workflows,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}            `json:"-"`
-	XXX_unrecognized     []byte              `json:"-"`
-	XXX_sizecache        int32               `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}            `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte              `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32               `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *ListWorkflowResponse) Reset()         { *m = ListWorkflowResponse{} }
@@ -399,9 +399,9 @@ type WorkflowOverview struct {
 	Project              string   `protobuf:"bytes,2,opt,name=project,proto3" json:"project,omitempty"`
 	Dependencies         string   `protobuf:"bytes,3,opt,name=dependencies,proto3" json:"dependencies,omitempty"`
 	Triggers             string   `protobuf:"bytes,4,opt,name=triggers,proto3" json:"triggers,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *WorkflowOverview) Reset()         { *m = WorkflowOverview{} }
@@ -459,9 +459,9 @@ func (m *WorkflowOverview) GetTriggers() string {
 type BasicResponse struct {
 	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
 	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *BasicResponse) Reset()         { *m = BasicResponse{} }
@@ -505,9 +505,9 @@ func (m *BasicResponse) GetMessage() string {
 type RunWorkflowRequest struct {
 	ProjectId            string   `protobuf:"bytes,1,opt,name=projectId,proto3" json:"projectId,omitempty"`
 	WorkflowId           string   `protobuf:"bytes,2,opt,name=workflowId,proto3" json:"workflowId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *RunWorkflowRequest) Reset()         { *m = RunWorkflowRequest{} }
@@ -551,9 +551,9 @@ func (m *RunWorkflowRequest) GetWorkflowId() string {
 type PublishWorkflowRequest struct {
 	ProjectId            string   `protobuf:"bytes,1,opt,name=projectId,proto3" json:"projectId,omitempty"`
 	Data                 []byte   `protobuf:"bytes,2,opt,name=data,proto3" json:"data,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *PublishWorkflowRequest) Reset()         { *m = PublishWorkflowRequest{} }
@@ -597,9 +597,9 @@ func (m *PublishWorkflowRequest) GetData() []byte {
 type AddUserRequest struct {
 	Username             string   `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
 	ProjectId            string   `protobuf:"bytes,2,opt,name=projectId,proto3" json:"projectId,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *AddUserRequest) Reset()         { *m = AddUserRequest{} }
@@ -647,9 +647,9 @@ type QueueItem struct {
 	Running              bool              `protobuf:"varint,4,opt,name=running,proto3" json:"running,omitempty"`
 	CreatedOn            string            `protobuf:"bytes,5,opt,name=createdOn,proto3" json:"createdOn,omitempty"`
 	TriggeredBy          string            `protobuf:"bytes,6,opt,name=triggeredBy,proto3" json:"triggeredBy,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
-	XXX_unrecognized     []byte            `json:"-"`
-	XXX_sizecache        int32             `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte            `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32             `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *QueueItem) Reset()         { *m = QueueItem{} }
@@ -723,9 +723,9 @@ type QueueResponse struct {
 	Message              string       `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
 	RecordCount          int64        `protobuf:"varint,3,opt,name=recordCount,proto3" json:"recordCount,omitempty"`
 	Items                []*QueueItem `protobuf:"bytes,4,rep,name=items,proto3" json:"items,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
-	XXX_unrecognized     []byte       `json:"-"`
-	XXX_sizecache        int32        `json:"-"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte       `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32        `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *QueueResponse) Reset()         { *m = QueueResponse{} }
@@ -784,9 +784,9 @@ type ViewQueueRequest struct {
 	Project              string   `protobuf:"bytes,1,opt,name=project,proto3" json:"project,omitempty"`
 	Workflow             string   `protobuf:"bytes,2,opt,name=workflow,proto3" json:"workflow,omitempty"`
 	TriggerType          string   `protobuf:"bytes,3,opt,name=triggerType,proto3" json:"triggerType,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
 }
 
 func (m *ViewQueueRequest) Reset()         { *m = ViewQueueRequest{} }
