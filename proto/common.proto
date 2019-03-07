@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+message Package {
+    string name = 1;
+    string lang = 2;
+    string version = 3;
+    string exec = 4;
+    map<string, PackageStep> steps = 5;
+}
+
+message PackageStep {
+    string description = 1;
+    map<string, InputInfo> inputs = 2;
+    map<string, OutputInfo> outputs = 3;
+    string sample = 4;
+}
+
+message InputInfo {
+    bool required = 1;
+    string description = 2;
+}
+
+message OutputInfo {
+    string description = 1;
+}
+
+message Environment {
+    string app = 1;
+    string workflowId = 2;
+    string runId = 3;
+    string stepName = 4;
+    string stepVersion = 5;
+    string inputFile = 6;
+    string triggerType = 7;
+}
+
+message EmptyMessage {
+
+}
+
+message StepPackageRequest {
+    string id = 1;
+    string version = 2;
+}
+
+message StepPackageResponse {
+    string packageUrl = 1;
+    string publishId = 2;
+}
+
+message CachePushRequest {
+    string id = 1;
+    bytes metadata = 2;
+    bytes record = 3;
+    string cacheName = 4;
+    Environment environment = 5;
+}
+
+message CachePushResponse {
+
+}
+
+message CachePullRequest {
+    string id = 1;
+    string cacheName = 2;
+    Environment environment = 3;
+}
+
+message CachePullResponse {
+    bytes record = 1;
+    bytes metadata = 2;
+    bool notFound = 3;
+}

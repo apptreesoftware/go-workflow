@@ -1,0 +1,82 @@
+// API for a `host` engine to communicate and validate with a `remote` engine.
+// Uses GRPC for communication
+// For authorization it uses a private/public cert pair.
+// This API is primary used to tell a remote engine to run a step
+
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+message StepAvailableRequest {
+    string stepName = 1;
+    string stepVersion = 2;
+}
+
+message StepAvailableResponse {
+    bool available = 1;
+}
+
+message PingRequest {
+
+}
+
+message PingResponse {
+    string message = 1;
+}
+
+message LoadPackageRequest {
+    string pkg = 1;
+    string version = 2;
+}
+
+message LoadPackageResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message RunStepRequest {
+    string pkg = 1;
+    string name = 2;
+    string version = 3;
+    string runId = 4;
+    string project = 5;
+    string workflowId = 6;
+    bytes input = 7;
+    bytes stepConfig = 8;
+}
+
+message RunStepResponse {
+    int64 exitCode = 1;
+    string errorMessage = 2;
+    bytes output = 3;
+}
+
+message AuthorizationRequest {
+    bytes token = 1;
+    string hostEngine = 2;
+}
+
+message AuthorizationResponse {
+    bool authorized = 1;
+    string message = 2;
+}
+
+message CertificateUpdateRequest {
+    bytes key = 1;
+    bytes cert = 2;
+}
+
+message Empty {
+
+}
+
+service RemoteEngineService {
+    rpc Ping (PingRequest) returns (PingResponse);
+    rpc Authorize (AuthorizationRequest) returns (AuthorizationResponse);
+    rpc LoadPackage (LoadPackageRequest) returns (LoadPackageResponse);
+    rpc IsStepAvailable (StepAvailableRequest) returns (StepAvailableResponse);
+    rpc RunStep (RunStepRequest) returns (RunStepResponse);
+    rpc UpdateCertificate (CertificateUpdateRequest) returns (Empty);
+}

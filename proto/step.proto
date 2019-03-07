@@ -1,65 +1,28 @@
+// Defines the API for a step using the SDK to talk to an engine.
+
+
 syntax = "proto3";
 
-option go_package = "github.com/apptreesoftware/go-workflow/pkg/step";
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
 
-message CachePushRequest {
-    string id = 1;
-    bytes metadata = 2;
-    bytes record = 3;
-    string cacheName = 4;
-    Environment environment = 5;
+package core;
+
+import "common.proto";
+
+service EngineStepAPI {
+    rpc CachePush (CachePushRequest) returns (CachePushResponse);
+    rpc CachePull (CachePullRequest) returns (CachePullResponse);
+
+    rpc QueueWorkflow (StepQueueWorkflowRequest) returns (StepQueueWorkflowResponse);
 }
 
-message CachePushResponse {
 
+message StepQueueWorkflowRequest {
+    Environment environment = 1;
+    string workflow = 2;
+    bytes input = 3;
 }
 
-message Environment {
-    string app = 1;
-    string workflowId = 2;
-    string runId = 3;
-    string stepName = 4;
-    string stepVersion = 5;
-    string inputFile = 6;
-}
+message StepQueueWorkflowResponse {
 
-message CachePullRequest {
-    string id = 1;
-    string cacheName = 2;
-    Environment environment = 3;
-}
-
-message CachePullResponse {
-    bytes record = 1;
-    bytes metadata = 2;
-    bool notFound = 3;
-}
-
-service Cache {
-    rpc Push (CachePushRequest) returns (CachePushResponse);
-    rpc Pull (CachePullRequest) returns (CachePullResponse);
-}
-
-message Package {
-    string name = 1;
-    string lang = 2;
-    string version = 3;
-    string exec = 4;
-    map<string, PackageStep> steps = 5;
-}
-
-message PackageStep {
-    string description = 1;
-    map<string, InputInfo> inputs = 2;
-    map<string, OutputInfo> outputs = 3;
-    string sample = 4;
-}
-
-message InputInfo {
-    bool required = 1;
-    string description = 2;
-}
-
-message OutputInfo {
-    string description = 1;
 }

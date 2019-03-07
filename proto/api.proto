@@ -1,0 +1,121 @@
+// Primary API a CLI or website to talk to our workflow system.
+// Uses Twirp for communication
+// The Authorization is a JWT Identity token provided by Cognito for a logged in user.
+
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+import "common.proto";
+
+service WorkflowAPI {
+    rpc RunWorkflow (RunWorkflowRequest) returns (BasicResponse);
+    rpc Ping (EmptyMessage) returns (BasicResponse);
+    rpc PublishWorkflow (PublishWorkflowRequest) returns (BasicResponse);
+    rpc ListWorkflows (ProjectRequest) returns (ListWorkflowResponse);
+
+    rpc CreateProject (ProjectRequest) returns (BasicResponse);
+    rpc AddUserToProject (AddUserRequest) returns (BasicResponse);
+
+    rpc ListRemoteEngines (ProjectRequest) returns (ListRemoteEnginesResponse);
+    rpc RegisterRemoteEngine (RegisterRemoteEngineRequest) returns (BasicResponse);
+    rpc GetRemoteEngine (RemoteEngineRequest) returns (RemoteEngine);
+    rpc RemoteEngineHealthCheck (RemoteEngineHealthRequest) returns (RemoteEngineHealthResponse);
+
+    rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
+    rpc ViewQueue(ViewQueueRequest) returns (QueueResponse);
+}
+
+message RemoteEngineHealthRequest {
+    string name = 1;
+    string project = 2;
+}
+
+message RemoteEngineHealthResponse {
+    string status = 1;
+}
+
+message ListRemoteEnginesResponse {
+    repeated RemoteEngine engines = 1;
+}
+
+message RemoteEngine {
+    string name = 1;
+    string host = 2;
+    string apiKey = 3;
+    bytes cert = 4;
+}
+
+message RemoteEngineRequest {
+    string project = 1;
+    string engine = 2;
+}
+
+message RegisterRemoteEngineRequest {
+    string name = 1;
+    string host = 2;
+    bytes clientCert = 3;
+    string apiKey = 4;
+    string project = 5;
+}
+
+message ProjectRequest {
+    string project = 1;
+}
+
+message ListWorkflowResponse {
+    repeated WorkflowOverview workflows = 1;
+}
+
+message WorkflowOverview {
+    string id = 1;
+    string project = 2;
+    string dependencies = 3;
+    string triggers = 4;
+}
+
+message BasicResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message RunWorkflowRequest {
+    string projectId = 1;
+    string workflowId = 2;
+}
+
+message PublishWorkflowRequest {
+    string projectId = 1;
+    bytes data = 2;
+}
+
+message AddUserRequest {
+    string username = 1;
+    string projectId = 2;
+}
+
+message QueueItem {
+    string project = 1;
+    string workflow = 2;
+    map<string, string> runContext = 3;
+    bool running = 4;
+    string createdOn = 5;
+    string triggeredBy = 6;
+}
+
+message QueueResponse {
+    bool success = 1;
+    string message = 2;
+    int64 recordCount = 3;
+    repeated QueueItem items = 4;
+}
+
+message ViewQueueRequest {
+    string project = 1;
+    string workflow = 2;
+    string triggerType = 3;
+}
+
+
