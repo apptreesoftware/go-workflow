@@ -15,12 +15,20 @@ namespace Core {
   {
     static readonly string __ServiceName = "core.EngineStepAPI";
 
+    static readonly grpc::Marshaller<global::Core.EmptyMessage> __Marshaller_core_EmptyMessage = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.EmptyMessage.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.CachePushRequest> __Marshaller_core_CachePushRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CachePushRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.CachePushResponse> __Marshaller_core_CachePushResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CachePushResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.CachePullRequest> __Marshaller_core_CachePullRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CachePullRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.CachePullResponse> __Marshaller_core_CachePullResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CachePullResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.StepQueueWorkflowRequest> __Marshaller_core_StepQueueWorkflowRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.StepQueueWorkflowRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.StepQueueWorkflowResponse> __Marshaller_core_StepQueueWorkflowResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.StepQueueWorkflowResponse.Parser.ParseFrom);
+
+    static readonly grpc::Method<global::Core.EmptyMessage, global::Core.EmptyMessage> __Method_Ping = new grpc::Method<global::Core.EmptyMessage, global::Core.EmptyMessage>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Ping",
+        __Marshaller_core_EmptyMessage,
+        __Marshaller_core_EmptyMessage);
 
     static readonly grpc::Method<global::Core.CachePushRequest, global::Core.CachePushResponse> __Method_CachePush = new grpc::Method<global::Core.CachePushRequest, global::Core.CachePushResponse>(
         grpc::MethodType.Unary,
@@ -52,6 +60,11 @@ namespace Core {
     /// <summary>Base class for server-side implementations of EngineStepAPI</summary>
     public abstract partial class EngineStepAPIBase
     {
+      public virtual global::System.Threading.Tasks.Task<global::Core.EmptyMessage> Ping(global::Core.EmptyMessage request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
       public virtual global::System.Threading.Tasks.Task<global::Core.CachePushResponse> CachePush(global::Core.CachePushRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
@@ -92,6 +105,22 @@ namespace Core {
       {
       }
 
+      public virtual global::Core.EmptyMessage Ping(global::Core.EmptyMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Ping(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Core.EmptyMessage Ping(global::Core.EmptyMessage request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Ping, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.EmptyMessage> PingAsync(global::Core.EmptyMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return PingAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.EmptyMessage> PingAsync(global::Core.EmptyMessage request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Ping, null, options, request);
+      }
       public virtual global::Core.CachePushResponse CachePush(global::Core.CachePushRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return CachePush(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -152,6 +181,7 @@ namespace Core {
     public static grpc::ServerServiceDefinition BindService(EngineStepAPIBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_Ping, serviceImpl.Ping)
           .AddMethod(__Method_CachePush, serviceImpl.CachePush)
           .AddMethod(__Method_CachePull, serviceImpl.CachePull)
           .AddMethod(__Method_QueueWorkflow, serviceImpl.QueueWorkflow).Build();
@@ -163,6 +193,7 @@ namespace Core {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, EngineStepAPIBase serviceImpl)
     {
+      serviceBinder.AddMethod(__Method_Ping, serviceImpl.Ping);
       serviceBinder.AddMethod(__Method_CachePush, serviceImpl.CachePush);
       serviceBinder.AddMethod(__Method_CachePull, serviceImpl.CachePull);
       serviceBinder.AddMethod(__Method_QueueWorkflow, serviceImpl.QueueWorkflow);

@@ -10,6 +10,7 @@ package core;
 import "common.proto";
 
 service EngineStepAPI {
+    rpc Ping (EmptyMessage) returns (EmptyMessage);
     rpc CachePush (CachePushRequest) returns (CachePushResponse);
     rpc CachePull (CachePullRequest) returns (CachePullResponse);
 
