@@ -13,6 +13,7 @@ type Engine struct {
 	client EngineStepAPIClient
 }
 
+
 func GetEngine() Engine {
 	connectionString := os.Getenv("WORKFLOW_CACHE_CONNECTION")
 	println(connectionString)
