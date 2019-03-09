@@ -20,6 +20,9 @@ service EngineAPI {
 
     rpc CachePush (CachePushRequest) returns (CachePushResponse);
     rpc CachePull (CachePullRequest) returns (CachePullResponse);
+
+
+    rpc StepCompleted (StepCompleteRequest) returns (StepCompleteResponse);
 }
 
 
@@ -31,4 +34,15 @@ message SpawnWorkflowRequest {
 
 message SpawnWorkflowResponse {
     string queueId = 1;
+}
+
+message StepCompleteRequest {
+    Environment environment = 1;
+    bytes output = 2;
+    int64 exitCode = 3;
+    string error = 4;
+}
+
+message StepCompleteResponse {
+
 }
