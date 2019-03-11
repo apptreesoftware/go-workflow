@@ -78,3 +78,24 @@ message CachePullResponse {
     bytes metadata = 2;
     bool notFound = 3;
 }
+
+message AllStepsRequest {
+    string searchTerm = 1;
+}
+
+message AllStepsResponse {
+    bool success = 1;
+    string message = 2;
+    int64 recordCount = 3;
+    repeated RegisteredStep items = 4;
+}
+
+message RegisteredStep {
+    PackageStep step = 1;
+    string location = 2;
+    string locationType = 3;
+    string publishId = 4;
+    string author = 5;
+    string packageName = 6;
+    string StepName = 7;
+}
