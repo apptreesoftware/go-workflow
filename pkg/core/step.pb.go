@@ -36,7 +36,7 @@ func (m *StepQueueWorkflowRequest) Reset()         { *m = StepQueueWorkflowReque
 func (m *StepQueueWorkflowRequest) String() string { return proto.CompactTextString(m) }
 func (*StepQueueWorkflowRequest) ProtoMessage()    {}
 func (*StepQueueWorkflowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_step_87cabefa2b80536b, []int{0}
+	return fileDescriptor_step_eea50e153d5722f0, []int{0}
 }
 func (m *StepQueueWorkflowRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepQueueWorkflowRequest.Unmarshal(m, b)
@@ -87,7 +87,7 @@ func (m *StepQueueWorkflowResponse) Reset()         { *m = StepQueueWorkflowResp
 func (m *StepQueueWorkflowResponse) String() string { return proto.CompactTextString(m) }
 func (*StepQueueWorkflowResponse) ProtoMessage()    {}
 func (*StepQueueWorkflowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_step_87cabefa2b80536b, []int{1}
+	return fileDescriptor_step_eea50e153d5722f0, []int{1}
 }
 func (m *StepQueueWorkflowResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepQueueWorkflowResponse.Unmarshal(m, b)
@@ -283,9 +283,9 @@ var _EngineStepAPI_serviceDesc = grpc.ServiceDesc{
 	Metadata: "step.proto",
 }
 
-func init() { proto.RegisterFile("step.proto", fileDescriptor_step_87cabefa2b80536b) }
+func init() { proto.RegisterFile("step.proto", fileDescriptor_step_eea50e153d5722f0) }
 
-var fileDescriptor_step_87cabefa2b80536b = []byte{
+var fileDescriptor_step_eea50e153d5722f0 = []byte{
 	// 299 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x91, 0x3f, 0x4f, 0xc3, 0x30,
 	0x10, 0xc5, 0x95, 0x52, 0x10, 0x75, 0xdb, 0x01, 0x0b, 0x41, 0x08, 0x12, 0x44, 0x9d, 0xb2, 0x90,
