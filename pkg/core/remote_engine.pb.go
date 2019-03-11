@@ -35,7 +35,7 @@ func (m *StepAvailableRequest) Reset()         { *m = StepAvailableRequest{} }
 func (m *StepAvailableRequest) String() string { return proto.CompactTextString(m) }
 func (*StepAvailableRequest) ProtoMessage()    {}
 func (*StepAvailableRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{0}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{0}
 }
 func (m *StepAvailableRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepAvailableRequest.Unmarshal(m, b)
@@ -80,7 +80,7 @@ func (m *StepAvailableResponse) Reset()         { *m = StepAvailableResponse{} }
 func (m *StepAvailableResponse) String() string { return proto.CompactTextString(m) }
 func (*StepAvailableResponse) ProtoMessage()    {}
 func (*StepAvailableResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{1}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{1}
 }
 func (m *StepAvailableResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepAvailableResponse.Unmarshal(m, b)
@@ -117,7 +117,7 @@ func (m *PingRequest) Reset()         { *m = PingRequest{} }
 func (m *PingRequest) String() string { return proto.CompactTextString(m) }
 func (*PingRequest) ProtoMessage()    {}
 func (*PingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{2}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{2}
 }
 func (m *PingRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PingRequest.Unmarshal(m, b)
@@ -139,7 +139,6 @@ var xxx_messageInfo_PingRequest proto.InternalMessageInfo
 
 type PingResponse struct {
 	Message              string   `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	Version              string   `protobuf:"bytes,2,opt,name=version,proto3" json:"version,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -149,7 +148,7 @@ func (m *PingResponse) Reset()         { *m = PingResponse{} }
 func (m *PingResponse) String() string { return proto.CompactTextString(m) }
 func (*PingResponse) ProtoMessage()    {}
 func (*PingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{3}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{3}
 }
 func (m *PingResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PingResponse.Unmarshal(m, b)
@@ -176,13 +175,6 @@ func (m *PingResponse) GetMessage() string {
 	return ""
 }
 
-func (m *PingResponse) GetVersion() string {
-	if m != nil {
-		return m.Version
-	}
-	return ""
-}
-
 type LoadPackageRequest struct {
 	Pkg                  string   `protobuf:"bytes,1,opt,name=pkg,proto3" json:"pkg,omitempty"`
 	Version              string   `protobuf:"bytes,2,opt,name=version,proto3" json:"version,omitempty"`
@@ -195,7 +187,7 @@ func (m *LoadPackageRequest) Reset()         { *m = LoadPackageRequest{} }
 func (m *LoadPackageRequest) String() string { return proto.CompactTextString(m) }
 func (*LoadPackageRequest) ProtoMessage()    {}
 func (*LoadPackageRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{4}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{4}
 }
 func (m *LoadPackageRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LoadPackageRequest.Unmarshal(m, b)
@@ -241,7 +233,7 @@ func (m *LoadPackageResponse) Reset()         { *m = LoadPackageResponse{} }
 func (m *LoadPackageResponse) String() string { return proto.CompactTextString(m) }
 func (*LoadPackageResponse) ProtoMessage()    {}
 func (*LoadPackageResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{5}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{5}
 }
 func (m *LoadPackageResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LoadPackageResponse.Unmarshal(m, b)
@@ -276,24 +268,20 @@ func (m *LoadPackageResponse) GetMessage() string {
 }
 
 type RunStepRequest struct {
-	Pkg                  string   `protobuf:"bytes,1,opt,name=pkg,proto3" json:"pkg,omitempty"`
-	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Version              string   `protobuf:"bytes,3,opt,name=version,proto3" json:"version,omitempty"`
-	RunId                string   `protobuf:"bytes,4,opt,name=runId,proto3" json:"runId,omitempty"`
-	Project              string   `protobuf:"bytes,5,opt,name=project,proto3" json:"project,omitempty"`
-	WorkflowId           string   `protobuf:"bytes,6,opt,name=workflowId,proto3" json:"workflowId,omitempty"`
-	Input                []byte   `protobuf:"bytes,7,opt,name=input,proto3" json:"input,omitempty"`
-	StepConfig           []byte   `protobuf:"bytes,8,opt,name=stepConfig,proto3" json:"stepConfig,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
+	Environment          *Environment `protobuf:"bytes,1,opt,name=environment,proto3" json:"environment,omitempty"`
+	Input                []byte       `protobuf:"bytes,2,opt,name=input,proto3" json:"input,omitempty"`
+	StepConfig           []byte       `protobuf:"bytes,3,opt,name=stepConfig,proto3" json:"stepConfig,omitempty"`
+	StepInstanceId       string       `protobuf:"bytes,4,opt,name=stepInstanceId,proto3" json:"stepInstanceId,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
 func (m *RunStepRequest) Reset()         { *m = RunStepRequest{} }
 func (m *RunStepRequest) String() string { return proto.CompactTextString(m) }
 func (*RunStepRequest) ProtoMessage()    {}
 func (*RunStepRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{6}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{6}
 }
 func (m *RunStepRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RunStepRequest.Unmarshal(m, b)
@@ -313,46 +301,11 @@ func (m *RunStepRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RunStepRequest proto.InternalMessageInfo
 
-func (m *RunStepRequest) GetPkg() string {
+func (m *RunStepRequest) GetEnvironment() *Environment {
 	if m != nil {
-		return m.Pkg
+		return m.Environment
 	}
-	return ""
-}
-
-func (m *RunStepRequest) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *RunStepRequest) GetVersion() string {
-	if m != nil {
-		return m.Version
-	}
-	return ""
-}
-
-func (m *RunStepRequest) GetRunId() string {
-	if m != nil {
-		return m.RunId
-	}
-	return ""
-}
-
-func (m *RunStepRequest) GetProject() string {
-	if m != nil {
-		return m.Project
-	}
-	return ""
-}
-
-func (m *RunStepRequest) GetWorkflowId() string {
-	if m != nil {
-		return m.WorkflowId
-	}
-	return ""
+	return nil
 }
 
 func (m *RunStepRequest) GetInput() []byte {
@@ -369,10 +322,16 @@ func (m *RunStepRequest) GetStepConfig() []byte {
 	return nil
 }
 
+func (m *RunStepRequest) GetStepInstanceId() string {
+	if m != nil {
+		return m.StepInstanceId
+	}
+	return ""
+}
+
 type RunStepResponse struct {
-	ExitCode             int64    `protobuf:"varint,1,opt,name=exitCode,proto3" json:"exitCode,omitempty"`
+	Accepted             bool     `protobuf:"varint,1,opt,name=accepted,proto3" json:"accepted,omitempty"`
 	ErrorMessage         string   `protobuf:"bytes,2,opt,name=errorMessage,proto3" json:"errorMessage,omitempty"`
-	Output               []byte   `protobuf:"bytes,3,opt,name=output,proto3" json:"output,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -382,7 +341,7 @@ func (m *RunStepResponse) Reset()         { *m = RunStepResponse{} }
 func (m *RunStepResponse) String() string { return proto.CompactTextString(m) }
 func (*RunStepResponse) ProtoMessage()    {}
 func (*RunStepResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{7}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{7}
 }
 func (m *RunStepResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RunStepResponse.Unmarshal(m, b)
@@ -402,11 +361,11 @@ func (m *RunStepResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RunStepResponse proto.InternalMessageInfo
 
-func (m *RunStepResponse) GetExitCode() int64 {
+func (m *RunStepResponse) GetAccepted() bool {
 	if m != nil {
-		return m.ExitCode
+		return m.Accepted
 	}
-	return 0
+	return false
 }
 
 func (m *RunStepResponse) GetErrorMessage() string {
@@ -414,13 +373,6 @@ func (m *RunStepResponse) GetErrorMessage() string {
 		return m.ErrorMessage
 	}
 	return ""
-}
-
-func (m *RunStepResponse) GetOutput() []byte {
-	if m != nil {
-		return m.Output
-	}
-	return nil
 }
 
 type AuthorizationRequest struct {
@@ -435,7 +387,7 @@ func (m *AuthorizationRequest) Reset()         { *m = AuthorizationRequest{} }
 func (m *AuthorizationRequest) String() string { return proto.CompactTextString(m) }
 func (*AuthorizationRequest) ProtoMessage()    {}
 func (*AuthorizationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{8}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{8}
 }
 func (m *AuthorizationRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthorizationRequest.Unmarshal(m, b)
@@ -481,7 +433,7 @@ func (m *AuthorizationResponse) Reset()         { *m = AuthorizationResponse{} }
 func (m *AuthorizationResponse) String() string { return proto.CompactTextString(m) }
 func (*AuthorizationResponse) ProtoMessage()    {}
 func (*AuthorizationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{9}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{9}
 }
 func (m *AuthorizationResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthorizationResponse.Unmarshal(m, b)
@@ -527,7 +479,7 @@ func (m *CertificateUpdateRequest) Reset()         { *m = CertificateUpdateReque
 func (m *CertificateUpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*CertificateUpdateRequest) ProtoMessage()    {}
 func (*CertificateUpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{10}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{10}
 }
 func (m *CertificateUpdateRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CertificateUpdateRequest.Unmarshal(m, b)
@@ -571,7 +523,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{11}
+	return fileDescriptor_remote_engine_d87e4241b3a771a3, []int{11}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Empty.Unmarshal(m, b)
@@ -591,82 +543,6 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
-type UpdateRequest struct {
-	Url                  string   `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *UpdateRequest) Reset()         { *m = UpdateRequest{} }
-func (m *UpdateRequest) String() string { return proto.CompactTextString(m) }
-func (*UpdateRequest) ProtoMessage()    {}
-func (*UpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{12}
-}
-func (m *UpdateRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateRequest.Unmarshal(m, b)
-}
-func (m *UpdateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateRequest.Marshal(b, m, deterministic)
-}
-func (dst *UpdateRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateRequest.Merge(dst, src)
-}
-func (m *UpdateRequest) XXX_Size() int {
-	return xxx_messageInfo_UpdateRequest.Size(m)
-}
-func (m *UpdateRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateRequest proto.InternalMessageInfo
-
-func (m *UpdateRequest) GetUrl() string {
-	if m != nil {
-		return m.Url
-	}
-	return ""
-}
-
-type UpdateResponse struct {
-	Success              bool     `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *UpdateResponse) Reset()         { *m = UpdateResponse{} }
-func (m *UpdateResponse) String() string { return proto.CompactTextString(m) }
-func (*UpdateResponse) ProtoMessage()    {}
-func (*UpdateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ffd363ab765308dc, []int{13}
-}
-func (m *UpdateResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateResponse.Unmarshal(m, b)
-}
-func (m *UpdateResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateResponse.Marshal(b, m, deterministic)
-}
-func (dst *UpdateResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateResponse.Merge(dst, src)
-}
-func (m *UpdateResponse) XXX_Size() int {
-	return xxx_messageInfo_UpdateResponse.Size(m)
-}
-func (m *UpdateResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateResponse proto.InternalMessageInfo
-
-func (m *UpdateResponse) GetSuccess() bool {
-	if m != nil {
-		return m.Success
-	}
-	return false
-}
-
 func init() {
 	proto.RegisterType((*StepAvailableRequest)(nil), "core.StepAvailableRequest")
 	proto.RegisterType((*StepAvailableResponse)(nil), "core.StepAvailableResponse")
@@ -680,8 +556,6 @@ func init() {
 	proto.RegisterType((*AuthorizationResponse)(nil), "core.AuthorizationResponse")
 	proto.RegisterType((*CertificateUpdateRequest)(nil), "core.CertificateUpdateRequest")
 	proto.RegisterType((*Empty)(nil), "core.Empty")
-	proto.RegisterType((*UpdateRequest)(nil), "core.UpdateRequest")
-	proto.RegisterType((*UpdateResponse)(nil), "core.UpdateResponse")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -697,7 +571,6 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type RemoteEngineServiceClient interface {
 	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
-	Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*UpdateResponse, error)
 	Authorize(ctx context.Context, in *AuthorizationRequest, opts ...grpc.CallOption) (*AuthorizationResponse, error)
 	LoadPackage(ctx context.Context, in *LoadPackageRequest, opts ...grpc.CallOption) (*LoadPackageResponse, error)
 	IsStepAvailable(ctx context.Context, in *StepAvailableRequest, opts ...grpc.CallOption) (*StepAvailableResponse, error)
@@ -716,15 +589,6 @@ func NewRemoteEngineServiceClient(cc *grpc.ClientConn) RemoteEngineServiceClient
 func (c *remoteEngineServiceClient) Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error) {
 	out := new(PingResponse)
 	err := c.cc.Invoke(ctx, "/core.RemoteEngineService/Ping", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *remoteEngineServiceClient) Update(ctx context.Context, in *UpdateRequest, opts ...grpc.CallOption) (*UpdateResponse, error) {
-	out := new(UpdateResponse)
-	err := c.cc.Invoke(ctx, "/core.RemoteEngineService/Update", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -779,7 +643,6 @@ func (c *remoteEngineServiceClient) UpdateCertificate(ctx context.Context, in *C
 // RemoteEngineServiceServer is the server API for RemoteEngineService service.
 type RemoteEngineServiceServer interface {
 	Ping(context.Context, *PingRequest) (*PingResponse, error)
-	Update(context.Context, *UpdateRequest) (*UpdateResponse, error)
 	Authorize(context.Context, *AuthorizationRequest) (*AuthorizationResponse, error)
 	LoadPackage(context.Context, *LoadPackageRequest) (*LoadPackageResponse, error)
 	IsStepAvailable(context.Context, *StepAvailableRequest) (*StepAvailableResponse, error)
@@ -805,24 +668,6 @@ func _RemoteEngineService_Ping_Handler(srv interface{}, ctx context.Context, dec
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(RemoteEngineServiceServer).Ping(ctx, req.(*PingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _RemoteEngineService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(RemoteEngineServiceServer).Update(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/core.RemoteEngineService/Update",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(RemoteEngineServiceServer).Update(ctx, req.(*UpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -926,10 +771,6 @@ var _RemoteEngineService_serviceDesc = grpc.ServiceDesc{
 			Handler:    _RemoteEngineService_Ping_Handler,
 		},
 		{
-			MethodName: "Update",
-			Handler:    _RemoteEngineService_Update_Handler,
-		},
-		{
 			MethodName: "Authorize",
 			Handler:    _RemoteEngineService_Authorize_Handler,
 		},
@@ -954,50 +795,46 @@ var _RemoteEngineService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "remote_engine.proto",
 }
 
-func init() { proto.RegisterFile("remote_engine.proto", fileDescriptor_remote_engine_ffd363ab765308dc) }
+func init() { proto.RegisterFile("remote_engine.proto", fileDescriptor_remote_engine_d87e4241b3a771a3) }
 
-var fileDescriptor_remote_engine_ffd363ab765308dc = []byte{
-	// 659 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x54, 0x5d, 0x53, 0xd3, 0x4c,
-	0x14, 0x9e, 0xd2, 0x4f, 0x4e, 0x0b, 0xbc, 0x6c, 0xcb, 0x3b, 0x31, 0x3a, 0x0c, 0xe6, 0x8a, 0x71,
-	0x86, 0x76, 0x94, 0xd1, 0x6b, 0x3e, 0xe4, 0xa2, 0x0e, 0x3a, 0x18, 0xd4, 0x0b, 0x6f, 0x9c, 0x25,
-	0x3d, 0x0d, 0x6b, 0xda, 0x6c, 0xdc, 0xdd, 0x80, 0xf8, 0x0f, 0xfd, 0x03, 0xfe, 0x1e, 0x67, 0x3f,
-	0x52, 0x12, 0x28, 0x78, 0xb7, 0xcf, 0x73, 0xf6, 0x9c, 0x7d, 0xf6, 0x7c, 0x41, 0x5f, 0xe0, 0x9c,
-	0x2b, 0xfc, 0x86, 0x69, 0xcc, 0x52, 0x1c, 0x66, 0x82, 0x2b, 0x4e, 0x1a, 0x11, 0x17, 0x18, 0x7c,
-	0x82, 0xc1, 0xb9, 0xc2, 0xec, 0xf0, 0x8a, 0xb2, 0x19, 0xbd, 0x98, 0x61, 0x88, 0x3f, 0x72, 0x94,
-	0x8a, 0xf8, 0xd0, 0x91, 0x0a, 0xb3, 0x0f, 0x74, 0x8e, 0x5e, 0x6d, 0xa7, 0xb6, 0xbb, 0x1a, 0x2e,
-	0x30, 0xd9, 0x81, 0xae, 0x3e, 0x7f, 0x41, 0x21, 0x19, 0x4f, 0xbd, 0x15, 0x63, 0x2e, 0x53, 0xc1,
-	0x6b, 0xd8, 0xba, 0x13, 0x55, 0x66, 0x3c, 0x95, 0x48, 0x9e, 0xc1, 0x2a, 0x2d, 0x48, 0x13, 0xb7,
-	0x13, 0xde, 0x12, 0xc1, 0x1a, 0x74, 0xcf, 0x58, 0x1a, 0x3b, 0x0d, 0xc1, 0x11, 0xf4, 0x2c, 0x74,
-	0xce, 0x1e, 0xb4, 0xe7, 0x28, 0x25, 0x8d, 0x0b, 0x49, 0x05, 0xd4, 0x96, 0xab, 0x8a, 0x9a, 0x02,
-	0x06, 0x07, 0x40, 0x4e, 0x39, 0x9d, 0x9c, 0xd1, 0x28, 0xa1, 0xf1, 0xe2, 0x77, 0xff, 0x41, 0x3d,
-	0x4b, 0x62, 0x17, 0x45, 0x1f, 0x1f, 0x89, 0x30, 0x86, 0x7e, 0x25, 0xc2, 0xad, 0x18, 0x99, 0x47,
-	0x11, 0x4a, 0xe9, 0xfe, 0x51, 0xc0, 0xb2, 0xcc, 0x95, 0x8a, 0xcc, 0xe0, 0x4f, 0x0d, 0xd6, 0xc3,
-	0x3c, 0xd5, 0xa9, 0x79, 0x58, 0x09, 0x81, 0x46, 0xaa, 0xb3, 0x6e, 0x7d, 0xcd, 0xb9, 0xac, 0xae,
-	0x5e, 0x51, 0x47, 0x06, 0xd0, 0x14, 0x79, 0x3a, 0x9e, 0x78, 0x0d, 0xc3, 0x5b, 0xa0, 0xef, 0x67,
-	0x82, 0x7f, 0xc7, 0x48, 0x79, 0x4d, 0x7b, 0xdf, 0x41, 0xb2, 0x0d, 0x70, 0xcd, 0x45, 0x32, 0x9d,
-	0xf1, 0xeb, 0xf1, 0xc4, 0x6b, 0x19, 0x63, 0x89, 0xd1, 0xf1, 0x58, 0x9a, 0xe5, 0xca, 0x6b, 0xef,
-	0xd4, 0x76, 0x7b, 0xa1, 0x05, 0xda, 0x4b, 0x97, 0xf7, 0x98, 0xa7, 0x53, 0x16, 0x7b, 0x1d, 0x63,
-	0x2a, 0x31, 0x01, 0x83, 0x8d, 0xc5, 0xbf, 0x5c, 0x7e, 0x7c, 0xe8, 0xe0, 0x4f, 0xa6, 0x8e, 0xf9,
-	0xc4, 0x56, 0xab, 0x1e, 0x2e, 0x30, 0x09, 0xa0, 0x87, 0x42, 0x70, 0xf1, 0xbe, 0x92, 0xa6, 0x0a,
-	0x47, 0xfe, 0x87, 0x16, 0xcf, 0x95, 0x56, 0x52, 0x37, 0xcf, 0x39, 0x14, 0x9c, 0xc2, 0xe0, 0x30,
-	0x57, 0x97, 0x5c, 0xb0, 0x5f, 0x54, 0x31, 0x9e, 0x16, 0x89, 0x1c, 0x40, 0x53, 0xf1, 0x04, 0x53,
-	0xf3, 0x58, 0x2f, 0xb4, 0x40, 0x0b, 0xbf, 0xe4, 0x52, 0x9d, 0x98, 0xc6, 0x77, 0xef, 0x94, 0x98,
-	0xe0, 0x23, 0x6c, 0xdd, 0x89, 0xe6, 0xe4, 0x6f, 0x03, 0x50, 0x67, 0xc0, 0x89, 0xab, 0x70, 0x89,
-	0x79, 0xa4, 0xc8, 0x07, 0xe0, 0x1d, 0xa3, 0x50, 0x6c, 0xca, 0x22, 0xaa, 0xf0, 0x73, 0x36, 0xa1,
-	0xaa, 0xdc, 0x77, 0x09, 0xde, 0x38, 0x89, 0xfa, 0xa8, 0xab, 0x1d, 0xa1, 0x50, 0x26, 0x48, 0x2f,
-	0x34, 0xe7, 0xa0, 0x0d, 0xcd, 0x93, 0x79, 0xa6, 0x6e, 0x82, 0xe7, 0xb0, 0x76, 0xcf, 0x3f, 0x17,
-	0xb3, 0xa2, 0x5b, 0x72, 0x31, 0x0b, 0x5e, 0xc0, 0x7a, 0x71, 0xe5, 0x5f, 0x8d, 0xf9, 0xea, 0x77,
-	0x1d, 0xfa, 0xa1, 0xd9, 0x04, 0xf6, 0xf7, 0xe7, 0x28, 0xae, 0x58, 0x84, 0x64, 0x0f, 0x1a, 0x7a,
-	0xce, 0xc8, 0xe6, 0x50, 0xaf, 0x84, 0x61, 0x69, 0x04, 0x7d, 0x52, 0xa6, 0xdc, 0x03, 0xfb, 0xd0,
-	0xb2, 0x4f, 0x92, 0xbe, 0xb5, 0x56, 0x34, 0xfa, 0x83, 0x2a, 0xe9, 0x9c, 0xde, 0xc2, 0x6a, 0x91,
-	0x68, 0x24, 0xbe, 0xbd, 0xb2, 0xac, 0x8e, 0xfe, 0xd3, 0xa5, 0x36, 0x17, 0xe5, 0x08, 0xba, 0xa5,
-	0x59, 0x24, 0x9e, 0xbd, 0x7b, 0x7f, 0xc0, 0xfd, 0x27, 0x4b, 0x2c, 0x2e, 0xc6, 0x3b, 0xd8, 0x18,
-	0xcb, 0xca, 0x76, 0x2a, 0xf4, 0x2c, 0x5b, 0x84, 0x85, 0x9e, 0xe5, 0xeb, 0xec, 0x0d, 0xb4, 0x5d,
-	0xdf, 0x13, 0xf7, 0xed, 0xea, 0x78, 0xfb, 0x5b, 0x77, 0x58, 0xe7, 0x77, 0x00, 0x9b, 0x36, 0x3f,
-	0xa5, 0x4e, 0x21, 0xdb, 0xf6, 0xee, 0x43, 0xcd, 0xe3, 0x77, 0xad, 0xdd, 0xb4, 0xc6, 0xd1, 0xcb,
-	0xaf, 0xa3, 0x98, 0xa9, 0xcb, 0xfc, 0x62, 0x18, 0xf1, 0xf9, 0x88, 0x66, 0x99, 0x12, 0x88, 0x92,
-	0x4f, 0xd5, 0x35, 0x15, 0x38, 0x8a, 0xf9, 0x5e, 0x31, 0xd3, 0xa3, 0x2c, 0x89, 0x47, 0xda, 0xf1,
-	0xa2, 0x65, 0xf6, 0xfe, 0xfe, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x8a, 0xd3, 0x36, 0xba, 0x0e,
-	0x06, 0x00, 0x00,
+var fileDescriptor_remote_engine_d87e4241b3a771a3 = []byte{
+	// 603 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x54, 0x4f, 0x4f, 0xdc, 0x3e,
+	0x10, 0x15, 0xb0, 0xfc, 0x80, 0xc9, 0xfe, 0xa0, 0x98, 0x45, 0x4a, 0xd3, 0x0a, 0xa1, 0x1c, 0x2a,
+	0x2e, 0xec, 0xaa, 0xa0, 0xf6, 0xcc, 0x9f, 0x72, 0xd8, 0x8a, 0x56, 0x10, 0xda, 0x1e, 0x7a, 0xa9,
+	0x8c, 0x77, 0x36, 0x58, 0x21, 0xb6, 0x6b, 0x3b, 0xbb, 0xa2, 0x9f, 0xa3, 0xdf, 0xa0, 0x5f, 0xb4,
+	0x72, 0xe2, 0xec, 0x26, 0xdb, 0x6d, 0x6f, 0x7e, 0x6f, 0xc6, 0x2f, 0x6f, 0x3c, 0x33, 0x81, 0x3d,
+	0x8d, 0xb9, 0xb4, 0xf8, 0x0d, 0x45, 0xca, 0x05, 0xf6, 0x95, 0x96, 0x56, 0x92, 0x0e, 0x93, 0x1a,
+	0xa3, 0x2e, 0x93, 0x79, 0x2e, 0x45, 0xc5, 0xc5, 0x9f, 0xa0, 0x77, 0x67, 0x51, 0x9d, 0x4f, 0x28,
+	0x7f, 0xa4, 0xf7, 0x8f, 0x98, 0xe0, 0xf7, 0x02, 0x8d, 0x25, 0x11, 0x6c, 0x1a, 0x8b, 0xea, 0x23,
+	0xcd, 0x31, 0x5c, 0x39, 0x5c, 0x39, 0xda, 0x4a, 0x66, 0x98, 0x1c, 0x42, 0xe0, 0xce, 0x5f, 0x50,
+	0x1b, 0x2e, 0x45, 0xb8, 0x5a, 0x86, 0x9b, 0x54, 0xfc, 0x06, 0xf6, 0x17, 0x54, 0x8d, 0x92, 0xc2,
+	0x20, 0x79, 0x09, 0x5b, 0xb4, 0x26, 0x4b, 0xdd, 0xcd, 0x64, 0x4e, 0xc4, 0xff, 0x43, 0x70, 0xc3,
+	0x45, 0xea, 0x3d, 0xc4, 0x47, 0xd0, 0xad, 0xa0, 0xbf, 0x1c, 0xc2, 0x46, 0x8e, 0xc6, 0xd0, 0xb4,
+	0xb6, 0x54, 0xc3, 0xf8, 0x0c, 0xc8, 0xb5, 0xa4, 0xa3, 0x1b, 0xca, 0x32, 0x9a, 0xce, 0x6a, 0x78,
+	0x06, 0x6b, 0x2a, 0x4b, 0x7d, 0xae, 0x3b, 0x3a, 0x85, 0x49, 0xcb, 0x75, 0x0d, 0xe3, 0x21, 0xec,
+	0xb5, 0x14, 0xe6, 0x9f, 0x34, 0x05, 0x63, 0x68, 0x8c, 0x77, 0x5b, 0xc3, 0xa6, 0x99, 0xd5, 0xb6,
+	0x99, 0x5f, 0x2b, 0xb0, 0x9d, 0x14, 0xc2, 0x3d, 0x40, 0xed, 0xe4, 0x14, 0x02, 0x14, 0x13, 0xae,
+	0xa5, 0xc8, 0x51, 0xd8, 0x52, 0x2a, 0x38, 0xd9, 0xed, 0xbb, 0x7e, 0xf4, 0xaf, 0xe6, 0x81, 0xa4,
+	0x99, 0x45, 0x7a, 0xb0, 0xce, 0x85, 0x2a, 0x6c, 0xa9, 0xdf, 0x4d, 0x2a, 0x40, 0x0e, 0x00, 0xdc,
+	0x4b, 0x5f, 0x4a, 0x31, 0xe6, 0x69, 0xb8, 0x56, 0x86, 0x1a, 0x0c, 0x79, 0x05, 0xdb, 0x0e, 0x0d,
+	0x85, 0xb1, 0x54, 0x30, 0x1c, 0x8e, 0xc2, 0x4e, 0x69, 0x6f, 0x81, 0x8d, 0x6f, 0x61, 0x67, 0x66,
+	0xd2, 0x17, 0x1b, 0xc1, 0x26, 0x65, 0x0c, 0x95, 0xc5, 0x91, 0xaf, 0x76, 0x86, 0x49, 0x0c, 0x5d,
+	0xd4, 0x5a, 0xea, 0x0f, 0xad, 0x9a, 0x5b, 0x5c, 0x7c, 0x0d, 0xbd, 0xf3, 0xc2, 0x3e, 0x48, 0xcd,
+	0x7f, 0x50, 0xcb, 0xa5, 0xa8, 0xab, 0xef, 0xc1, 0xba, 0x95, 0x19, 0x8a, 0x52, 0xb4, 0x9b, 0x54,
+	0xc0, 0x15, 0xf2, 0x20, 0x8d, 0xbd, 0x2a, 0x27, 0xd4, 0xeb, 0x35, 0x98, 0xf8, 0x16, 0xf6, 0x17,
+	0xd4, 0xbc, 0xcd, 0x03, 0x00, 0xea, 0x03, 0x33, 0xa3, 0x0d, 0xe6, 0x1f, 0x9d, 0x39, 0x83, 0xf0,
+	0x12, 0xb5, 0xe5, 0x63, 0xce, 0xa8, 0xc5, 0xcf, 0x6a, 0x44, 0x6d, 0x73, 0x58, 0x32, 0x7c, 0xf2,
+	0x16, 0xdd, 0x91, 0x10, 0xe8, 0x30, 0xd4, 0xf5, 0xf3, 0x97, 0xe7, 0x78, 0x03, 0xd6, 0xaf, 0x72,
+	0x65, 0x9f, 0x4e, 0x7e, 0xae, 0xc1, 0x5e, 0x52, 0xee, 0x58, 0x65, 0xf7, 0x0e, 0xf5, 0x84, 0x33,
+	0x24, 0xc7, 0xd0, 0x71, 0x33, 0x4b, 0x7c, 0x73, 0x1b, 0xe3, 0x1c, 0x91, 0x26, 0xe5, 0x6b, 0x79,
+	0x07, 0x5b, 0x75, 0x91, 0x48, 0xa2, 0x2a, 0x61, 0xd9, 0x1b, 0x46, 0x2f, 0x96, 0xc6, 0xbc, 0xca,
+	0x05, 0x04, 0x8d, 0xe1, 0x25, 0x61, 0x95, 0xfb, 0xe7, 0x46, 0x44, 0xcf, 0x97, 0x44, 0xbc, 0xc6,
+	0x7b, 0xd8, 0x19, 0x9a, 0xd6, 0xd2, 0xd6, 0x7e, 0x96, 0xfd, 0x1f, 0x6a, 0x3f, 0xcb, 0xb7, 0xfc,
+	0x2d, 0x6c, 0xf8, 0xd9, 0x22, 0xbd, 0x2a, 0xaf, 0xbd, 0x0f, 0xd1, 0xfe, 0x02, 0xeb, 0xef, 0x9d,
+	0xc1, 0x6e, 0xd5, 0x94, 0x46, 0x97, 0xc8, 0x41, 0x95, 0xfb, 0xb7, 0xc6, 0x45, 0x81, 0x5f, 0x23,
+	0xd7, 0x96, 0x8b, 0xd7, 0x5f, 0x07, 0x29, 0xb7, 0x0f, 0xc5, 0x7d, 0x9f, 0xc9, 0x7c, 0x40, 0x95,
+	0xb2, 0x1a, 0xd1, 0xc8, 0xb1, 0x9d, 0x52, 0x8d, 0x83, 0x54, 0x1e, 0x4f, 0xa5, 0xce, 0xc6, 0x8f,
+	0x72, 0x3a, 0x50, 0x59, 0x3a, 0x70, 0x17, 0xef, 0xff, 0x2b, 0x7f, 0x84, 0xa7, 0xbf, 0x03, 0x00,
+	0x00, 0xff, 0xff, 0x1d, 0x56, 0x18, 0xe0, 0x33, 0x05, 0x00, 0x00,
 }

@@ -33,7 +33,7 @@ func (m *Package) Reset()         { *m = Package{} }
 func (m *Package) String() string { return proto.CompactTextString(m) }
 func (*Package) ProtoMessage()    {}
 func (*Package) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{0}
+	return fileDescriptor_common_c237741aaf9d8660, []int{0}
 }
 func (m *Package) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Package.Unmarshal(m, b)
@@ -102,7 +102,7 @@ func (m *PackageStep) Reset()         { *m = PackageStep{} }
 func (m *PackageStep) String() string { return proto.CompactTextString(m) }
 func (*PackageStep) ProtoMessage()    {}
 func (*PackageStep) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{1}
+	return fileDescriptor_common_c237741aaf9d8660, []int{1}
 }
 func (m *PackageStep) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PackageStep.Unmarshal(m, b)
@@ -162,7 +162,7 @@ func (m *InputInfo) Reset()         { *m = InputInfo{} }
 func (m *InputInfo) String() string { return proto.CompactTextString(m) }
 func (*InputInfo) ProtoMessage()    {}
 func (*InputInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{2}
+	return fileDescriptor_common_c237741aaf9d8660, []int{2}
 }
 func (m *InputInfo) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_InputInfo.Unmarshal(m, b)
@@ -207,7 +207,7 @@ func (m *OutputInfo) Reset()         { *m = OutputInfo{} }
 func (m *OutputInfo) String() string { return proto.CompactTextString(m) }
 func (*OutputInfo) ProtoMessage()    {}
 func (*OutputInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{3}
+	return fileDescriptor_common_c237741aaf9d8660, []int{3}
 }
 func (m *OutputInfo) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_OutputInfo.Unmarshal(m, b)
@@ -235,13 +235,16 @@ func (m *OutputInfo) GetDescription() string {
 }
 
 type Environment struct {
-	App                  string   `protobuf:"bytes,1,opt,name=app,proto3" json:"app,omitempty"`
-	WorkflowId           string   `protobuf:"bytes,2,opt,name=workflowId,proto3" json:"workflowId,omitempty"`
+	Project              string   `protobuf:"bytes,1,opt,name=project,proto3" json:"project,omitempty"`
+	Workflow             string   `protobuf:"bytes,2,opt,name=workflow,proto3" json:"workflow,omitempty"`
 	RunId                string   `protobuf:"bytes,3,opt,name=runId,proto3" json:"runId,omitempty"`
 	StepName             string   `protobuf:"bytes,4,opt,name=stepName,proto3" json:"stepName,omitempty"`
 	StepVersion          string   `protobuf:"bytes,5,opt,name=stepVersion,proto3" json:"stepVersion,omitempty"`
 	InputFile            string   `protobuf:"bytes,6,opt,name=inputFile,proto3" json:"inputFile,omitempty"`
 	TriggerType          string   `protobuf:"bytes,7,opt,name=triggerType,proto3" json:"triggerType,omitempty"`
+	StepInstanceId       string   `protobuf:"bytes,8,opt,name=stepInstanceId,proto3" json:"stepInstanceId,omitempty"`
+	Package              string   `protobuf:"bytes,9,opt,name=package,proto3" json:"package,omitempty"`
+	CacheHost            string   `protobuf:"bytes,10,opt,name=cacheHost,proto3" json:"cacheHost,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
 	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
 	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
@@ -251,7 +254,7 @@ func (m *Environment) Reset()         { *m = Environment{} }
 func (m *Environment) String() string { return proto.CompactTextString(m) }
 func (*Environment) ProtoMessage()    {}
 func (*Environment) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{4}
+	return fileDescriptor_common_c237741aaf9d8660, []int{4}
 }
 func (m *Environment) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Environment.Unmarshal(m, b)
@@ -271,16 +274,16 @@ func (m *Environment) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Environment proto.InternalMessageInfo
 
-func (m *Environment) GetApp() string {
+func (m *Environment) GetProject() string {
 	if m != nil {
-		return m.App
+		return m.Project
 	}
 	return ""
 }
 
-func (m *Environment) GetWorkflowId() string {
+func (m *Environment) GetWorkflow() string {
 	if m != nil {
-		return m.WorkflowId
+		return m.Workflow
 	}
 	return ""
 }
@@ -320,6 +323,27 @@ func (m *Environment) GetTriggerType() string {
 	return ""
 }
 
+func (m *Environment) GetStepInstanceId() string {
+	if m != nil {
+		return m.StepInstanceId
+	}
+	return ""
+}
+
+func (m *Environment) GetPackage() string {
+	if m != nil {
+		return m.Package
+	}
+	return ""
+}
+
+func (m *Environment) GetCacheHost() string {
+	if m != nil {
+		return m.CacheHost
+	}
+	return ""
+}
+
 type EmptyMessage struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
 	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
@@ -330,7 +354,7 @@ func (m *EmptyMessage) Reset()         { *m = EmptyMessage{} }
 func (m *EmptyMessage) String() string { return proto.CompactTextString(m) }
 func (*EmptyMessage) ProtoMessage()    {}
 func (*EmptyMessage) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{5}
+	return fileDescriptor_common_c237741aaf9d8660, []int{5}
 }
 func (m *EmptyMessage) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_EmptyMessage.Unmarshal(m, b)
@@ -362,7 +386,7 @@ func (m *StepPackageRequest) Reset()         { *m = StepPackageRequest{} }
 func (m *StepPackageRequest) String() string { return proto.CompactTextString(m) }
 func (*StepPackageRequest) ProtoMessage()    {}
 func (*StepPackageRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{6}
+	return fileDescriptor_common_c237741aaf9d8660, []int{6}
 }
 func (m *StepPackageRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepPackageRequest.Unmarshal(m, b)
@@ -408,7 +432,7 @@ func (m *StepPackageResponse) Reset()         { *m = StepPackageResponse{} }
 func (m *StepPackageResponse) String() string { return proto.CompactTextString(m) }
 func (*StepPackageResponse) ProtoMessage()    {}
 func (*StepPackageResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{7}
+	return fileDescriptor_common_c237741aaf9d8660, []int{7}
 }
 func (m *StepPackageResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepPackageResponse.Unmarshal(m, b)
@@ -457,7 +481,7 @@ func (m *CachePushRequest) Reset()         { *m = CachePushRequest{} }
 func (m *CachePushRequest) String() string { return proto.CompactTextString(m) }
 func (*CachePushRequest) ProtoMessage()    {}
 func (*CachePushRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{8}
+	return fileDescriptor_common_c237741aaf9d8660, []int{8}
 }
 func (m *CachePushRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CachePushRequest.Unmarshal(m, b)
@@ -522,7 +546,7 @@ func (m *CachePushResponse) Reset()         { *m = CachePushResponse{} }
 func (m *CachePushResponse) String() string { return proto.CompactTextString(m) }
 func (*CachePushResponse) ProtoMessage()    {}
 func (*CachePushResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{9}
+	return fileDescriptor_common_c237741aaf9d8660, []int{9}
 }
 func (m *CachePushResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CachePushResponse.Unmarshal(m, b)
@@ -555,7 +579,7 @@ func (m *CachePullRequest) Reset()         { *m = CachePullRequest{} }
 func (m *CachePullRequest) String() string { return proto.CompactTextString(m) }
 func (*CachePullRequest) ProtoMessage()    {}
 func (*CachePullRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{10}
+	return fileDescriptor_common_c237741aaf9d8660, []int{10}
 }
 func (m *CachePullRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CachePullRequest.Unmarshal(m, b)
@@ -609,7 +633,7 @@ func (m *CachePullResponse) Reset()         { *m = CachePullResponse{} }
 func (m *CachePullResponse) String() string { return proto.CompactTextString(m) }
 func (*CachePullResponse) ProtoMessage()    {}
 func (*CachePullResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_common_c27102ebe7543652, []int{11}
+	return fileDescriptor_common_c237741aaf9d8660, []int{11}
 }
 func (m *CachePullResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CachePullResponse.Unmarshal(m, b)
@@ -650,6 +674,192 @@ func (m *CachePullResponse) GetNotFound() bool {
 	return false
 }
 
+type AllStepsRequest struct {
+	SearchTerm           string   `protobuf:"bytes,1,opt,name=searchTerm,proto3" json:"searchTerm,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte   `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32    `json:"-" yaml:"-" xml:"-" bson:"-"`
+}
+
+func (m *AllStepsRequest) Reset()         { *m = AllStepsRequest{} }
+func (m *AllStepsRequest) String() string { return proto.CompactTextString(m) }
+func (*AllStepsRequest) ProtoMessage()    {}
+func (*AllStepsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_common_87c32c3e05ae8062, []int{12}
+}
+func (m *AllStepsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AllStepsRequest.Unmarshal(m, b)
+}
+func (m *AllStepsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AllStepsRequest.Marshal(b, m, deterministic)
+}
+func (dst *AllStepsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AllStepsRequest.Merge(dst, src)
+}
+func (m *AllStepsRequest) XXX_Size() int {
+	return xxx_messageInfo_AllStepsRequest.Size(m)
+}
+func (m *AllStepsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AllStepsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AllStepsRequest proto.InternalMessageInfo
+
+func (m *AllStepsRequest) GetSearchTerm() string {
+	if m != nil {
+		return m.SearchTerm
+	}
+	return ""
+}
+
+type AllStepsResponse struct {
+	Success              bool              `protobuf:"varint,1,opt,name=success,proto3" json:"success,omitempty"`
+	Message              string            `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	RecordCount          int64             `protobuf:"varint,3,opt,name=recordCount,proto3" json:"recordCount,omitempty"`
+	Items                []*RegisteredStep `protobuf:"bytes,4,rep,name=items,proto3" json:"items,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte            `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32             `json:"-" yaml:"-" xml:"-" bson:"-"`
+}
+
+func (m *AllStepsResponse) Reset()         { *m = AllStepsResponse{} }
+func (m *AllStepsResponse) String() string { return proto.CompactTextString(m) }
+func (*AllStepsResponse) ProtoMessage()    {}
+func (*AllStepsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_common_87c32c3e05ae8062, []int{13}
+}
+func (m *AllStepsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AllStepsResponse.Unmarshal(m, b)
+}
+func (m *AllStepsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AllStepsResponse.Marshal(b, m, deterministic)
+}
+func (dst *AllStepsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AllStepsResponse.Merge(dst, src)
+}
+func (m *AllStepsResponse) XXX_Size() int {
+	return xxx_messageInfo_AllStepsResponse.Size(m)
+}
+func (m *AllStepsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AllStepsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AllStepsResponse proto.InternalMessageInfo
+
+func (m *AllStepsResponse) GetSuccess() bool {
+	if m != nil {
+		return m.Success
+	}
+	return false
+}
+
+func (m *AllStepsResponse) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
+func (m *AllStepsResponse) GetRecordCount() int64 {
+	if m != nil {
+		return m.RecordCount
+	}
+	return 0
+}
+
+func (m *AllStepsResponse) GetItems() []*RegisteredStep {
+	if m != nil {
+		return m.Items
+	}
+	return nil
+}
+
+type RegisteredStep struct {
+	Step                 *PackageStep `protobuf:"bytes,1,opt,name=step,proto3" json:"step,omitempty"`
+	Location             string       `protobuf:"bytes,2,opt,name=location,proto3" json:"location,omitempty"`
+	LocationType         string       `protobuf:"bytes,3,opt,name=locationType,proto3" json:"locationType,omitempty"`
+	PublishId            string       `protobuf:"bytes,4,opt,name=publishId,proto3" json:"publishId,omitempty"`
+	Author               string       `protobuf:"bytes,5,opt,name=author,proto3" json:"author,omitempty"`
+	PackageName          string       `protobuf:"bytes,6,opt,name=packageName,proto3" json:"packageName,omitempty"`
+	StepName             string       `protobuf:"bytes,7,opt,name=StepName,proto3" json:"StepName,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_unrecognized     []byte       `json:"-" yaml:"-" xml:"-" bson:"-"`
+	XXX_sizecache        int32        `json:"-" yaml:"-" xml:"-" bson:"-"`
+}
+
+func (m *RegisteredStep) Reset()         { *m = RegisteredStep{} }
+func (m *RegisteredStep) String() string { return proto.CompactTextString(m) }
+func (*RegisteredStep) ProtoMessage()    {}
+func (*RegisteredStep) Descriptor() ([]byte, []int) {
+	return fileDescriptor_common_87c32c3e05ae8062, []int{14}
+}
+func (m *RegisteredStep) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisteredStep.Unmarshal(m, b)
+}
+func (m *RegisteredStep) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisteredStep.Marshal(b, m, deterministic)
+}
+func (dst *RegisteredStep) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisteredStep.Merge(dst, src)
+}
+func (m *RegisteredStep) XXX_Size() int {
+	return xxx_messageInfo_RegisteredStep.Size(m)
+}
+func (m *RegisteredStep) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisteredStep.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisteredStep proto.InternalMessageInfo
+
+func (m *RegisteredStep) GetStep() *PackageStep {
+	if m != nil {
+		return m.Step
+	}
+	return nil
+}
+
+func (m *RegisteredStep) GetLocation() string {
+	if m != nil {
+		return m.Location
+	}
+	return ""
+}
+
+func (m *RegisteredStep) GetLocationType() string {
+	if m != nil {
+		return m.LocationType
+	}
+	return ""
+}
+
+func (m *RegisteredStep) GetPublishId() string {
+	if m != nil {
+		return m.PublishId
+	}
+	return ""
+}
+
+func (m *RegisteredStep) GetAuthor() string {
+	if m != nil {
+		return m.Author
+	}
+	return ""
+}
+
+func (m *RegisteredStep) GetPackageName() string {
+	if m != nil {
+		return m.PackageName
+	}
+	return ""
+}
+
+func (m *RegisteredStep) GetStepName() string {
+	if m != nil {
+		return m.StepName
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*Package)(nil), "core.Package")
 	proto.RegisterMapType((map[string]*PackageStep)(nil), "core.Package.StepsEntry")
@@ -666,11 +876,14 @@ func init() {
 	proto.RegisterType((*CachePushResponse)(nil), "core.CachePushResponse")
 	proto.RegisterType((*CachePullRequest)(nil), "core.CachePullRequest")
 	proto.RegisterType((*CachePullResponse)(nil), "core.CachePullResponse")
+	proto.RegisterType((*AllStepsRequest)(nil), "core.AllStepsRequest")
+	proto.RegisterType((*AllStepsResponse)(nil), "core.AllStepsResponse")
+	proto.RegisterType((*RegisteredStep)(nil), "core.RegisteredStep")
 }
 
-func init() { proto.RegisterFile("common.proto", fileDescriptor_common_c27102ebe7543652) }
+func init() { proto.RegisterFile("common.proto", fileDescriptor_common_c237741aaf9d8660) }
 
-var fileDescriptor_common_c27102ebe7543652 = []byte{
+var fileDescriptor_common_c237741aaf9d8660 = []byte{
 	// 671 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x55, 0x4d, 0x6f, 0xd3, 0x4c,
 	0x10, 0x56, 0x9c, 0xe6, 0xa3, 0x93, 0xa8, 0x6f, 0xbb, 0x7d, 0x85, 0xac, 0x08, 0xaa, 0xca, 0x12,

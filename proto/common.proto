@@ -29,13 +29,16 @@ message OutputInfo {
 }
 
 message Environment {
-    string app = 1;
-    string workflowId = 2;
+    string project = 1;
+    string workflow = 2;
     string runId = 3;
     string stepName = 4;
     string stepVersion = 5;
     string inputFile = 6;
     string triggerType = 7;
+    string stepInstanceId = 8;
+    string package = 9;
+    string cacheHost = 10;
 }
 
 message EmptyMessage {
@@ -74,4 +77,25 @@ message CachePullResponse {
     bytes record = 1;
     bytes metadata = 2;
     bool notFound = 3;
+}
+
+message AllStepsRequest {
+    string searchTerm = 1;
+}
+
+message AllStepsResponse {
+    bool success = 1;
+    string message = 2;
+    int64 recordCount = 3;
+    repeated RegisteredStep items = 4;
+}
+
+message RegisteredStep {
+    PackageStep step = 1;
+    string location = 2;
+    string locationType = 3;
+    string publishId = 4;
+    string author = 5;
+    string packageName = 6;
+    string StepName = 7;
 }
