@@ -24,6 +24,7 @@ message PingRequest {
 
 message PingResponse {
     string message = 1;
+    string version = 2;
 }
 
 message LoadPackageRequest {
@@ -72,8 +73,17 @@ message Empty {
 
 }
 
+message UpdateRequest {
+    string url = 1;
+}
+
+message UpdateResponse {
+    bool success = 1;
+}
+
 service RemoteEngineService {
     rpc Ping (PingRequest) returns (PingResponse);
+    rpc Update (UpdateRequest) returns (UpdateResponse);
     rpc Authorize (AuthorizationRequest) returns (AuthorizationResponse);
     rpc LoadPackage (LoadPackageRequest) returns (LoadPackageResponse);
     rpc IsStepAvailable (StepAvailableRequest) returns (StepAvailableResponse);

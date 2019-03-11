@@ -31,7 +31,7 @@ func (m *SpawnWorkflowRequest) Reset()         { *m = SpawnWorkflowRequest{} }
 func (m *SpawnWorkflowRequest) String() string { return proto.CompactTextString(m) }
 func (*SpawnWorkflowRequest) ProtoMessage()    {}
 func (*SpawnWorkflowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_2885c73cf1c74632, []int{0}
+	return fileDescriptor_engine_api_e1b180795c825aaa, []int{0}
 }
 func (m *SpawnWorkflowRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SpawnWorkflowRequest.Unmarshal(m, b)
@@ -83,7 +83,7 @@ func (m *SpawnWorkflowResponse) Reset()         { *m = SpawnWorkflowResponse{} }
 func (m *SpawnWorkflowResponse) String() string { return proto.CompactTextString(m) }
 func (*SpawnWorkflowResponse) ProtoMessage()    {}
 func (*SpawnWorkflowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_2885c73cf1c74632, []int{1}
+	return fileDescriptor_engine_api_e1b180795c825aaa, []int{1}
 }
 func (m *SpawnWorkflowResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SpawnWorkflowResponse.Unmarshal(m, b)
@@ -115,9 +115,9 @@ func init() {
 	proto.RegisterType((*SpawnWorkflowResponse)(nil), "core.SpawnWorkflowResponse")
 }
 
-func init() { proto.RegisterFile("engine_api.proto", fileDescriptor_engine_api_2885c73cf1c74632) }
+func init() { proto.RegisterFile("engine_api.proto", fileDescriptor_engine_api_e1b180795c825aaa) }
 
-var fileDescriptor_engine_api_2885c73cf1c74632 = []byte{
+var fileDescriptor_engine_api_e1b180795c825aaa = []byte{
 	// 345 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x92, 0x4d, 0x4f, 0xfa, 0x40,
 	0x10, 0xc6, 0x53, 0xfe, 0x7f, 0x5f, 0xba, 0x20, 0xd1, 0x0d, 0x6a, 0xad, 0x17, 0xc2, 0x89, 0x8b,
