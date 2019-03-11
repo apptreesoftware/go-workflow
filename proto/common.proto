@@ -29,13 +29,16 @@ message OutputInfo {
 }
 
 message Environment {
-    string app = 1;
-    string workflowId = 2;
+    string project = 1;
+    string workflow = 2;
     string runId = 3;
     string stepName = 4;
     string stepVersion = 5;
     string inputFile = 6;
     string triggerType = 7;
+    string stepInstanceId = 8;
+    string package = 9;
+    string cacheHost = 10;
 }
 
 message EmptyMessage {
