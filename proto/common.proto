@@ -8,8 +8,19 @@ message Package {
     string name = 1;
     string lang = 2;
     string version = 3;
-    string exec = 4;
+    Exec executables = 4;
     map<string, PackageStep> steps = 5;
+}
+
+message Exec {
+    Binary darwin = 1;
+    Binary linux = 2;
+    Binary windows = 3;
+}
+
+message Binary {
+    string amd64 = 1;
+    string i386 = 2;
 }
 
 message PackageStep {
@@ -48,6 +59,8 @@ message EmptyMessage {
 message StepPackageRequest {
     string id = 1;
     string version = 2;
+    string os = 3;
+    string arch = 4;
 }
 
 message StepPackageResponse {
