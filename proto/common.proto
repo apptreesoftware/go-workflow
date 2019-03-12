@@ -112,3 +112,13 @@ message RegisteredStep {
     string packageName = 6;
     string StepName = 7;
 }
+
+message SingleStepRequest {
+    string packageName = 1;
+    string stepName = 2;
+    string version = 3;
+}
+
+message SingleStepResponse {
+    RegisteredStep step = 1;
+}
