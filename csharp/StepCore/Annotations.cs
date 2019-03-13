@@ -7,6 +7,7 @@ namespace StepCore {
         public string Description { get; set; }
         public bool Required { get; set; }
         public object Default { get; set; }
+        public string Sample { get; set; }
 
         public Input() {
             Required = true;
@@ -17,6 +18,7 @@ namespace StepCore {
     public class Output : Attribute {
         public string Key { get; set; }
         public string Description { get; set; }
+       
     }
 
     [AttributeUsage(AttributeTargets.Class)]
@@ -26,7 +28,7 @@ namespace StepCore {
         public string Name { get; }
         public string Version { get; }
 
-        public StepDescription(string Name, string Version = "1.0.0") {
+        public StepDescription(string Name, string Version = "1.0") {
             this.Name = Name;
             this.Version = Version;
         }
