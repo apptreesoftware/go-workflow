@@ -17,10 +17,10 @@ namespace StepCore {
             } catch (Exception e) {
                 Console.WriteLine(e.Message);
                 Console.WriteLine(e.StackTrace);
-               return new BadRequestObjectResult(e.ToString());
+                return new BadRequestObjectResult(e.ToString());
             }
         }
-            
+
         [HttpGet]
         public ActionResult<string> Get() {
             var result = PackageManager.GeneratePackageInfoYaml();
@@ -29,7 +29,7 @@ namespace StepCore {
     }
 
     public class StepRequest {
-        public Environment Environment { get; set; }
+        public Core.Environment Environment { get; set; }
         public Dictionary<string, object> Inputs { get; set; }
     }
 }

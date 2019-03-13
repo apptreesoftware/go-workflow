@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Core;
 using Google.Protobuf;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
@@ -16,9 +17,9 @@ namespace StepCore {
     }
 
     public class Cache : ICache {
-        private global::Cache.CacheClient _client;
+        private EngineStepAPI.EngineStepAPIClient _client;
 
-        public Cache(global::Cache.CacheClient client) {
+        public Cache(EngineStepAPI.EngineStepAPIClient client) {
             _client = client;
         }
 
@@ -33,7 +34,7 @@ namespace StepCore {
             req.Id = cacheRecord.Id;
             req.Environment = Util.GetEnvironment();
             req.CacheName = cacheName;
-            await _client.PushAsync(req);
+            await _client.CachePushAsync(req);
         }
 
         public async Task<CacheRecord<T>> PullRecord<T>(string id, string cacheName = "") {
@@ -47,7 +48,7 @@ namespace StepCore {
                 Id = id, Environment = Util.GetEnvironment(), CacheName = cacheName
             };
 
-            var response = await _client.PullAsync(req);
+            var response = await _client.CachePullAsync(req);
             if (response.NotFound) {
                 return null;
             }
