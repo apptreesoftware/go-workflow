@@ -23,6 +23,8 @@ service EngineAPI {
 
 
     rpc StepCompleted (StepCompleteRequest) returns (StepCompleteResponse);
+
+    rpc LogMessage (LogRequest) returns (LogResponse);
 }
 
 
@@ -45,4 +47,15 @@ message StepCompleteRequest {
 
 message StepCompleteResponse {
 
+}
+
+message LogRequest {
+    string jobId = 1;
+    string message = 2;
+    string logLevel = 3;
+}
+
+message LogResponse {
+    bool success = 1;
+    string message = 2;
 }
