@@ -11,7 +11,7 @@ package core;
 import "common.proto";
 
 service WorkflowAPI {
-    rpc RunWorkflow (RunWorkflowRequest) returns (BasicResponse);
+    rpc RunWorkflow (RunWorkflowRequest) returns (TriggerResponse);
     rpc Ping (EmptyMessage) returns (BasicResponse);
     rpc PublishWorkflow (PublishWorkflowRequest) returns (BasicResponse);
     rpc ListWorkflows (ProjectRequest) returns (ListWorkflowResponse);
@@ -30,6 +30,8 @@ service WorkflowAPI {
     rpc GetAllSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc SearchSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc GetSingleStep (SingleStepRequest) returns (SingleStepResponse);
+
+    rpc ViewJobLog(ViewLogRequest) returns (ViewLogResponse);
 }
 
 message RemoteEngineHealthRequest {
@@ -120,6 +122,31 @@ message ViewQueueRequest {
     string project = 1;
     string workflow = 2;
     string triggerType = 3;
+}
+
+message ViewLogRequest {
+    string project = 1;
+    string jobId = 2;
+    string logLevel = 3;
+}
+
+message Log {
+    string logLevel = 1;
+    string message = 2;
+    string timestamp = 3;
+}
+
+message ViewLogResponse {
+    bool success = 1;
+    string message = 2;
+    repeated Log logs = 3;
+}
+
+message TriggerResponse {
+    bool success = 1;
+    string message = 2;
+    string project = 3;
+    string jobId = 4;
 }
 
 
