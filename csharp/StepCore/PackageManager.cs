@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Core;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Newtonsoft.Json;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -12,18 +14,20 @@ namespace StepCore {
         public static async Task<int> Run(string[] args) {
             bool serveMode = false;
             var port = 5000;
-            for (var i = 0; i < args.Length; i++)
-            {
-                if (args[i] == "--serve")
-                {
+           
+            for (var i = 0; i < args.Length; i++) {
+                var arg = args[i];
+                if (arg == "--serve") {
                     serveMode = true;
-                    
-                    if (args.Length > i + 1)
-                    {
+                    if (args.Length > i + 1) {
                         var portString = args[i + 1];
                         int.TryParse(portString, out port);
                     }
-                } 
+                } else if (arg == "--package_info") {
+                    var yaml = GeneratePackageInfoYaml();
+                    Console.WriteLine(yaml);
+                }
+               
             }
             if (serveMode) {
                 Server.RunServer(args, port);
@@ -88,7 +92,6 @@ namespace StepCore {
             var package = new Package {
                 Name = packageAttribute.Name,
                 Lang = "NETCORE21",
-                Exec = Path.GetFileName(Assembly.GetEntryAssembly().Location)
             };
 
             var stepClass = assembly.GetTypes()
@@ -110,6 +113,7 @@ namespace StepCore {
                         packageStep.Inputs[key] = new InputInfo {
                             Required = inputAttribute.Required,
                             Description = inputAttribute.Description ?? "",
+                            Sample = inputAttribute.Sample ?? "",
                         };
                     }
 

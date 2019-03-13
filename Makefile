@@ -8,7 +8,7 @@ build: |
 #	protoc -I proto --go_out=paths=source_relative,plugins=grpc:pkg/core step.proto
 
 
-	protoc -I proto --plugin=protoc-gen-grpc=${HOME}/.nuget/packages/grpc.tools/1.17.1/tools/macosx_x64/grpc_csharp_plugin --grpc_out csharp/StepCore/gen --csharp_out=csharp/StepCore/gen step.proto
+	protoc -I proto --plugin=protoc-gen-grpc=${HOME}/.nuget/packages/grpc.tools/1.17.1/tools/macosx_x64/grpc_csharp_plugin --grpc_out csharp/StepCore/gen --csharp_out=csharp/StepCore/gen step.proto common.proto
 
 
 	##GRPC APIs

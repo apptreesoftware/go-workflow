@@ -28,6 +28,7 @@ service WorkflowAPI {
     rpc ViewQueue(ViewQueueRequest) returns (QueueResponse);
     rpc GetAllSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc SearchSteps (AllStepsRequest) returns (AllStepsResponse);
+    rpc GetSingleStep (SingleStepRequest) returns (SingleStepResponse);
 }
 
 message RemoteEngineHealthRequest {

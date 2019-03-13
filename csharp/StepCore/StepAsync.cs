@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Core;
 using Grpc.Core;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -45,7 +46,7 @@ namespace StepCore {
             }
            
             var channel = new Channel(conn, ChannelCredentials.Insecure);
-            var client = new global::Cache.CacheClient(channel);
+            var client = new EngineStepAPI.EngineStepAPIClient(channel);
             _cache = new Cache(client);
             return _cache;
         }
