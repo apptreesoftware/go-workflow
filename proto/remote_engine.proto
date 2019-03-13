@@ -43,6 +43,7 @@ message RunStepRequest {
     bytes input = 2;
     bytes stepConfig = 3;
     string stepInstanceId = 4;
+    string jobId = 5;
 }
 
 message RunStepResponse {
