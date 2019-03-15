@@ -11,7 +11,11 @@ package core;
 import "common.proto";
 
 service WorkflowAPI {
-    rpc RunWorkflow (RunWorkflowRequest) returns (TriggerResponse);
+    rpc RunWorkflow (WorkflowRequest) returns (TriggerResponse);
+    rpc RetryWorkflow (RetryWorkflowRequest) returns (TriggerResponse);
+    rpc WorkflowHistory(WorkflowRequest) returns (WorkflowJobHistory);
+
+
     rpc Ping (EmptyMessage) returns (BasicResponse);
     rpc PublishWorkflow (PublishWorkflowRequest) returns (BasicResponse);
     rpc ListWorkflows (ProjectRequest) returns (ListWorkflowResponse);
@@ -87,9 +91,19 @@ message BasicResponse {
     string message = 2;
 }
 
-message RunWorkflowRequest {
+message WorkflowRequest {
     string projectId = 1;
     string workflowId = 2;
+}
+
+message WorkflowJobHistory {
+    string jobId = 1;
+    int64 timestamp = 2;
+    string triggerType = 3;
+}
+
+message RetryWorkflowRequest {
+    string JobId = 1;
 }
 
 message PublishWorkflowRequest {
