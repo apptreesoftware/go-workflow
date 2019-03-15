@@ -31,7 +31,7 @@ func (m *SpawnWorkflowRequest) Reset()         { *m = SpawnWorkflowRequest{} }
 func (m *SpawnWorkflowRequest) String() string { return proto.CompactTextString(m) }
 func (*SpawnWorkflowRequest) ProtoMessage()    {}
 func (*SpawnWorkflowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_9d1499cf17d50a6f, []int{0}
+	return fileDescriptor_engine_api_907050ae86e98ac0, []int{0}
 }
 func (m *SpawnWorkflowRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SpawnWorkflowRequest.Unmarshal(m, b)
@@ -83,7 +83,7 @@ func (m *SpawnWorkflowResponse) Reset()         { *m = SpawnWorkflowResponse{} }
 func (m *SpawnWorkflowResponse) String() string { return proto.CompactTextString(m) }
 func (*SpawnWorkflowResponse) ProtoMessage()    {}
 func (*SpawnWorkflowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_9d1499cf17d50a6f, []int{1}
+	return fileDescriptor_engine_api_907050ae86e98ac0, []int{1}
 }
 func (m *SpawnWorkflowResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_SpawnWorkflowResponse.Unmarshal(m, b)
@@ -124,7 +124,7 @@ func (m *StepCompleteRequest) Reset()         { *m = StepCompleteRequest{} }
 func (m *StepCompleteRequest) String() string { return proto.CompactTextString(m) }
 func (*StepCompleteRequest) ProtoMessage()    {}
 func (*StepCompleteRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_9d1499cf17d50a6f, []int{2}
+	return fileDescriptor_engine_api_907050ae86e98ac0, []int{2}
 }
 func (m *StepCompleteRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepCompleteRequest.Unmarshal(m, b)
@@ -182,7 +182,7 @@ func (m *StepCompleteResponse) Reset()         { *m = StepCompleteResponse{} }
 func (m *StepCompleteResponse) String() string { return proto.CompactTextString(m) }
 func (*StepCompleteResponse) ProtoMessage()    {}
 func (*StepCompleteResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_9d1499cf17d50a6f, []int{3}
+	return fileDescriptor_engine_api_907050ae86e98ac0, []int{3}
 }
 func (m *StepCompleteResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepCompleteResponse.Unmarshal(m, b)
@@ -215,7 +215,7 @@ func (m *LogRequest) Reset()         { *m = LogRequest{} }
 func (m *LogRequest) String() string { return proto.CompactTextString(m) }
 func (*LogRequest) ProtoMessage()    {}
 func (*LogRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_9d1499cf17d50a6f, []int{4}
+	return fileDescriptor_engine_api_907050ae86e98ac0, []int{4}
 }
 func (m *LogRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LogRequest.Unmarshal(m, b)
@@ -268,7 +268,7 @@ func (m *LogResponse) Reset()         { *m = LogResponse{} }
 func (m *LogResponse) String() string { return proto.CompactTextString(m) }
 func (*LogResponse) ProtoMessage()    {}
 func (*LogResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_engine_api_9d1499cf17d50a6f, []int{5}
+	return fileDescriptor_engine_api_907050ae86e98ac0, []int{5}
 }
 func (m *LogResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LogResponse.Unmarshal(m, b)
@@ -311,9 +311,9 @@ func init() {
 	proto.RegisterType((*LogResponse)(nil), "core.LogResponse")
 }
 
-func init() { proto.RegisterFile("engine_api.proto", fileDescriptor_engine_api_9d1499cf17d50a6f) }
+func init() { proto.RegisterFile("engine_api.proto", fileDescriptor_engine_api_907050ae86e98ac0) }
 
-var fileDescriptor_engine_api_9d1499cf17d50a6f = []byte{
+var fileDescriptor_engine_api_907050ae86e98ac0 = []byte{
 	// 496 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0x4d, 0x6f, 0xd3, 0x40,
 	0x10, 0x55, 0x9a, 0xb6, 0x34, 0x93, 0xb6, 0x6a, 0x97, 0x10, 0x8c, 0xb9, 0x44, 0x3e, 0xe5, 0x42,
