@@ -8,7 +8,7 @@ import (
 type Step interface {
 	Name() string
 	Version() string
-	Execute()
+	Execute(in Context) (interface{}, error)
 }
 
 func Id(s Step) string {
