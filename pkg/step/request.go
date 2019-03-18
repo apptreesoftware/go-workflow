@@ -13,7 +13,7 @@ func ReportError(err error) {
 	}
 }
 
-func SetOutput(data interface{}) {
+func setOutput(data interface{}) {
 	writer, err := getDefaultOutput()
 	if err != nil {
 		ReportError(err)

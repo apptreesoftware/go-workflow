@@ -21,7 +21,7 @@ func Run() {
 			ReportError(err)
 		}
 		if out != nil {
-			SetOutput(out)
+			setOutput(out)
 		}
 		return
 	}
