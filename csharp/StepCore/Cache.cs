@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 
 namespace StepCore {
-    public interface ICache {
+    public interface IEngine {
         Task PutRecord<T>(
             CacheRecord<T> record,
             string cacheName = "");
@@ -16,10 +16,10 @@ namespace StepCore {
         Task<CacheRecord<T>> PullRecord<T>(string id, string cacheName = "");
     }
 
-    public class Cache : ICache {
+    public class Engine : IEngine {
         private EngineStepAPI.EngineStepAPIClient _client;
 
-        public Cache(EngineStepAPI.EngineStepAPIClient client) {
+        public Engine(EngineStepAPI.EngineStepAPIClient client) {
             _client = client;
         }
 
@@ -87,7 +87,7 @@ namespace StepCore {
         }
     }
 
-    public class NoOpCache : ICache {
+    public class NoOpEngine : IEngine {
         public Task PutRecord<T>(
             CacheRecord<T> cacheRecord,
             string cacheName = null) {
