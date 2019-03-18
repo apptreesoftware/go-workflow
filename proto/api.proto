@@ -39,6 +39,7 @@ message RemoteEngineUpdateRequest {
     string name = 1;
     string project = 2;
     bool forceUpdate = 3;
+    bool waitForVersion = 4;
 }
 
 
