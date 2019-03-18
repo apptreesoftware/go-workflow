@@ -3513,7 +3513,6 @@ namespace Core {
 
   public sealed partial class RunStepRequest : pb::IMessage<RunStepRequest> {
     private static readonly pb::MessageParser<RunStepRequest> _parser = new pb::MessageParser<RunStepRequest>(() => new RunStepRequest());
-    private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<RunStepRequest> Parser { get { return _parser; } }
 
@@ -3536,10 +3535,9 @@ namespace Core {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public RunStepRequest(RunStepRequest other) : this() {
-      environment_ = other.environment_ != null ? other.environment_.Clone() : null;
+      Environment = other.environment_ != null ? other.Environment.Clone() : null;
       input_ = other.input_;
       stepConfig_ = other.stepConfig_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3596,7 +3594,7 @@ namespace Core {
       if (!object.Equals(Environment, other.Environment)) return false;
       if (Input != other.Input) return false;
       if (StepConfig != other.StepConfig) return false;
-      return Equals(_unknownFields, other._unknownFields);
+      return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3605,9 +3603,6 @@ namespace Core {
       if (environment_ != null) hash ^= Environment.GetHashCode();
       if (Input.Length != 0) hash ^= Input.GetHashCode();
       if (StepConfig.Length != 0) hash ^= StepConfig.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
       return hash;
     }
 
@@ -3630,9 +3625,6 @@ namespace Core {
         output.WriteRawTag(26);
         output.WriteBytes(StepConfig);
       }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3646,9 +3638,6 @@ namespace Core {
       }
       if (StepConfig.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(StepConfig);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
       }
       return size;
     }
@@ -3670,7 +3659,6 @@ namespace Core {
       if (other.StepConfig.Length != 0) {
         StepConfig = other.StepConfig;
       }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3679,7 +3667,7 @@ namespace Core {
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
           default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            input.SkipLastField();
             break;
           case 10: {
             if (environment_ == null) {

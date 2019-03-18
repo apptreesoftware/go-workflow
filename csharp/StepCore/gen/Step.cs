@@ -321,7 +321,6 @@ namespace Core {
 
   public sealed partial class StepLogRequest : pb::IMessage<StepLogRequest> {
     private static readonly pb::MessageParser<StepLogRequest> _parser = new pb::MessageParser<StepLogRequest>(() => new StepLogRequest());
-    private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<StepLogRequest> Parser { get { return _parser; } }
 
@@ -345,8 +344,7 @@ namespace Core {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public StepLogRequest(StepLogRequest other) : this() {
       message_ = other.message_;
-      environment_ = other.environment_ != null ? other.environment_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+      Environment = other.environment_ != null ? other.Environment.Clone() : null;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -391,7 +389,7 @@ namespace Core {
       }
       if (Message != other.Message) return false;
       if (!object.Equals(Environment, other.Environment)) return false;
-      return Equals(_unknownFields, other._unknownFields);
+      return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -399,9 +397,6 @@ namespace Core {
       int hash = 1;
       if (Message.Length != 0) hash ^= Message.GetHashCode();
       if (environment_ != null) hash ^= Environment.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
       return hash;
     }
 
@@ -420,9 +415,6 @@ namespace Core {
         output.WriteRawTag(18);
         output.WriteMessage(Environment);
       }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -433,9 +425,6 @@ namespace Core {
       }
       if (environment_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Environment);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
       }
       return size;
     }
@@ -454,7 +443,6 @@ namespace Core {
         }
         Environment.MergeFrom(other.Environment);
       }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -463,7 +451,7 @@ namespace Core {
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
           default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            input.SkipLastField();
             break;
           case 10: {
             Message = input.ReadString();
@@ -484,7 +472,6 @@ namespace Core {
 
   public sealed partial class StepOutput : pb::IMessage<StepOutput> {
     private static readonly pb::MessageParser<StepOutput> _parser = new pb::MessageParser<StepOutput>(() => new StepOutput());
-    private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<StepOutput> Parser { get { return _parser; } }
 
@@ -508,7 +495,6 @@ namespace Core {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public StepOutput(StepOutput other) : this() {
       output_ = other.output_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -541,16 +527,13 @@ namespace Core {
         return true;
       }
       if (Output != other.Output) return false;
-      return Equals(_unknownFields, other._unknownFields);
+      return true;
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
       if (Output.Length != 0) hash ^= Output.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
       return hash;
     }
 
@@ -565,9 +548,6 @@ namespace Core {
         output.WriteRawTag(10);
         output.WriteBytes(Output);
       }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -575,9 +555,6 @@ namespace Core {
       int size = 0;
       if (Output.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(Output);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
       }
       return size;
     }
@@ -590,7 +567,6 @@ namespace Core {
       if (other.Output.Length != 0) {
         Output = other.Output;
       }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -599,7 +575,7 @@ namespace Core {
       while ((tag = input.ReadTag()) != 0) {
         switch(tag) {
           default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            input.SkipLastField();
             break;
           case 10: {
             Output = input.ReadBytes();
