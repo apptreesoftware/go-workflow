@@ -65,8 +65,10 @@ namespace Core {
             "ZXBOYW1lGAcgASgJIksKEVNpbmdsZVN0ZXBSZXF1ZXN0EhMKC3BhY2thZ2VO",
             "YW1lGAEgASgJEhAKCHN0ZXBOYW1lGAIgASgJEg8KB3ZlcnNpb24YAyABKAki",
             "OAoSU2luZ2xlU3RlcFJlc3BvbnNlEiIKBHN0ZXAYASABKAsyFC5jb3JlLlJl",
-            "Z2lzdGVyZWRTdGVwQjFaL2dpdGh1Yi5jb20vYXBwdHJlZXNvZnR3YXJlL2dv",
-            "LXdvcmtmbG93L3BrZy9jb3JlYgZwcm90bzM="));
+            "Z2lzdGVyZWRTdGVwIlsKDlJ1blN0ZXBSZXF1ZXN0EiYKC2Vudmlyb25tZW50",
+            "GAEgASgLMhEuY29yZS5FbnZpcm9ubWVudBINCgVpbnB1dBgCIAEoDBISCgpz",
+            "dGVwQ29uZmlnGAMgASgMQjFaL2dpdGh1Yi5jb20vYXBwdHJlZXNvZnR3YXJl",
+            "L2dvLXdvcmtmbG93L3BrZy9jb3JlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -88,7 +90,8 @@ namespace Core {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.AllStepsResponse), global::Core.AllStepsResponse.Parser, new[]{ "Success", "Message", "RecordCount", "Items" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.RegisteredStep), global::Core.RegisteredStep.Parser, new[]{ "Step", "Location", "LocationType", "PublishId", "Author", "PackageName", "StepName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.SingleStepRequest), global::Core.SingleStepRequest.Parser, new[]{ "PackageName", "StepName", "Version" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.SingleStepResponse), global::Core.SingleStepResponse.Parser, new[]{ "Step" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.SingleStepResponse), global::Core.SingleStepResponse.Parser, new[]{ "Step" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.RunStepRequest), global::Core.RunStepRequest.Parser, new[]{ "Environment", "Input", "StepConfig" }, null, null, null)
           }));
     }
     #endregion
@@ -3730,6 +3733,197 @@ namespace Core {
               step_ = new global::Core.RegisteredStep();
             }
             input.ReadMessage(step_);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class RunStepRequest : pb::IMessage<RunStepRequest> {
+    private static readonly pb::MessageParser<RunStepRequest> _parser = new pb::MessageParser<RunStepRequest>(() => new RunStepRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<RunStepRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[19]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RunStepRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RunStepRequest(RunStepRequest other) : this() {
+      environment_ = other.environment_ != null ? other.environment_.Clone() : null;
+      input_ = other.input_;
+      stepConfig_ = other.stepConfig_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public RunStepRequest Clone() {
+      return new RunStepRequest(this);
+    }
+
+    /// <summary>Field number for the "environment" field.</summary>
+    public const int EnvironmentFieldNumber = 1;
+    private global::Core.Environment environment_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Core.Environment Environment {
+      get { return environment_; }
+      set {
+        environment_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "input" field.</summary>
+    public const int InputFieldNumber = 2;
+    private pb::ByteString input_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pb::ByteString Input {
+      get { return input_; }
+      set {
+        input_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "stepConfig" field.</summary>
+    public const int StepConfigFieldNumber = 3;
+    private pb::ByteString stepConfig_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pb::ByteString StepConfig {
+      get { return stepConfig_; }
+      set {
+        stepConfig_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as RunStepRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(RunStepRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Environment, other.Environment)) return false;
+      if (Input != other.Input) return false;
+      if (StepConfig != other.StepConfig) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (environment_ != null) hash ^= Environment.GetHashCode();
+      if (Input.Length != 0) hash ^= Input.GetHashCode();
+      if (StepConfig.Length != 0) hash ^= StepConfig.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (environment_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Environment);
+      }
+      if (Input.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteBytes(Input);
+      }
+      if (StepConfig.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteBytes(StepConfig);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (environment_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Environment);
+      }
+      if (Input.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Input);
+      }
+      if (StepConfig.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(StepConfig);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(RunStepRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.environment_ != null) {
+        if (environment_ == null) {
+          environment_ = new global::Core.Environment();
+        }
+        Environment.MergeFrom(other.Environment);
+      }
+      if (other.Input.Length != 0) {
+        Input = other.Input;
+      }
+      if (other.StepConfig.Length != 0) {
+        StepConfig = other.StepConfig;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (environment_ == null) {
+              environment_ = new global::Core.Environment();
+            }
+            input.ReadMessage(environment_);
+            break;
+          }
+          case 18: {
+            Input = input.ReadBytes();
+            break;
+          }
+          case 26: {
+            StepConfig = input.ReadBytes();
             break;
           }
         }

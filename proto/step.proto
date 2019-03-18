@@ -15,8 +15,13 @@ service EngineStepAPI {
     rpc CachePull (CachePullRequest) returns (CachePullResponse);
 
     rpc QueueWorkflow (StepQueueWorkflowRequest) returns (StepQueueWorkflowResponse);
+
 }
 
+service StepHost {
+    rpc RunStep(RunStepRequest) returns (StepOutput);
+    rpc GetPackageInfo(EmptyMessage) returns (Package);
+}
 
 message StepQueueWorkflowRequest {
     Environment environment = 1;
@@ -26,4 +31,12 @@ message StepQueueWorkflowRequest {
 
 message StepQueueWorkflowResponse {
 
+}
+message StepLogRequest {
+    string message = 1;
+    Environment environment = 2;
+}
+
+message StepOutput {
+    bytes output = 1;
 }

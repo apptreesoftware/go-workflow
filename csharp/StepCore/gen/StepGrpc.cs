@@ -200,5 +200,131 @@ namespace Core {
     }
 
   }
+  public static partial class StepHost
+  {
+    static readonly string __ServiceName = "core.StepHost";
+
+    static readonly grpc::Marshaller<global::Core.RunStepRequest> __Marshaller_core_RunStepRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.RunStepRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Core.StepOutput> __Marshaller_core_StepOutput = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.StepOutput.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Core.EmptyMessage> __Marshaller_core_EmptyMessage = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.EmptyMessage.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Core.Package> __Marshaller_core_Package = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.Package.Parser.ParseFrom);
+
+    static readonly grpc::Method<global::Core.RunStepRequest, global::Core.StepOutput> __Method_RunStep = new grpc::Method<global::Core.RunStepRequest, global::Core.StepOutput>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "RunStep",
+        __Marshaller_core_RunStepRequest,
+        __Marshaller_core_StepOutput);
+
+    static readonly grpc::Method<global::Core.EmptyMessage, global::Core.Package> __Method_GetPackageInfo = new grpc::Method<global::Core.EmptyMessage, global::Core.Package>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetPackageInfo",
+        __Marshaller_core_EmptyMessage,
+        __Marshaller_core_Package);
+
+    /// <summary>Service descriptor</summary>
+    public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
+    {
+      get { return global::Core.StepReflection.Descriptor.Services[1]; }
+    }
+
+    /// <summary>Base class for server-side implementations of StepHost</summary>
+    public abstract partial class StepHostBase
+    {
+      public virtual global::System.Threading.Tasks.Task<global::Core.StepOutput> RunStep(global::Core.RunStepRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Core.Package> GetPackageInfo(global::Core.EmptyMessage request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+    }
+
+    /// <summary>Client for StepHost</summary>
+    public partial class StepHostClient : grpc::ClientBase<StepHostClient>
+    {
+      /// <summary>Creates a new client for StepHost</summary>
+      /// <param name="channel">The channel to use to make remote calls.</param>
+      public StepHostClient(grpc::Channel channel) : base(channel)
+      {
+      }
+      /// <summary>Creates a new client for StepHost that uses a custom <c>CallInvoker</c>.</summary>
+      /// <param name="callInvoker">The callInvoker to use to make remote calls.</param>
+      public StepHostClient(grpc::CallInvoker callInvoker) : base(callInvoker)
+      {
+      }
+      /// <summary>Protected parameterless constructor to allow creation of test doubles.</summary>
+      protected StepHostClient() : base()
+      {
+      }
+      /// <summary>Protected constructor to allow creation of configured clients.</summary>
+      /// <param name="configuration">The client configuration.</param>
+      protected StepHostClient(ClientBaseConfiguration configuration) : base(configuration)
+      {
+      }
+
+      public virtual global::Core.StepOutput RunStep(global::Core.RunStepRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return RunStep(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Core.StepOutput RunStep(global::Core.RunStepRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_RunStep, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.StepOutput> RunStepAsync(global::Core.RunStepRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return RunStepAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.StepOutput> RunStepAsync(global::Core.RunStepRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_RunStep, null, options, request);
+      }
+      public virtual global::Core.Package GetPackageInfo(global::Core.EmptyMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetPackageInfo(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Core.Package GetPackageInfo(global::Core.EmptyMessage request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetPackageInfo, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.Package> GetPackageInfoAsync(global::Core.EmptyMessage request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetPackageInfoAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.Package> GetPackageInfoAsync(global::Core.EmptyMessage request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetPackageInfo, null, options, request);
+      }
+      /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
+      protected override StepHostClient NewInstance(ClientBaseConfiguration configuration)
+      {
+        return new StepHostClient(configuration);
+      }
+    }
+
+    /// <summary>Creates service definition that can be registered with a server</summary>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static grpc::ServerServiceDefinition BindService(StepHostBase serviceImpl)
+    {
+      return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_RunStep, serviceImpl.RunStep)
+          .AddMethod(__Method_GetPackageInfo, serviceImpl.GetPackageInfo).Build();
+    }
+
+    /// <summary>Register service method implementations with a service binder. Useful when customizing the service binding logic.
+    /// Note: this method is part of an experimental API that can change or be removed without any prior notice.</summary>
+    /// <param name="serviceBinder">Service methods will be bound by calling <c>AddMethod</c> on this object.</param>
+    /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
+    public static void BindService(grpc::ServiceBinderBase serviceBinder, StepHostBase serviceImpl)
+    {
+      serviceBinder.AddMethod(__Method_RunStep, serviceImpl.RunStep);
+      serviceBinder.AddMethod(__Method_GetPackageInfo, serviceImpl.GetPackageInfo);
+    }
+
+  }
 }
 #endregion

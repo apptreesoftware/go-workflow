@@ -123,3 +123,9 @@ message SingleStepRequest {
 message SingleStepResponse {
     RegisteredStep step = 1;
 }
+
+message RunStepRequest {
+    Environment environment = 1;
+    bytes input = 2;
+    bytes stepConfig = 3;
+}
