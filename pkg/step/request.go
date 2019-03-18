@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func ReportError(err error) {
+func reportError(err error) {
 	if err != nil {
 		println(err.Error())
 		os.Exit(1)
@@ -16,13 +16,13 @@ func ReportError(err error) {
 func setOutput(data interface{}) {
 	writer, err := getDefaultOutput()
 	if err != nil {
-		ReportError(err)
+		reportError(err)
 		return
 	}
 	defer writer.Close()
 	err = WriteOutputsTo(writer, data)
 	if err != nil {
-		ReportError(err)
+		reportError(err)
 	}
 }
 

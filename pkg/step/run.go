@@ -18,7 +18,7 @@ func Run() {
 	if !srv {
 		out, err := runStep(GetEnvironment(), &StdInput{})
 		if err != nil {
-			ReportError(err)
+			reportError(err)
 		}
 		if out != nil {
 			setOutput(out)
