@@ -4,16 +4,16 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Core;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Newtonsoft.Json;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using Environment = System.Environment;
 
 namespace StepCore {
     public static class PackageManager {
         public static async Task<int> Run(string[] args) {
             bool serveMode = false;
-            var port = 5000;
+            var port = 4000;
            
             for (var i = 0; i < args.Length; i++) {
                 var arg = args[i];
@@ -30,7 +30,7 @@ namespace StepCore {
                
             }
             if (serveMode) {
-                Server.RunServer(args, port);
+                Server.Run(port);
             } else {
                 await Run();
             }
@@ -48,7 +48,7 @@ namespace StepCore {
 
             try {
                 var output = await StepRunner.Run(environment, input);
-                var outputLoc = System.Environment.GetEnvironmentVariable("WORKFLOW_OUTPUT");
+                var outputLoc = Environment.GetEnvironmentVariable("WORKFLOW_OUTPUT");
                 if (output != null && output.Count > 0) {
                     var outString = JsonConvert.SerializeObject(output);
                     if (string.IsNullOrEmpty(outputLoc)) {

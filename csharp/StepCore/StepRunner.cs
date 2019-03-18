@@ -15,13 +15,17 @@ namespace StepCore {
             if (step == null) {
                 throw new Exception("Step not found");
             }
-            
-            step.BindInputs(input);
-            await step.ExecuteAsync();
-            var output = step.GetOutputs();
 
-            return output;
-            
+            try {
+                step.BindInputs(input);
+                await step.ExecuteAsync();
+                var output = step.GetOutputs();
+                return output;
+            } catch (Exception e) {
+                Console.WriteLine(e.Message);
+                Console.WriteLine(e.StackTrace);
+                throw;
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace StepCore {
     public abstract class StepAsync {
         public abstract Task ExecuteAsync();
 
-        private ICache _cache;
+        private IEngine _engine;
 
         public void BindInputs(string input)
         {
@@ -33,22 +33,22 @@ namespace StepCore {
             }
         }
 
-        public ICache GetCache() {
-            if (_cache != null) {
-                return _cache;
+        public IEngine GetEngine() {
+            if (_engine != null) {
+                return _engine;
             }
 
             var conn = System.Environment.GetEnvironmentVariable("WORKFLOW_CACHE_CONNECTION");
             if (string.IsNullOrEmpty(conn)) {
                 Console.WriteLine("Not connected to cache service. Returning a dummy cache");
-                _cache = new NoOpCache();
-                return _cache;
+                _engine = new NoOpEngine();
+                return _engine;
             }
            
             var channel = new Channel(conn, ChannelCredentials.Insecure);
             var client = new EngineStepAPI.EngineStepAPIClient(channel);
-            _cache = new Cache(client);
-            return _cache;
+            _engine = new Engine(client);
+            return _engine;
         }
 
         public Dictionary<string, object> GetOutputs() {

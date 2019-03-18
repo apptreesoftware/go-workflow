@@ -41,12 +41,6 @@ message LoadPackageResponse {
     string message = 2;
 }
 
-message RunStepRequest {
-    Environment environment = 1;
-    bytes input = 2;
-    bytes stepConfig = 3;
-    string stepInstanceId = 4;
-}
 
 message RunStepResponse {
     bool accepted = 1;
