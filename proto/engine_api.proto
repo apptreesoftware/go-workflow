@@ -53,6 +53,8 @@ message LogRequest {
     string jobId = 1;
     string message = 2;
     string logLevel = 3;
+    string project = 4;
+    string workflow = 5;
 }
 
 message LogResponse {
