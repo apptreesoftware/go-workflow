@@ -108,6 +108,7 @@ message BasicResponse {
 message RunWorkflowRequest {
     string projectId = 1;
     string workflowId = 2;
+    bytes triggerBody = 3;
 }
 
 message PublishWorkflowRequest {
