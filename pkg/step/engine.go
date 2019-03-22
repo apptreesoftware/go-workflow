@@ -6,16 +6,15 @@ import (
 	"github.com/json-iterator/go"
 	"github.com/mongodb/mongo-go-driver/bson"
 	"google.golang.org/grpc"
-	"os"
 )
 
 type Engine struct {
 	client EngineStepAPIClient
+	environment *Environment
 }
 
-
-func GetEngine() Engine {
-	connectionString := os.Getenv("WORKFLOW_CACHE_CONNECTION")
+func GetEngine(environment *Environment) Engine {
+	connectionString := environment.GetCacheHost()
 	println(connectionString)
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
@@ -27,7 +26,7 @@ func GetEngine() Engine {
 		panic("Could not connect to engine")
 	}
 	client := NewEngineStepAPIClient(conn)
-	return Engine{client: client}
+	return Engine{client: client, environment: environment}
 }
 
 func (c *Engine) PutRecord(id string, record interface{}, metadata map[string]interface{}, cacheName string) error {
@@ -45,28 +44,34 @@ func (c *Engine) PutRecord(id string, record interface{}, metadata map[string]in
 			Metadata:    metaBytes,
 			Record:      recordBytes,
 			CacheName:   cacheName,
-			Environment: GetEnvironment(),
+			Environment: c.environment,
 		})
 	return err
 }
 
-func (c *Engine) PullRecord(id string, record interface{}, cacheName string) (metadata map[string]interface{}, err error) {
-	environment := GetEnvironment()
-	resp, err := c.client.CachePull(context.Background(), &CachePullRequest{
+func (c *Engine) PullRecord(id string, record interface{}, cacheName string) (found bool, metadata map[string]interface{}, err error) {
+	resp, pullErr := c.client.CachePull(context.Background(), &CachePullRequest{
 		Id:          id,
 		CacheName:   cacheName,
-		Environment: environment,
+		Environment: c.environment,
 	})
+	if pullErr != nil {
+		err = pullErr
+		return
+	}
+	if resp.NotFound {
+		return
+	}
+	found = true
 	err = bson.Unmarshal(resp.Metadata, &metadata)
 	if err != nil {
 		return
 	}
-	err = bson.Unmarshal(resp.Record, &record)
+	err = bson.Unmarshal(resp.Record, record)
 	return
 }
 
 func (c *Engine) AddToQueue(workflow string, record interface{}) (err error) {
-	environment := GetEnvironment()
 	var recordBytes []byte
 	if record != nil {
 		recordBytes, err = jsoniter.Marshal(record)
@@ -76,9 +81,9 @@ func (c *Engine) AddToQueue(workflow string, record interface{}) (err error) {
 	}
 
 	_, addErr := c.client.QueueWorkflow(context.Background(), &StepQueueWorkflowRequest{
-		Environment:          environment,
-		Workflow:             workflow,
-		Input:                recordBytes,
+		Environment: c.environment,
+		Workflow:    workflow,
+		Input:       recordBytes,
 	})
 	err = addErr
 	return

@@ -24,6 +24,7 @@ service WorkflowAPI {
     rpc GetRemoteEngine (RemoteEngineRequest) returns (RemoteEngine);
     rpc RemoteEngineHealthCheck (RemoteEngineHealthRequest) returns (RemoteEngineHealthResponse);
     rpc UpdateRemoteEngine (RemoteEngineUpdateRequest) returns (RemoteEngineUpdateResponse);
+    rpc RemoveRemoteEngine (RemoteEngineRequest) returns (BasicResponse);
 
     rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
     rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);

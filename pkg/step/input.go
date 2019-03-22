@@ -2,6 +2,7 @@ package step
 
 import (
 	"bytes"
+	"github.com/apptreesoftware/go-workflow/pkg/core"
 	jsoniter "github.com/json-iterator/go"
 	"io"
 	"os"
@@ -10,31 +11,46 @@ import (
 type Context interface {
 	BindInputs(data interface{}) error
 	InputMap() (map[string]interface{}, error)
+	Environment() *core.Environment
+	Engine() Engine
 }
 
-type StdInput struct {
-
+type ContextBase struct {
+	environment *core.Environment
 }
 
-func (StdInput) BindInputs(data interface{}) error {
+func (c ContextBase) Environment() *core.Environment {
+	return c.environment
+}
+
+func (c ContextBase) Engine() Engine {
+	return GetEngine(c.environment)
+}
+
+type IpcContext struct {
+	ContextBase
+}
+
+func (IpcContext) BindInputs(data interface{}) error {
 	return readInputs(os.Stdin, data)
 }
 
-func (StdInput) InputMap() (map[string]interface{}, error) {
+func (IpcContext) InputMap() (map[string]interface{}, error) {
 	mapData := map[string]interface{}{}
 	err := readInputs(os.Stdin, &mapData)
 	return mapData, err
 }
 
-type ByteInput struct {
+type RpcContext struct {
 	bytes []byte
+	ContextBase
 }
 
-func (b *ByteInput) BindInputs(data interface{}) error {
+func (b *RpcContext) BindInputs(data interface{}) error {
 	return readInputs(bytes.NewReader(b.bytes), data)
 }
 
-func (b *ByteInput) InputMap() (map[string]interface{}, error) {
+func (b *RpcContext) InputMap() (map[string]interface{}, error) {
 	reader := bytes.NewReader(b.bytes)
 	mapData := map[string]interface{}{}
 	err := readInputs(reader, &mapData)
