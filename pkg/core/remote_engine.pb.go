@@ -35,7 +35,7 @@ func (m *StepAvailableRequest) Reset()         { *m = StepAvailableRequest{} }
 func (m *StepAvailableRequest) String() string { return proto.CompactTextString(m) }
 func (*StepAvailableRequest) ProtoMessage()    {}
 func (*StepAvailableRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{0}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{0}
 }
 func (m *StepAvailableRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepAvailableRequest.Unmarshal(m, b)
@@ -80,7 +80,7 @@ func (m *StepAvailableResponse) Reset()         { *m = StepAvailableResponse{} }
 func (m *StepAvailableResponse) String() string { return proto.CompactTextString(m) }
 func (*StepAvailableResponse) ProtoMessage()    {}
 func (*StepAvailableResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{1}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{1}
 }
 func (m *StepAvailableResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepAvailableResponse.Unmarshal(m, b)
@@ -117,7 +117,7 @@ func (m *PingRequest) Reset()         { *m = PingRequest{} }
 func (m *PingRequest) String() string { return proto.CompactTextString(m) }
 func (*PingRequest) ProtoMessage()    {}
 func (*PingRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{2}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{2}
 }
 func (m *PingRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PingRequest.Unmarshal(m, b)
@@ -151,7 +151,7 @@ func (m *PingResponse) Reset()         { *m = PingResponse{} }
 func (m *PingResponse) String() string { return proto.CompactTextString(m) }
 func (*PingResponse) ProtoMessage()    {}
 func (*PingResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{3}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{3}
 }
 func (m *PingResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_PingResponse.Unmarshal(m, b)
@@ -211,7 +211,7 @@ func (m *LoadPackageRequest) Reset()         { *m = LoadPackageRequest{} }
 func (m *LoadPackageRequest) String() string { return proto.CompactTextString(m) }
 func (*LoadPackageRequest) ProtoMessage()    {}
 func (*LoadPackageRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{4}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{4}
 }
 func (m *LoadPackageRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LoadPackageRequest.Unmarshal(m, b)
@@ -257,7 +257,7 @@ func (m *LoadPackageResponse) Reset()         { *m = LoadPackageResponse{} }
 func (m *LoadPackageResponse) String() string { return proto.CompactTextString(m) }
 func (*LoadPackageResponse) ProtoMessage()    {}
 func (*LoadPackageResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{5}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{5}
 }
 func (m *LoadPackageResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_LoadPackageResponse.Unmarshal(m, b)
@@ -303,7 +303,7 @@ func (m *RunStepResponse) Reset()         { *m = RunStepResponse{} }
 func (m *RunStepResponse) String() string { return proto.CompactTextString(m) }
 func (*RunStepResponse) ProtoMessage()    {}
 func (*RunStepResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{6}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{6}
 }
 func (m *RunStepResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RunStepResponse.Unmarshal(m, b)
@@ -349,7 +349,7 @@ func (m *AuthorizationRequest) Reset()         { *m = AuthorizationRequest{} }
 func (m *AuthorizationRequest) String() string { return proto.CompactTextString(m) }
 func (*AuthorizationRequest) ProtoMessage()    {}
 func (*AuthorizationRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{7}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{7}
 }
 func (m *AuthorizationRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthorizationRequest.Unmarshal(m, b)
@@ -395,7 +395,7 @@ func (m *AuthorizationResponse) Reset()         { *m = AuthorizationResponse{} }
 func (m *AuthorizationResponse) String() string { return proto.CompactTextString(m) }
 func (*AuthorizationResponse) ProtoMessage()    {}
 func (*AuthorizationResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{8}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{8}
 }
 func (m *AuthorizationResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_AuthorizationResponse.Unmarshal(m, b)
@@ -441,7 +441,7 @@ func (m *CertificateUpdateRequest) Reset()         { *m = CertificateUpdateReque
 func (m *CertificateUpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*CertificateUpdateRequest) ProtoMessage()    {}
 func (*CertificateUpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{9}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{9}
 }
 func (m *CertificateUpdateRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CertificateUpdateRequest.Unmarshal(m, b)
@@ -485,7 +485,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{10}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{10}
 }
 func (m *Empty) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Empty.Unmarshal(m, b)
@@ -516,7 +516,7 @@ func (m *UpdateRequest) Reset()         { *m = UpdateRequest{} }
 func (m *UpdateRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateRequest) ProtoMessage()    {}
 func (*UpdateRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{11}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{11}
 }
 func (m *UpdateRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateRequest.Unmarshal(m, b)
@@ -554,7 +554,7 @@ func (m *UpdateResponse) Reset()         { *m = UpdateResponse{} }
 func (m *UpdateResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateResponse) ProtoMessage()    {}
 func (*UpdateResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_remote_engine_ccded68b5f042557, []int{12}
+	return fileDescriptor_remote_engine_9c57fab27bec5c95, []int{12}
 }
 func (m *UpdateResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateResponse.Unmarshal(m, b)
@@ -867,9 +867,9 @@ var _RemoteEngineService_serviceDesc = grpc.ServiceDesc{
 	Metadata: "remote_engine.proto",
 }
 
-func init() { proto.RegisterFile("remote_engine.proto", fileDescriptor_remote_engine_ccded68b5f042557) }
+func init() { proto.RegisterFile("remote_engine.proto", fileDescriptor_remote_engine_9c57fab27bec5c95) }
 
-var fileDescriptor_remote_engine_ccded68b5f042557 = []byte{
+var fileDescriptor_remote_engine_9c57fab27bec5c95 = []byte{
 	// 589 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x84, 0x54, 0x5f, 0x6f, 0xd3, 0x3e,
 	0x14, 0xd5, 0xba, 0xee, 0xdf, 0x6d, 0xb7, 0xfd, 0xe6, 0x76, 0x52, 0x7e, 0x01, 0x4d, 0xc3, 0x4f,

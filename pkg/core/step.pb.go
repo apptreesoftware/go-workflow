@@ -36,7 +36,7 @@ func (m *StepQueueWorkflowRequest) Reset()         { *m = StepQueueWorkflowReque
 func (m *StepQueueWorkflowRequest) String() string { return proto.CompactTextString(m) }
 func (*StepQueueWorkflowRequest) ProtoMessage()    {}
 func (*StepQueueWorkflowRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_step_ef5e695a711e76e3, []int{0}
+	return fileDescriptor_step_03160713dc0ea1dd, []int{0}
 }
 func (m *StepQueueWorkflowRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepQueueWorkflowRequest.Unmarshal(m, b)
@@ -87,7 +87,7 @@ func (m *StepQueueWorkflowResponse) Reset()         { *m = StepQueueWorkflowResp
 func (m *StepQueueWorkflowResponse) String() string { return proto.CompactTextString(m) }
 func (*StepQueueWorkflowResponse) ProtoMessage()    {}
 func (*StepQueueWorkflowResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_step_ef5e695a711e76e3, []int{1}
+	return fileDescriptor_step_03160713dc0ea1dd, []int{1}
 }
 func (m *StepQueueWorkflowResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepQueueWorkflowResponse.Unmarshal(m, b)
@@ -119,7 +119,7 @@ func (m *StepLogRequest) Reset()         { *m = StepLogRequest{} }
 func (m *StepLogRequest) String() string { return proto.CompactTextString(m) }
 func (*StepLogRequest) ProtoMessage()    {}
 func (*StepLogRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_step_ef5e695a711e76e3, []int{2}
+	return fileDescriptor_step_03160713dc0ea1dd, []int{2}
 }
 func (m *StepLogRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepLogRequest.Unmarshal(m, b)
@@ -164,7 +164,7 @@ func (m *StepOutput) Reset()         { *m = StepOutput{} }
 func (m *StepOutput) String() string { return proto.CompactTextString(m) }
 func (*StepOutput) ProtoMessage()    {}
 func (*StepOutput) Descriptor() ([]byte, []int) {
-	return fileDescriptor_step_ef5e695a711e76e3, []int{3}
+	return fileDescriptor_step_03160713dc0ea1dd, []int{3}
 }
 func (m *StepOutput) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_StepOutput.Unmarshal(m, b)
@@ -466,9 +466,9 @@ var _StepHost_serviceDesc = grpc.ServiceDesc{
 	Metadata: "step.proto",
 }
 
-func init() { proto.RegisterFile("step.proto", fileDescriptor_step_ef5e695a711e76e3) }
+func init() { proto.RegisterFile("step.proto", fileDescriptor_step_03160713dc0ea1dd) }
 
-var fileDescriptor_step_ef5e695a711e76e3 = []byte{
+var fileDescriptor_step_03160713dc0ea1dd = []byte{
 	// 397 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xc1, 0x6e, 0xd3, 0x40,
 	0x10, 0x95, 0x43, 0x69, 0x9b, 0x69, 0x52, 0xc1, 0xaa, 0x2a, 0xc6, 0x48, 0x10, 0x59, 0x1c, 0x72,
