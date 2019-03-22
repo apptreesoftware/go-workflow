@@ -33,8 +33,20 @@ service WorkflowAPI {
     rpc GetSingleStep (SingleStepRequest) returns (SingleStepResponse);
 
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
+
+    rpc GetWorkflowHistory(WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
 }
 
+
+message WorkflowHistoryRequest {
+    string project = 1;
+    string workflow = 2;
+    int64 offset = 3;
+}
+
+message WorkflowHistoryResponse {
+    bytes jobData = 1;
+}
 
 message RemoteEngineUpdateRequest {
     string name = 1;
