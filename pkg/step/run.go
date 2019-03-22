@@ -16,7 +16,11 @@ func Run() {
 	flag.Parse()
 
 	if !srv {
-		out, err := runStep(GetEnvironment(), &StdInput{})
+		out, err := runStep(&IpcContext{
+			ContextBase: ContextBase{
+				environment: GetIPCEnvironment(),
+			},
+		})
 		if err != nil {
 			reportError(err)
 		}
@@ -40,9 +44,8 @@ func Run() {
 	}
 }
 
-func runStep(env *core.Environment, ctx Context) (interface{}, error) {
-	stepId := StepNameAndVersion(env)
-
+func runStep(ctx Context) (interface{}, error) {
+	stepId := StepNameAndVersion(ctx.Environment())
 	s := GetStep(stepId)
 	if s == nil {
 		return nil, fmt.Errorf("step not found in package: %s", stepId)
