@@ -35,8 +35,26 @@ service WorkflowAPI {
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
 
     rpc GetWorkflowHistory(WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
+
+    rpc StoreSecret(StoreSecretRequest) returns (BasicResponse);
+    rpc DeleteSecret(DeleteSecretRequest) returns (BasicResponse);
+    rpc GetSecrets(ProjectRequest) returns (SecretsResponse);
 }
 
+message StoreSecretRequest {
+    string key = 1;
+    string value = 2;
+    string project = 3;
+}
+
+message DeleteSecretRequest {
+    string key = 1;
+    string project = 2;
+}
+
+message SecretsResponse {
+    map<string,string> secrets = 1;
+}
 
 message WorkflowHistoryRequest {
     string project = 1;
