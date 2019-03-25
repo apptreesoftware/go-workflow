@@ -40,36 +40,36 @@ namespace Core {
             "A2tleRgBIAEoCRIfCgV2YWx1ZRgCIAEoCzIQLmNvcmUuT3V0cHV0SW5mbzoC",
             "OAEiQgoJSW5wdXRJbmZvEhAKCHJlcXVpcmVkGAEgASgIEhMKC2Rlc2NyaXB0",
             "aW9uGAIgASgJEg4KBnNhbXBsZRgDIAEoCSIhCgpPdXRwdXRJbmZvEhMKC2Rl",
-            "c2NyaXB0aW9uGAEgASgJIuEBCgtFbnZpcm9ubWVudBIPCgdwcm9qZWN0GAEg",
+            "c2NyaXB0aW9uGAEgASgJIvABCgtFbnZpcm9ubWVudBIPCgdwcm9qZWN0GAEg",
             "ASgJEhAKCHdvcmtmbG93GAIgASgJEg0KBXJ1bklkGAMgASgJEhAKCHN0ZXBO",
             "YW1lGAQgASgJEhMKC3N0ZXBWZXJzaW9uGAUgASgJEhEKCWlucHV0RmlsZRgG",
             "IAEoCRITCgt0cmlnZ2VyVHlwZRgHIAEoCRIWCg5zdGVwSW5zdGFuY2VJZBgI",
             "IAEoCRIPCgdwYWNrYWdlGAkgASgJEhEKCWNhY2hlSG9zdBgKIAEoCRIVCg1h",
-            "bGxvd1BhcmFsbGVsGAsgASgIIg4KDEVtcHR5TWVzc2FnZSJLChJTdGVwUGFj",
-            "a2FnZVJlcXVlc3QSCgoCaWQYASABKAkSDwoHdmVyc2lvbhgCIAEoCRIKCgJv",
-            "cxgDIAEoCRIMCgRhcmNoGAQgASgJIjwKE1N0ZXBQYWNrYWdlUmVzcG9uc2US",
-            "EgoKcGFja2FnZVVybBgBIAEoCRIRCglwdWJsaXNoSWQYAiABKAkiewoQQ2Fj",
-            "aGVQdXNoUmVxdWVzdBIKCgJpZBgBIAEoCRIQCghtZXRhZGF0YRgCIAEoDBIO",
-            "CgZyZWNvcmQYAyABKAwSEQoJY2FjaGVOYW1lGAQgASgJEiYKC2Vudmlyb25t",
-            "ZW50GAUgASgLMhEuY29yZS5FbnZpcm9ubWVudCITChFDYWNoZVB1c2hSZXNw",
-            "b25zZSJZChBDYWNoZVB1bGxSZXF1ZXN0EgoKAmlkGAEgASgJEhEKCWNhY2hl",
-            "TmFtZRgCIAEoCRImCgtlbnZpcm9ubWVudBgDIAEoCzIRLmNvcmUuRW52aXJv",
-            "bm1lbnQiRwoRQ2FjaGVQdWxsUmVzcG9uc2USDgoGcmVjb3JkGAEgASgMEhAK",
-            "CG1ldGFkYXRhGAIgASgMEhAKCG5vdEZvdW5kGAMgASgIIiUKD0FsbFN0ZXBz",
-            "UmVxdWVzdBISCgpzZWFyY2hUZXJtGAEgASgJIm4KEEFsbFN0ZXBzUmVzcG9u",
-            "c2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIgASgJEhMKC3JlY29y",
-            "ZENvdW50GAMgASgDEiMKBWl0ZW1zGAQgAygLMhQuY29yZS5SZWdpc3RlcmVk",
-            "U3RlcCKjAQoOUmVnaXN0ZXJlZFN0ZXASHwoEc3RlcBgBIAEoCzIRLmNvcmUu",
-            "UGFja2FnZVN0ZXASEAoIbG9jYXRpb24YAiABKAkSFAoMbG9jYXRpb25UeXBl",
-            "GAMgASgJEhEKCXB1Ymxpc2hJZBgEIAEoCRIOCgZhdXRob3IYBSABKAkSEwoL",
-            "cGFja2FnZU5hbWUYBiABKAkSEAoIU3RlcE5hbWUYByABKAkiSwoRU2luZ2xl",
-            "U3RlcFJlcXVlc3QSEwoLcGFja2FnZU5hbWUYASABKAkSEAoIc3RlcE5hbWUY",
-            "AiABKAkSDwoHdmVyc2lvbhgDIAEoCSI4ChJTaW5nbGVTdGVwUmVzcG9uc2US",
-            "IgoEc3RlcBgBIAEoCzIULmNvcmUuUmVnaXN0ZXJlZFN0ZXAiWwoOUnVuU3Rl",
-            "cFJlcXVlc3QSJgoLZW52aXJvbm1lbnQYASABKAsyES5jb3JlLkVudmlyb25t",
-            "ZW50Eg0KBWlucHV0GAIgASgMEhIKCnN0ZXBDb25maWcYAyABKAxCMVovZ2l0",
-            "aHViLmNvbS9hcHB0cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtnL2NvcmVi",
-            "BnByb3RvMw=="));
+            "bGxvd1BhcmFsbGVsGAsgASgIEg0KBWRlYnVnGAwgASgIIg4KDEVtcHR5TWVz",
+            "c2FnZSJLChJTdGVwUGFja2FnZVJlcXVlc3QSCgoCaWQYASABKAkSDwoHdmVy",
+            "c2lvbhgCIAEoCRIKCgJvcxgDIAEoCRIMCgRhcmNoGAQgASgJIjwKE1N0ZXBQ",
+            "YWNrYWdlUmVzcG9uc2USEgoKcGFja2FnZVVybBgBIAEoCRIRCglwdWJsaXNo",
+            "SWQYAiABKAkiewoQQ2FjaGVQdXNoUmVxdWVzdBIKCgJpZBgBIAEoCRIQCght",
+            "ZXRhZGF0YRgCIAEoDBIOCgZyZWNvcmQYAyABKAwSEQoJY2FjaGVOYW1lGAQg",
+            "ASgJEiYKC2Vudmlyb25tZW50GAUgASgLMhEuY29yZS5FbnZpcm9ubWVudCIT",
+            "ChFDYWNoZVB1c2hSZXNwb25zZSJZChBDYWNoZVB1bGxSZXF1ZXN0EgoKAmlk",
+            "GAEgASgJEhEKCWNhY2hlTmFtZRgCIAEoCRImCgtlbnZpcm9ubWVudBgDIAEo",
+            "CzIRLmNvcmUuRW52aXJvbm1lbnQiRwoRQ2FjaGVQdWxsUmVzcG9uc2USDgoG",
+            "cmVjb3JkGAEgASgMEhAKCG1ldGFkYXRhGAIgASgMEhAKCG5vdEZvdW5kGAMg",
+            "ASgIIiUKD0FsbFN0ZXBzUmVxdWVzdBISCgpzZWFyY2hUZXJtGAEgASgJIm4K",
+            "EEFsbFN0ZXBzUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdl",
+            "GAIgASgJEhMKC3JlY29yZENvdW50GAMgASgDEiMKBWl0ZW1zGAQgAygLMhQu",
+            "Y29yZS5SZWdpc3RlcmVkU3RlcCKjAQoOUmVnaXN0ZXJlZFN0ZXASHwoEc3Rl",
+            "cBgBIAEoCzIRLmNvcmUuUGFja2FnZVN0ZXASEAoIbG9jYXRpb24YAiABKAkS",
+            "FAoMbG9jYXRpb25UeXBlGAMgASgJEhEKCXB1Ymxpc2hJZBgEIAEoCRIOCgZh",
+            "dXRob3IYBSABKAkSEwoLcGFja2FnZU5hbWUYBiABKAkSEAoIU3RlcE5hbWUY",
+            "ByABKAkiSwoRU2luZ2xlU3RlcFJlcXVlc3QSEwoLcGFja2FnZU5hbWUYASAB",
+            "KAkSEAoIc3RlcE5hbWUYAiABKAkSDwoHdmVyc2lvbhgDIAEoCSI4ChJTaW5n",
+            "bGVTdGVwUmVzcG9uc2USIgoEc3RlcBgBIAEoCzIULmNvcmUuUmVnaXN0ZXJl",
+            "ZFN0ZXAiWwoOUnVuU3RlcFJlcXVlc3QSJgoLZW52aXJvbm1lbnQYASABKAsy",
+            "ES5jb3JlLkVudmlyb25tZW50Eg0KBWlucHV0GAIgASgMEhIKCnN0ZXBDb25m",
+            "aWcYAyABKAxCMVovZ2l0aHViLmNvbS9hcHB0cmVlc29mdHdhcmUvZ28td29y",
+            "a2Zsb3cvcGtnL2NvcmViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -79,7 +79,7 @@ namespace Core {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.PackageStep), global::Core.PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs", "Sample" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.InputInfo), global::Core.InputInfo.Parser, new[]{ "Required", "Description", "Sample" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.OutputInfo), global::Core.OutputInfo.Parser, new[]{ "Description" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.Environment), global::Core.Environment.Parser, new[]{ "Project", "Workflow", "RunId", "StepName", "StepVersion", "InputFile", "TriggerType", "StepInstanceId", "Package", "CacheHost", "AllowParallel" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.Environment), global::Core.Environment.Parser, new[]{ "Project", "Workflow", "RunId", "StepName", "StepVersion", "InputFile", "TriggerType", "StepInstanceId", "Package", "CacheHost", "AllowParallel", "Debug" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.EmptyMessage), global::Core.EmptyMessage.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageRequest), global::Core.StepPackageRequest.Parser, new[]{ "Id", "Version", "Os", "Arch" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageResponse), global::Core.StepPackageResponse.Parser, new[]{ "PackageUrl", "PublishId" }, null, null, null),
@@ -1245,6 +1245,7 @@ namespace Core {
       package_ = other.package_;
       cacheHost_ = other.cacheHost_;
       allowParallel_ = other.allowParallel_;
+      debug_ = other.debug_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1374,6 +1375,17 @@ namespace Core {
       }
     }
 
+    /// <summary>Field number for the "debug" field.</summary>
+    public const int DebugFieldNumber = 12;
+    private bool debug_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Debug {
+      get { return debug_; }
+      set {
+        debug_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Environment);
@@ -1398,6 +1410,7 @@ namespace Core {
       if (Package != other.Package) return false;
       if (CacheHost != other.CacheHost) return false;
       if (AllowParallel != other.AllowParallel) return false;
+      if (Debug != other.Debug) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1415,6 +1428,7 @@ namespace Core {
       if (Package.Length != 0) hash ^= Package.GetHashCode();
       if (CacheHost.Length != 0) hash ^= CacheHost.GetHashCode();
       if (AllowParallel != false) hash ^= AllowParallel.GetHashCode();
+      if (Debug != false) hash ^= Debug.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1472,6 +1486,10 @@ namespace Core {
         output.WriteRawTag(88);
         output.WriteBool(AllowParallel);
       }
+      if (Debug != false) {
+        output.WriteRawTag(96);
+        output.WriteBool(Debug);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1511,6 +1529,9 @@ namespace Core {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(CacheHost);
       }
       if (AllowParallel != false) {
+        size += 1 + 1;
+      }
+      if (Debug != false) {
         size += 1 + 1;
       }
       if (_unknownFields != null) {
@@ -1556,6 +1577,9 @@ namespace Core {
       }
       if (other.AllowParallel != false) {
         AllowParallel = other.AllowParallel;
+      }
+      if (other.Debug != false) {
+        Debug = other.Debug;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1610,6 +1634,10 @@ namespace Core {
           }
           case 88: {
             AllowParallel = input.ReadBool();
+            break;
+          }
+          case 96: {
+            Debug = input.ReadBool();
             break;
           }
         }

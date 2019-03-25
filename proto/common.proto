@@ -52,6 +52,7 @@ message Environment {
     string package = 9;
     string cacheHost = 10;
     bool allowParallel = 11;
+    bool debug = 12;
 }
 
 message EmptyMessage {
