@@ -74,6 +74,10 @@ message UpdateResponse {
     bool success = 1;
 }
 
+message RequiredInputResponse {
+    repeated string requiredInputs = 1;
+}
+
 service RemoteEngineService {
     rpc Ping (PingRequest) returns (PingResponse);
     rpc Update (UpdateRequest) returns (UpdateResponse);
@@ -82,4 +86,5 @@ service RemoteEngineService {
     rpc IsStepAvailable (StepAvailableRequest) returns (StepAvailableResponse);
     rpc RunStep (RunStepRequest) returns (RunStepResponse);
     rpc UpdateCertificate (CertificateUpdateRequest) returns (Empty);
+    rpc StepRequiredInputs (StepAvailableRequest) returns (RequiredInputResponse);
 }
