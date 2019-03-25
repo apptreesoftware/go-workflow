@@ -23,7 +23,12 @@ func (Host) GetPackageInfo(context.Context, *core.EmptyMessage) (*core.Package, 
 }
 
 func (Host) RunStep(ctx context.Context, req *core.RunStepRequest) (*core.StepOutput, error) {
-	out, err := runStep(req.Environment, &ByteInput{bytes: req.Input})
+	out, err := runStep(&RpcContext{
+		bytes:       req.Input,
+		ContextBase: ContextBase{
+			environment: req.Environment,
+		},
+	})
 	if err != nil {
 		return nil, err
 	}

@@ -23,7 +23,8 @@ service WorkflowAPI {
     rpc RegisterRemoteEngine (RegisterRemoteEngineRequest) returns (BasicResponse);
     rpc GetRemoteEngine (RemoteEngineRequest) returns (RemoteEngine);
     rpc RemoteEngineHealthCheck (RemoteEngineHealthRequest) returns (RemoteEngineHealthResponse);
-    rpc UpdateRemoteEngine (RemoteEngineHealthRequest) returns (RemoteEngineHealthResponse);
+    rpc UpdateRemoteEngine (RemoteEngineUpdateRequest) returns (RemoteEngineUpdateResponse);
+    rpc RemoveRemoteEngine (RemoteEngineRequest) returns (BasicResponse);
 
     rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
     rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
@@ -31,8 +32,55 @@ service WorkflowAPI {
     rpc SearchSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc GetSingleStep (SingleStepRequest) returns (SingleStepResponse);
 
-    rpc ViewJobLog(ViewLogRequest) returns (ViewLogResponse);
+    rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
+
+    rpc GetWorkflowHistory(WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
+
+    rpc StoreSecret(StoreSecretRequest) returns (BasicResponse);
+    rpc DeleteSecret(DeleteSecretRequest) returns (BasicResponse);
+    rpc GetSecrets(ProjectRequest) returns (SecretsResponse);
 }
+
+message StoreSecretRequest {
+    string key = 1;
+    string value = 2;
+    string project = 3;
+}
+
+message DeleteSecretRequest {
+    string key = 1;
+    string project = 2;
+}
+
+message SecretsResponse {
+    map<string,string> secrets = 1;
+}
+
+message WorkflowHistoryRequest {
+    string project = 1;
+    string workflow = 2;
+    int64 offset = 3;
+}
+
+message WorkflowHistoryResponse {
+    bytes jobData = 1;
+}
+
+message RemoteEngineUpdateRequest {
+    string name = 1;
+    string project = 2;
+    bool forceUpdate = 3;
+    bool waitForVersion = 4;
+}
+
+
+message RemoteEngineUpdateResponse {
+    string status = 1;
+    string version = 2;
+    string os = 3;
+    string arch = 4;
+}
+
 
 message RemoteEngineHealthRequest {
     string name = 1;
@@ -90,6 +138,7 @@ message BasicResponse {
 message RunWorkflowRequest {
     string projectId = 1;
     string workflowId = 2;
+    bytes triggerBody = 3;
 }
 
 message PublishWorkflowRequest {
