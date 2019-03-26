@@ -1,10 +1,12 @@
-  unset INSTALL_TYPE
-  unset INSTALL_DIR
-  unset ENGINE_PORT
-  unset STEP_PORT
-  unset CURRENT_DIR
-  unset CERTURL
-  unset KEYURL
+#!/bin/bash
+
+  #unset INSTALL_TYPE
+  #unset INSTALL_DIR
+  #unset ENGINE_PORT
+  #unset STEP_PORT
+  #unset CURRENT_DIR
+  #unset CERTURL
+  #unset KEYURL
     
   # Set Installation Variables
   CURRENT_DIR=$(pwd)
