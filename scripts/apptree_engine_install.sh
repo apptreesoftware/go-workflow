@@ -55,8 +55,9 @@
   echo Step Port: $STEP_PORT >> $LOGFILE
   echo Working Directory: $CURRENT_DIR >> $LOGFILE
   
-  if [ -z "$INSTALL_DIR" ]; then
-    echo "You did not specify a INSTALL_DIR, please restart the installation and enter a valid directory for installation."
+  if [ -z "$INSTALL_DIR/.apptree" ]; then
+    # echo "You did not specify a INSTALL_DIR, please restart the installation and enter a valid directory for installation."
+	mkdir $INSTALL_DIR
     exit 1
   fi
 
