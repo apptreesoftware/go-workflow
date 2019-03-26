@@ -62,11 +62,9 @@
 	#mkdir $INSTALL_DIR
     exit 1
   fi
-  
-  if [ -z "$APPTREE_DIR" ]; then
-    # echo "You did not specify a APPTREE_DIR, please restart the installation and enter a valid directory for installation."
-	mkdir $APPTREE_DIR
-    exit 1
+
+  if [ ! -d $APPTREE_DIR ]; then
+    mkdir $APPTREE_DIR
   fi
 
 {
