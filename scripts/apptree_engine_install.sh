@@ -10,8 +10,10 @@
     
   # Set Installation Variables
   CURRENT_DIR=$(pwd)
-  CERTURL=https://s3.amazonaws.com/apptree-binaries/server.crt
-  KEYURL=https://s3.amazonaws.com/apptree-binaries/server.key
+  DARWINURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+  LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+  CERTURL="https://s3.amazonaws.com/apptree-binaries/server.crt"
+  KEYURL="https://s3.amazonaws.com/apptree-binaries/server.key"
 
   echo '1) Enter the location for the .apptree folder: '
   read INSTALL_DIR
@@ -30,12 +32,15 @@
   echo "APPTREE_PARAM_FILE: $APPTREE_PARAM_FILE"
   echo "......"
   echo "Generating Installation parameter file $APPTREE_PARAM_FILE."
-  echo "export INSTALL_TYPE=$INSTALL_TYPE" > $APPTREE_PARAM_FILE
+  echo "#!/bin/bash" > $APPTREE_PARAM_FILE
+  echo "export INSTALL_TYPE=$INSTALL_TYPE" >> $APPTREE_PARAM_FILE
   echo "export CURRENT_DIR=$CURRENT_DIR" > $APPTREE_PARAM_FILE
   echo "export INSTALL_DIR=$INSTALL_DIR" >> $APPTREE_PARAM_FILE
   echo "export ENGINE_PORT=$ENGINE_PORT" >> $APPTREE_PARAM_FILE
   echo "export STEP_PORT=$STEP_PORT" >> $APPTREE_PARAM_FILE
   echo "export LOGFILE=$LOGFILE" >> $APPTREE_PARAM_FILE
+  echo "export LINUXURL=$LINUXURL" >> $APPTREE_PARAM_FILE
+  echo "export DARWINURL=$DARWINURL" >> $APPTREE_PARAM_FILE
   echo "export CERTURL=$CERTURL" >> $APPTREE_PARAM_FILE
   echo "export KEYURL=$KEYURL" >> $APPTREE_PARAM_FILE
   chmod 755 $APPTREE_PARAM_FILE
@@ -91,12 +96,14 @@
 
   if [ "\$(uname)" == "Darwin" ]; then
     OS=darwin
-    URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+	URL=$DARWINURL
     echo "OS is darwin. Download URL is \$URL" >> $LOGFILE
 	echo "......"
   elif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
     OS=linux
-    URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
+	URL=$LINUXURL
     echo "OS is linux. Download URL is \$URL" >> $LOGFILE
 	echo "......"
   else
