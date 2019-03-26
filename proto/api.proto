@@ -34,11 +34,11 @@ service WorkflowAPI {
 
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
 
-    rpc GetWorkflowHistory(WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
+    rpc GetWorkflowHistory (WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
 
-    rpc StoreSecret(StoreSecretRequest) returns (BasicResponse);
-    rpc DeleteSecret(DeleteSecretRequest) returns (BasicResponse);
-    rpc GetSecrets(ProjectRequest) returns (SecretsResponse);
+    rpc StoreSecret (StoreSecretRequest) returns (BasicResponse);
+    rpc DeleteSecret (DeleteSecretRequest) returns (BasicResponse);
+    rpc GetSecrets (ProjectRequest) returns (SecretsResponse);
 }
 
 message StoreSecretRequest {
@@ -53,7 +53,7 @@ message DeleteSecretRequest {
 }
 
 message SecretsResponse {
-    map<string,string> secrets = 1;
+    map<string, string> secrets = 1;
 }
 
 message WorkflowHistoryRequest {
@@ -89,6 +89,9 @@ message RemoteEngineHealthRequest {
 
 message RemoteEngineHealthResponse {
     string status = 1;
+    string version = 2;
+    string os = 3;
+    string arch = 4;
 }
 
 message ListRemoteEnginesResponse {
