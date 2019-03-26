@@ -29,8 +29,8 @@
   read STEP_PORT
   echo "You entered $STEP_PORT for the Step Internal Port."
   echo "......"
-  APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_$ENGINE_PORT-$STEP_PORT.sh
-  LOGFILE=$CURRENT_DIR/apptree_$ENGINE_PORT-$STEP_PORT-install.log
+  APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_install_env_$ENGINE_PORT-$STEP_PORT.sh
+  LOGFILE=$CURRENT_DIR/apptree_engine_$ENGINE_PORT-$STEP_PORT-install.log
   APPTREE_DIR=$INSTALL_DIR/.apptree
   INSTALL_USER=`id -un`
   INSTALL_USER_GROUP=`id -gn`
@@ -94,10 +94,9 @@
   #echo PATH=$PATH >> $LOGFILE
   
   if [ ! -d $APPTREE_DIR ]; then
-    mkdir $APPTREE_DIR
+    mkdir -p $APPTREE_DIR
+    chmod -R 777 $APPTREE_DIR
   fi
-  
-  chmod -R 777 $INSTALL_DIR/.apptree
 
   if [[ ! ":\$PATH:" == *":/usr/local/bin:"* ]]; then
     echoerr "Your path is missing /usr/local/bin, you need to add this to use this installer."
@@ -164,9 +163,9 @@
   echo "......"
   echo AppTree cache, cert, key files will be installed under $INSTALL_DIR/.apptree
   echo "......"
-  echo Creating "$INSTALL_DIR/.apptree" directory
-  mkdir -p $INSTALL_DIR/.apptree
-  chmod 777 $INSTALL_DIR/.apptree
+  #echo Creating "$INSTALL_DIR/.apptree" directory
+  #mkdir -p $INSTALL_DIR/.apptree
+  #chmod 777 $INSTALL_DIR/.apptree
   
   echo "Installing cert from \$CERTURL"
   cd $INSTALL_DIR/.apptree

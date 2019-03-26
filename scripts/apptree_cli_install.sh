@@ -1,5 +1,3 @@
-#!/bin/bash
-
   unset INSTALL_TYPE
   unset INSTALL_DIR
   unset ENGINE_PORT
@@ -10,24 +8,37 @@
     
   # Set Installation Variables
   CURRENT_DIR=$(pwd)
-  CERTURL=https://s3.amazonaws.com/apptree-binaries/server.crt
-  KEYURL=https://s3.amazonaws.com/apptree-binaries/server.key
+  DARWINURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+  LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+  CERTURL="https://s3.amazonaws.com/apptree-binaries/server.crt"
+  KEYURL="https://s3.amazonaws.com/apptree-binaries/server.key"
 
   echo '1) Enter the location for the .apptree folder: '
   read INSTALL_DIR
   echo "You entered $INSTALL_DIR for the .apptree folder."
   echo "......"
-  APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_cli.sh
-  LOGFILE=$CURRENT_DIR/apptree_cli-install.log
+  APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_install_env.sh
+  LOGFILE=$CURRENT_DIR/apptree_cli_install.log
+  APPTREE_DIR=$INSTALL_DIR/.apptree
+  INSTALL_USER=`id -un`
+  INSTALL_USER_GROUP=`id -gn`
+  #CHOWN_CMD=`"chown -R " + $INSTALL_USER + ":" + $INSTALL_USER_GROUP $INSTALL_DIR`
   echo "APPTREE_PARAM_FILE: $APPTREE_PARAM_FILE"
   echo "......"
   echo "Generating Installation parameter file $APPTREE_PARAM_FILE."
-  echo "export INSTALL_TYPE=$INSTALL_TYPE" > $APPTREE_PARAM_FILE
+  echo "#!/bin/bash" > $APPTREE_PARAM_FILE
+  echo "export INSTALL_TYPE=$INSTALL_TYPE" >> $APPTREE_PARAM_FILE
   echo "export CURRENT_DIR=$CURRENT_DIR" > $APPTREE_PARAM_FILE
   echo "export INSTALL_DIR=$INSTALL_DIR" >> $APPTREE_PARAM_FILE
+  echo "export APPTREE_DIR=$INSTALL_DIR/.apptree" >> $APPTREE_PARAM_FILE
   echo "export LOGFILE=$LOGFILE" >> $APPTREE_PARAM_FILE
+  echo "export LINUXURL=$LINUXURL" >> $APPTREE_PARAM_FILE
+  echo "export DARWINURL=$DARWINURL" >> $APPTREE_PARAM_FILE
   echo "export CERTURL=$CERTURL" >> $APPTREE_PARAM_FILE
   echo "export KEYURL=$KEYURL" >> $APPTREE_PARAM_FILE
+  echo "export INSTALL_USER=$INSTALL_USER" >> $APPTREE_PARAM_FILE
+  echo "export INSTALL_USER_GROUP=$INSTALL_USER_GROUP" >> $APPTREE_PARAM_FILE
+  #echo "export CHOWN_CMD=$CHOWN_CMD" >> $APPTREE_PARAM_FILE
   chmod 755 $APPTREE_PARAM_FILE
   
   date > $LOGFILE
@@ -36,12 +47,13 @@
   source $APPTREE_PARAM_FILE
   
   echo Installation Directory: $INSTALL_DIR >> $LOGFILE
-  echo Engine Port: $ENGINE_PORT >> $LOGFILE
-  echo Step Port: $STEP_PORT >> $LOGFILE
+  #echo Engine Port: $ENGINE_PORT >> $LOGFILE
+  #echo Step Port: $STEP_PORT >> $LOGFILE
   echo Working Directory: $CURRENT_DIR >> $LOGFILE
   
   if [ -z "$INSTALL_DIR" ]; then
     echo "You did not specify a INSTALL_DIR, please restart the installation and enter a valid directory for installation."
+	#mkdir $INSTALL_DIR
     exit 1
   fi
 
@@ -61,14 +73,16 @@
   set -e
 
   echoerr() { echo "\$@" 1>&2; }
-  
-  # 03/25/2019
+
   echo Sourcing $APPTREE_PARAM_FILE
   source $APPTREE_PARAM_FILE
   
-  # echo PATH=$PATH >> $LOGFILE
+  #echo PATH=$PATH >> $LOGFILE
   
-  chmod -R 777 $INSTALL_DIR/.apptree
+  if [ ! -d $APPTREE_DIR ]; then
+    mkdir -p $APPTREE_DIR
+    chmod -R 777 $APPTREE_DIR
+  fi
 
   if [[ ! ":\$PATH:" == *":/usr/local/bin:"* ]]; then
     echoerr "Your path is missing /usr/local/bin, you need to add this to use this installer."
@@ -82,12 +96,14 @@
 
   if [ "\$(uname)" == "Darwin" ]; then
     OS=darwin
-    URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+	URL=$DARWINURL
     echo "OS is darwin. Download URL is \$URL" >> $LOGFILE
 	echo "......"
   elif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
     OS=linux
-    URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
+	URL=$LINUXURL
     echo "OS is linux. Download URL is \$URL" >> $LOGFILE
 	echo "......"
   else
@@ -107,6 +123,7 @@
   
   cd /usr/local/bin
   rm -rf apptree
+  #rm -rf ~/.local/share/apptree/
   if [ \$(command -v xz) ]; then
     URL="\$URL"
     #TAR_ARGS="xJ"
@@ -132,9 +149,8 @@
   echo "......"
   echo AppTree cache, cert, key files will be installed under $INSTALL_DIR/.apptree
   echo "......"
-  echo Creating "$INSTALL_DIR/.apptree" directory
-  mkdir -p $INSTALL_DIR/.apptree
-  chmod 777 $INSTALL_DIR/.apptree
+  #echo Creating "$INSTALL_DIR/.apptree" directory
+  #mkdir -p $INSTALL_DIR/.apptree
   
   echo "Installing cert from \$CERTURL"
   cd $INSTALL_DIR/.apptree
@@ -166,9 +182,21 @@
   echo Key installed under $INSTALL_DIR/.apptree >> $LOGFILE
   echo "......"
 
+  echo Changing ownership on $INSTALL_DIR
+  #echo $CHOWN_CMD
+  echo chown -R $INSTALL_USER:$INSTALL_USER_GROUP $INSTALL_DIR
+  #$CHOWN_CMD >> $LOGFILE
+  chown -R $INSTALL_USER:$INSTALL_USER_GROUP $INSTALL_DIR >> $LOGFILE
+  echo "......"
+
   echo Changing permissions on $INSTALL_DIR/.apptree
   chmod -R 766 $INSTALL_DIR/.apptree/
   echo "......"
+
+  echo "Install apptree engine service"
+  ENGINE_INSTALL_CMD="apptree engine install --home $INSTALL_DIR --port $ENGINE_PORT --step_port $STEP_PORT -f $LOCATION"
+  echo $ENGINE_INSTALL_CMD >> $LOGFILE
+  $ENGINE_INSTALL_CMD
 
 SCRIPT
   # test the CLI
