@@ -50,6 +50,8 @@ message RunStepResponse {
 message AuthorizationRequest {
     bytes token = 1;
     string hostEngine = 2;
+    bytes key = 3;
+    bytes cert = 4;
 }
 
 message AuthorizationResponse {
