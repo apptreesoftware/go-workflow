@@ -9,6 +9,7 @@
   #unset KEYURL
     
   # Set Installation Variables
+  OS=`uname`
   CURRENT_DIR=$(pwd)
   DARWINURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
   LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
@@ -35,12 +36,18 @@
   APPTREE_DIR=$INSTALL_DIR/.apptree
   INSTALL_USER=`id -un`
   INSTALL_USER_GROUP=`id -gn`
+  DARWIN_PLIST="/Library/LaunchDaemons/apptree_remote_engine_service-\$ENGINE_PORT.plist"
+  DARWIN_LAUNCH_CMD="launchctl load -w \$DARWIN_PLIST"
+  DARWIN_UNLAUNCH_CMD="launchctl unload -w \$DARWIN_PLIST"
   echo INSTALL_USER $INSTALL_USER
   echo INSTALL_USER_GROUP $INSTALL_USER_GROUP
   echo INSTALL_DIR $INSTALL_DIR
   echo ENGINE_PORT $ENGINE_PORT
   echo STEP_PORT $STEP_PORT
   echo LOCATION $LOCATION
+  echo DARWIN_PLIST $DARWIN_PLIST
+  echo DARWIN_LAUNCH_CMD $DARWIN_LAUNCH_CMD
+  echo DARWIN_UNLAUNCH_CMD $DARWIN_UNLAUNCH_CMD
   ENGINE_INSTALL_CMD="apptree engine install --home \$INSTALL_DIR --port \$ENGINE_PORT --step_port \$STEP_PORT -f \$LOCATION"
   echo ENGINE_INSTALL_CMD $ENGINE_INSTALL_CMD
   CHOWN_CMD="chown -R \$INSTALL_USER:\$INSTALL_USER_GROUP \$INSTALL_DIR"
@@ -49,8 +56,9 @@
   echo "......"
   echo "Generating Installation parameter file $APPTREE_PARAM_FILE."
   #echo "#!/bin/bash" > $APPTREE_PARAM_FILE
+  echo "export OS=$OS" > $APPTREE_PARAM_FILE
   echo "export INSTALL_TYPE=$INSTALL_TYPE" >> $APPTREE_PARAM_FILE
-  echo "export CURRENT_DIR=$CURRENT_DIR" > $APPTREE_PARAM_FILE
+  echo "export CURRENT_DIR=$CURRENT_DIR" >> $APPTREE_PARAM_FILE
   echo "export LOCATION=$LOCATION" >> $APPTREE_PARAM_FILE
   echo "export INSTALL_DIR=$INSTALL_DIR" >> $APPTREE_PARAM_FILE
   echo "export APPTREE_DIR=$INSTALL_DIR/.apptree" >> $APPTREE_PARAM_FILE
@@ -65,6 +73,9 @@
   echo "export INSTALL_USER_GROUP=$INSTALL_USER_GROUP" >> $APPTREE_PARAM_FILE
   echo "export ENGINE_INSTALL_CMD=\"$ENGINE_INSTALL_CMD\"" >> $APPTREE_PARAM_FILE
   echo "export CHOWN_CMD=\"$CHOWN_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export DARWIN_PLIST=\"$DARWIN_PLIST\"" >> $APPTREE_PARAM_FILE
+  echo "export DARWIN_LAUNCH_CMD=\"$DARWIN_LAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export DARWIN_UNLAUNCH_CMD=\"$DARWIN_UNLAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
   chmod 755 $APPTREE_PARAM_FILE
   
   date > $LOGFILE
@@ -104,6 +115,11 @@
   source $APPTREE_PARAM_FILE
   
   #echo PATH=$PATH >> $LOGFILE
+  
+  if [ -f $DARWIN_PLIST ]; then
+  #echo $$DARWIN_PLIST exists
+  rm $DARWIN_PLIST
+  fi
   
   if [ ! -d $APPTREE_DIR ]; then
     mkdir -p $APPTREE_DIR
@@ -228,6 +244,23 @@
   echo ENGINE_INSTALL_CMD >> $LOGFILE
   echo $ENGINE_INSTALL_CMD
   $ENGINE_INSTALL_CMD
+  
+  echo OS: $OS
+  
+  if [ "\$(uname)" == "Darwin" ]; then
+  echo "Starting apptree engine service"
+  echo "Starting apptree engine service" >> $LOGFILE
+  # Syntax: sudo launchctl load -w /Library/LaunchDaemons/
+  # LAUNCH_CMD="launchctl load -w /Library/LaunchDaemons/apptree_remote_engine_service-9005.plist"
+  # UNLOAD_CMD="launchctl unload -w /Library/LaunchDaemons/apptree_remote_engine_service-9005.plist"
+  echo $DARWIN_LAUNCH_CMD
+  echo $DARWIN_LAUNCH_CMD >> $LOGFILE
+  $DARWIN_LAUNCH_CMD
+  ps -ef | grep apptree >> $LOGFILE
+  echo "Apptree engine has been started successfully."
+  echo "To remove the service, please run:"
+  echo sudo \$DARWIN_UNLAUNCH_CMD
+  fi
 
 SCRIPT
   # test the CLI
