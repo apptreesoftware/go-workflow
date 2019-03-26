@@ -12,17 +12,27 @@
   LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
   CERTURL="https://s3.amazonaws.com/apptree-binaries/server.crt"
   KEYURL="https://s3.amazonaws.com/apptree-binaries/server.key"
+  LOCATION="/usr/local/bin/apptree"
 
   echo '1) Enter the location for the .apptree folder: '
   read INSTALL_DIR
   echo "You entered $INSTALL_DIR for the .apptree folder."
   echo "......"
-  APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_install_env.sh
-  LOGFILE=$CURRENT_DIR/apptree_cli_install.log
+  APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_install_env_$ENGINE_PORT-$STEP_PORT.sh
+  LOGFILE=$CURRENT_DIR/apptree_engine_$ENGINE_PORT-$STEP_PORT-install.log
   APPTREE_DIR=$INSTALL_DIR/.apptree
   INSTALL_USER=`id -un`
   INSTALL_USER_GROUP=`id -gn`
-  #CHOWN_CMD=`"chown -R " + $INSTALL_USER + ":" + $INSTALL_USER_GROUP $INSTALL_DIR`
+  echo INSTALL_USER $INSTALL_USER
+  echo INSTALL_USER_GROUP $INSTALL_USER_GROUP
+  echo INSTALL_DIR $INSTALL_DIR
+  #echo ENGINE_PORT $ENGINE_PORT
+  #echo STEP_PORT $STEP_PORT
+  echo LOCATION $LOCATION
+  #ENGINE_INSTALL_CMD="apptree engine install --home \$INSTALL_DIR --port \$ENGINE_PORT --step_port \$STEP_PORT -f \$LOCATION"
+  #echo ENGINE_INSTALL_CMD $ENGINE_INSTALL_CMD
+  CHOWN_CMD="chown -R \$INSTALL_USER:\$INSTALL_USER_GROUP \$INSTALL_DIR"
+  echo CHOWN_CMD $CHOWN_CMD
   echo "APPTREE_PARAM_FILE: $APPTREE_PARAM_FILE"
   echo "......"
   echo "Generating Installation parameter file $APPTREE_PARAM_FILE."
@@ -38,7 +48,8 @@
   echo "export KEYURL=$KEYURL" >> $APPTREE_PARAM_FILE
   echo "export INSTALL_USER=$INSTALL_USER" >> $APPTREE_PARAM_FILE
   echo "export INSTALL_USER_GROUP=$INSTALL_USER_GROUP" >> $APPTREE_PARAM_FILE
-  #echo "export CHOWN_CMD=$CHOWN_CMD" >> $APPTREE_PARAM_FILE
+  #echo "export ENGINE_INSTALL_CMD=\"$ENGINE_INSTALL_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export CHOWN_CMD=\"$CHOWN_CMD\"" >> $APPTREE_PARAM_FILE
   chmod 755 $APPTREE_PARAM_FILE
   
   date > $LOGFILE
@@ -183,6 +194,7 @@
   echo "......"
 
   echo Changing ownership on $INSTALL_DIR
+  echo Changing ownership on $INSTALL_DIR >> $LOGFILE
   #echo $CHOWN_CMD
   echo chown -R $INSTALL_USER:$INSTALL_USER_GROUP $INSTALL_DIR
   #$CHOWN_CMD >> $LOGFILE
@@ -190,13 +202,9 @@
   echo "......"
 
   echo Changing permissions on $INSTALL_DIR/.apptree
+  echo Changing permissions on $INSTALL_DIR/.apptree >> $LOGFILE
   chmod -R 766 $INSTALL_DIR/.apptree/
   echo "......"
-
-  echo "Install apptree engine service"
-  ENGINE_INSTALL_CMD="apptree engine install --home $INSTALL_DIR --port $ENGINE_PORT --step_port $STEP_PORT -f $LOCATION"
-  echo $ENGINE_INSTALL_CMD >> $LOGFILE
-  $ENGINE_INSTALL_CMD
 
 SCRIPT
   # test the CLI
