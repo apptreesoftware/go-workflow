@@ -63,10 +63,6 @@
     exit 1
   fi
 
-  if [ ! -d $APPTREE_DIR ]; then
-    mkdir $APPTREE_DIR
-  fi
-
 {
     set -e
     SUDO=''
@@ -88,6 +84,10 @@
   source $APPTREE_PARAM_FILE
   
   #echo PATH=$PATH >> $LOGFILE
+  
+  if [ ! -d $APPTREE_DIR ]; then
+    mkdir $APPTREE_DIR
+  fi
   
   chmod -R 777 $INSTALL_DIR/.apptree
 
