@@ -19,13 +19,15 @@
   read INSTALL_DIR
   echo "You entered $INSTALL_DIR for the .apptree folder."
   echo "......"
-  echo '2) Enter the Port for the Engine (Optional when installing CLI only): '
+  #echo '2) Enter the Port for the Engine (Optional when installing CLI only): '
+  echo '2) Enter the Port for the Engine: '
   read ENGINE_PORT
   echo "You entered $ENGINE_PORT for the Engine."
   echo "......"
-  echo '3) Enter the Port for the Step Internal Portal (Optional when installing CLI only): '
+  #echo '3) Enter the Port for the Step Internal Port (Optional when installing CLI only): '
+  echo '3) Enter the Port for the Step Internal Port: '
   read STEP_PORT
-  echo "You entered $STEP_PORT for the Step Internal Portal."
+  echo "You entered $STEP_PORT for the Step Internal Port."
   echo "......"
   APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_$ENGINE_PORT-$STEP_PORT.sh
   LOGFILE=$CURRENT_DIR/apptree_$ENGINE_PORT-$STEP_PORT-install.log
