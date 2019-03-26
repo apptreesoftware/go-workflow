@@ -36,7 +36,7 @@
   echo "APPTREE_PARAM_FILE: $APPTREE_PARAM_FILE"
   echo "......"
   echo "Generating Installation parameter file $APPTREE_PARAM_FILE."
-  echo "#!/bin/bash" > $APPTREE_PARAM_FILE
+  #echo "#!/bin/bash" > $APPTREE_PARAM_FILE
   echo "export INSTALL_TYPE=$INSTALL_TYPE" >> $APPTREE_PARAM_FILE
   echo "export CURRENT_DIR=$CURRENT_DIR" > $APPTREE_PARAM_FILE
   echo "export INSTALL_DIR=$INSTALL_DIR" >> $APPTREE_PARAM_FILE
