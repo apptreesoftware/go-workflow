@@ -29,6 +29,7 @@
   echo "......"
   APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_$ENGINE_PORT-$STEP_PORT.sh
   LOGFILE=$CURRENT_DIR/apptree_$ENGINE_PORT-$STEP_PORT-install.log
+  APPTREE_DIR=$INSTALL_DIR/.apptree
   echo "APPTREE_PARAM_FILE: $APPTREE_PARAM_FILE"
   echo "......"
   echo "Generating Installation parameter file $APPTREE_PARAM_FILE."
@@ -36,6 +37,7 @@
   echo "export INSTALL_TYPE=$INSTALL_TYPE" >> $APPTREE_PARAM_FILE
   echo "export CURRENT_DIR=$CURRENT_DIR" > $APPTREE_PARAM_FILE
   echo "export INSTALL_DIR=$INSTALL_DIR" >> $APPTREE_PARAM_FILE
+  echo "export APPTREE_DIR=$INSTALL_DIR/.apptree" >> $APPTREE_PARAM_FILE
   echo "export ENGINE_PORT=$ENGINE_PORT" >> $APPTREE_PARAM_FILE
   echo "export STEP_PORT=$STEP_PORT" >> $APPTREE_PARAM_FILE
   echo "export LOGFILE=$LOGFILE" >> $APPTREE_PARAM_FILE
@@ -55,9 +57,15 @@
   echo Step Port: $STEP_PORT >> $LOGFILE
   echo Working Directory: $CURRENT_DIR >> $LOGFILE
   
-  if [ -z "$INSTALL_DIR/.apptree" ]; then
-    # echo "You did not specify a INSTALL_DIR, please restart the installation and enter a valid directory for installation."
-	mkdir $INSTALL_DIR
+  if [ -z "$INSTALL_DIR" ]; then
+    echo "You did not specify a INSTALL_DIR, please restart the installation and enter a valid directory for installation."
+	#mkdir $INSTALL_DIR
+    exit 1
+  fi
+  
+  if [ -z "$APPTREE_DIR" ]; then
+    # echo "You did not specify a APPTREE_DIR, please restart the installation and enter a valid directory for installation."
+	mkdir $APPTREE_DIR
     exit 1
   fi
 
