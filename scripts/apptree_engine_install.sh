@@ -32,7 +32,7 @@
   APPTREE_DIR=$INSTALL_DIR/.apptree
   INSTALL_USER=`id -un`
   INSTALL_USER_GROUP=`id -gn`
-  CHOWN_CMD=`"chown -R " + $INSTALL_USER + ":" + $INSTALL_USER_GROUP $INSTALL_DIR`
+  #CHOWN_CMD=`"chown -R " + $INSTALL_USER + ":" + $INSTALL_USER_GROUP $INSTALL_DIR`
   echo "APPTREE_PARAM_FILE: $APPTREE_PARAM_FILE"
   echo "......"
   echo "Generating Installation parameter file $APPTREE_PARAM_FILE."
@@ -50,7 +50,7 @@
   echo "export KEYURL=$KEYURL" >> $APPTREE_PARAM_FILE
   echo "export INSTALL_USER=$INSTALL_USER" >> $APPTREE_PARAM_FILE
   echo "export INSTALL_USER_GROUP=$INSTALL_USER_GROUP" >> $APPTREE_PARAM_FILE
-  echo "export CHOWN_CMD=$CHOWN_CMD" >> $APPTREE_PARAM_FILE
+  #echo "export CHOWN_CMD=$CHOWN_CMD" >> $APPTREE_PARAM_FILE
   chmod 755 $APPTREE_PARAM_FILE
   
   date > $LOGFILE
