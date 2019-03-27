@@ -13,5 +13,6 @@ func GetIPCEnvironment() *core.Environment {
 		StepName:    os.Getenv("STEP_NAME"),
 		StepVersion: os.Getenv("STEP_VERSION"),
 		CacheHost:   os.Getenv("WORKFLOW_CACHE_CONNECTION"),
+		Debug:       os.Getenv("DEBUG") == "true",
 	}
 }
