@@ -60,6 +60,8 @@ message WorkflowHistoryRequest {
     string project = 1;
     string workflow = 2;
     int64 offset = 3;
+    int64 count = 4;
+    string jobId = 5;
 }
 
 message WorkflowHistoryResponse {
