@@ -45,6 +45,7 @@ message StoreSecretRequest {
     string key = 1;
     string value = 2;
     string project = 3;
+    bool isSecret = 4;
 }
 
 message DeleteSecretRequest {
