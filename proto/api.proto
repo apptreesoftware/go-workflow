@@ -36,25 +36,32 @@ service WorkflowAPI {
 
     rpc GetWorkflowHistory (WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
 
-    rpc StoreSecret (StoreSecretRequest) returns (BasicResponse);
-    rpc DeleteSecret (DeleteSecretRequest) returns (BasicResponse);
-    rpc GetSecrets (ProjectRequest) returns (SecretsResponse);
+    rpc StoreValue (StoreValueRequest) returns (BasicResponse);
+    rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
+    rpc GetValues (ProjectRequest) returns (ValueResponse);
 }
 
-message StoreSecretRequest {
+message StoreValueRequest {
     string key = 1;
     string value = 2;
     string project = 3;
     bool isSecret = 4;
 }
 
-message DeleteSecretRequest {
+message DeleteValueRequest {
     string key = 1;
     string project = 2;
 }
 
-message SecretsResponse {
-    map<string, string> secrets = 1;
+message ValueResponse {
+    map<string, ProjectValue> values = 1;
+}
+
+message ProjectValue {
+    string key = 1;
+    string value = 2;
+    string project = 3;
+    bool isEncrypted = 4;
 }
 
 message WorkflowHistoryRequest {
