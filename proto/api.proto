@@ -57,11 +57,11 @@ message DeleteValueRequest {
 
 
 message SingleValueResponse {
-    ProjectValue value = 1;
+    string value = 1;
 }
 
 message ValueResponse {
-    map<string, ProjectValue> values = 1;
+    map<string, string> values = 1;
 }
 
 
