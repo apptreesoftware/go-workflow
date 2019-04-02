@@ -41,6 +41,14 @@ service WorkflowAPI {
     rpc GetValue (ProjectValueRequest) returns (SingleValueResponse);
     rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
     rpc CancelJobs (CancelJobRequest) returns (CancelJobResponse);
+
+    rpc DisableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+    rpc EnableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+}
+
+message ProjectWorkflowRequest {
+    string project = 1;
+    string workflow = 2;
 }
 
 message StoreValueRequest {
