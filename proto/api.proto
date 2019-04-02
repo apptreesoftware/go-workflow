@@ -38,6 +38,7 @@ service WorkflowAPI {
     rpc StoreValue (StoreValueRequest) returns (BasicResponse);
     rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
     rpc GetValues (ProjectRequest) returns (ValueResponse);
+    rpc GetValue (ProjectValueRequest) returns (SingleValueResponse);
     rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
     rpc CancelJobs (CancelJobRequest) returns (CancelJobResponse);
 }
@@ -54,9 +55,15 @@ message DeleteValueRequest {
     string project = 2;
 }
 
+
+message SingleValueResponse {
+    ProjectValue value = 1;
+}
+
 message ValueResponse {
     map<string, ProjectValue> values = 1;
 }
+
 
 message ProjectValue {
     string key = 1;
@@ -131,6 +138,11 @@ message RegisterRemoteEngineRequest {
 
 message ProjectRequest {
     string project = 1;
+}
+
+message ProjectValueRequest {
+    string project = 1;
+    string key = 2;
 }
 
 message ListWorkflowResponse {
