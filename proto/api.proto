@@ -27,7 +27,6 @@ service WorkflowAPI {
     rpc RemoveRemoteEngine (RemoteEngineRequest) returns (BasicResponse);
 
     rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
-    rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
     rpc GetAllSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc SearchSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc GetSingleStep (SingleStepRequest) returns (SingleStepResponse);
@@ -39,6 +38,8 @@ service WorkflowAPI {
     rpc StoreValue (StoreValueRequest) returns (BasicResponse);
     rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
     rpc GetValues (ProjectRequest) returns (ValueResponse);
+    rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
+    rpc CancelJobs (CancelJobRequest) returns (CancelJobResponse);
 }
 
 message StoreValueRequest {
@@ -211,4 +212,17 @@ message TriggerResponse {
     string jobId = 4;
 }
 
+message CancelJobRequest {
+    string project = 1;
+    string workflow = 2;
+    string jobId = 3;
+    bool allPending = 4;
+    bool allRunning = 5;
+}
+
+message CancelJobResponse {
+    bool success = 1;
+    string message = 2;
+    int64 canceledCount = 3;
+}
 
