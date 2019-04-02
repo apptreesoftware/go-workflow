@@ -35,27 +35,41 @@ service WorkflowAPI {
 
     rpc GetWorkflowHistory (WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
 
-    rpc StoreSecret (StoreSecretRequest) returns (BasicResponse);
-    rpc DeleteSecret (DeleteSecretRequest) returns (BasicResponse);
-    rpc GetSecrets (ProjectRequest) returns (SecretsResponse);
-
+    rpc StoreValue (StoreValueRequest) returns (BasicResponse);
+    rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
+    rpc GetValues (ProjectRequest) returns (ValueResponse);
+    rpc GetValue (ProjectValueRequest) returns (SingleValueResponse);
     rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
     rpc CancelJobs (CancelJobRequest) returns (CancelJobResponse);
 }
 
-message StoreSecretRequest {
+message StoreValueRequest {
     string key = 1;
     string value = 2;
     string project = 3;
+    bool isSecret = 4;
 }
 
-message DeleteSecretRequest {
+message DeleteValueRequest {
     string key = 1;
     string project = 2;
 }
 
-message SecretsResponse {
-    map<string, string> secrets = 1;
+
+message SingleValueResponse {
+    ProjectValue value = 1;
+}
+
+message ValueResponse {
+    map<string, ProjectValue> values = 1;
+}
+
+
+message ProjectValue {
+    string key = 1;
+    string value = 2;
+    string project = 3;
+    bool isEncrypted = 4;
 }
 
 message WorkflowHistoryRequest {
@@ -124,6 +138,11 @@ message RegisterRemoteEngineRequest {
 
 message ProjectRequest {
     string project = 1;
+}
+
+message ProjectValueRequest {
+    string project = 1;
+    string key = 2;
 }
 
 message ListWorkflowResponse {
