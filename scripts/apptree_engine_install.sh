@@ -80,10 +80,10 @@
   echo "export DARWIN_PLIST=\"$DARWIN_PLIST\"" >> $APPTREE_PARAM_FILE
   echo "export DARWIN_LAUNCH_CMD=\"$DARWIN_LAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
   echo "export DARWIN_UNLAUNCH_CMD=\"$DARWIN_UNLAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
-  echo "export LINUX_SERVICE=\"$LINUX_SERVICE\"" >> $APPTREE_PARAM_FILE
-  echo "export LINUX_LAUNCH_CMD=\"$LINUX_LAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
-  echo "export LINUX_UNLAUNCH_CMD=\"$LINUX_UNLAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
-  echo "export LINUX_SERVICE_DEL_CMD=\"$LINUX_SERVICE_DEL_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_SERVICE=$LINUX_SERVICE" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_LAUNCH_CMD=$LINUX_LAUNCH_CMD" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_UNLAUNCH_CMD=$LINUX_UNLAUNCH_CMD" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_SERVICE_DEL_CMD=$LINUX_SERVICE_DEL_CMD" >> $APPTREE_PARAM_FILE
 
   chmod 755 $APPTREE_PARAM_FILE
   
@@ -263,7 +263,7 @@
   echo "Install apptree engine service"
   echo "Install apptree engine service" >> $LOGFILE
   LOCATION=$(command -v apptree)
-  echo ENGINE_INSTALL_CMD >> $LOGFILE
+  echo $ENGINE_INSTALL_CMD >> $LOGFILE
   echo $ENGINE_INSTALL_CMD
   $ENGINE_INSTALL_CMD
   
@@ -289,7 +289,7 @@
   echo "Starting apptree engine service" >> $LOGFILE
   echo $LINUX_LAUNCH_CMD
   echo $LINUX_LAUNCH_CMD >> $LOGFILE
-  sudo $LINUX_LAUNCH_CMD >> $LOGFILE
+  $LINUX_LAUNCH_CMD >> $LOGFILE
   ps -ef | grep apptree >> $LOGFILE
   echo "Apptree engine has been started successfully."
   echo "To remove the service, please run:"
