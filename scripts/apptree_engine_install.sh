@@ -39,10 +39,11 @@
   DARWIN_PLIST="/Library/LaunchDaemons/apptree_remote_engine_service-\$ENGINE_PORT.plist"
   DARWIN_LAUNCH_CMD="launchctl load -w \$DARWIN_PLIST"
   DARWIN_UNLAUNCH_CMD="launchctl unload -w \$DARWIN_PLIST"
-  LINUX_SERVICE="/etc/systemd/system/apptree_remote_engine_service-$ENGINE_PORT.service"
+  LINUX_SERVICE_FILE="/etc/systemd/system/apptree_remote_engine_service-$ENGINE_PORT.service"
+  LINUX_SERVICE="/etc/systemd/system/apptree_remote_engine_service-$ENGINE_PORT"
   LINUX_LAUNCH_CMD="service \$LINUX_SERVICE start"
   LINUX_UNLAUNCH_CMD="service \$LINUX_SERVICE stop"
-  LINUX_SERVICE_DEL_CMD="rm -rf \$LINUX_SERVICE"
+  LINUX_SERVICE_DEL_CMD="rm -rf \$LINUX_SERVICE_FILE"
   echo INSTALL_USER $INSTALL_USER
   echo INSTALL_USER_GROUP $INSTALL_USER_GROUP
   echo INSTALL_DIR $INSTALL_DIR
@@ -80,6 +81,7 @@
   echo "export DARWIN_PLIST=\"$DARWIN_PLIST\"" >> $APPTREE_PARAM_FILE
   echo "export DARWIN_LAUNCH_CMD=\"$DARWIN_LAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
   echo "export DARWIN_UNLAUNCH_CMD=\"$DARWIN_UNLAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_SERVICE_FILE=\"$LINUX_SERVICE_FILE\"" >> $APPTREE_PARAM_FILE
   echo "export LINUX_SERVICE=\"$LINUX_SERVICE\"" >> $APPTREE_PARAM_FILE
   echo "export LINUX_LAUNCH_CMD=\"$LINUX_LAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
   echo "export LINUX_UNLAUNCH_CMD=\"$LINUX_UNLAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
@@ -147,13 +149,13 @@
   #export PATH=$PATH:/usr/local/bin
   
   if [ -f $DARWIN_PLIST ]; then
-  #echo $$DARWIN_PLIST exists
+  echo $DARWIN_PLIST exists! Deleting.....
   rm $DARWIN_PLIST
   fi
   
-  if [ -f $LINUX_SERVICE ]; then
-  #echo $$DARWIN_PLIST exists
-  rm $LINUX_SERVICE
+  if [ -f $LINUX_SERVICE_FILE ]; then
+  echo $LINUX_SERVICE_FILE exists! Deleting.....
+  rm $LINUX_SERVICE_FILE
   fi
 
   if [ ! -d $APPTREE_DIR ]; then
