@@ -289,7 +289,7 @@
   echo "Starting apptree engine service" >> $LOGFILE
   echo $LINUX_LAUNCH_CMD
   echo $LINUX_LAUNCH_CMD >> $LOGFILE
-  \$LINUX_LAUNCH_CMD
+  sudo $LINUX_LAUNCH_CMD >> $LOGFILE
   ps -ef | grep apptree >> $LOGFILE
   echo "Apptree engine has been started successfully."
   echo "To remove the service, please run:"
