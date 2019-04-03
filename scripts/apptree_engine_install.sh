@@ -287,14 +287,16 @@
   if [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
   echo "Starting apptree engine service"
   echo "Starting apptree engine service" >> $LOGFILE
-  echo $LINUX_LAUNCH_CMD
-  echo $LINUX_LAUNCH_CMD >> $LOGFILE
-  $LINUX_LAUNCH_CMD >> $LOGFILE
+  echo sudo \$LINUX_LAUNCH_CMD
+  echo sudo \$LINUX_LAUNCH_CMD >> $LOGFILE
+  sudo \$LINUX_LAUNCH_CMD >> $LOGFILE
+  #echo "Apptree engine has been started successfully."
+  echo "If the service does not start correctly, you can re-run the following command with sudo or as root to start up the service." 
+  echo sudo \$LINUX_LAUNCH_CMD
   ps -ef | grep apptree >> $LOGFILE
-  echo "Apptree engine has been started successfully."
   echo "To remove the service, please run:"
-  echo sudo $LINUX_UNLAUNCH_CMD
-  echo sudo $LINUX_SERVICE_DEL_CMD
+  echo sudo \$LINUX_UNLAUNCH_CMD
+  echo sudo \$LINUX_SERVICE_DEL_CMD
   fi
 
 SCRIPT
