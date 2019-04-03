@@ -113,10 +113,29 @@
 
   echo Sourcing $APPTREE_PARAM_FILE
   source $APPTREE_PARAM_FILE
+
+  if [ "\$(uname)" == "Darwin" ]; then
+    OS=darwin
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+        URL=$DARWINURL
+    echo "OS is darwin. Download URL is \$URL" >> $LOGFILE
+        echo "......"
+  elif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
+    OS=linux
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
+        URL=$LINUXURL
+    echo "OS is linux. Download URL is \$URL" >> $LOGFILE
+    echo "......"
+    echo Setting PATH
+    export PATH=$PATH:/usr/local/bin
+  else
+    echoerr "This installer is only supported on Linux and MacOS"
+    exit 1
+  fi
   
   #echo PATH=$PATH >> $LOGFILE
-  echo Setting PATH
-  export PATH=$PATH:/usr/local/bin
+  #echo Setting PATH
+  #export PATH=$PATH:/usr/local/bin
   
   if [ -f $DARWIN_PLIST ]; then
   #echo $$DARWIN_PLIST exists
@@ -128,34 +147,17 @@
     chmod -R 777 $APPTREE_DIR
   fi
 
-  #if [[ ! ":\$PATH:" == *":/usr/local/bin:"* ]]; then
-    #echo ":\$PATH:"
-  if [[ ! ":$PATH:" == *":/usr/local/bin:"* ]]; then
-	echo ":$PATH:"
+  if [[ ! ":\$PATH:" == *":/usr/local/bin:"* ]]; then
+    echo ":\$PATH:"
+  #if [[ ! ":$PATH:" == *":/usr/local/bin:"* ]]; then
+    #echo ":$PATH:"
     echoerr "Your path is missing /usr/local/bin, adding this to your PATH for the installer."
-	export PATH=$PATH:/usr/local/bin
+    export PATH=$PATH:/usr/local/bin
     #exit 1
   fi
   
   if [ -z "$INSTALL_DIR" ]; then
     echoerr "You did not specify a INSTALL_DIR, please Control+C and restart the installation."
-    exit 1
-  fi
-
-  if [ "\$(uname)" == "Darwin" ]; then
-    OS=darwin
-    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
-	URL=$DARWINURL
-    echo "OS is darwin. Download URL is \$URL" >> $LOGFILE
-	echo "......"
-  elif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
-    OS=linux
-    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
-	URL=$LINUXURL
-    echo "OS is linux. Download URL is \$URL" >> $LOGFILE
-	echo "......"
-  else
-    echoerr "This installer is only supported on Linux and MacOS"
     exit 1
   fi
 
