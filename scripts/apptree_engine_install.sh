@@ -40,7 +40,7 @@
   DARWIN_LAUNCH_CMD="launchctl load -w \$DARWIN_PLIST"
   DARWIN_UNLAUNCH_CMD="launchctl unload -w \$DARWIN_PLIST"
   LINUX_SERVICE_FILE="/etc/systemd/system/apptree_remote_engine_service-$ENGINE_PORT.service"
-  LINUX_SERVICE="/etc/systemd/system/apptree_remote_engine_service-$ENGINE_PORT"
+  LINUX_SERVICE="apptree_remote_engine_service-$ENGINE_PORT"
   LINUX_LAUNCH_CMD="service \$LINUX_SERVICE start"
   LINUX_UNLAUNCH_CMD="service \$LINUX_SERVICE stop"
   LINUX_SERVICE_DEL_CMD="rm -rf \$LINUX_SERVICE_FILE"
@@ -289,12 +289,14 @@
   if [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
   echo "Starting apptree engine service"
   echo "Starting apptree engine service" >> $LOGFILE
-  echo sudo \$LINUX_LAUNCH_CMD
-  echo sudo \$LINUX_LAUNCH_CMD >> $LOGFILE
-  sudo \$LINUX_LAUNCH_CMD >> $LOGFILE
+  #echo sudo \$LINUX_LAUNCH_CMD
+  #echo sudo \$LINUX_LAUNCH_CMD >> $LOGFILE
+  echo $LINUX_LAUNCH_CMD
+  echo $LINUX_LAUNCH_CMD >> $LOGFILE
+  $LINUX_LAUNCH_CMD >> $LOGFILE
   #echo "Apptree engine has been started successfully."
-  echo "If the service does not start correctly, you can re-run the following command with sudo or as root to start up the service." 
-  echo sudo \$LINUX_LAUNCH_CMD
+  #echo "If the service does not start correctly, you can re-run the following command with sudo or as root to start up the service." 
+  #echo sudo \$LINUX_LAUNCH_CMD
   ps -ef | grep apptree >> $LOGFILE
   echo "To remove the service, please run:"
   echo sudo \$LINUX_UNLAUNCH_CMD
