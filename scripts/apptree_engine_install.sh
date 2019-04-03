@@ -39,10 +39,10 @@
   DARWIN_PLIST="/Library/LaunchDaemons/apptree_remote_engine_service-\$ENGINE_PORT.plist"
   DARWIN_LAUNCH_CMD="launchctl load -w \$DARWIN_PLIST"
   DARWIN_UNLAUNCH_CMD="launchctl unload -w \$DARWIN_PLIST"
-  LINUX_SERVICE="/etc/systemd/system/apptree_remote_engine_service-\$ENGINE_PORT.service"
-  LINUX_LAUNCH_CMD="service \$LINUX_SERVICE start"
-  LINUX_UNLAUNCH_CMD="service \$LINUX_SERVICE stop"
-  LINUX_SERVICE_DEL_CMD="rm -rf \$LINUX_SERVICE"
+  LINUX_SERVICE="/etc/systemd/system/apptree_remote_engine_service-$ENGINE_PORT.service"
+  LINUX_LAUNCH_CMD="service $LINUX_SERVICE start"
+  LINUX_UNLAUNCH_CMD="service $LINUX_SERVICE stop"
+  LINUX_SERVICE_DEL_CMD="rm -rf $LINUX_SERVICE"
   echo INSTALL_USER $INSTALL_USER
   echo INSTALL_USER_GROUP $INSTALL_USER_GROUP
   echo INSTALL_DIR $INSTALL_DIR
@@ -293,8 +293,8 @@
   ps -ef | grep apptree >> $LOGFILE
   echo "Apptree engine has been started successfully."
   echo "To remove the service, please run:"
-  echo sudo \$LINUX_UNLAUNCH_CMD
-  echo sudo \$LINUX_SERVICE_DEL_CMD
+  echo sudo $LINUX_UNLAUNCH_CMD
+  echo sudo $LINUX_SERVICE_DEL_CMD
   fi
 
 SCRIPT
