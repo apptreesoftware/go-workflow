@@ -151,6 +151,11 @@
   rm $DARWIN_PLIST
   fi
   
+  if [ -f $LINUX_SERVICE ]; then
+  #echo $$DARWIN_PLIST exists
+  rm $LINUX_SERVICE
+  fi
+
   if [ ! -d $APPTREE_DIR ]; then
     mkdir -p $APPTREE_DIR
     chmod -R 777 $APPTREE_DIR
