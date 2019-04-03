@@ -44,6 +44,7 @@ service WorkflowAPI {
 
     rpc DisableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
     rpc EnableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+    rpc RemoveWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
 }
 
 message ProjectWorkflowRequest {
