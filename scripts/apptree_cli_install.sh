@@ -11,7 +11,7 @@
   # Set Installation Variables
   CURRENT_DIR=$(pwd)
   DARWINURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
-  LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+  LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
   CERTURL="https://s3.amazonaws.com/apptree-binaries/server.crt"
   KEYURL="https://s3.amazonaws.com/apptree-binaries/server.key"
   LOCATION="/usr/local/bin/apptree"
@@ -91,15 +91,21 @@
   source $APPTREE_PARAM_FILE
   
   #echo PATH=$PATH >> $LOGFILE
+  echo Setting PATH
+  export PATH=$PATH:/usr/local/bin
   
   if [ ! -d $APPTREE_DIR ]; then
     mkdir -p $APPTREE_DIR
     chmod -R 777 $APPTREE_DIR
   fi
 
-  if [[ ! ":\$PATH:" == *":/usr/local/bin:"* ]]; then
-    echoerr "Your path is missing /usr/local/bin, you need to add this to use this installer."
-    exit 1
+  #if [[ ! ":\$PATH:" == *":/usr/local/bin:"* ]]; then
+    #echo ":\$PATH:"
+  if [[ ! ":$PATH:" == *":/usr/local/bin:"* ]]; then
+	echo ":$PATH:"
+    echoerr "Your path is missing /usr/local/bin, adding this to your PATH for the installer."
+	export PATH=$PATH:/usr/local/bin
+    #exit 1
   fi
   
   if [ -z "$INSTALL_DIR" ]; then
