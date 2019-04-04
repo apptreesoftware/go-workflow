@@ -38,7 +38,7 @@ service WorkflowAPI {
 
     rpc StoreValue (StoreValueRequest) returns (BasicResponse);
     rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
-    rpc GetValues (ProjectRequest) returns (ValueResponse);
+    rpc GetValues (ProjectValuesRequest) returns (ValueResponse);
     rpc GetValue (ProjectValueRequest) returns (SingleValueResponse);
     rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
     rpc CancelJobs (CancelJobRequest) returns (CancelJobResponse);
@@ -153,6 +153,11 @@ message ProjectRequest {
 message ProjectValueRequest {
     string project = 1;
     string key = 2;
+}
+
+message ProjectValuesRequest {
+    string project = 1;
+    bool decrypt = 2;
 }
 
 message ListWorkflowResponse {

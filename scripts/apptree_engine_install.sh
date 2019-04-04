@@ -12,7 +12,7 @@
   OS=`uname`
   CURRENT_DIR=$(pwd)
   DARWINURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
-  LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+  LINUXURL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
   CERTURL="https://s3.amazonaws.com/apptree-binaries/server.crt"
   KEYURL="https://s3.amazonaws.com/apptree-binaries/server.key"
   LOCATION="/usr/local/bin/apptree"
@@ -39,6 +39,11 @@
   DARWIN_PLIST="/Library/LaunchDaemons/apptree_remote_engine_service-\$ENGINE_PORT.plist"
   DARWIN_LAUNCH_CMD="launchctl load -w \$DARWIN_PLIST"
   DARWIN_UNLAUNCH_CMD="launchctl unload -w \$DARWIN_PLIST"
+  LINUX_SERVICE_FILE="/etc/systemd/system/apptree_remote_engine_service-$ENGINE_PORT.service"
+  LINUX_SERVICE="apptree_remote_engine_service-$ENGINE_PORT"
+  LINUX_LAUNCH_CMD="service \$LINUX_SERVICE start"
+  LINUX_UNLAUNCH_CMD="service \$LINUX_SERVICE stop"
+  LINUX_SERVICE_DEL_CMD="rm -rf \$LINUX_SERVICE_FILE"
   echo INSTALL_USER $INSTALL_USER
   echo INSTALL_USER_GROUP $INSTALL_USER_GROUP
   echo INSTALL_DIR $INSTALL_DIR
@@ -76,6 +81,12 @@
   echo "export DARWIN_PLIST=\"$DARWIN_PLIST\"" >> $APPTREE_PARAM_FILE
   echo "export DARWIN_LAUNCH_CMD=\"$DARWIN_LAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
   echo "export DARWIN_UNLAUNCH_CMD=\"$DARWIN_UNLAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_SERVICE_FILE=\"$LINUX_SERVICE_FILE\"" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_SERVICE=\"$LINUX_SERVICE\"" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_LAUNCH_CMD=\"$LINUX_LAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_UNLAUNCH_CMD=\"$LINUX_UNLAUNCH_CMD\"" >> $APPTREE_PARAM_FILE
+  echo "export LINUX_SERVICE_DEL_CMD=\"$LINUX_SERVICE_DEL_CMD\"" >> $APPTREE_PARAM_FILE
+
   chmod 755 $APPTREE_PARAM_FILE
   
   date > $LOGFILE
@@ -113,43 +124,56 @@
 
   echo Sourcing $APPTREE_PARAM_FILE
   source $APPTREE_PARAM_FILE
+
+  if [ "\$(uname)" == "Darwin" ]; then
+    OS=darwin
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
+        URL=$DARWINURL
+    echo "OS is darwin. Download URL is \$URL" >> $LOGFILE
+        echo "......"
+  elif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
+    OS=linux
+    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
+        URL=$LINUXURL
+    echo "OS is linux. Download URL is \$URL" >> $LOGFILE
+    echo "......"
+    echo Setting PATH
+    export PATH=$PATH:/usr/local/bin
+  else
+    echoerr "This installer is only supported on Linux and MacOS"
+    exit 1
+  fi
   
   #echo PATH=$PATH >> $LOGFILE
+  #echo Setting PATH
+  #export PATH=$PATH:/usr/local/bin
   
   if [ -f $DARWIN_PLIST ]; then
-  #echo $$DARWIN_PLIST exists
+  echo $DARWIN_PLIST exists! Deleting.....
   rm $DARWIN_PLIST
   fi
   
+  if [ -f $LINUX_SERVICE_FILE ]; then
+  echo $LINUX_SERVICE_FILE exists! Deleting.....
+  rm $LINUX_SERVICE_FILE
+  fi
+
   if [ ! -d $APPTREE_DIR ]; then
     mkdir -p $APPTREE_DIR
     chmod -R 777 $APPTREE_DIR
   fi
 
   if [[ ! ":\$PATH:" == *":/usr/local/bin:"* ]]; then
-    echoerr "Your path is missing /usr/local/bin, you need to add this to use this installer."
-    exit 1
+    echo ":\$PATH:"
+  #if [[ ! ":$PATH:" == *":/usr/local/bin:"* ]]; then
+    #echo ":$PATH:"
+    echoerr "Your path is missing /usr/local/bin, adding this to your PATH for the installer."
+    export PATH=$PATH:/usr/local/bin
+    #exit 1
   fi
   
   if [ -z "$INSTALL_DIR" ]; then
     echoerr "You did not specify a INSTALL_DIR, please Control+C and restart the installation."
-    exit 1
-  fi
-
-  if [ "\$(uname)" == "Darwin" ]; then
-    OS=darwin
-    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_darwin_amd64"
-	URL=$DARWINURL
-    echo "OS is darwin. Download URL is \$URL" >> $LOGFILE
-	echo "......"
-  elif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
-    OS=linux
-    #URL="https://storage.googleapis.com/apptreeworkflow/binaries/apptree_linux_amd64"
-	URL=$LINUXURL
-    echo "OS is linux. Download URL is \$URL" >> $LOGFILE
-	echo "......"
-  else
-    echoerr "This installer is only supported on Linux and MacOS"
     exit 1
   fi
 
@@ -241,7 +265,7 @@
   echo "Install apptree engine service"
   echo "Install apptree engine service" >> $LOGFILE
   LOCATION=$(command -v apptree)
-  echo ENGINE_INSTALL_CMD >> $LOGFILE
+  echo $ENGINE_INSTALL_CMD >> $LOGFILE
   echo $ENGINE_INSTALL_CMD
   $ENGINE_INSTALL_CMD
   
@@ -260,6 +284,23 @@
   echo "Apptree engine has been started successfully."
   echo "To remove the service, please run:"
   echo sudo \$DARWIN_UNLAUNCH_CMD
+  fi
+
+  if [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
+  echo "Starting apptree engine service"
+  echo "Starting apptree engine service" >> $LOGFILE
+  #echo sudo \$LINUX_LAUNCH_CMD
+  #echo sudo \$LINUX_LAUNCH_CMD >> $LOGFILE
+  echo $LINUX_LAUNCH_CMD
+  echo $LINUX_LAUNCH_CMD >> $LOGFILE
+  $LINUX_LAUNCH_CMD >> $LOGFILE
+  #echo "Apptree engine has been started successfully."
+  #echo "If the service does not start correctly, you can re-run the following command with sudo or as root to start up the service." 
+  #echo sudo \$LINUX_LAUNCH_CMD
+  ps -ef | grep apptree >> $LOGFILE
+  echo "To remove the service, please run:"
+  echo sudo \$LINUX_UNLAUNCH_CMD
+  echo sudo \$LINUX_SERVICE_DEL_CMD
   fi
 
 SCRIPT
