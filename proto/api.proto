@@ -18,6 +18,7 @@ service WorkflowAPI {
 
     rpc CreateProject (ProjectRequest) returns (BasicResponse);
     rpc AddUserToProject (AddUserRequest) returns (BasicResponse);
+    rpc AddSuperUser (UserRequest) returns (BasicResponse);
 
     rpc ListRemoteEngines (ProjectRequest) returns (ListRemoteEnginesResponse);
     rpc RegisterRemoteEngine (RegisterRemoteEngineRequest) returns (BasicResponse);
@@ -189,6 +190,10 @@ message PublishWorkflowRequest {
 message AddUserRequest {
     string username = 1;
     string projectId = 2;
+}
+
+message UserRequest {
+    string username = 1;
 }
 
 message QueueItem {
