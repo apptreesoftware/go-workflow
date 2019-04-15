@@ -46,6 +46,8 @@ service WorkflowAPI {
     rpc DisableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
     rpc EnableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
     rpc RemoveWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+
+    rpc UpdateAvailable(UpdateAvailableRequest) returns (UpdateAvailableResponse);
 }
 
 message ProjectWorkflowRequest {
@@ -257,3 +259,14 @@ message CancelJobResponse {
     int64 canceledCount = 3;
 }
 
+message UpdateAvailableRequest {
+    string os = 1;
+    string arch = 2;
+    string version = 3;
+}
+
+message UpdateAvailableResponse {
+    bool available = 1;
+    string version = 2;
+    string url = 3;
+}
