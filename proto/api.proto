@@ -47,7 +47,7 @@ service WorkflowAPI {
     rpc EnableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
     rpc RemoveWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
 
-    rpc UpdateAvailable(UpdateAvailableRequest) returns (UpdateAvailableResponse);
+    rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
 }
 
 message ProjectWorkflowRequest {
@@ -93,7 +93,21 @@ message WorkflowHistoryRequest {
 }
 
 message WorkflowHistoryResponse {
-    bytes jobData = 1;
+    repeated WorkflowHistory items = 1;
+}
+
+message WorkflowHistory {
+    string id = 1;
+    bool success = 2;
+    int64 start = 3;
+    int64 end = 4;
+    double duration = 5;
+    string failureReason = 6;
+    string project = 7;
+    string workflow = 8;
+    string triggerType = 9;
+    string parentItem = 10;
+    string input = 11;
 }
 
 message RemoteEngineUpdateRequest {
@@ -102,7 +116,6 @@ message RemoteEngineUpdateRequest {
     bool forceUpdate = 3;
     bool waitForVersion = 4;
 }
-
 
 message RemoteEngineUpdateResponse {
     string status = 1;
