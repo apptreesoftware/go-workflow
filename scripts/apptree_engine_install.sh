@@ -53,7 +53,7 @@
   echo DARWIN_PLIST $DARWIN_PLIST
   echo DARWIN_LAUNCH_CMD $DARWIN_LAUNCH_CMD
   echo DARWIN_UNLAUNCH_CMD $DARWIN_UNLAUNCH_CMD
-  ENGINE_INSTALL_CMD="apptree engine install --home \$INSTALL_DIR --port \$ENGINE_PORT --step_port \$STEP_PORT -f \$LOCATION"
+  ENGINE_INSTALL_CMD="apptree install engine --host https://io.apptreesoftware.com --home \$INSTALL_DIR --port \$ENGINE_PORT --step_port \$STEP_PORT -f \$LOCATION"
   echo ENGINE_INSTALL_CMD $ENGINE_INSTALL_CMD
   CHOWN_CMD="chown -R \$INSTALL_USER:\$INSTALL_USER_GROUP \$INSTALL_DIR"
   echo CHOWN_CMD $CHOWN_CMD
