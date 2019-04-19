@@ -64,10 +64,6 @@ message CertificateUpdateRequest {
     bytes cert = 2;
 }
 
-message Empty {
-
-}
-
 message UpdateRequest {
     string url = 1;
 }
