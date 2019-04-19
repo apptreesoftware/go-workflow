@@ -48,6 +48,9 @@ service WorkflowAPI {
     rpc RemoveWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
 
     rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
+
+    rpc PauseEngines (Empty) returns (BasicResponse);
+    rpc UnpauseEngines (Empty) returns (BasicResponse);
 }
 
 message ProjectWorkflowRequest {
@@ -283,3 +286,4 @@ message UpdateAvailableResponse {
     string version = 2;
     string url = 3;
 }
+

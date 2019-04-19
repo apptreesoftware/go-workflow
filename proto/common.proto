@@ -131,3 +131,7 @@ message RunStepRequest {
     bytes input = 2;
     bytes stepConfig = 3;
 }
+
+message Empty {
+
+}
