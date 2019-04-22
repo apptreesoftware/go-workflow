@@ -19,6 +19,7 @@ service WorkflowAPI {
     rpc CreateProject (ProjectRequest) returns (BasicResponse);
     rpc AddUserToProject (AddUserRequest) returns (BasicResponse);
     rpc AddSuperUser (UserRequest) returns (BasicResponse);
+    rpc ListProjects (Empty) returns (ListProjectResponse);
 
     rpc ListRemoteEngines (ProjectRequest) returns (ListRemoteEnginesResponse);
     rpc RegisterRemoteEngine (RegisterRemoteEngineRequest) returns (BasicResponse);
@@ -285,5 +286,11 @@ message UpdateAvailableResponse {
     bool available = 1;
     string version = 2;
     string url = 3;
+}
+
+message ListProjectResponse {
+    bool success = 1;
+    string message = 2;
+    repeated string projects = 3;
 }
 
