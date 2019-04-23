@@ -5,22 +5,54 @@ import 'package:twirp_dart_core/twirp_dart_core.dart';
 import 'dart:convert';
 import 'common.twirp.dart';
 
-class StoreSecretRequest {
-  StoreSecretRequest(
+class ProjectWorkflowRequest {
+  ProjectWorkflowRequest(
+    this.project,
+    this.workflow,
+  );
+
+  String project;
+  String workflow;
+
+  factory ProjectWorkflowRequest.fromJson(Map<String, dynamic> json) {
+    return new ProjectWorkflowRequest(
+      json['project'] as String,
+      json['workflow'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['workflow'] = workflow;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class StoreValueRequest {
+  StoreValueRequest(
     this.key,
     this.value,
     this.project,
+    this.isSecret,
   );
 
   String key;
   String value;
   String project;
+  bool isSecret;
 
-  factory StoreSecretRequest.fromJson(Map<String, dynamic> json) {
-    return new StoreSecretRequest(
+  factory StoreValueRequest.fromJson(Map<String, dynamic> json) {
+    return new StoreValueRequest(
       json['key'] as String,
       json['value'] as String,
       json['project'] as String,
+      json['isSecret'] as bool,
     );
   }
 
@@ -29,6 +61,7 @@ class StoreSecretRequest {
     map['key'] = key;
     map['value'] = value;
     map['project'] = project;
+    map['isSecret'] = isSecret;
     return map;
   }
 
@@ -38,8 +71,8 @@ class StoreSecretRequest {
   }
 }
 
-class DeleteSecretRequest {
-  DeleteSecretRequest(
+class DeleteValueRequest {
+  DeleteValueRequest(
     this.key,
     this.project,
   );
@@ -47,8 +80,8 @@ class DeleteSecretRequest {
   String key;
   String project;
 
-  factory DeleteSecretRequest.fromJson(Map<String, dynamic> json) {
-    return new DeleteSecretRequest(
+  factory DeleteValueRequest.fromJson(Map<String, dynamic> json) {
+    return new DeleteValueRequest(
       json['key'] as String,
       json['project'] as String,
     );
@@ -67,28 +100,90 @@ class DeleteSecretRequest {
   }
 }
 
-class SecretsResponse {
-  SecretsResponse(
-    this.secrets,
+class SingleValueResponse {
+  SingleValueResponse(
+    this.value,
   );
 
-  Map<String, String> secrets;
+  String value;
 
-  factory SecretsResponse.fromJson(Map<String, dynamic> json) {
-    var secretsMap = new Map<String, String>();
-    (json['secrets'] as Map<String, dynamic>)?.forEach((key, val) {
-      if (val is String) {
-      } else if (val is num) {}
-    });
-
-    return new SecretsResponse(
-      secretsMap,
+  factory SingleValueResponse.fromJson(Map<String, dynamic> json) {
+    return new SingleValueResponse(
+      json['value'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['secrets'] = json.decode(json.encode(secrets));
+    map['value'] = value;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class ValueResponse {
+  ValueResponse(
+    this.values,
+  );
+
+  Map<String, String> values;
+
+  factory ValueResponse.fromJson(Map<String, dynamic> json) {
+    var valuesMap = new Map<String, String>();
+    (json['values'] as Map<String, dynamic>)?.forEach((key, val) {
+      if (val is String) {
+      } else if (val is num) {}
+    });
+
+    return new ValueResponse(
+      valuesMap,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['values'] = json.decode(json.encode(values));
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class ProjectValue {
+  ProjectValue(
+    this.key,
+    this.value,
+    this.project,
+    this.isEncrypted,
+  );
+
+  String key;
+  String value;
+  String project;
+  bool isEncrypted;
+
+  factory ProjectValue.fromJson(Map<String, dynamic> json) {
+    return new ProjectValue(
+      json['key'] as String,
+      json['value'] as String,
+      json['project'] as String,
+      json['isEncrypted'] as bool,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['key'] = key;
+    map['value'] = value;
+    map['project'] = project;
+    map['isEncrypted'] = isEncrypted;
     return map;
   }
 
@@ -103,17 +198,23 @@ class WorkflowHistoryRequest {
     this.project,
     this.workflow,
     this.offset,
+    this.count,
+    this.jobId,
   );
 
   String project;
   String workflow;
   int offset;
+  int count;
+  String jobId;
 
   factory WorkflowHistoryRequest.fromJson(Map<String, dynamic> json) {
     return new WorkflowHistoryRequest(
       json['project'] as String,
       json['workflow'] as String,
       json['offset'] as int,
+      json['count'] as int,
+      json['jobId'] as String,
     );
   }
 
@@ -122,6 +223,8 @@ class WorkflowHistoryRequest {
     map['project'] = project;
     map['workflow'] = workflow;
     map['offset'] = offset;
+    map['count'] = count;
+    map['jobId'] = jobId;
     return map;
   }
 
@@ -133,20 +236,89 @@ class WorkflowHistoryRequest {
 
 class WorkflowHistoryResponse {
   WorkflowHistoryResponse(
-    this.jobData,
+    this.items,
   );
 
-  String jobData;
+  List<WorkflowHistory> items;
 
   factory WorkflowHistoryResponse.fromJson(Map<String, dynamic> json) {
     return new WorkflowHistoryResponse(
-      json['jobData'] as String,
+      json['items'] != null
+          ? (json['items'] as List)
+              .map((d) => new WorkflowHistory.fromJson(d))
+              .toList()
+          : <WorkflowHistory>[],
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['jobData'] = jobData;
+    map['items'] = items?.map((l) => l.toJson())?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class WorkflowHistory {
+  WorkflowHistory(
+    this.id,
+    this.success,
+    this.start,
+    this.end,
+    this.duration,
+    this.failureReason,
+    this.project,
+    this.workflow,
+    this.triggerType,
+    this.parentItem,
+    this.input,
+  );
+
+  String id;
+  bool success;
+  int start;
+  int end;
+  double duration;
+  String failureReason;
+  String project;
+  String workflow;
+  String triggerType;
+  String parentItem;
+  String input;
+
+  factory WorkflowHistory.fromJson(Map<String, dynamic> json) {
+    return new WorkflowHistory(
+      json['id'] as String,
+      json['success'] as bool,
+      json['start'] as int,
+      json['end'] as int,
+      json['duration'] as double,
+      json['failureReason'] as String,
+      json['project'] as String,
+      json['workflow'] as String,
+      json['triggerType'] as String,
+      json['parentItem'] as String,
+      json['input'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['id'] = id;
+    map['success'] = success;
+    map['start'] = start;
+    map['end'] = end;
+    map['duration'] = duration;
+    map['failureReason'] = failureReason;
+    map['project'] = project;
+    map['workflow'] = workflow;
+    map['triggerType'] = triggerType;
+    map['parentItem'] = parentItem;
+    map['input'] = input;
     return map;
   }
 
@@ -262,19 +434,31 @@ class RemoteEngineHealthRequest {
 class RemoteEngineHealthResponse {
   RemoteEngineHealthResponse(
     this.status,
+    this.version,
+    this.os,
+    this.arch,
   );
 
   String status;
+  String version;
+  String os;
+  String arch;
 
   factory RemoteEngineHealthResponse.fromJson(Map<String, dynamic> json) {
     return new RemoteEngineHealthResponse(
       json['status'] as String,
+      json['version'] as String,
+      json['os'] as String,
+      json['arch'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['status'] = status;
+    map['version'] = version;
+    map['os'] = os;
+    map['arch'] = arch;
     return map;
   }
 
@@ -436,6 +620,64 @@ class ProjectRequest {
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['project'] = project;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class ProjectValueRequest {
+  ProjectValueRequest(
+    this.project,
+    this.key,
+  );
+
+  String project;
+  String key;
+
+  factory ProjectValueRequest.fromJson(Map<String, dynamic> json) {
+    return new ProjectValueRequest(
+      json['project'] as String,
+      json['key'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['key'] = key;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class ProjectValuesRequest {
+  ProjectValuesRequest(
+    this.project,
+    this.decrypt,
+  );
+
+  String project;
+  bool decrypt;
+
+  factory ProjectValuesRequest.fromJson(Map<String, dynamic> json) {
+    return new ProjectValuesRequest(
+      json['project'] as String,
+      json['decrypt'] as bool,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['decrypt'] = decrypt;
     return map;
   }
 
@@ -622,6 +864,31 @@ class AddUserRequest {
     var map = new Map<String, dynamic>();
     map['username'] = username;
     map['projectId'] = projectId;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class UserRequest {
+  UserRequest(
+    this.username,
+  );
+
+  String username;
+
+  factory UserRequest.fromJson(Map<String, dynamic> json) {
+    return new UserRequest(
+      json['username'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['username'] = username;
     return map;
   }
 
@@ -894,6 +1161,181 @@ class TriggerResponse {
   }
 }
 
+class CancelJobRequest {
+  CancelJobRequest(
+    this.project,
+    this.workflow,
+    this.jobId,
+    this.allPending,
+    this.allRunning,
+  );
+
+  String project;
+  String workflow;
+  String jobId;
+  bool allPending;
+  bool allRunning;
+
+  factory CancelJobRequest.fromJson(Map<String, dynamic> json) {
+    return new CancelJobRequest(
+      json['project'] as String,
+      json['workflow'] as String,
+      json['jobId'] as String,
+      json['allPending'] as bool,
+      json['allRunning'] as bool,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['workflow'] = workflow;
+    map['jobId'] = jobId;
+    map['allPending'] = allPending;
+    map['allRunning'] = allRunning;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class CancelJobResponse {
+  CancelJobResponse(
+    this.success,
+    this.message,
+    this.canceledCount,
+  );
+
+  bool success;
+  String message;
+  int canceledCount;
+
+  factory CancelJobResponse.fromJson(Map<String, dynamic> json) {
+    return new CancelJobResponse(
+      json['success'] as bool,
+      json['message'] as String,
+      json['canceledCount'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['success'] = success;
+    map['message'] = message;
+    map['canceledCount'] = canceledCount;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class UpdateAvailableRequest {
+  UpdateAvailableRequest(
+    this.os,
+    this.arch,
+    this.version,
+  );
+
+  String os;
+  String arch;
+  String version;
+
+  factory UpdateAvailableRequest.fromJson(Map<String, dynamic> json) {
+    return new UpdateAvailableRequest(
+      json['os'] as String,
+      json['arch'] as String,
+      json['version'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['os'] = os;
+    map['arch'] = arch;
+    map['version'] = version;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class UpdateAvailableResponse {
+  UpdateAvailableResponse(
+    this.available,
+    this.version,
+    this.url,
+  );
+
+  bool available;
+  String version;
+  String url;
+
+  factory UpdateAvailableResponse.fromJson(Map<String, dynamic> json) {
+    return new UpdateAvailableResponse(
+      json['available'] as bool,
+      json['version'] as String,
+      json['url'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['available'] = available;
+    map['version'] = version;
+    map['url'] = url;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class ListProjectResponse {
+  ListProjectResponse(
+    this.success,
+    this.message,
+    this.projects,
+  );
+
+  bool success;
+  String message;
+  List<String> projects;
+
+  factory ListProjectResponse.fromJson(Map<String, dynamic> json) {
+    return new ListProjectResponse(
+      json['success'] as bool,
+      json['message'] as String,
+      json['projects'] != null
+          ? (json['projects'] as List).cast<String>()
+          : <String>[],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['success'] = success;
+    map['message'] = message;
+    map['projects'] = projects?.map((l) => l)?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 abstract class WorkflowAPI {
   Future<TriggerResponse> runWorkflow(RunWorkflowRequest runWorkflowRequest);
   Future<BasicResponse> ping(EmptyMessage emptyMessage);
@@ -902,6 +1344,8 @@ abstract class WorkflowAPI {
   Future<ListWorkflowResponse> listWorkflows(ProjectRequest projectRequest);
   Future<BasicResponse> createProject(ProjectRequest projectRequest);
   Future<BasicResponse> addUserToProject(AddUserRequest addUserRequest);
+  Future<BasicResponse> addSuperUser(UserRequest userRequest);
+  Future<ListProjectResponse> listProjects(Empty empty);
   Future<ListRemoteEnginesResponse> listRemoteEngines(
       ProjectRequest projectRequest);
   Future<BasicResponse> registerRemoteEngine(
@@ -915,16 +1359,28 @@ abstract class WorkflowAPI {
       RemoteEngineRequest remoteEngineRequest);
   Future<StepPackageResponse> getStepPackage(
       StepPackageRequest stepPackageRequest);
-  Future<QueueResponse> viewQueue(ViewQueueRequest viewQueueRequest);
   Future<AllStepsResponse> getAllSteps(AllStepsRequest allStepsRequest);
   Future<AllStepsResponse> searchSteps(AllStepsRequest allStepsRequest);
   Future<SingleStepResponse> getSingleStep(SingleStepRequest singleStepRequest);
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest);
   Future<WorkflowHistoryResponse> getWorkflowHistory(
       WorkflowHistoryRequest workflowHistoryRequest);
-  Future<BasicResponse> storeSecret(StoreSecretRequest storeSecretRequest);
-  Future<BasicResponse> deleteSecret(DeleteSecretRequest deleteSecretRequest);
-  Future<SecretsResponse> getSecrets(ProjectRequest projectRequest);
+  Future<BasicResponse> storeValue(StoreValueRequest storeValueRequest);
+  Future<BasicResponse> deleteValue(DeleteValueRequest deleteValueRequest);
+  Future<ValueResponse> getValues(ProjectValuesRequest projectValuesRequest);
+  Future<SingleValueResponse> getValue(ProjectValueRequest projectValueRequest);
+  Future<QueueResponse> viewQueue(ViewQueueRequest viewQueueRequest);
+  Future<CancelJobResponse> cancelJobs(CancelJobRequest cancelJobRequest);
+  Future<BasicResponse> disableWorkflow(
+      ProjectWorkflowRequest projectWorkflowRequest);
+  Future<BasicResponse> enableWorkflow(
+      ProjectWorkflowRequest projectWorkflowRequest);
+  Future<BasicResponse> removeWorkflow(
+      ProjectWorkflowRequest projectWorkflowRequest);
+  Future<UpdateAvailableResponse> updateAvailable(
+      UpdateAvailableRequest updateAvailableRequest);
+  Future<BasicResponse> pauseEngines(Empty empty);
+  Future<BasicResponse> unpauseEngines(Empty empty);
 }
 
 class DefaultWorkflowAPI implements WorkflowAPI {
@@ -1025,6 +1481,34 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> addSuperUser(UserRequest userRequest) async {
+    var url = "${hostname}${_pathPrefix}AddSuperUser";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(userRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<ListProjectResponse> listProjects(Empty empty) async {
+    var url = "${hostname}${_pathPrefix}ListProjects";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(empty.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return ListProjectResponse.fromJson(value);
   }
 
   Future<ListRemoteEnginesResponse> listRemoteEngines(
@@ -1132,20 +1616,6 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return StepPackageResponse.fromJson(value);
   }
 
-  Future<QueueResponse> viewQueue(ViewQueueRequest viewQueueRequest) async {
-    var url = "${hostname}${_pathPrefix}ViewQueue";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(viewQueueRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return QueueResponse.fromJson(value);
-  }
-
   Future<AllStepsResponse> getAllSteps(AllStepsRequest allStepsRequest) async {
     var url = "${hostname}${_pathPrefix}GetAllSteps";
     var uri = Uri.parse(url);
@@ -1218,13 +1688,12 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return WorkflowHistoryResponse.fromJson(value);
   }
 
-  Future<BasicResponse> storeSecret(
-      StoreSecretRequest storeSecretRequest) async {
-    var url = "${hostname}${_pathPrefix}StoreSecret";
+  Future<BasicResponse> storeValue(StoreValueRequest storeValueRequest) async {
+    var url = "${hostname}${_pathPrefix}StoreValue";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(storeSecretRequest.toJson());
+    request.body = json.encode(storeValueRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
@@ -1233,13 +1702,13 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return BasicResponse.fromJson(value);
   }
 
-  Future<BasicResponse> deleteSecret(
-      DeleteSecretRequest deleteSecretRequest) async {
-    var url = "${hostname}${_pathPrefix}DeleteSecret";
+  Future<BasicResponse> deleteValue(
+      DeleteValueRequest deleteValueRequest) async {
+    var url = "${hostname}${_pathPrefix}DeleteValue";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(deleteSecretRequest.toJson());
+    request.body = json.encode(deleteValueRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
@@ -1248,18 +1717,151 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return BasicResponse.fromJson(value);
   }
 
-  Future<SecretsResponse> getSecrets(ProjectRequest projectRequest) async {
-    var url = "${hostname}${_pathPrefix}GetSecrets";
+  Future<ValueResponse> getValues(
+      ProjectValuesRequest projectValuesRequest) async {
+    var url = "${hostname}${_pathPrefix}GetValues";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(projectRequest.toJson());
+    request.body = json.encode(projectValuesRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
     }
     var value = json.decode(response.body);
-    return SecretsResponse.fromJson(value);
+    return ValueResponse.fromJson(value);
+  }
+
+  Future<SingleValueResponse> getValue(
+      ProjectValueRequest projectValueRequest) async {
+    var url = "${hostname}${_pathPrefix}GetValue";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(projectValueRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return SingleValueResponse.fromJson(value);
+  }
+
+  Future<QueueResponse> viewQueue(ViewQueueRequest viewQueueRequest) async {
+    var url = "${hostname}${_pathPrefix}ViewQueue";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(viewQueueRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return QueueResponse.fromJson(value);
+  }
+
+  Future<CancelJobResponse> cancelJobs(
+      CancelJobRequest cancelJobRequest) async {
+    var url = "${hostname}${_pathPrefix}CancelJobs";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(cancelJobRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return CancelJobResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> disableWorkflow(
+      ProjectWorkflowRequest projectWorkflowRequest) async {
+    var url = "${hostname}${_pathPrefix}DisableWorkflow";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(projectWorkflowRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> enableWorkflow(
+      ProjectWorkflowRequest projectWorkflowRequest) async {
+    var url = "${hostname}${_pathPrefix}EnableWorkflow";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(projectWorkflowRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> removeWorkflow(
+      ProjectWorkflowRequest projectWorkflowRequest) async {
+    var url = "${hostname}${_pathPrefix}RemoveWorkflow";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(projectWorkflowRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<UpdateAvailableResponse> updateAvailable(
+      UpdateAvailableRequest updateAvailableRequest) async {
+    var url = "${hostname}${_pathPrefix}UpdateAvailable";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(updateAvailableRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return UpdateAvailableResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> pauseEngines(Empty empty) async {
+    var url = "${hostname}${_pathPrefix}PauseEngines";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(empty.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> unpauseEngines(Empty empty) async {
+    var url = "${hostname}${_pathPrefix}UnpauseEngines";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(empty.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
   }
 
   Exception twirpException(Response response) {

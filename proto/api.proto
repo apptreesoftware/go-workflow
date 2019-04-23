@@ -18,6 +18,8 @@ service WorkflowAPI {
 
     rpc CreateProject (ProjectRequest) returns (BasicResponse);
     rpc AddUserToProject (AddUserRequest) returns (BasicResponse);
+    rpc AddSuperUser (UserRequest) returns (BasicResponse);
+    rpc ListProjects (Empty) returns (ListProjectResponse);
 
     rpc ListRemoteEngines (ProjectRequest) returns (ListRemoteEnginesResponse);
     rpc RegisterRemoteEngine (RegisterRemoteEngineRequest) returns (BasicResponse);
@@ -27,43 +29,89 @@ service WorkflowAPI {
     rpc RemoveRemoteEngine (RemoteEngineRequest) returns (BasicResponse);
 
     rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
-    rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
     rpc GetAllSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc SearchSteps (AllStepsRequest) returns (AllStepsResponse);
     rpc GetSingleStep (SingleStepRequest) returns (SingleStepResponse);
 
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
 
-    rpc GetWorkflowHistory(WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
+    rpc GetWorkflowHistory (WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
 
-    rpc StoreSecret(StoreSecretRequest) returns (BasicResponse);
-    rpc DeleteSecret(DeleteSecretRequest) returns (BasicResponse);
-    rpc GetSecrets(ProjectRequest) returns (SecretsResponse);
+    rpc StoreValue (StoreValueRequest) returns (BasicResponse);
+    rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
+    rpc GetValues (ProjectValuesRequest) returns (ValueResponse);
+    rpc GetValue (ProjectValueRequest) returns (SingleValueResponse);
+    rpc ViewQueue (ViewQueueRequest) returns (QueueResponse);
+    rpc CancelJobs (CancelJobRequest) returns (CancelJobResponse);
+
+    rpc DisableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+    rpc EnableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+    rpc RemoveWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+
+    rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
+
+    rpc PauseEngines (Empty) returns (BasicResponse);
+    rpc UnpauseEngines (Empty) returns (BasicResponse);
 }
 
-message StoreSecretRequest {
+message ProjectWorkflowRequest {
+    string project = 1;
+    string workflow = 2;
+}
+
+message StoreValueRequest {
     string key = 1;
     string value = 2;
     string project = 3;
+    bool isSecret = 4;
 }
 
-message DeleteSecretRequest {
+message DeleteValueRequest {
     string key = 1;
     string project = 2;
 }
 
-message SecretsResponse {
-    map<string,string> secrets = 1;
+
+message SingleValueResponse {
+    string value = 1;
+}
+
+message ValueResponse {
+    map<string, string> values = 1;
+}
+
+
+message ProjectValue {
+    string key = 1;
+    string value = 2;
+    string project = 3;
+    bool isEncrypted = 4;
 }
 
 message WorkflowHistoryRequest {
     string project = 1;
     string workflow = 2;
     int64 offset = 3;
+    int64 count = 4;
+    string jobId = 5;
 }
 
 message WorkflowHistoryResponse {
-    bytes jobData = 1;
+    repeated WorkflowHistory items = 1;
+}
+
+message WorkflowHistory {
+    string id = 1;
+    bool success = 2;
+    int64 start = 3;
+    int64 end = 4;
+    double duration = 5;
+    string failureReason = 6;
+    string project = 7;
+    string workflow = 8;
+    string triggerType = 9;
+    string parentItem = 10;
+    string input = 11;
 }
 
 message RemoteEngineUpdateRequest {
@@ -72,7 +120,6 @@ message RemoteEngineUpdateRequest {
     bool forceUpdate = 3;
     bool waitForVersion = 4;
 }
-
 
 message RemoteEngineUpdateResponse {
     string status = 1;
@@ -89,6 +136,9 @@ message RemoteEngineHealthRequest {
 
 message RemoteEngineHealthResponse {
     string status = 1;
+    string version = 2;
+    string os = 3;
+    string arch = 4;
 }
 
 message ListRemoteEnginesResponse {
@@ -117,6 +167,16 @@ message RegisterRemoteEngineRequest {
 
 message ProjectRequest {
     string project = 1;
+}
+
+message ProjectValueRequest {
+    string project = 1;
+    string key = 2;
+}
+
+message ProjectValuesRequest {
+    string project = 1;
+    bool decrypt = 2;
 }
 
 message ListWorkflowResponse {
@@ -149,6 +209,10 @@ message PublishWorkflowRequest {
 message AddUserRequest {
     string username = 1;
     string projectId = 2;
+}
+
+message UserRequest {
+    string username = 1;
 }
 
 message QueueItem {
@@ -198,5 +262,36 @@ message TriggerResponse {
     string jobId = 4;
 }
 
+message CancelJobRequest {
+    string project = 1;
+    string workflow = 2;
+    string jobId = 3;
+    bool allPending = 4;
+    bool allRunning = 5;
+}
+
+message CancelJobResponse {
+    bool success = 1;
+    string message = 2;
+    int64 canceledCount = 3;
+}
+
+message UpdateAvailableRequest {
+    string os = 1;
+    string arch = 2;
+    string version = 3;
+}
+
+message UpdateAvailableResponse {
+    bool available = 1;
+    string version = 2;
+    string url = 3;
+}
+
+message ListProjectResponse {
+    bool success = 1;
+    string message = 2;
+    repeated string projects = 3;
+}
 
 

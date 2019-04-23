@@ -33,6 +33,10 @@ type WorkflowAPI interface {
 
 	AddUserToProject(context.Context, *AddUserRequest) (*BasicResponse, error)
 
+	AddSuperUser(context.Context, *UserRequest) (*BasicResponse, error)
+
+	ListProjects(context.Context, *Empty) (*ListProjectResponse, error)
+
 	ListRemoteEngines(context.Context, *ProjectRequest) (*ListRemoteEnginesResponse, error)
 
 	RegisterRemoteEngine(context.Context, *RegisterRemoteEngineRequest) (*BasicResponse, error)
@@ -47,8 +51,6 @@ type WorkflowAPI interface {
 
 	GetStepPackage(context.Context, *StepPackageRequest) (*StepPackageResponse, error)
 
-	ViewQueue(context.Context, *ViewQueueRequest) (*QueueResponse, error)
-
 	GetAllSteps(context.Context, *AllStepsRequest) (*AllStepsResponse, error)
 
 	SearchSteps(context.Context, *AllStepsRequest) (*AllStepsResponse, error)
@@ -59,11 +61,29 @@ type WorkflowAPI interface {
 
 	GetWorkflowHistory(context.Context, *WorkflowHistoryRequest) (*WorkflowHistoryResponse, error)
 
-	StoreSecret(context.Context, *StoreSecretRequest) (*BasicResponse, error)
+	StoreValue(context.Context, *StoreValueRequest) (*BasicResponse, error)
 
-	DeleteSecret(context.Context, *DeleteSecretRequest) (*BasicResponse, error)
+	DeleteValue(context.Context, *DeleteValueRequest) (*BasicResponse, error)
 
-	GetSecrets(context.Context, *ProjectRequest) (*SecretsResponse, error)
+	GetValues(context.Context, *ProjectValuesRequest) (*ValueResponse, error)
+
+	GetValue(context.Context, *ProjectValueRequest) (*SingleValueResponse, error)
+
+	ViewQueue(context.Context, *ViewQueueRequest) (*QueueResponse, error)
+
+	CancelJobs(context.Context, *CancelJobRequest) (*CancelJobResponse, error)
+
+	DisableWorkflow(context.Context, *ProjectWorkflowRequest) (*BasicResponse, error)
+
+	EnableWorkflow(context.Context, *ProjectWorkflowRequest) (*BasicResponse, error)
+
+	RemoveWorkflow(context.Context, *ProjectWorkflowRequest) (*BasicResponse, error)
+
+	UpdateAvailable(context.Context, *UpdateAvailableRequest) (*UpdateAvailableResponse, error)
+
+	PauseEngines(context.Context, *Empty) (*BasicResponse, error)
+
+	UnpauseEngines(context.Context, *Empty) (*BasicResponse, error)
 }
 
 // ===========================
@@ -72,20 +92,22 @@ type WorkflowAPI interface {
 
 type workflowAPIProtobufClient struct {
 	client HTTPClient
-	urls   [22]string
+	urls   [32]string
 }
 
 // NewWorkflowAPIProtobufClient creates a Protobuf client that implements the WorkflowAPI interface.
 // It communicates using Protobuf and can be configured with a custom HTTPClient.
 func NewWorkflowAPIProtobufClient(addr string, client HTTPClient) WorkflowAPI {
 	prefix := urlBase(addr) + WorkflowAPIPathPrefix
-	urls := [22]string{
+	urls := [32]string{
 		prefix + "RunWorkflow",
 		prefix + "Ping",
 		prefix + "PublishWorkflow",
 		prefix + "ListWorkflows",
 		prefix + "CreateProject",
 		prefix + "AddUserToProject",
+		prefix + "AddSuperUser",
+		prefix + "ListProjects",
 		prefix + "ListRemoteEngines",
 		prefix + "RegisterRemoteEngine",
 		prefix + "GetRemoteEngine",
@@ -93,15 +115,23 @@ func NewWorkflowAPIProtobufClient(addr string, client HTTPClient) WorkflowAPI {
 		prefix + "UpdateRemoteEngine",
 		prefix + "RemoveRemoteEngine",
 		prefix + "GetStepPackage",
-		prefix + "ViewQueue",
 		prefix + "GetAllSteps",
 		prefix + "SearchSteps",
 		prefix + "GetSingleStep",
 		prefix + "ViewJobLog",
 		prefix + "GetWorkflowHistory",
-		prefix + "StoreSecret",
-		prefix + "DeleteSecret",
-		prefix + "GetSecrets",
+		prefix + "StoreValue",
+		prefix + "DeleteValue",
+		prefix + "GetValues",
+		prefix + "GetValue",
+		prefix + "ViewQueue",
+		prefix + "CancelJobs",
+		prefix + "DisableWorkflow",
+		prefix + "EnableWorkflow",
+		prefix + "RemoveWorkflow",
+		prefix + "UpdateAvailable",
+		prefix + "PauseEngines",
+		prefix + "UnpauseEngines",
 	}
 	if httpClient, ok := client.(*http.Client); ok {
 		return &workflowAPIProtobufClient{
@@ -187,12 +217,36 @@ func (c *workflowAPIProtobufClient) AddUserToProject(ctx context.Context, in *Ad
 	return out, nil
 }
 
+func (c *workflowAPIProtobufClient) AddSuperUser(ctx context.Context, in *UserRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[6], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) ListProjects(ctx context.Context, in *Empty) (*ListProjectResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	out := new(ListProjectResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[7], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workflowAPIProtobufClient) ListRemoteEngines(ctx context.Context, in *ProjectRequest) (*ListRemoteEnginesResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "ListRemoteEngines")
 	out := new(ListRemoteEnginesResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[6], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[8], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -204,7 +258,7 @@ func (c *workflowAPIProtobufClient) RegisterRemoteEngine(ctx context.Context, in
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "RegisterRemoteEngine")
 	out := new(BasicResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[7], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[9], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -216,7 +270,7 @@ func (c *workflowAPIProtobufClient) GetRemoteEngine(ctx context.Context, in *Rem
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetRemoteEngine")
 	out := new(RemoteEngine)
-	err := doProtobufRequest(ctx, c.client, c.urls[8], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[10], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +282,7 @@ func (c *workflowAPIProtobufClient) RemoteEngineHealthCheck(ctx context.Context,
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "RemoteEngineHealthCheck")
 	out := new(RemoteEngineHealthResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[9], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[11], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +294,7 @@ func (c *workflowAPIProtobufClient) UpdateRemoteEngine(ctx context.Context, in *
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateRemoteEngine")
 	out := new(RemoteEngineUpdateResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[10], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[12], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -252,7 +306,7 @@ func (c *workflowAPIProtobufClient) RemoveRemoteEngine(ctx context.Context, in *
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "RemoveRemoteEngine")
 	out := new(BasicResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[11], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[13], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -264,19 +318,7 @@ func (c *workflowAPIProtobufClient) GetStepPackage(ctx context.Context, in *Step
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetStepPackage")
 	out := new(StepPackageResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[12], in, out)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *workflowAPIProtobufClient) ViewQueue(ctx context.Context, in *ViewQueueRequest) (*QueueResponse, error) {
-	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
-	out := new(QueueResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[13], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[14], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +330,7 @@ func (c *workflowAPIProtobufClient) GetAllSteps(ctx context.Context, in *AllStep
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetAllSteps")
 	out := new(AllStepsResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[14], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[15], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +342,7 @@ func (c *workflowAPIProtobufClient) SearchSteps(ctx context.Context, in *AllStep
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "SearchSteps")
 	out := new(AllStepsResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[15], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[16], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -312,7 +354,7 @@ func (c *workflowAPIProtobufClient) GetSingleStep(ctx context.Context, in *Singl
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetSingleStep")
 	out := new(SingleStepResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[16], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[17], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -324,7 +366,7 @@ func (c *workflowAPIProtobufClient) ViewJobLog(ctx context.Context, in *ViewLogR
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "ViewJobLog")
 	out := new(ViewLogResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[17], in, out)
+	err := doProtobufRequest(ctx, c.client, c.urls[18], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -336,18 +378,6 @@ func (c *workflowAPIProtobufClient) GetWorkflowHistory(ctx context.Context, in *
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetWorkflowHistory")
 	out := new(WorkflowHistoryResponse)
-	err := doProtobufRequest(ctx, c.client, c.urls[18], in, out)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *workflowAPIProtobufClient) StoreSecret(ctx context.Context, in *StoreSecretRequest) (*BasicResponse, error) {
-	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "StoreSecret")
-	out := new(BasicResponse)
 	err := doProtobufRequest(ctx, c.client, c.urls[19], in, out)
 	if err != nil {
 		return nil, err
@@ -355,10 +385,10 @@ func (c *workflowAPIProtobufClient) StoreSecret(ctx context.Context, in *StoreSe
 	return out, nil
 }
 
-func (c *workflowAPIProtobufClient) DeleteSecret(ctx context.Context, in *DeleteSecretRequest) (*BasicResponse, error) {
+func (c *workflowAPIProtobufClient) StoreValue(ctx context.Context, in *StoreValueRequest) (*BasicResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "DeleteSecret")
+	ctx = ctxsetters.WithMethodName(ctx, "StoreValue")
 	out := new(BasicResponse)
 	err := doProtobufRequest(ctx, c.client, c.urls[20], in, out)
 	if err != nil {
@@ -367,12 +397,132 @@ func (c *workflowAPIProtobufClient) DeleteSecret(ctx context.Context, in *Delete
 	return out, nil
 }
 
-func (c *workflowAPIProtobufClient) GetSecrets(ctx context.Context, in *ProjectRequest) (*SecretsResponse, error) {
+func (c *workflowAPIProtobufClient) DeleteValue(ctx context.Context, in *DeleteValueRequest) (*BasicResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "GetSecrets")
-	out := new(SecretsResponse)
+	ctx = ctxsetters.WithMethodName(ctx, "DeleteValue")
+	out := new(BasicResponse)
 	err := doProtobufRequest(ctx, c.client, c.urls[21], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) GetValues(ctx context.Context, in *ProjectValuesRequest) (*ValueResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "GetValues")
+	out := new(ValueResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[22], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) GetValue(ctx context.Context, in *ProjectValueRequest) (*SingleValueResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "GetValue")
+	out := new(SingleValueResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[23], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) ViewQueue(ctx context.Context, in *ViewQueueRequest) (*QueueResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
+	out := new(QueueResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[24], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) CancelJobs(ctx context.Context, in *CancelJobRequest) (*CancelJobResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "CancelJobs")
+	out := new(CancelJobResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[25], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) DisableWorkflow(ctx context.Context, in *ProjectWorkflowRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "DisableWorkflow")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[26], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) EnableWorkflow(ctx context.Context, in *ProjectWorkflowRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "EnableWorkflow")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[27], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) RemoveWorkflow(ctx context.Context, in *ProjectWorkflowRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "RemoveWorkflow")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[28], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) UpdateAvailable(ctx context.Context, in *UpdateAvailableRequest) (*UpdateAvailableResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
+	out := new(UpdateAvailableResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[29], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) PauseEngines(ctx context.Context, in *Empty) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "PauseEngines")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[30], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIProtobufClient) UnpauseEngines(ctx context.Context, in *Empty) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "UnpauseEngines")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[31], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -385,20 +535,22 @@ func (c *workflowAPIProtobufClient) GetSecrets(ctx context.Context, in *ProjectR
 
 type workflowAPIJSONClient struct {
 	client HTTPClient
-	urls   [22]string
+	urls   [32]string
 }
 
 // NewWorkflowAPIJSONClient creates a JSON client that implements the WorkflowAPI interface.
 // It communicates using JSON and can be configured with a custom HTTPClient.
 func NewWorkflowAPIJSONClient(addr string, client HTTPClient) WorkflowAPI {
 	prefix := urlBase(addr) + WorkflowAPIPathPrefix
-	urls := [22]string{
+	urls := [32]string{
 		prefix + "RunWorkflow",
 		prefix + "Ping",
 		prefix + "PublishWorkflow",
 		prefix + "ListWorkflows",
 		prefix + "CreateProject",
 		prefix + "AddUserToProject",
+		prefix + "AddSuperUser",
+		prefix + "ListProjects",
 		prefix + "ListRemoteEngines",
 		prefix + "RegisterRemoteEngine",
 		prefix + "GetRemoteEngine",
@@ -406,15 +558,23 @@ func NewWorkflowAPIJSONClient(addr string, client HTTPClient) WorkflowAPI {
 		prefix + "UpdateRemoteEngine",
 		prefix + "RemoveRemoteEngine",
 		prefix + "GetStepPackage",
-		prefix + "ViewQueue",
 		prefix + "GetAllSteps",
 		prefix + "SearchSteps",
 		prefix + "GetSingleStep",
 		prefix + "ViewJobLog",
 		prefix + "GetWorkflowHistory",
-		prefix + "StoreSecret",
-		prefix + "DeleteSecret",
-		prefix + "GetSecrets",
+		prefix + "StoreValue",
+		prefix + "DeleteValue",
+		prefix + "GetValues",
+		prefix + "GetValue",
+		prefix + "ViewQueue",
+		prefix + "CancelJobs",
+		prefix + "DisableWorkflow",
+		prefix + "EnableWorkflow",
+		prefix + "RemoveWorkflow",
+		prefix + "UpdateAvailable",
+		prefix + "PauseEngines",
+		prefix + "UnpauseEngines",
 	}
 	if httpClient, ok := client.(*http.Client); ok {
 		return &workflowAPIJSONClient{
@@ -500,12 +660,36 @@ func (c *workflowAPIJSONClient) AddUserToProject(ctx context.Context, in *AddUse
 	return out, nil
 }
 
+func (c *workflowAPIJSONClient) AddSuperUser(ctx context.Context, in *UserRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[6], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) ListProjects(ctx context.Context, in *Empty) (*ListProjectResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	out := new(ListProjectResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[7], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *workflowAPIJSONClient) ListRemoteEngines(ctx context.Context, in *ProjectRequest) (*ListRemoteEnginesResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "ListRemoteEngines")
 	out := new(ListRemoteEnginesResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[6], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[8], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -517,7 +701,7 @@ func (c *workflowAPIJSONClient) RegisterRemoteEngine(ctx context.Context, in *Re
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "RegisterRemoteEngine")
 	out := new(BasicResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[7], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[9], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -529,7 +713,7 @@ func (c *workflowAPIJSONClient) GetRemoteEngine(ctx context.Context, in *RemoteE
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetRemoteEngine")
 	out := new(RemoteEngine)
-	err := doJSONRequest(ctx, c.client, c.urls[8], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[10], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -541,7 +725,7 @@ func (c *workflowAPIJSONClient) RemoteEngineHealthCheck(ctx context.Context, in 
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "RemoteEngineHealthCheck")
 	out := new(RemoteEngineHealthResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[9], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[11], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -553,7 +737,7 @@ func (c *workflowAPIJSONClient) UpdateRemoteEngine(ctx context.Context, in *Remo
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateRemoteEngine")
 	out := new(RemoteEngineUpdateResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[10], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[12], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -565,7 +749,7 @@ func (c *workflowAPIJSONClient) RemoveRemoteEngine(ctx context.Context, in *Remo
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "RemoveRemoteEngine")
 	out := new(BasicResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[11], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[13], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -577,19 +761,7 @@ func (c *workflowAPIJSONClient) GetStepPackage(ctx context.Context, in *StepPack
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetStepPackage")
 	out := new(StepPackageResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[12], in, out)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *workflowAPIJSONClient) ViewQueue(ctx context.Context, in *ViewQueueRequest) (*QueueResponse, error) {
-	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
-	out := new(QueueResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[13], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[14], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -601,7 +773,7 @@ func (c *workflowAPIJSONClient) GetAllSteps(ctx context.Context, in *AllStepsReq
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetAllSteps")
 	out := new(AllStepsResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[14], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[15], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -613,7 +785,7 @@ func (c *workflowAPIJSONClient) SearchSteps(ctx context.Context, in *AllStepsReq
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "SearchSteps")
 	out := new(AllStepsResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[15], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[16], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -625,7 +797,7 @@ func (c *workflowAPIJSONClient) GetSingleStep(ctx context.Context, in *SingleSte
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetSingleStep")
 	out := new(SingleStepResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[16], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[17], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -637,7 +809,7 @@ func (c *workflowAPIJSONClient) ViewJobLog(ctx context.Context, in *ViewLogReque
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "ViewJobLog")
 	out := new(ViewLogResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[17], in, out)
+	err := doJSONRequest(ctx, c.client, c.urls[18], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -649,18 +821,6 @@ func (c *workflowAPIJSONClient) GetWorkflowHistory(ctx context.Context, in *Work
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
 	ctx = ctxsetters.WithMethodName(ctx, "GetWorkflowHistory")
 	out := new(WorkflowHistoryResponse)
-	err := doJSONRequest(ctx, c.client, c.urls[18], in, out)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *workflowAPIJSONClient) StoreSecret(ctx context.Context, in *StoreSecretRequest) (*BasicResponse, error) {
-	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "StoreSecret")
-	out := new(BasicResponse)
 	err := doJSONRequest(ctx, c.client, c.urls[19], in, out)
 	if err != nil {
 		return nil, err
@@ -668,10 +828,10 @@ func (c *workflowAPIJSONClient) StoreSecret(ctx context.Context, in *StoreSecret
 	return out, nil
 }
 
-func (c *workflowAPIJSONClient) DeleteSecret(ctx context.Context, in *DeleteSecretRequest) (*BasicResponse, error) {
+func (c *workflowAPIJSONClient) StoreValue(ctx context.Context, in *StoreValueRequest) (*BasicResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "DeleteSecret")
+	ctx = ctxsetters.WithMethodName(ctx, "StoreValue")
 	out := new(BasicResponse)
 	err := doJSONRequest(ctx, c.client, c.urls[20], in, out)
 	if err != nil {
@@ -680,12 +840,132 @@ func (c *workflowAPIJSONClient) DeleteSecret(ctx context.Context, in *DeleteSecr
 	return out, nil
 }
 
-func (c *workflowAPIJSONClient) GetSecrets(ctx context.Context, in *ProjectRequest) (*SecretsResponse, error) {
+func (c *workflowAPIJSONClient) DeleteValue(ctx context.Context, in *DeleteValueRequest) (*BasicResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
 	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "GetSecrets")
-	out := new(SecretsResponse)
+	ctx = ctxsetters.WithMethodName(ctx, "DeleteValue")
+	out := new(BasicResponse)
 	err := doJSONRequest(ctx, c.client, c.urls[21], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) GetValues(ctx context.Context, in *ProjectValuesRequest) (*ValueResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "GetValues")
+	out := new(ValueResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[22], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) GetValue(ctx context.Context, in *ProjectValueRequest) (*SingleValueResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "GetValue")
+	out := new(SingleValueResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[23], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) ViewQueue(ctx context.Context, in *ViewQueueRequest) (*QueueResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
+	out := new(QueueResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[24], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) CancelJobs(ctx context.Context, in *CancelJobRequest) (*CancelJobResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "CancelJobs")
+	out := new(CancelJobResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[25], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) DisableWorkflow(ctx context.Context, in *ProjectWorkflowRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "DisableWorkflow")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[26], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) EnableWorkflow(ctx context.Context, in *ProjectWorkflowRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "EnableWorkflow")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[27], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) RemoveWorkflow(ctx context.Context, in *ProjectWorkflowRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "RemoveWorkflow")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[28], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) UpdateAvailable(ctx context.Context, in *UpdateAvailableRequest) (*UpdateAvailableResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
+	out := new(UpdateAvailableResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[29], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) PauseEngines(ctx context.Context, in *Empty) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "PauseEngines")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[30], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *workflowAPIJSONClient) UnpauseEngines(ctx context.Context, in *Empty) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "WorkflowAPI")
+	ctx = ctxsetters.WithMethodName(ctx, "UnpauseEngines")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[31], in, out)
 	if err != nil {
 		return nil, err
 	}
@@ -758,6 +1038,12 @@ func (s *workflowAPIServer) ServeHTTP(resp http.ResponseWriter, req *http.Reques
 	case "/twirp/core.WorkflowAPI/AddUserToProject":
 		s.serveAddUserToProject(ctx, resp, req)
 		return
+	case "/twirp/core.WorkflowAPI/AddSuperUser":
+		s.serveAddSuperUser(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/ListProjects":
+		s.serveListProjects(ctx, resp, req)
+		return
 	case "/twirp/core.WorkflowAPI/ListRemoteEngines":
 		s.serveListRemoteEngines(ctx, resp, req)
 		return
@@ -779,9 +1065,6 @@ func (s *workflowAPIServer) ServeHTTP(resp http.ResponseWriter, req *http.Reques
 	case "/twirp/core.WorkflowAPI/GetStepPackage":
 		s.serveGetStepPackage(ctx, resp, req)
 		return
-	case "/twirp/core.WorkflowAPI/ViewQueue":
-		s.serveViewQueue(ctx, resp, req)
-		return
 	case "/twirp/core.WorkflowAPI/GetAllSteps":
 		s.serveGetAllSteps(ctx, resp, req)
 		return
@@ -797,14 +1080,41 @@ func (s *workflowAPIServer) ServeHTTP(resp http.ResponseWriter, req *http.Reques
 	case "/twirp/core.WorkflowAPI/GetWorkflowHistory":
 		s.serveGetWorkflowHistory(ctx, resp, req)
 		return
-	case "/twirp/core.WorkflowAPI/StoreSecret":
-		s.serveStoreSecret(ctx, resp, req)
+	case "/twirp/core.WorkflowAPI/StoreValue":
+		s.serveStoreValue(ctx, resp, req)
 		return
-	case "/twirp/core.WorkflowAPI/DeleteSecret":
-		s.serveDeleteSecret(ctx, resp, req)
+	case "/twirp/core.WorkflowAPI/DeleteValue":
+		s.serveDeleteValue(ctx, resp, req)
 		return
-	case "/twirp/core.WorkflowAPI/GetSecrets":
-		s.serveGetSecrets(ctx, resp, req)
+	case "/twirp/core.WorkflowAPI/GetValues":
+		s.serveGetValues(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/GetValue":
+		s.serveGetValue(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/ViewQueue":
+		s.serveViewQueue(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/CancelJobs":
+		s.serveCancelJobs(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/DisableWorkflow":
+		s.serveDisableWorkflow(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/EnableWorkflow":
+		s.serveEnableWorkflow(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/RemoveWorkflow":
+		s.serveRemoveWorkflow(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/UpdateAvailable":
+		s.serveUpdateAvailable(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/PauseEngines":
+		s.servePauseEngines(ctx, resp, req)
+		return
+	case "/twirp/core.WorkflowAPI/UnpauseEngines":
+		s.serveUnpauseEngines(ctx, resp, req)
 		return
 	default:
 		msg := fmt.Sprintf("no handler for path %q", req.URL.Path)
@@ -1565,6 +1875,264 @@ func (s *workflowAPIServer) serveAddUserToProjectProtobuf(ctx context.Context, r
 	}
 	if respContent == nil {
 		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling AddUserToProject. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveAddSuperUser(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveAddSuperUserJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveAddSuperUserProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveAddSuperUserJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(UserRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.AddSuperUser(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling AddSuperUser. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveAddSuperUserProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(UserRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.AddSuperUser(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling AddSuperUser. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveListProjects(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveListProjectsJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveListProjectsProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveListProjectsJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(Empty)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *ListProjectResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.ListProjects(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ListProjectResponse and nil error while calling ListProjects. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveListProjectsProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(Empty)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *ListProjectResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.ListProjects(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ListProjectResponse and nil error while calling ListProjects. nil responses are not supported"))
 		return
 	}
 
@@ -2491,135 +3059,6 @@ func (s *workflowAPIServer) serveGetStepPackageProtobuf(ctx context.Context, res
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *workflowAPIServer) serveViewQueue(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
-	header := req.Header.Get("Content-Type")
-	i := strings.Index(header, ";")
-	if i == -1 {
-		i = len(header)
-	}
-	switch strings.TrimSpace(strings.ToLower(header[:i])) {
-	case "application/json":
-		s.serveViewQueueJSON(ctx, resp, req)
-	case "application/protobuf":
-		s.serveViewQueueProtobuf(ctx, resp, req)
-	default:
-		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
-		twerr := badRouteError(msg, req.Method, req.URL.Path)
-		s.writeError(ctx, resp, twerr)
-	}
-}
-
-func (s *workflowAPIServer) serveViewQueueJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
-	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
-	ctx, err = callRequestRouted(ctx, s.hooks)
-	if err != nil {
-		s.writeError(ctx, resp, err)
-		return
-	}
-
-	reqContent := new(ViewQueueRequest)
-	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
-	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
-		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
-		return
-	}
-
-	// Call service method
-	var respContent *QueueResponse
-	func() {
-		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.ViewQueue(ctx, reqContent)
-	}()
-
-	if err != nil {
-		s.writeError(ctx, resp, err)
-		return
-	}
-	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *QueueResponse and nil error while calling ViewQueue. nil responses are not supported"))
-		return
-	}
-
-	ctx = callResponsePrepared(ctx, s.hooks)
-
-	var buf bytes.Buffer
-	marshaler := &jsonpb.Marshaler{OrigName: true}
-	if err = marshaler.Marshal(&buf, respContent); err != nil {
-		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
-		return
-	}
-
-	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
-	respBytes := buf.Bytes()
-	resp.Header().Set("Content-Type", "application/json")
-	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
-	resp.WriteHeader(http.StatusOK)
-
-	if n, err := resp.Write(respBytes); err != nil {
-		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
-		twerr := twirp.NewError(twirp.Unknown, msg)
-		callError(ctx, s.hooks, twerr)
-	}
-	callResponseSent(ctx, s.hooks)
-}
-
-func (s *workflowAPIServer) serveViewQueueProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
-	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
-	ctx, err = callRequestRouted(ctx, s.hooks)
-	if err != nil {
-		s.writeError(ctx, resp, err)
-		return
-	}
-
-	buf, err := ioutil.ReadAll(req.Body)
-	if err != nil {
-		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
-		return
-	}
-	reqContent := new(ViewQueueRequest)
-	if err = proto.Unmarshal(buf, reqContent); err != nil {
-		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
-		return
-	}
-
-	// Call service method
-	var respContent *QueueResponse
-	func() {
-		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.ViewQueue(ctx, reqContent)
-	}()
-
-	if err != nil {
-		s.writeError(ctx, resp, err)
-		return
-	}
-	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *QueueResponse and nil error while calling ViewQueue. nil responses are not supported"))
-		return
-	}
-
-	ctx = callResponsePrepared(ctx, s.hooks)
-
-	respBytes, err := proto.Marshal(respContent)
-	if err != nil {
-		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
-		return
-	}
-
-	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
-	resp.Header().Set("Content-Type", "application/protobuf")
-	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
-	resp.WriteHeader(http.StatusOK)
-	if n, err := resp.Write(respBytes); err != nil {
-		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
-		twerr := twirp.NewError(twirp.Unknown, msg)
-		callError(ctx, s.hooks, twerr)
-	}
-	callResponseSent(ctx, s.hooks)
-}
-
 func (s *workflowAPIServer) serveGetAllSteps(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
@@ -3265,7 +3704,7 @@ func (s *workflowAPIServer) serveGetWorkflowHistoryProtobuf(ctx context.Context,
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *workflowAPIServer) serveStoreSecret(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveStoreValue(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -3273,9 +3712,9 @@ func (s *workflowAPIServer) serveStoreSecret(ctx context.Context, resp http.Resp
 	}
 	switch strings.TrimSpace(strings.ToLower(header[:i])) {
 	case "application/json":
-		s.serveStoreSecretJSON(ctx, resp, req)
+		s.serveStoreValueJSON(ctx, resp, req)
 	case "application/protobuf":
-		s.serveStoreSecretProtobuf(ctx, resp, req)
+		s.serveStoreValueProtobuf(ctx, resp, req)
 	default:
 		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
 		twerr := badRouteError(msg, req.Method, req.URL.Path)
@@ -3283,16 +3722,16 @@ func (s *workflowAPIServer) serveStoreSecret(ctx context.Context, resp http.Resp
 	}
 }
 
-func (s *workflowAPIServer) serveStoreSecretJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveStoreValueJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "StoreSecret")
+	ctx = ctxsetters.WithMethodName(ctx, "StoreValue")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
 		return
 	}
 
-	reqContent := new(StoreSecretRequest)
+	reqContent := new(StoreValueRequest)
 	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
 	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
 		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
@@ -3303,7 +3742,7 @@ func (s *workflowAPIServer) serveStoreSecretJSON(ctx context.Context, resp http.
 	var respContent *BasicResponse
 	func() {
 		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.StoreSecret(ctx, reqContent)
+		respContent, err = s.WorkflowAPI.StoreValue(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -3311,7 +3750,7 @@ func (s *workflowAPIServer) serveStoreSecretJSON(ctx context.Context, resp http.
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling StoreSecret. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling StoreValue. nil responses are not supported"))
 		return
 	}
 
@@ -3338,9 +3777,9 @@ func (s *workflowAPIServer) serveStoreSecretJSON(ctx context.Context, resp http.
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *workflowAPIServer) serveStoreSecretProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveStoreValueProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "StoreSecret")
+	ctx = ctxsetters.WithMethodName(ctx, "StoreValue")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
@@ -3352,7 +3791,7 @@ func (s *workflowAPIServer) serveStoreSecretProtobuf(ctx context.Context, resp h
 		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
 		return
 	}
-	reqContent := new(StoreSecretRequest)
+	reqContent := new(StoreValueRequest)
 	if err = proto.Unmarshal(buf, reqContent); err != nil {
 		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
 		return
@@ -3362,7 +3801,7 @@ func (s *workflowAPIServer) serveStoreSecretProtobuf(ctx context.Context, resp h
 	var respContent *BasicResponse
 	func() {
 		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.StoreSecret(ctx, reqContent)
+		respContent, err = s.WorkflowAPI.StoreValue(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -3370,7 +3809,7 @@ func (s *workflowAPIServer) serveStoreSecretProtobuf(ctx context.Context, resp h
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling StoreSecret. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling StoreValue. nil responses are not supported"))
 		return
 	}
 
@@ -3394,7 +3833,7 @@ func (s *workflowAPIServer) serveStoreSecretProtobuf(ctx context.Context, resp h
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *workflowAPIServer) serveDeleteSecret(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveDeleteValue(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -3402,9 +3841,9 @@ func (s *workflowAPIServer) serveDeleteSecret(ctx context.Context, resp http.Res
 	}
 	switch strings.TrimSpace(strings.ToLower(header[:i])) {
 	case "application/json":
-		s.serveDeleteSecretJSON(ctx, resp, req)
+		s.serveDeleteValueJSON(ctx, resp, req)
 	case "application/protobuf":
-		s.serveDeleteSecretProtobuf(ctx, resp, req)
+		s.serveDeleteValueProtobuf(ctx, resp, req)
 	default:
 		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
 		twerr := badRouteError(msg, req.Method, req.URL.Path)
@@ -3412,16 +3851,16 @@ func (s *workflowAPIServer) serveDeleteSecret(ctx context.Context, resp http.Res
 	}
 }
 
-func (s *workflowAPIServer) serveDeleteSecretJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveDeleteValueJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "DeleteSecret")
+	ctx = ctxsetters.WithMethodName(ctx, "DeleteValue")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
 		return
 	}
 
-	reqContent := new(DeleteSecretRequest)
+	reqContent := new(DeleteValueRequest)
 	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
 	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
 		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
@@ -3432,7 +3871,7 @@ func (s *workflowAPIServer) serveDeleteSecretJSON(ctx context.Context, resp http
 	var respContent *BasicResponse
 	func() {
 		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.DeleteSecret(ctx, reqContent)
+		respContent, err = s.WorkflowAPI.DeleteValue(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -3440,7 +3879,7 @@ func (s *workflowAPIServer) serveDeleteSecretJSON(ctx context.Context, resp http
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling DeleteSecret. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling DeleteValue. nil responses are not supported"))
 		return
 	}
 
@@ -3467,9 +3906,9 @@ func (s *workflowAPIServer) serveDeleteSecretJSON(ctx context.Context, resp http
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *workflowAPIServer) serveDeleteSecretProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveDeleteValueProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "DeleteSecret")
+	ctx = ctxsetters.WithMethodName(ctx, "DeleteValue")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
@@ -3481,7 +3920,7 @@ func (s *workflowAPIServer) serveDeleteSecretProtobuf(ctx context.Context, resp 
 		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
 		return
 	}
-	reqContent := new(DeleteSecretRequest)
+	reqContent := new(DeleteValueRequest)
 	if err = proto.Unmarshal(buf, reqContent); err != nil {
 		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
 		return
@@ -3491,7 +3930,7 @@ func (s *workflowAPIServer) serveDeleteSecretProtobuf(ctx context.Context, resp 
 	var respContent *BasicResponse
 	func() {
 		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.DeleteSecret(ctx, reqContent)
+		respContent, err = s.WorkflowAPI.DeleteValue(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -3499,7 +3938,7 @@ func (s *workflowAPIServer) serveDeleteSecretProtobuf(ctx context.Context, resp 
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling DeleteSecret. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling DeleteValue. nil responses are not supported"))
 		return
 	}
 
@@ -3523,7 +3962,7 @@ func (s *workflowAPIServer) serveDeleteSecretProtobuf(ctx context.Context, resp 
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *workflowAPIServer) serveGetSecrets(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveGetValues(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -3531,9 +3970,9 @@ func (s *workflowAPIServer) serveGetSecrets(ctx context.Context, resp http.Respo
 	}
 	switch strings.TrimSpace(strings.ToLower(header[:i])) {
 	case "application/json":
-		s.serveGetSecretsJSON(ctx, resp, req)
+		s.serveGetValuesJSON(ctx, resp, req)
 	case "application/protobuf":
-		s.serveGetSecretsProtobuf(ctx, resp, req)
+		s.serveGetValuesProtobuf(ctx, resp, req)
 	default:
 		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
 		twerr := badRouteError(msg, req.Method, req.URL.Path)
@@ -3541,16 +3980,16 @@ func (s *workflowAPIServer) serveGetSecrets(ctx context.Context, resp http.Respo
 	}
 }
 
-func (s *workflowAPIServer) serveGetSecretsJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveGetValuesJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "GetSecrets")
+	ctx = ctxsetters.WithMethodName(ctx, "GetValues")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
 		return
 	}
 
-	reqContent := new(ProjectRequest)
+	reqContent := new(ProjectValuesRequest)
 	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
 	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
 		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
@@ -3558,10 +3997,10 @@ func (s *workflowAPIServer) serveGetSecretsJSON(ctx context.Context, resp http.R
 	}
 
 	// Call service method
-	var respContent *SecretsResponse
+	var respContent *ValueResponse
 	func() {
 		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.GetSecrets(ctx, reqContent)
+		respContent, err = s.WorkflowAPI.GetValues(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -3569,7 +4008,7 @@ func (s *workflowAPIServer) serveGetSecretsJSON(ctx context.Context, resp http.R
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *SecretsResponse and nil error while calling GetSecrets. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ValueResponse and nil error while calling GetValues. nil responses are not supported"))
 		return
 	}
 
@@ -3596,9 +4035,9 @@ func (s *workflowAPIServer) serveGetSecretsJSON(ctx context.Context, resp http.R
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *workflowAPIServer) serveGetSecretsProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *workflowAPIServer) serveGetValuesProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "GetSecrets")
+	ctx = ctxsetters.WithMethodName(ctx, "GetValues")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
@@ -3610,17 +4049,17 @@ func (s *workflowAPIServer) serveGetSecretsProtobuf(ctx context.Context, resp ht
 		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
 		return
 	}
-	reqContent := new(ProjectRequest)
+	reqContent := new(ProjectValuesRequest)
 	if err = proto.Unmarshal(buf, reqContent); err != nil {
 		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
 		return
 	}
 
 	// Call service method
-	var respContent *SecretsResponse
+	var respContent *ValueResponse
 	func() {
 		defer ensurePanicResponses(ctx, resp, s.hooks)
-		respContent, err = s.WorkflowAPI.GetSecrets(ctx, reqContent)
+		respContent, err = s.WorkflowAPI.GetValues(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -3628,7 +4067,1168 @@ func (s *workflowAPIServer) serveGetSecretsProtobuf(ctx context.Context, resp ht
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *SecretsResponse and nil error while calling GetSecrets. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ValueResponse and nil error while calling GetValues. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveGetValue(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveGetValueJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveGetValueProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveGetValueJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "GetValue")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ProjectValueRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *SingleValueResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.GetValue(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *SingleValueResponse and nil error while calling GetValue. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveGetValueProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "GetValue")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(ProjectValueRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *SingleValueResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.GetValue(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *SingleValueResponse and nil error while calling GetValue. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveViewQueue(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveViewQueueJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveViewQueueProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveViewQueueJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ViewQueueRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *QueueResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.ViewQueue(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *QueueResponse and nil error while calling ViewQueue. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveViewQueueProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "ViewQueue")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(ViewQueueRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *QueueResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.ViewQueue(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *QueueResponse and nil error while calling ViewQueue. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveCancelJobs(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveCancelJobsJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveCancelJobsProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveCancelJobsJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "CancelJobs")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(CancelJobRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *CancelJobResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.CancelJobs(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *CancelJobResponse and nil error while calling CancelJobs. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveCancelJobsProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "CancelJobs")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(CancelJobRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *CancelJobResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.CancelJobs(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *CancelJobResponse and nil error while calling CancelJobs. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveDisableWorkflow(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveDisableWorkflowJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveDisableWorkflowProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveDisableWorkflowJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "DisableWorkflow")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ProjectWorkflowRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.DisableWorkflow(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling DisableWorkflow. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveDisableWorkflowProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "DisableWorkflow")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(ProjectWorkflowRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.DisableWorkflow(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling DisableWorkflow. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveEnableWorkflow(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveEnableWorkflowJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveEnableWorkflowProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveEnableWorkflowJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "EnableWorkflow")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ProjectWorkflowRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.EnableWorkflow(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling EnableWorkflow. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveEnableWorkflowProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "EnableWorkflow")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(ProjectWorkflowRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.EnableWorkflow(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling EnableWorkflow. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveRemoveWorkflow(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveRemoveWorkflowJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveRemoveWorkflowProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveRemoveWorkflowJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "RemoveWorkflow")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ProjectWorkflowRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.RemoveWorkflow(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling RemoveWorkflow. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveRemoveWorkflowProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "RemoveWorkflow")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(ProjectWorkflowRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.RemoveWorkflow(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling RemoveWorkflow. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveUpdateAvailable(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveUpdateAvailableJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveUpdateAvailableProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveUpdateAvailableJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(UpdateAvailableRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *UpdateAvailableResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.UpdateAvailable(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *UpdateAvailableResponse and nil error while calling UpdateAvailable. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveUpdateAvailableProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(UpdateAvailableRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *UpdateAvailableResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.UpdateAvailable(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *UpdateAvailableResponse and nil error while calling UpdateAvailable. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) servePauseEngines(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.servePauseEnginesJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.servePauseEnginesProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) servePauseEnginesJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "PauseEngines")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(Empty)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.PauseEngines(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling PauseEngines. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) servePauseEnginesProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "PauseEngines")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(Empty)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.PauseEngines(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling PauseEngines. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal proto response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveUnpauseEngines(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveUnpauseEnginesJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveUnpauseEnginesProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *workflowAPIServer) serveUnpauseEnginesJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "UnpauseEngines")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(Empty)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request json"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.UnpauseEngines(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling UnpauseEngines. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to marshal json response"))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	respBytes := buf.Bytes()
+	resp.Header().Set("Content-Type", "application/json")
+	resp.Header().Set("Content-Length", strconv.Itoa(len(respBytes)))
+	resp.WriteHeader(http.StatusOK)
+
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *workflowAPIServer) serveUnpauseEnginesProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "UnpauseEngines")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to read request body"))
+		return
+	}
+	reqContent := new(Empty)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		s.writeError(ctx, resp, wrapInternal(err, "failed to parse request proto"))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer ensurePanicResponses(ctx, resp, s.hooks)
+		respContent, err = s.WorkflowAPI.UnpauseEngines(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling UnpauseEngines. nil responses are not supported"))
 		return
 	}
 
@@ -3665,91 +5265,121 @@ func (s *workflowAPIServer) PathPrefix() string {
 }
 
 var twirpFileDescriptor1 = []byte{
-	// 1369 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x58, 0xdd, 0x72, 0xdb, 0xb6,
-	0x12, 0x1e, 0xc9, 0xf2, 0x8f, 0xd6, 0xb2, 0xe5, 0x83, 0x38, 0x8a, 0xa2, 0x93, 0x9c, 0xf8, 0x70,
-	0xa6, 0x9d, 0x4c, 0xa7, 0xb5, 0xa7, 0x49, 0x2e, 0x92, 0x4c, 0x92, 0xd6, 0x7f, 0x75, 0xec, 0xba,
-	0x8d, 0x43, 0xe7, 0x67, 0xda, 0xc9, 0x0d, 0x45, 0xae, 0x69, 0xda, 0x12, 0xc1, 0x02, 0xa0, 0x5d,
-	0xcd, 0xf4, 0x0d, 0xda, 0xbb, 0x5e, 0xf4, 0xa2, 0xcf, 0xd7, 0xf7, 0xe8, 0x80, 0x00, 0x44, 0x90,
-	0xa6, 0xe2, 0x24, 0xbe, 0xe3, 0x2e, 0x80, 0x6f, 0xbf, 0x5d, 0x2c, 0x16, 0x0b, 0x42, 0xd3, 0x4b,
-	0xa2, 0xd5, 0x84, 0x51, 0x41, 0x49, 0xc3, 0xa7, 0x0c, 0x7b, 0x2d, 0x9f, 0x0e, 0x87, 0x34, 0x56,
-	0x3a, 0xe7, 0x0d, 0x90, 0x43, 0x41, 0x19, 0x1e, 0xa2, 0xcf, 0x50, 0xb8, 0xf8, 0x4b, 0x8a, 0x5c,
-	0x90, 0x25, 0x98, 0x3a, 0xc5, 0x51, 0xb7, 0xb6, 0x52, 0xbb, 0xdb, 0x74, 0xe5, 0x27, 0x59, 0x86,
-	0xe9, 0x33, 0x6f, 0x90, 0x62, 0xb7, 0x9e, 0xe9, 0x94, 0x40, 0xba, 0x30, 0x9b, 0x30, 0x7a, 0x82,
-	0xbe, 0xe8, 0x4e, 0x65, 0x7a, 0x23, 0x3a, 0xeb, 0x70, 0x6d, 0x0b, 0x07, 0x28, 0x2e, 0x05, 0xb6,
-	0x20, 0xea, 0x45, 0x88, 0xdf, 0x6b, 0xd0, 0x56, 0xab, 0xb9, 0x8b, 0x3c, 0xa1, 0x31, 0x47, 0xf2,
-	0x04, 0x66, 0xb9, 0x52, 0x75, 0x6b, 0x2b, 0x53, 0x77, 0xe7, 0xef, 0x39, 0xab, 0xd2, 0xa9, 0xd5,
-	0xd2, 0x3c, 0x23, 0x6f, 0xc7, 0x82, 0x8d, 0x5c, 0xb3, 0xa4, 0xf7, 0x18, 0x5a, 0xf6, 0xc0, 0x87,
-	0xba, 0xf9, 0xb8, 0xfe, 0xb0, 0xe6, 0x1c, 0x41, 0xe7, 0x2d, 0x65, 0xa7, 0x47, 0x03, 0x7a, 0xfe,
-	0x3c, 0xe2, 0x82, 0xb2, 0x91, 0xf1, 0xc9, 0xf2, 0xa0, 0x56, 0xf0, 0x80, 0xf4, 0x60, 0xee, 0x5c,
-	0xaf, 0xd1, 0x80, 0x63, 0x99, 0x74, 0x60, 0x86, 0x1e, 0x1d, 0x71, 0x54, 0x91, 0x9b, 0x72, 0xb5,
-	0xe4, 0xdc, 0x87, 0x1b, 0x17, 0xec, 0x68, 0xe7, 0xbb, 0x30, 0x7b, 0x42, 0xfb, 0x5b, 0x9e, 0xf0,
-	0x32, 0x43, 0x2d, 0xd7, 0x88, 0xce, 0x9f, 0x35, 0xb8, 0xe9, 0xe2, 0x90, 0x0a, 0xdc, 0x8e, 0xc3,
-	0x28, 0xc6, 0xd7, 0x49, 0xe0, 0x09, 0x34, 0x04, 0x09, 0x34, 0x62, 0x6f, 0x88, 0x9a, 0x5d, 0xf6,
-	0x3d, 0x39, 0xec, 0x64, 0x05, 0xe6, 0x8f, 0x28, 0xf3, 0x35, 0x46, 0xc6, 0x6e, 0xce, 0xb5, 0x55,
-	0xe4, 0x73, 0x58, 0x3c, 0xf7, 0x22, 0xf1, 0x1d, 0x65, 0x6f, 0x90, 0xf1, 0x88, 0xc6, 0xdd, 0x46,
-	0x36, 0xa9, 0xa4, 0x75, 0x18, 0xf4, 0xaa, 0x48, 0x69, 0x6f, 0x3a, 0x30, 0xc3, 0x85, 0x27, 0x52,
-	0xae, 0x79, 0x69, 0x49, 0x32, 0x3b, 0xd3, 0xb0, 0x9a, 0x99, 0x16, 0xc9, 0x22, 0xd4, 0x29, 0xd7,
-	0x89, 0x56, 0xa7, 0x5c, 0xfa, 0xe5, 0x31, 0xff, 0x38, 0xb3, 0xde, 0x74, 0xb3, 0x6f, 0x67, 0xb7,
-	0x18, 0x88, 0xe7, 0xe8, 0x0d, 0xc4, 0xf1, 0x27, 0x05, 0xc2, 0x79, 0x50, 0xa4, 0x6f, 0xa0, 0xde,
-	0x4f, 0x5f, 0x12, 0xd8, 0x8f, 0xb8, 0xb0, 0x57, 0xe6, 0xe9, 0xfb, 0x25, 0xcc, 0xa2, 0x52, 0xe9,
-	0xf4, 0x25, 0x2a, 0x7d, 0xed, 0xd9, 0xae, 0x99, 0xe2, 0xf4, 0xa1, 0x65, 0x0f, 0x54, 0xd2, 0x27,
-	0xd0, 0x38, 0xa6, 0xdc, 0x70, 0xcf, 0xbe, 0x25, 0x35, 0x2f, 0x89, 0xbe, 0xc7, 0x91, 0x8e, 0x95,
-	0x96, 0xe4, 0x5c, 0x1f, 0x99, 0xc8, 0xe2, 0xd5, 0x72, 0xb3, 0x6f, 0x67, 0x07, 0xae, 0x15, 0x8c,
-	0x5f, 0x9a, 0xd3, 0x1d, 0x98, 0x51, 0xfc, 0xb4, 0x49, 0x2d, 0x39, 0x7f, 0xd5, 0xe0, 0xbf, 0x2e,
-	0x86, 0x11, 0x17, 0xc8, 0xaa, 0x10, 0x3f, 0x94, 0xfc, 0xff, 0x00, 0xfc, 0x41, 0x84, 0xb1, 0xd8,
-	0x94, 0x54, 0xa7, 0x32, 0xaa, 0x96, 0xc6, 0x72, 0xae, 0x51, 0x70, 0xce, 0x62, 0x3c, 0x5d, 0xdc,
-	0xc7, 0x2f, 0x60, 0xf1, 0x40, 0x7d, 0x5e, 0xea, 0x9d, 0xb3, 0x0f, 0xcb, 0x72, 0xf7, 0xcc, 0x09,
-	0x1c, 0x6f, 0xdc, 0x03, 0x68, 0x9a, 0x93, 0x6b, 0xb6, 0xae, 0xa3, 0xb6, 0xce, 0x4c, 0x7d, 0x71,
-	0x86, 0xec, 0x2c, 0xc2, 0x73, 0x37, 0x9f, 0xe8, 0xfc, 0x06, 0x4b, 0xe5, 0x61, 0x99, 0xc4, 0x51,
-	0xa0, 0xcd, 0xd6, 0xa3, 0xe0, 0x3d, 0x07, 0xd1, 0x81, 0x56, 0x80, 0x09, 0xc6, 0x01, 0xc6, 0x7e,
-	0x84, 0x26, 0xf1, 0x0b, 0x3a, 0x59, 0x61, 0x04, 0x8b, 0xc2, 0x10, 0x19, 0xd7, 0xf1, 0x18, 0xcb,
-	0xce, 0x26, 0x2c, 0x6c, 0x78, 0x3c, 0xf2, 0xed, 0xfa, 0xc1, 0x53, 0xdf, 0x47, 0xae, 0x72, 0x76,
-	0xce, 0x35, 0xa2, 0x1c, 0x19, 0x22, 0xe7, 0x5e, 0x68, 0x76, 0xd5, 0x88, 0x8e, 0x00, 0xe2, 0xa6,
-	0x71, 0x1e, 0x0f, 0x15, 0xc0, 0x5b, 0xd0, 0xd4, 0x2c, 0x77, 0x8d, 0x2f, 0xb9, 0x42, 0x6e, 0xa1,
-	0x89, 0xc1, 0x6e, 0xa0, 0x01, 0x2d, 0x8d, 0xac, 0x30, 0x9a, 0xe4, 0x06, 0x0d, 0x46, 0x7a, 0x8f,
-	0x6d, 0x95, 0xb3, 0x07, 0x9d, 0x83, 0xb4, 0x3f, 0x88, 0xf8, 0xf1, 0xc7, 0x59, 0x26, 0xd0, 0x08,
-	0x64, 0x79, 0xac, 0xab, 0x0c, 0x97, 0xdf, 0xce, 0x1e, 0x2c, 0xae, 0x07, 0xc1, 0x6b, 0x2e, 0xd3,
-	0x52, 0x61, 0xf4, 0x60, 0x2e, 0xe5, 0xc8, 0xac, 0x74, 0x1c, 0xcb, 0x45, 0xfc, 0x7a, 0x09, 0xdf,
-	0xf9, 0xbb, 0x0e, 0xcd, 0x97, 0x29, 0xa6, 0xb8, 0x2b, 0x70, 0xf8, 0x89, 0x85, 0xff, 0x1b, 0x00,
-	0x96, 0xc6, 0x9b, 0x34, 0x16, 0xf8, 0xab, 0x4c, 0x70, 0x99, 0x4b, 0x77, 0x54, 0x2e, 0x8d, 0xa1,
-	0x57, 0xdd, 0xf1, 0x0c, 0x75, 0x85, 0x59, 0x4b, 0xa4, 0x59, 0x96, 0xc6, 0x71, 0x14, 0x87, 0xba,
-	0xee, 0x1a, 0x51, 0x92, 0xf7, 0x19, 0x7a, 0x02, 0x83, 0x17, 0xb1, 0x3e, 0x05, 0xb9, 0xc2, 0x0a,
-	0x3b, 0x06, 0x1b, 0xa3, 0xee, 0x4c, 0x36, 0x6e, 0xab, 0x7a, 0x4f, 0xa1, 0x5d, 0x32, 0xfc, 0x51,
-	0x57, 0xe4, 0x1f, 0x35, 0x58, 0xc8, 0x5c, 0xb8, 0x4a, 0xc6, 0x49, 0x9a, 0x0c, 0x7d, 0xca, 0x82,
-	0x4d, 0x9a, 0xc6, 0xe6, 0x76, 0xb4, 0x55, 0xe4, 0x33, 0x98, 0x8e, 0x04, 0x0e, 0x65, 0xc6, 0xcb,
-	0xe0, 0xb5, 0x4b, 0xc1, 0x73, 0xd5, 0xa8, 0x73, 0x02, 0x4b, 0x6f, 0x22, 0x3c, 0xd7, 0x8c, 0xae,
-	0x72, 0x57, 0xe7, 0x91, 0x7b, 0x35, 0x4a, 0x50, 0x1f, 0x44, 0x5b, 0xe5, 0xbc, 0x83, 0x45, 0x69,
-	0x6b, 0x9f, 0x86, 0x97, 0x5b, 0x5a, 0x86, 0xe9, 0x13, 0xda, 0x1f, 0xa7, 0x97, 0x12, 0xa4, 0xfd,
-	0x01, 0x0d, 0xf7, 0xf1, 0x0c, 0x07, 0xda, 0xc0, 0x58, 0x76, 0x7e, 0x82, 0xa9, 0x7d, 0x1a, 0x16,
-	0xa6, 0xd4, 0x8a, 0x53, 0xde, 0x13, 0xcf, 0x5b, 0xd0, 0x14, 0xd1, 0x10, 0xb9, 0xf0, 0x86, 0x89,
-	0x46, 0xce, 0x15, 0x4e, 0x00, 0xed, 0x31, 0xf1, 0x2b, 0x6c, 0xda, 0x6d, 0x68, 0x0c, 0x68, 0xc8,
-	0x75, 0x3a, 0x37, 0xd5, 0x8e, 0x48, 0xd0, 0x4c, 0xed, 0xa4, 0xd0, 0x7e, 0xa5, 0xa2, 0x75, 0x25,
-	0x2b, 0x13, 0xdb, 0xcd, 0x3c, 0xa6, 0x0d, 0x2b, 0xa6, 0xf7, 0xfe, 0x99, 0x87, 0x79, 0x53, 0x40,
-	0xd6, 0x0f, 0x76, 0xc9, 0x33, 0x98, 0xb7, 0x8a, 0x19, 0xe9, 0xea, 0xcb, 0xf7, 0x42, 0x7d, 0xeb,
-	0x5d, 0x57, 0x23, 0x65, 0xce, 0x6b, 0xd0, 0x38, 0x90, 0xe7, 0x4c, 0xdf, 0xda, 0xdb, 0xc3, 0x44,
-	0x8c, 0x7e, 0x50, 0xdc, 0x7a, 0xd7, 0x94, 0xae, 0x58, 0x71, 0xb7, 0xa0, 0x5d, 0xaa, 0x63, 0xe4,
-	0x96, 0x9a, 0x57, 0x5d, 0xde, 0xaa, 0x51, 0xd6, 0x61, 0xc1, 0xbe, 0x94, 0x38, 0x59, 0xd6, 0x18,
-	0x85, 0x5b, 0xad, 0xd7, 0xd3, 0x51, 0xaf, 0xba, 0xbf, 0x1e, 0xc3, 0xc2, 0x66, 0x56, 0x08, 0x0e,
-	0x4c, 0xc0, 0x2a, 0x21, 0x2a, 0xcd, 0x3f, 0x85, 0x25, 0x5d, 0x40, 0x5f, 0xd1, 0xd2, 0xf2, 0x62,
-	0x61, 0xad, 0x5e, 0xbe, 0x07, 0xff, 0xb9, 0xd0, 0x10, 0x4d, 0x30, 0x7f, 0x27, 0xf7, 0xa0, 0xba,
-	0x7f, 0xfa, 0x11, 0x96, 0xab, 0x7a, 0x0c, 0xf2, 0x7f, 0xd3, 0x46, 0x4d, 0xec, 0x3f, 0xaa, 0xb9,
-	0x7d, 0x0b, 0xed, 0x1d, 0x2c, 0xd8, 0x22, 0x37, 0x2b, 0x3a, 0x32, 0x0d, 0x51, 0xd1, 0xac, 0x91,
-	0x77, 0x70, 0xe3, 0x62, 0x93, 0xb8, 0x79, 0x8c, 0xfe, 0x29, 0xb9, 0x73, 0x71, 0x7a, 0xa1, 0x1d,
-	0xed, 0xad, 0x4c, 0x9e, 0xa0, 0xf9, 0xbd, 0x05, 0x62, 0xba, 0x66, 0xcb, 0x66, 0x05, 0x70, 0xa1,
-	0xe1, 0xaf, 0x02, 0x2e, 0x35, 0xdf, 0x5b, 0x40, 0xe4, 0xe8, 0x19, 0x7e, 0xa8, 0xef, 0x95, 0xe1,
-	0xdb, 0x86, 0xc5, 0x1d, 0x14, 0x87, 0x02, 0x93, 0x03, 0xcf, 0x3f, 0xcd, 0x4e, 0xa8, 0x7e, 0x8e,
-	0xe5, 0x2a, 0x03, 0x70, 0xb3, 0x62, 0x44, 0xc3, 0x3c, 0x84, 0xe6, 0xb8, 0x50, 0x13, 0xdd, 0x56,
-	0x95, 0x2b, 0xb7, 0x21, 0x50, 0xbc, 0x5f, 0x9e, 0xc0, 0xfc, 0x0e, 0x8a, 0xf5, 0xc1, 0x40, 0xc2,
-	0x72, 0xa2, 0x8f, 0xad, 0x91, 0xcd, 0xd2, 0x4e, 0x59, 0x9d, 0xaf, 0x3e, 0x44, 0xf9, 0x6a, 0xf8,
-	0xa4, 0xd5, 0x1b, 0xb0, 0x20, 0x9d, 0x8f, 0xe2, 0x70, 0x80, 0x72, 0x84, 0xdc, 0xd0, 0x1e, 0x8e,
-	0x35, 0x06, 0xa1, 0x7b, 0x71, 0x40, 0x63, 0x3c, 0x02, 0x90, 0x8e, 0xee, 0xd1, 0xbe, 0xac, 0xef,
-	0xcb, 0xb9, 0xeb, 0xf9, 0x45, 0x62, 0x6a, 0x51, 0xb9, 0x4a, 0xbf, 0x04, 0xb2, 0x83, 0xa2, 0xf4,
-	0x54, 0x34, 0xd5, 0xa5, 0xfa, 0xa5, 0xda, 0xbb, 0x3d, 0x61, 0xd4, 0x8a, 0x47, 0xfe, 0x2f, 0x20,
-	0xdf, 0xcb, 0xf2, 0xef, 0x81, 0xea, 0x64, 0x78, 0x06, 0x2d, 0xfb, 0xc5, 0x6f, 0x92, 0xa9, 0xe2,
-	0x2f, 0x40, 0xf5, 0xfa, 0x47, 0x00, 0x32, 0x9e, 0xea, 0x7d, 0x3e, 0xa1, 0x40, 0x5c, 0xaf, 0x7c,
-	0xed, 0x6f, 0x7c, 0xfd, 0xf3, 0x5a, 0x18, 0x89, 0xe3, 0xb4, 0xbf, 0xea, 0xd3, 0xe1, 0x9a, 0x97,
-	0x24, 0x82, 0x21, 0x72, 0x7a, 0x24, 0xce, 0x3d, 0x86, 0x6b, 0x21, 0xfd, 0xca, 0xdc, 0xe4, 0x6b,
-	0xc9, 0x69, 0xb8, 0x26, 0x21, 0xfa, 0x33, 0xd9, 0xef, 0x8f, 0xfb, 0xff, 0x06, 0x00, 0x00, 0xff,
-	0xff, 0xd8, 0xad, 0xf0, 0x75, 0x1f, 0x11, 0x00, 0x00,
+	// 1844 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x59, 0xdd, 0x73, 0x1b, 0x49,
+	0x11, 0x2f, 0x7d, 0xf8, 0x43, 0x2d, 0xf9, 0x23, 0x63, 0x23, 0x2b, 0xc2, 0x97, 0x98, 0xa9, 0x83,
+	0x0a, 0x1c, 0xd8, 0x10, 0x28, 0xb8, 0xbb, 0xba, 0x40, 0x6c, 0xc7, 0xe7, 0xb3, 0x31, 0x39, 0xdf,
+	0x3a, 0xf1, 0x15, 0xd4, 0xbd, 0xac, 0x77, 0xdb, 0xf2, 0xc6, 0xab, 0x9d, 0xbd, 0x99, 0x59, 0x1b,
+	0x55, 0xf1, 0xc6, 0x2b, 0x4f, 0xf0, 0xc0, 0x03, 0x55, 0xfc, 0x13, 0xfc, 0x39, 0xfc, 0x33, 0xd4,
+	0xec, 0xce, 0xac, 0x66, 0x57, 0xab, 0xb3, 0x13, 0x85, 0x37, 0x75, 0x4f, 0x4f, 0x7f, 0x4d, 0xf7,
+	0xf4, 0x6f, 0x56, 0xd0, 0x72, 0xe3, 0x60, 0x3b, 0xe6, 0x4c, 0x32, 0xd2, 0xf4, 0x18, 0xc7, 0x7e,
+	0xc7, 0x63, 0xc3, 0x21, 0x8b, 0x32, 0x1e, 0x7d, 0x09, 0xdd, 0x53, 0xce, 0xde, 0xa0, 0x27, 0xbf,
+	0x66, 0xfc, 0xfa, 0x32, 0x64, 0xb7, 0x0e, 0x7e, 0x9b, 0xa0, 0x90, 0xa4, 0x07, 0x0b, 0x71, 0xb6,
+	0xd2, 0xab, 0x6d, 0xd5, 0x9e, 0xb4, 0x1c, 0x43, 0x92, 0x3e, 0x2c, 0xde, 0x6a, 0xe1, 0x5e, 0x3d,
+	0x5d, 0xca, 0x69, 0xfa, 0x2d, 0x3c, 0x38, 0x93, 0x8c, 0xe3, 0xb9, 0x1b, 0x26, 0x68, 0x54, 0xad,
+	0x42, 0xe3, 0x1a, 0x47, 0x5a, 0x8d, 0xfa, 0x49, 0xd6, 0x61, 0xee, 0x46, 0x49, 0xe8, 0xfd, 0x19,
+	0x61, 0x9b, 0x6c, 0x4c, 0x98, 0x0c, 0xc4, 0x19, 0x7a, 0x1c, 0x65, 0xaf, 0xb9, 0x55, 0x7b, 0xb2,
+	0xe8, 0xe4, 0x34, 0x7d, 0x0e, 0xe4, 0x05, 0x86, 0x28, 0xef, 0xb2, 0x69, 0x69, 0xaf, 0x17, 0xb4,
+	0xd3, 0x8f, 0x60, 0xed, 0x2c, 0x88, 0x06, 0xa1, 0xd1, 0x20, 0x62, 0x16, 0x09, 0x1c, 0x3b, 0x59,
+	0xb3, 0x9c, 0xa4, 0x7f, 0xad, 0xc1, 0x52, 0x51, 0xee, 0x37, 0x30, 0x9f, 0x2e, 0x89, 0x5e, 0x6d,
+	0xab, 0xf1, 0xa4, 0xfd, 0xf4, 0xf1, 0xb6, 0x4a, 0xf4, 0x76, 0x41, 0x28, 0xa3, 0xc4, 0x41, 0x24,
+	0xf9, 0xc8, 0xd1, 0xe2, 0xfd, 0x4f, 0xa0, 0x6d, 0xb1, 0xef, 0x9b, 0xa6, 0x4f, 0xeb, 0x1f, 0xd7,
+	0x28, 0x87, 0x8e, 0x3e, 0xb7, 0x54, 0xc3, 0x7b, 0x48, 0xf1, 0x16, 0xb4, 0x03, 0x71, 0x10, 0x79,
+	0x7c, 0x14, 0x4b, 0xf4, 0x75, 0x96, 0x6d, 0x16, 0xfd, 0x7b, 0x0d, 0xba, 0xa6, 0x4a, 0xbe, 0x08,
+	0x84, 0x64, 0x7c, 0x34, 0x53, 0xb1, 0x90, 0x2e, 0xcc, 0xb3, 0xcb, 0x4b, 0x81, 0x99, 0x2f, 0x0d,
+	0x47, 0x53, 0xca, 0x75, 0x8f, 0x25, 0x51, 0x76, 0xd4, 0x0d, 0x27, 0x23, 0x14, 0xf7, 0x0d, 0xbb,
+	0x38, 0xf2, 0x7b, 0x73, 0x59, 0x40, 0x29, 0x41, 0x3f, 0x87, 0x8d, 0x09, 0x9f, 0xf4, 0xb9, 0x7c,
+	0x04, 0x73, 0x81, 0xc4, 0xa1, 0x39, 0x96, 0xef, 0x65, 0xc7, 0x52, 0x96, 0xce, 0x64, 0xe8, 0x7f,
+	0xea, 0xb0, 0x52, 0x5a, 0x22, 0xcb, 0x50, 0x0f, 0x7c, 0x1d, 0x50, 0x3d, 0xf0, 0x55, 0x94, 0x22,
+	0xf1, 0x3c, 0x14, 0x22, 0x0d, 0x65, 0xd1, 0x31, 0xa4, 0xf2, 0x4d, 0x48, 0x97, 0x9b, 0x40, 0x32,
+	0x42, 0x1d, 0x0a, 0x46, 0xbe, 0x8e, 0x42, 0xfd, 0x54, 0xd9, 0xf0, 0x13, 0xee, 0xca, 0x80, 0x45,
+	0x69, 0x18, 0x35, 0x27, 0xa7, 0xc9, 0x87, 0xb0, 0x74, 0xe9, 0x06, 0x61, 0xc2, 0xd1, 0x41, 0x57,
+	0xb0, 0xa8, 0x37, 0x9f, 0x1a, 0x2e, 0x32, 0xed, 0x4c, 0x2f, 0x4c, 0xcf, 0xf4, 0x62, 0x29, 0xd3,
+	0x5b, 0xd0, 0x96, 0x3c, 0x18, 0x0c, 0x90, 0xbf, 0x1a, 0xc5, 0xd8, 0x6b, 0xa5, 0xcb, 0x36, 0x8b,
+	0x3c, 0x02, 0x88, 0x5d, 0x8e, 0x91, 0x3c, 0x92, 0x38, 0xec, 0x41, 0x2a, 0x60, 0x71, 0x54, 0x84,
+	0x41, 0x14, 0x27, 0xb2, 0xd7, 0xce, 0xb2, 0x9f, 0x12, 0xf4, 0x1f, 0x35, 0x78, 0xe8, 0xe0, 0x90,
+	0x49, 0x3c, 0x88, 0x06, 0x41, 0x84, 0xaf, 0x63, 0xdf, 0x95, 0x79, 0x0f, 0x12, 0x68, 0x46, 0xee,
+	0xd0, 0xf4, 0x4f, 0xfa, 0x7b, 0x7a, 0x17, 0x2a, 0x1f, 0x2f, 0x19, 0xf7, 0xb4, 0x8e, 0x34, 0x93,
+	0x8b, 0x8e, 0xcd, 0x22, 0x3f, 0x82, 0xe5, 0x5b, 0x37, 0x90, 0x9f, 0x33, 0x7e, 0x8e, 0x5c, 0xa8,
+	0x1c, 0x66, 0x55, 0x5a, 0xe2, 0x52, 0x0e, 0xfd, 0x2a, 0xa7, 0x74, 0x59, 0x74, 0x61, 0x5e, 0x48,
+	0x57, 0x26, 0x42, 0xfb, 0xa5, 0x29, 0xe5, 0xd9, 0x8d, 0x56, 0xab, 0x3d, 0xd3, 0xa4, 0xaa, 0x03,
+	0x26, 0x74, 0xbf, 0xd4, 0x99, 0x50, 0x71, 0xb9, 0xdc, 0xbb, 0x4a, 0xad, 0xb7, 0x9c, 0xf4, 0x37,
+	0x3d, 0x2a, 0x26, 0xe2, 0x0b, 0x74, 0x43, 0x79, 0xf5, 0x4e, 0x89, 0x28, 0xbb, 0x6f, 0x54, 0xfd,
+	0xbf, 0xdd, 0x3f, 0x09, 0x84, 0xb4, 0xed, 0x8a, 0xdc, 0xe4, 0x4f, 0x61, 0x01, 0x33, 0x96, 0x6e,
+	0x25, 0x92, 0xb5, 0x92, 0x2d, 0xed, 0x18, 0x11, 0x7a, 0x01, 0x1d, 0x7b, 0xa1, 0x32, 0x78, 0x02,
+	0xcd, 0x2b, 0x26, 0x4c, 0xe4, 0xe9, 0x6f, 0x15, 0x98, 0x1b, 0x07, 0xbf, 0xc7, 0x91, 0x76, 0x55,
+	0x53, 0x4a, 0xd6, 0x43, 0x9e, 0x5d, 0x06, 0x1d, 0x27, 0xfd, 0x4d, 0x0f, 0x61, 0xad, 0x60, 0xfc,
+	0xce, 0x6b, 0xa8, 0x0b, 0xf3, 0x99, 0x7f, 0xda, 0xa4, 0xa6, 0xe8, 0x3f, 0x6b, 0xf0, 0x7d, 0x07,
+	0x07, 0x81, 0x90, 0xc8, 0xab, 0x34, 0xde, 0xd7, 0xf9, 0x47, 0x00, 0x5e, 0x18, 0x60, 0x24, 0xf7,
+	0x51, 0xdf, 0x02, 0x1d, 0xc7, 0xe2, 0x58, 0xc1, 0x35, 0x0b, 0xc1, 0x59, 0x1e, 0xcf, 0x15, 0xab,
+	0xe0, 0x27, 0xb0, 0xac, 0x6f, 0xf8, 0x3b, 0xa3, 0xa3, 0xbb, 0xb0, 0x66, 0x4f, 0x83, 0xbb, 0xd3,
+	0xa1, 0xc7, 0x45, 0x3d, 0x1f, 0x17, 0xf4, 0x18, 0xd6, 0x6d, 0x15, 0xe2, 0x6e, 0x1d, 0x3d, 0x58,
+	0xf0, 0x31, 0x9d, 0x0d, 0xe6, 0x36, 0xd4, 0x24, 0x3d, 0x81, 0x75, 0x55, 0x4c, 0x63, 0x44, 0xa1,
+	0xeb, 0xe8, 0x57, 0xd0, 0x32, 0x37, 0x92, 0xa9, 0xa4, 0x6e, 0xf1, 0x52, 0xfe, 0xf2, 0x06, 0xf9,
+	0x4d, 0x80, 0xb7, 0xce, 0x58, 0x90, 0xfe, 0x05, 0x56, 0xcb, 0xcb, 0x55, 0x37, 0xf3, 0x94, 0x5b,
+	0x85, 0x42, 0xc7, 0xc7, 0x18, 0x23, 0x1f, 0x23, 0x2f, 0x40, 0xd3, 0x06, 0x05, 0x9e, 0xba, 0x39,
+	0xf5, 0x55, 0x28, 0xf4, 0xf1, 0xe4, 0x34, 0xdd, 0x87, 0xa5, 0x3d, 0x57, 0x04, 0x5e, 0x1e, 0x84,
+	0x35, 0x04, 0x6a, 0xc5, 0x21, 0xd0, 0x83, 0x85, 0x21, 0x0a, 0xe1, 0x0e, 0x4c, 0x91, 0x19, 0x92,
+	0x4a, 0x20, 0x4e, 0x12, 0x95, 0x11, 0xd6, 0x26, 0xb4, 0xb4, 0x97, 0x47, 0x26, 0x96, 0x31, 0x43,
+	0x55, 0x94, 0xc9, 0xc1, 0x91, 0xaf, 0x15, 0x5a, 0x1c, 0xeb, 0x4a, 0xdf, 0x63, 0xfe, 0x48, 0x97,
+	0x9c, 0xcd, 0xa2, 0xc7, 0xd0, 0x3d, 0x4d, 0x2e, 0xc2, 0x40, 0x5c, 0xbd, 0x9d, 0x65, 0x02, 0x4d,
+	0xdf, 0x95, 0x6e, 0x6a, 0xb3, 0xe3, 0xa4, 0xbf, 0xe9, 0x31, 0x2c, 0xef, 0xfa, 0xfe, 0x6b, 0xa1,
+	0xba, 0x24, 0xd3, 0xd1, 0x87, 0xc5, 0x44, 0x20, 0xb7, 0xba, 0x23, 0xa7, 0x8b, 0xfa, 0xeb, 0x25,
+	0xfd, 0xf4, 0xc7, 0xd0, 0xbe, 0xa7, 0x22, 0xfa, 0xaf, 0x3a, 0xb4, 0xbe, 0x4a, 0x30, 0xc1, 0x74,
+	0x06, 0xbd, 0x1b, 0xca, 0xf8, 0x1d, 0x00, 0x4f, 0xa2, 0x7d, 0x16, 0x49, 0xfc, 0xb3, 0x6a, 0x4d,
+	0x0b, 0xa2, 0xe5, 0xaa, 0xb7, 0x9d, 0x5c, 0x22, 0x83, 0x68, 0xd6, 0x16, 0x65, 0x96, 0x27, 0x51,
+	0x14, 0x44, 0x03, 0x3d, 0x6f, 0x0c, 0xa9, 0xe2, 0xf4, 0x38, 0xba, 0x12, 0xfd, 0x2f, 0x23, 0xdd,
+	0xbf, 0x63, 0x86, 0x75, 0x42, 0xe8, 0xef, 0x8d, 0xf4, 0x38, 0xb7, 0x59, 0xfd, 0x67, 0xb0, 0x52,
+	0x32, 0xfc, 0x56, 0x20, 0xf0, 0x6f, 0x35, 0x58, 0x4a, 0x43, 0x98, 0xa5, 0x38, 0x95, 0x9b, 0x1c,
+	0x3d, 0xc6, 0xfd, 0xfd, 0x14, 0x73, 0x65, 0x08, 0xc6, 0x66, 0x91, 0x1f, 0x1a, 0x20, 0xd5, 0x4c,
+	0x93, 0xb7, 0x52, 0x4a, 0x9e, 0x81, 0x50, 0x6f, 0x60, 0xf5, 0x3c, 0xc0, 0x5b, 0xed, 0xd1, 0x2c,
+	0xc0, 0xb0, 0x04, 0x57, 0x1a, 0x13, 0x70, 0x85, 0x7e, 0x03, 0xcb, 0xca, 0xd6, 0x09, 0x1b, 0xdc,
+	0x6d, 0x29, 0x07, 0x8e, 0x75, 0x0b, 0x38, 0x2a, 0xfb, 0x21, 0x1b, 0x9c, 0xe0, 0x0d, 0x86, 0xda,
+	0x40, 0x4e, 0xd3, 0x3f, 0x42, 0xe3, 0x84, 0x0d, 0x0a, 0x22, 0xb5, 0xa2, 0xc8, 0x77, 0xe4, 0x73,
+	0x13, 0x5a, 0x32, 0x18, 0xa2, 0x90, 0xee, 0x30, 0xd6, 0x9a, 0xc7, 0x0c, 0xea, 0xc3, 0x4a, 0xee,
+	0xf8, 0x0c, 0x87, 0xf6, 0x01, 0x34, 0x43, 0x36, 0x10, 0xba, 0x9c, 0x5b, 0xd9, 0x89, 0x28, 0xa5,
+	0x29, 0x9b, 0x26, 0xb0, 0xf2, 0x2a, 0xcb, 0xd6, 0x4c, 0x56, 0xa6, 0xbf, 0x16, 0xf2, 0x9c, 0x36,
+	0x6d, 0x30, 0xfe, 0xef, 0x1a, 0xac, 0xee, 0xbb, 0x91, 0x87, 0xe1, 0x31, 0xbb, 0x98, 0xad, 0x04,
+	0x72, 0x03, 0x0d, 0xfb, 0xd0, 0x1e, 0x01, 0xb8, 0x61, 0x78, 0x8a, 0x91, 0x3f, 0xee, 0x46, 0x8b,
+	0xa3, 0xd7, 0x1d, 0xdd, 0xad, 0x73, 0xf9, 0xba, 0xe6, 0xd0, 0x21, 0x3c, 0xb0, 0xfc, 0x9b, 0x21,
+	0x33, 0x1f, 0xc2, 0x92, 0x97, 0x2a, 0xc2, 0x42, 0xdb, 0x14, 0x99, 0xf4, 0x1c, 0xba, 0x19, 0xf8,
+	0xdc, 0xbd, 0x71, 0x83, 0xd0, 0xbd, 0x08, 0xf3, 0xbe, 0xc8, 0x30, 0x59, 0x6d, 0x02, 0x93, 0xd5,
+	0xc7, 0x98, 0xcc, 0x46, 0x74, 0x8d, 0x02, 0xa2, 0xa3, 0x1e, 0x6c, 0x4c, 0xe8, 0xd5, 0xc1, 0x6c,
+	0x42, 0xcb, 0x35, 0x4c, 0x1d, 0xce, 0x98, 0xf1, 0x1d, 0x20, 0x71, 0x15, 0x1a, 0x09, 0x37, 0x9d,
+	0xa0, 0x7e, 0x52, 0x84, 0x35, 0x35, 0xc5, 0x73, 0x10, 0x32, 0x43, 0xb6, 0xfa, 0xb0, 0xa8, 0xcf,
+	0x3c, 0xab, 0xd8, 0x96, 0x93, 0xd3, 0x4f, 0xff, 0xbb, 0x0a, 0x6d, 0x33, 0x9f, 0x76, 0x4f, 0x8f,
+	0xc8, 0x6f, 0xa1, 0x6d, 0xcd, 0x4a, 0xd2, 0xd3, 0x50, 0x73, 0x62, 0x7c, 0xf6, 0xf5, 0x7b, 0xae,
+	0x5c, 0xe7, 0x3b, 0xd0, 0x3c, 0x55, 0xa5, 0xa0, 0x31, 0xea, 0xc1, 0x30, 0x96, 0xa3, 0x3f, 0x64,
+	0x7e, 0xf4, 0xd7, 0x32, 0x5e, 0x71, 0xa0, 0xbf, 0x80, 0x95, 0xd2, 0x98, 0x24, 0x9b, 0x99, 0x5c,
+	0xf5, 0xf4, 0xac, 0xd6, 0xb2, 0x0b, 0x4b, 0x36, 0xe6, 0x11, 0x64, 0x5d, 0xeb, 0x28, 0x60, 0xb8,
+	0x7e, 0x5f, 0x77, 0x6a, 0x15, 0x3c, 0xfa, 0x14, 0x96, 0xf6, 0xd3, 0xe1, 0x71, 0x6a, 0x9a, 0xac,
+	0x52, 0x45, 0xa5, 0xf9, 0x67, 0xb0, 0xaa, 0xe7, 0xf3, 0x2b, 0x56, 0xda, 0x5e, 0x9c, 0xdb, 0xd5,
+	0xdb, 0x7f, 0x0d, 0x9d, 0x5d, 0xdf, 0x3f, 0x4b, 0x62, 0xe4, 0x4a, 0x96, 0x3c, 0xc8, 0x84, 0xee,
+	0xb3, 0xcf, 0xaa, 0x11, 0x41, 0xda, 0x56, 0xd2, 0xfb, 0x0f, 0xc7, 0xb1, 0x96, 0x8b, 0xe8, 0x18,
+	0x1e, 0x4c, 0x3c, 0x37, 0xa6, 0x84, 0xfb, 0x78, 0xac, 0xa5, 0xfa, 0x75, 0xf2, 0x12, 0xd6, 0xab,
+	0x10, 0x3c, 0xf9, 0x81, 0x79, 0xa4, 0x4c, 0x45, 0xf7, 0xd5, 0x31, 0x3d, 0x87, 0x95, 0x43, 0x2c,
+	0xd8, 0x22, 0x0f, 0x2b, 0xde, 0x3b, 0x5a, 0x45, 0xc5, 0x53, 0x88, 0x7c, 0x03, 0x1b, 0x93, 0x0f,
+	0xb8, 0xfd, 0x2b, 0xf4, 0xae, 0xc9, 0xe3, 0x49, 0xf1, 0xc2, 0x53, 0xb1, 0xbf, 0x35, 0x5d, 0x40,
+	0xfb, 0xf7, 0x35, 0x10, 0xf3, 0xa2, 0xb5, 0x6c, 0x56, 0x28, 0x2e, 0x3c, 0xc6, 0xab, 0x14, 0x97,
+	0x1e, 0xc6, 0x2f, 0x80, 0xa8, 0xd5, 0x1b, 0xbc, 0x6f, 0xec, 0x95, 0xe9, 0x3b, 0x80, 0xe5, 0x43,
+	0x94, 0x67, 0x12, 0xe3, 0x53, 0xd7, 0xbb, 0x4e, 0xa7, 0x48, 0x26, 0x66, 0xb1, 0x8c, 0x82, 0x87,
+	0x15, 0x2b, 0x5a, 0xcd, 0x67, 0xd0, 0x3e, 0x44, 0xb9, 0x1b, 0x86, 0x6a, 0x51, 0x10, 0xdd, 0xec,
+	0x86, 0x36, 0x0a, 0xba, 0x65, 0xf6, 0x78, 0xf7, 0x19, 0xaa, 0x4b, 0xf4, 0x9d, 0x76, 0xef, 0xc1,
+	0x92, 0x0a, 0x21, 0xfd, 0x24, 0xa8, 0x56, 0xc8, 0x86, 0xf6, 0x33, 0xe7, 0x18, 0x0d, 0xbd, 0xc9,
+	0x05, 0xad, 0xe3, 0x13, 0x00, 0x35, 0xe7, 0x8f, 0xd9, 0x85, 0x42, 0x12, 0xba, 0xb4, 0x8b, 0x90,
+	0xc5, 0xdc, 0x60, 0x65, 0x3c, 0xf0, 0x15, 0x90, 0x43, 0x94, 0xe5, 0x8f, 0x51, 0x9b, 0xd5, 0x9f,
+	0xaf, 0xb4, 0xaa, 0x0f, 0xa6, 0xac, 0xe6, 0x57, 0x0b, 0x8c, 0x3f, 0xcb, 0xe6, 0xe1, 0x94, 0x3f,
+	0xd4, 0x56, 0x1f, 0xe8, 0x67, 0xd0, 0xb6, 0xbe, 0xaf, 0x9a, 0xd3, 0x9c, 0xfc, 0xe4, 0x3a, 0x6d,
+	0x77, 0xeb, 0x10, 0xf5, 0x9b, 0x92, 0xf4, 0x0b, 0x1d, 0x5e, 0x78, 0x68, 0x9a, 0xdd, 0xc5, 0x4f,
+	0xab, 0xcf, 0x61, 0xd1, 0xec, 0x36, 0x85, 0x58, 0xf1, 0xd0, 0xcd, 0xeb, 0xa8, 0xe2, 0x23, 0xee,
+	0xc7, 0xd0, 0xca, 0x41, 0x29, 0xe9, 0x8e, 0x13, 0x6e, 0xa3, 0x54, 0x63, 0xbb, 0x88, 0xa5, 0x9f,
+	0x01, 0xe4, 0x58, 0x41, 0x98, 0xad, 0x65, 0x74, 0xd3, 0xdf, 0x98, 0xe0, 0x8f, 0xc7, 0xca, 0x8b,
+	0x40, 0xa8, 0xa9, 0x3b, 0x31, 0x56, 0x2a, 0x3f, 0xb8, 0x57, 0xa7, 0x6f, 0x1f, 0x96, 0x0f, 0xa2,
+	0xf7, 0xa0, 0x24, 0x6b, 0xec, 0x59, 0x94, 0xbc, 0x84, 0x95, 0x12, 0xe6, 0x30, 0x5a, 0xaa, 0x21,
+	0x8e, 0x29, 0xc9, 0x69, 0x40, 0xe5, 0xe7, 0xd0, 0x39, 0x75, 0x13, 0x91, 0xdf, 0xfe, 0x85, 0xd1,
+	0x51, 0xe9, 0xc1, 0x53, 0x58, 0x7e, 0x1d, 0xc5, 0x6f, 0xb5, 0x67, 0xef, 0x17, 0x7f, 0xda, 0x19,
+	0x04, 0xf2, 0x2a, 0xb9, 0xd8, 0xf6, 0xd8, 0x70, 0xc7, 0x8d, 0x63, 0xc9, 0x11, 0x05, 0xbb, 0x94,
+	0xb7, 0x2e, 0xc7, 0x9d, 0x01, 0xfb, 0x99, 0x01, 0x9c, 0x3b, 0xf1, 0xf5, 0x60, 0x47, 0x29, 0xb8,
+	0x98, 0x4f, 0xff, 0x19, 0xf9, 0xe5, 0xff, 0x02, 0x00, 0x00, 0xff, 0xff, 0xc5, 0xa7, 0xe1, 0x9a,
+	0x3a, 0x19, 0x00, 0x00,
 }

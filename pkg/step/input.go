@@ -2,6 +2,7 @@ package step
 
 import (
 	"bytes"
+	"fmt"
 	"github.com/apptreesoftware/go-workflow/pkg/core"
 	jsoniter "github.com/json-iterator/go"
 	"io"
@@ -58,6 +59,12 @@ func (b *RpcContext) InputMap() (map[string]interface{}, error) {
 }
 
 func readInputs(reader io.Reader, data interface{}) error {
-	dec := jsoniter.NewDecoder(reader)
-	return dec.Decode(data)
+	var buf bytes.Buffer
+	tee := io.TeeReader(reader, &buf)
+	dec := jsoniter.NewDecoder(tee)
+	readErr := dec.Decode(data)
+	if readErr != nil {
+		return fmt.Errorf("Unable to read step inputs. The data provided was not in a valid json format.\nData: %s", buf.String())
+	}
+	return nil
 }

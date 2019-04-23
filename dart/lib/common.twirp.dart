@@ -750,3 +750,21 @@ class RunStepRequest {
     return json.encode(toJson());
   }
 }
+
+class Empty {
+  Empty();
+
+  factory Empty.fromJson(Map<String, dynamic> json) {
+    return new Empty();
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
