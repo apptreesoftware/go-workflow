@@ -71,6 +71,15 @@ message StepPackageResponse {
     string publishId = 2;
 }
 
+message GetStepPackageRequest {
+    string packageName = 1;
+    string version = 2;
+}
+
+message GetStepPackageResponse {
+    Package package = 1;
+}
+
 message CachePushRequest {
     string id = 1;
     bytes metadata = 2;
@@ -102,7 +111,7 @@ message AllStepsRequest {
 message AllStepsResponse {
     bool success = 1;
     string message = 2;
-    int64 recordCount = 3;
+    string recordCount = 3;
     repeated RegisteredStep items = 4;
 }
 

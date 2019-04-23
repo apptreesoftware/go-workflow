@@ -1,7 +1,9 @@
 module github.com/apptreesoftware/go-workflow
 
 require (
+	github.com/apptreesoftware/protoc-gen-twirp_dart v0.0.0-20181128141633-6edc59274099 // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/golang/protobuf v1.2.0
 	github.com/google/go-cmp v0.2.0 // indirect
 	github.com/json-iterator/go v1.1.5
@@ -11,7 +13,7 @@ require (
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/stretchr/testify v1.3.0 // indirect
 	github.com/tidwall/pretty v0.0.0-20180105212114-65a9db5fad51 // indirect
-	github.com/twitchtv/twirp v5.5.2+incompatible
+	github.com/twitchtv/twirp v5.7.0+incompatible
 	golang.org/x/net v0.0.0-20190206173232-65e2d4e15006
 	google.golang.org/grpc v1.18.0
 	gopkg.in/yaml.v2 v2.2.2
