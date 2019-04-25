@@ -18,6 +18,9 @@ build: |
 #	#API used by the remote engine to communicate back to the host engine
 	##Twirp APIs
 	protoc -I proto --go_out=paths=source_relative:pkg/core --twirp_out=paths=source_relative:pkg/core engine_api.proto api.proto
+	protoc -I proto --twirp_dart_out=paths=source_relative:dart/lib api.proto
+	dartfmt -w dart/lib/.
+
 
 
 	protoc-go-inject-tag -input=pkg/core/api.pb.go -XXX_skip=yaml,xml,bson

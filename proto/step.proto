@@ -40,3 +40,4 @@ message StepLogRequest {
 message StepOutput {
     bytes output = 1;
 }
+
