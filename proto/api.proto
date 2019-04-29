@@ -9,6 +9,7 @@ option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
 package core;
 
 import "common.proto";
+import "library.proto";
 
 service WorkflowAPI {
     rpc RunWorkflow (RunWorkflowRequest) returns (TriggerResponse);
@@ -29,9 +30,7 @@ service WorkflowAPI {
     rpc RemoveRemoteEngine (RemoteEngineRequest) returns (BasicResponse);
 
     rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
-    rpc GetAllSteps (AllStepsRequest) returns (AllStepsResponse);
-    rpc SearchSteps (AllStepsRequest) returns (AllStepsResponse);
-    rpc GetSingleStep (SingleStepRequest) returns (SingleStepResponse);
+    rpc GetStepPackageInfo (GetStepPackageRequest) returns (GetStepPackageResponse);
 
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
 
@@ -52,6 +51,14 @@ service WorkflowAPI {
 
     rpc PauseEngines (Empty) returns (BasicResponse);
     rpc UnpauseEngines (Empty) returns (BasicResponse);
+
+    // API for step library site
+    rpc SearchStepsForLibrary (SearchStepsRequest) returns (SearchStepsResponse);
+    rpc GetAllStepsForLibrary (GetAllStepsRequest) returns (GetAllStepsResponse);
+    rpc GetSingleStepForLibrary (GetSingleStepRequest) returns (GetSingleStepResponse);
+    rpc GetStepsForPackage (GetStepsForPackageRequest) returns (GetStepsForPackageResponse);
+    rpc GetAllPackageNamesForLibrary (GetAllPackagesInfoRequest) returns (GetAllPackagesInfoResponse);
+    rpc GetPackageInfoForLibrary (GetPackageInfoRequest) returns (GetPackageInfoResponse);
 }
 
 message ProjectWorkflowRequest {
@@ -293,5 +300,3 @@ message ListProjectResponse {
     string message = 2;
     repeated string projects = 3;
 }
-
-

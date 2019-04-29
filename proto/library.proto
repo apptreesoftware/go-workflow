@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+
+
+message LibraryPackage {
+    string packageName = 1;
+    string description = 2;
+    string version = 3;
+}
+
+message LibraryStep {
+    string author = 1;
+    string packageName = 2;
+    string name = 3;
+    string description = 4;
+    string sample = 5;
+    repeated Input inputs = 6;
+    repeated Output outputs = 7;
+}
+
+message Input {
+    string name = 1;
+    string description = 2;
+    string sample = 3;
+    bool required = 4;
+}
+
+message Output {
+    string name = 1;
+    string description = 2;
+    string sample = 3;
+}
+
+message SearchStepsRequest {
+    string terms = 1;
+}
+message SearchStepsResponse {
+    repeated LibraryStep steps = 1;
+}
+
+message GetAllStepsRequest {
+
+}
+
+message GetAllStepsResponse {
+    repeated LibraryStep steps = 1;
+}
+
+message GetSingleStepRequest {
+    string stepId = 1;
+}
+message GetSingleStepResponse {
+    LibraryStep step = 1;
+}
+message GetStepsForPackageRequest {
+    string packageName = 1;
+    string version = 2;
+}
+message GetStepsForPackageResponse {
+    repeated LibraryStep steps = 1;
+}
+message GetAllPackagesInfoRequest {}
+
+message GetAllPackagesInfoResponse {
+    repeated LibraryPackage packages = 1;
+}
+
+message GetPackageInfoRequest {
+    string packageName = 1;
+}
+
+message GetPackageInfoResponse {
+    LibraryPackage package = 1;
+}
+
+
+
