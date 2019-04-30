@@ -13,6 +13,7 @@ service EngineStepAPI {
     rpc Ping (EmptyMessage) returns (EmptyMessage);
     rpc CachePush (CachePushRequest) returns (CachePushResponse);
     rpc CachePull (CachePullRequest) returns (CachePullResponse);
+    rpc CacheSearch (CacheSearchRequest) returns (CacheSearchResponse);
 
     rpc QueueWorkflow (StepQueueWorkflowRequest) returns (StepQueueWorkflowResponse);
 

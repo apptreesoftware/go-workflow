@@ -104,6 +104,21 @@ message CachePullResponse {
     bool notFound = 3;
 }
 
+message CacheSearchRequest {
+    string cacheName = 1;
+    bytes searchFilter = 2;
+    Environment environment = 3;
+}
+
+message CacheSearchResponse {
+    repeated RawRecord records = 1;
+}
+
+message RawRecord {
+    bytes record = 1;
+    bytes metadata = 2;
+}
+
 message AllStepsRequest {
     string searchTerm = 1;
 }
@@ -111,7 +126,7 @@ message AllStepsRequest {
 message AllStepsResponse {
     bool success = 1;
     string message = 2;
-    string recordCount = 3;
+    int64 recordCount = 3;
     repeated RegisteredStep items = 4;
 }
 

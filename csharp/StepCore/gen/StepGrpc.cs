@@ -20,6 +20,8 @@ namespace Core {
     static readonly grpc::Marshaller<global::Core.CachePushResponse> __Marshaller_core_CachePushResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CachePushResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.CachePullRequest> __Marshaller_core_CachePullRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CachePullRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.CachePullResponse> __Marshaller_core_CachePullResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CachePullResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Core.CacheSearchRequest> __Marshaller_core_CacheSearchRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CacheSearchRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Core.CacheSearchResponse> __Marshaller_core_CacheSearchResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CacheSearchResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.StepQueueWorkflowRequest> __Marshaller_core_StepQueueWorkflowRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.StepQueueWorkflowRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.StepQueueWorkflowResponse> __Marshaller_core_StepQueueWorkflowResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.StepQueueWorkflowResponse.Parser.ParseFrom);
 
@@ -43,6 +45,13 @@ namespace Core {
         "CachePull",
         __Marshaller_core_CachePullRequest,
         __Marshaller_core_CachePullResponse);
+
+    static readonly grpc::Method<global::Core.CacheSearchRequest, global::Core.CacheSearchResponse> __Method_CacheSearch = new grpc::Method<global::Core.CacheSearchRequest, global::Core.CacheSearchResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "CacheSearch",
+        __Marshaller_core_CacheSearchRequest,
+        __Marshaller_core_CacheSearchResponse);
 
     static readonly grpc::Method<global::Core.StepQueueWorkflowRequest, global::Core.StepQueueWorkflowResponse> __Method_QueueWorkflow = new grpc::Method<global::Core.StepQueueWorkflowRequest, global::Core.StepQueueWorkflowResponse>(
         grpc::MethodType.Unary,
@@ -71,6 +80,11 @@ namespace Core {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::Core.CachePullResponse> CachePull(global::Core.CachePullRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Core.CacheSearchResponse> CacheSearch(global::Core.CacheSearchRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -153,6 +167,22 @@ namespace Core {
       {
         return CallInvoker.AsyncUnaryCall(__Method_CachePull, null, options, request);
       }
+      public virtual global::Core.CacheSearchResponse CacheSearch(global::Core.CacheSearchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CacheSearch(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Core.CacheSearchResponse CacheSearch(global::Core.CacheSearchRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_CacheSearch, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.CacheSearchResponse> CacheSearchAsync(global::Core.CacheSearchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return CacheSearchAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.CacheSearchResponse> CacheSearchAsync(global::Core.CacheSearchRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_CacheSearch, null, options, request);
+      }
       public virtual global::Core.StepQueueWorkflowResponse QueueWorkflow(global::Core.StepQueueWorkflowRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return QueueWorkflow(request, new grpc::CallOptions(headers, deadline, cancellationToken));
@@ -184,6 +214,7 @@ namespace Core {
           .AddMethod(__Method_Ping, serviceImpl.Ping)
           .AddMethod(__Method_CachePush, serviceImpl.CachePush)
           .AddMethod(__Method_CachePull, serviceImpl.CachePull)
+          .AddMethod(__Method_CacheSearch, serviceImpl.CacheSearch)
           .AddMethod(__Method_QueueWorkflow, serviceImpl.QueueWorkflow).Build();
     }
 
@@ -196,6 +227,7 @@ namespace Core {
       serviceBinder.AddMethod(__Method_Ping, serviceImpl.Ping);
       serviceBinder.AddMethod(__Method_CachePush, serviceImpl.CachePush);
       serviceBinder.AddMethod(__Method_CachePull, serviceImpl.CachePull);
+      serviceBinder.AddMethod(__Method_CacheSearch, serviceImpl.CacheSearch);
       serviceBinder.AddMethod(__Method_QueueWorkflow, serviceImpl.QueueWorkflow);
     }
 

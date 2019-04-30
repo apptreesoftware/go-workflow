@@ -88,3 +88,16 @@ func (c *Engine) AddToQueue(workflow string, record interface{}) (err error) {
 	err = addErr
 	return
 }
+
+func (c *Engine) SearchForRecords(filter []byte, cacheName string) ([]*RawRecord, error) {
+	searchRequest := &CacheSearchRequest{
+		CacheName: cacheName,
+		Environment: c.environment,
+		SearchFilter: filter,
+	}
+	resp, err := c.client.CacheSearch(context.Background(), searchRequest)
+	if err != nil {
+		return nil, err
+	}
+	return resp.Records, nil
+}

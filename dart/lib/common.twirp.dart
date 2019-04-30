@@ -25,7 +25,7 @@ class Package {
       json['name'] as String,
       json['lang'] as String,
       json['version'] as String,
-      new Exec.fromJson(json['executables']),
+      new Exec.fromJson(json),
       stepsMap,
     );
   }
@@ -59,9 +59,9 @@ class Exec {
 
   factory Exec.fromJson(Map<String, dynamic> json) {
     return new Exec(
-      new Binary.fromJson(json['darwin']),
-      new Binary.fromJson(json['linux']),
-      new Binary.fromJson(json['windows']),
+      new Binary.fromJson(json),
+      new Binary.fromJson(json),
+      new Binary.fromJson(json),
     );
   }
 
@@ -404,7 +404,7 @@ class GetStepPackageResponse {
 
   factory GetStepPackageResponse.fromJson(Map<String, dynamic> json) {
     return new GetStepPackageResponse(
-      new Package.fromJson(json['package']),
+      new Package.fromJson(json),
     );
   }
 
@@ -441,7 +441,7 @@ class CachePushRequest {
       json['metadata'] as String,
       json['record'] as String,
       json['cacheName'] as String,
-      new Environment.fromJson(json['environment']),
+      new Environment.fromJson(json),
     );
   }
 
@@ -494,7 +494,7 @@ class CachePullRequest {
     return new CachePullRequest(
       json['id'] as String,
       json['cacheName'] as String,
-      new Environment.fromJson(json['environment']),
+      new Environment.fromJson(json),
     );
   }
 
@@ -545,6 +545,97 @@ class CachePullResponse {
   }
 }
 
+class CacheSearchRequest {
+  CacheSearchRequest(
+    this.cacheName,
+    this.searchFilter,
+    this.environment,
+  );
+
+  String cacheName;
+  String searchFilter;
+  Environment environment;
+
+  factory CacheSearchRequest.fromJson(Map<String, dynamic> json) {
+    return new CacheSearchRequest(
+      json['cacheName'] as String,
+      json['searchFilter'] as String,
+      new Environment.fromJson(json),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['cacheName'] = cacheName;
+    map['searchFilter'] = searchFilter;
+    map['environment'] = environment.toJson();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class CacheSearchResponse {
+  CacheSearchResponse(
+    this.records,
+  );
+
+  List<RawRecord> records;
+
+  factory CacheSearchResponse.fromJson(Map<String, dynamic> json) {
+    return new CacheSearchResponse(
+      json['records'] != null
+          ? (json['records'] as List)
+              .map((d) => new RawRecord.fromJson(d))
+              .toList()
+          : <RawRecord>[],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['records'] = records?.map((l) => l.toJson())?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class RawRecord {
+  RawRecord(
+    this.record,
+    this.metadata,
+  );
+
+  String record;
+  String metadata;
+
+  factory RawRecord.fromJson(Map<String, dynamic> json) {
+    return new RawRecord(
+      json['record'] as String,
+      json['metadata'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['record'] = record;
+    map['metadata'] = metadata;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 class AllStepsRequest {
   AllStepsRequest(
     this.searchTerm,
@@ -580,14 +671,14 @@ class AllStepsResponse {
 
   bool success;
   String message;
-  String recordCount;
+  int recordCount;
   List<RegisteredStep> items;
 
   factory AllStepsResponse.fromJson(Map<String, dynamic> json) {
     return new AllStepsResponse(
       json['success'] as bool,
       json['message'] as String,
-      json['recordCount'] as String,
+      json['recordCount'] as int,
       json['items'] != null
           ? (json['items'] as List)
               .map((d) => new RegisteredStep.fromJson(d))
@@ -632,7 +723,7 @@ class RegisteredStep {
 
   factory RegisteredStep.fromJson(Map<String, dynamic> json) {
     return new RegisteredStep(
-      new PackageStep.fromJson(json['step']),
+      new PackageStep.fromJson(json),
       json['location'] as String,
       json['locationType'] as String,
       json['publishId'] as String,
@@ -702,7 +793,7 @@ class SingleStepResponse {
 
   factory SingleStepResponse.fromJson(Map<String, dynamic> json) {
     return new SingleStepResponse(
-      new RegisteredStep.fromJson(json['step']),
+      new RegisteredStep.fromJson(json),
     );
   }
 
@@ -731,7 +822,7 @@ class RunStepRequest {
 
   factory RunStepRequest.fromJson(Map<String, dynamic> json) {
     return new RunStepRequest(
-      new Environment.fromJson(json['environment']),
+      new Environment.fromJson(json),
       json['input'] as String,
       json['stepConfig'] as String,
     );
