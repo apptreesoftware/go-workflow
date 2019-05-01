@@ -9,7 +9,7 @@ import (
 )
 
 type Engine struct {
-	client EngineStepAPIClient
+	client      EngineStepAPIClient
 	environment *Environment
 }
 
@@ -89,15 +89,16 @@ func (c *Engine) AddToQueue(workflow string, record interface{}) (err error) {
 	return
 }
 
-func (c *Engine) SearchForRecords(filter interface{}, cacheName string) ([]*RawRecord, error) {
+func (c *Engine) Find(filter interface{}, cacheName string, limit int64) ([]*RawRecord, error) {
 	filterBytes, err := bson.Marshal(&filter)
 	if err != nil {
 		return nil, err
 	}
 	searchRequest := &CacheSearchRequest{
-		CacheName: cacheName,
-		Environment: c.environment,
+		CacheName:    cacheName,
+		Environment:  c.environment,
 		SearchFilter: filterBytes,
+		Limit:        limit,
 	}
 	resp, err := c.client.CacheSearch(context.Background(), searchRequest)
 	if err != nil {

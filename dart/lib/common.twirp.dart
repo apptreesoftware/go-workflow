@@ -550,17 +550,20 @@ class CacheSearchRequest {
     this.cacheName,
     this.searchFilter,
     this.environment,
+    this.limit,
   );
 
   String cacheName;
   String searchFilter;
   Environment environment;
+  int limit;
 
   factory CacheSearchRequest.fromJson(Map<String, dynamic> json) {
     return new CacheSearchRequest(
       json['cacheName'] as String,
       json['searchFilter'] as String,
       new Environment.fromJson(json['environment']),
+      json['limit'] as int,
     );
   }
 
@@ -569,6 +572,7 @@ class CacheSearchRequest {
     map['cacheName'] = cacheName;
     map['searchFilter'] = searchFilter;
     map['environment'] = environment.toJson();
+    map['limit'] = limit;
     return map;
   }
 

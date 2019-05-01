@@ -58,25 +58,26 @@ namespace Core {
             "cG9uc2UiWQoQQ2FjaGVQdWxsUmVxdWVzdBIKCgJpZBgBIAEoCRIRCgljYWNo",
             "ZU5hbWUYAiABKAkSJgoLZW52aXJvbm1lbnQYAyABKAsyES5jb3JlLkVudmly",
             "b25tZW50IkcKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQ",
-            "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCJlChJDYWNoZVNl",
+            "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCJ0ChJDYWNoZVNl",
             "YXJjaFJlcXVlc3QSEQoJY2FjaGVOYW1lGAEgASgJEhQKDHNlYXJjaEZpbHRl",
             "chgCIAEoDBImCgtlbnZpcm9ubWVudBgDIAEoCzIRLmNvcmUuRW52aXJvbm1l",
-            "bnQiNwoTQ2FjaGVTZWFyY2hSZXNwb25zZRIgCgdyZWNvcmRzGAEgAygLMg8u",
-            "Y29yZS5SYXdSZWNvcmQiLQoJUmF3UmVjb3JkEg4KBnJlY29yZBgBIAEoDBIQ",
-            "CghtZXRhZGF0YRgCIAEoDCIlCg9BbGxTdGVwc1JlcXVlc3QSEgoKc2VhcmNo",
-            "VGVybRgBIAEoCSJuChBBbGxTdGVwc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASAB",
-            "KAgSDwoHbWVzc2FnZRgCIAEoCRITCgtyZWNvcmRDb3VudBgDIAEoAxIjCgVp",
-            "dGVtcxgEIAMoCzIULmNvcmUuUmVnaXN0ZXJlZFN0ZXAiowEKDlJlZ2lzdGVy",
-            "ZWRTdGVwEh8KBHN0ZXAYASABKAsyES5jb3JlLlBhY2thZ2VTdGVwEhAKCGxv",
-            "Y2F0aW9uGAIgASgJEhQKDGxvY2F0aW9uVHlwZRgDIAEoCRIRCglwdWJsaXNo",
-            "SWQYBCABKAkSDgoGYXV0aG9yGAUgASgJEhMKC3BhY2thZ2VOYW1lGAYgASgJ",
-            "EhAKCFN0ZXBOYW1lGAcgASgJIksKEVNpbmdsZVN0ZXBSZXF1ZXN0EhMKC3Bh",
-            "Y2thZ2VOYW1lGAEgASgJEhAKCHN0ZXBOYW1lGAIgASgJEg8KB3ZlcnNpb24Y",
-            "AyABKAkiOAoSU2luZ2xlU3RlcFJlc3BvbnNlEiIKBHN0ZXAYASABKAsyFC5j",
-            "b3JlLlJlZ2lzdGVyZWRTdGVwIlsKDlJ1blN0ZXBSZXF1ZXN0EiYKC2Vudmly",
-            "b25tZW50GAEgASgLMhEuY29yZS5FbnZpcm9ubWVudBINCgVpbnB1dBgCIAEo",
-            "DBISCgpzdGVwQ29uZmlnGAMgASgMIgcKBUVtcHR5QjFaL2dpdGh1Yi5jb20v",
-            "YXBwdHJlZXNvZnR3YXJlL2dvLXdvcmtmbG93L3BrZy9jb3JlYgZwcm90bzM="));
+            "bnQSDQoFbGltaXQYBCABKAMiNwoTQ2FjaGVTZWFyY2hSZXNwb25zZRIgCgdy",
+            "ZWNvcmRzGAEgAygLMg8uY29yZS5SYXdSZWNvcmQiLQoJUmF3UmVjb3JkEg4K",
+            "BnJlY29yZBgBIAEoDBIQCghtZXRhZGF0YRgCIAEoDCIlCg9BbGxTdGVwc1Jl",
+            "cXVlc3QSEgoKc2VhcmNoVGVybRgBIAEoCSJuChBBbGxTdGVwc1Jlc3BvbnNl",
+            "Eg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCRITCgtyZWNvcmRD",
+            "b3VudBgDIAEoAxIjCgVpdGVtcxgEIAMoCzIULmNvcmUuUmVnaXN0ZXJlZFN0",
+            "ZXAiowEKDlJlZ2lzdGVyZWRTdGVwEh8KBHN0ZXAYASABKAsyES5jb3JlLlBh",
+            "Y2thZ2VTdGVwEhAKCGxvY2F0aW9uGAIgASgJEhQKDGxvY2F0aW9uVHlwZRgD",
+            "IAEoCRIRCglwdWJsaXNoSWQYBCABKAkSDgoGYXV0aG9yGAUgASgJEhMKC3Bh",
+            "Y2thZ2VOYW1lGAYgASgJEhAKCFN0ZXBOYW1lGAcgASgJIksKEVNpbmdsZVN0",
+            "ZXBSZXF1ZXN0EhMKC3BhY2thZ2VOYW1lGAEgASgJEhAKCHN0ZXBOYW1lGAIg",
+            "ASgJEg8KB3ZlcnNpb24YAyABKAkiOAoSU2luZ2xlU3RlcFJlc3BvbnNlEiIK",
+            "BHN0ZXAYASABKAsyFC5jb3JlLlJlZ2lzdGVyZWRTdGVwIlsKDlJ1blN0ZXBS",
+            "ZXF1ZXN0EiYKC2Vudmlyb25tZW50GAEgASgLMhEuY29yZS5FbnZpcm9ubWVu",
+            "dBINCgVpbnB1dBgCIAEoDBISCgpzdGVwQ29uZmlnGAMgASgMIgcKBUVtcHR5",
+            "QjFaL2dpdGh1Yi5jb20vYXBwdHJlZXNvZnR3YXJlL2dvLXdvcmtmbG93L3Br",
+            "Zy9jb3JlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -96,7 +97,7 @@ namespace Core {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CachePushResponse), global::Core.CachePushResponse.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CachePullRequest), global::Core.CachePullRequest.Parser, new[]{ "Id", "CacheName", "Environment" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CachePullResponse), global::Core.CachePullResponse.Parser, new[]{ "Record", "Metadata", "NotFound" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.CacheSearchRequest), global::Core.CacheSearchRequest.Parser, new[]{ "CacheName", "SearchFilter", "Environment" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.CacheSearchRequest), global::Core.CacheSearchRequest.Parser, new[]{ "CacheName", "SearchFilter", "Environment", "Limit" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CacheSearchResponse), global::Core.CacheSearchResponse.Parser, new[]{ "Records" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.RawRecord), global::Core.RawRecord.Parser, new[]{ "Record", "Metadata" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.AllStepsRequest), global::Core.AllStepsRequest.Parser, new[]{ "SearchTerm" }, null, null, null),
@@ -3174,6 +3175,7 @@ namespace Core {
       cacheName_ = other.cacheName_;
       searchFilter_ = other.searchFilter_;
       environment_ = other.environment_ != null ? other.environment_.Clone() : null;
+      limit_ = other.limit_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3215,6 +3217,17 @@ namespace Core {
       }
     }
 
+    /// <summary>Field number for the "limit" field.</summary>
+    public const int LimitFieldNumber = 4;
+    private long limit_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Limit {
+      get { return limit_; }
+      set {
+        limit_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as CacheSearchRequest);
@@ -3231,6 +3244,7 @@ namespace Core {
       if (CacheName != other.CacheName) return false;
       if (SearchFilter != other.SearchFilter) return false;
       if (!object.Equals(Environment, other.Environment)) return false;
+      if (Limit != other.Limit) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3240,6 +3254,7 @@ namespace Core {
       if (CacheName.Length != 0) hash ^= CacheName.GetHashCode();
       if (SearchFilter.Length != 0) hash ^= SearchFilter.GetHashCode();
       if (environment_ != null) hash ^= Environment.GetHashCode();
+      if (Limit != 0L) hash ^= Limit.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3265,6 +3280,10 @@ namespace Core {
         output.WriteRawTag(26);
         output.WriteMessage(Environment);
       }
+      if (Limit != 0L) {
+        output.WriteRawTag(32);
+        output.WriteInt64(Limit);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -3281,6 +3300,9 @@ namespace Core {
       }
       if (environment_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(Environment);
+      }
+      if (Limit != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Limit);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -3304,6 +3326,9 @@ namespace Core {
           environment_ = new global::Core.Environment();
         }
         Environment.MergeFrom(other.Environment);
+      }
+      if (other.Limit != 0L) {
+        Limit = other.Limit;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -3329,6 +3354,10 @@ namespace Core {
               environment_ = new global::Core.Environment();
             }
             input.ReadMessage(environment_);
+            break;
+          }
+          case 32: {
+            Limit = input.ReadInt64();
             break;
           }
         }

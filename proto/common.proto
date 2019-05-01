@@ -108,6 +108,7 @@ message CacheSearchRequest {
     string cacheName = 1;
     bytes searchFilter = 2;
     Environment environment = 3;
+    int64 limit = 4;
 }
 
 message CacheSearchResponse {
