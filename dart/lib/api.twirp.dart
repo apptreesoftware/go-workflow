@@ -4,6 +4,7 @@ import 'package:requester/requester.dart';
 import 'package:twirp_dart_core/twirp_dart_core.dart';
 import 'dart:convert';
 import 'common.twirp.dart';
+import 'step_library.twirp.dart';
 
 class ProjectWorkflowRequest {
   ProjectWorkflowRequest(
@@ -1359,9 +1360,6 @@ abstract class WorkflowAPI {
       RemoteEngineRequest remoteEngineRequest);
   Future<StepPackageResponse> getStepPackage(
       StepPackageRequest stepPackageRequest);
-  Future<AllStepsResponse> getAllSteps(AllStepsRequest allStepsRequest);
-  Future<AllStepsResponse> searchSteps(AllStepsRequest allStepsRequest);
-  Future<SingleStepResponse> getSingleStep(SingleStepRequest singleStepRequest);
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest);
   Future<WorkflowHistoryResponse> getWorkflowHistory(
       WorkflowHistoryRequest workflowHistoryRequest);
@@ -1381,6 +1379,18 @@ abstract class WorkflowAPI {
       UpdateAvailableRequest updateAvailableRequest);
   Future<BasicResponse> pauseEngines(Empty empty);
   Future<BasicResponse> unpauseEngines(Empty empty);
+  Future<SearchStepsResponse> searchStepsForLibrary(
+      SearchStepsRequest searchStepsRequest);
+  Future<GetAllStepsResponse> getAllStepsForLibrary(
+      GetAllStepsRequest getAllStepsRequest);
+  Future<GetSingleStepResponse> getSingleStepForLibrary(
+      GetSingleStepRequest getSingleStepRequest);
+  Future<GetStepsForPackageResponse> getStepsForPackage(
+      GetStepsForPackageRequest getStepsForPackageRequest);
+  Future<GetAllPackagesInfoResponse> getAllPackageNamesForLibrary(
+      GetAllPackagesInfoRequest getAllPackagesInfoRequest);
+  Future<GetPackageInfoResponse> getPackageInfoForLibrary(
+      GetPackageInfoRequest getPackageInfoRequest);
 }
 
 class DefaultWorkflowAPI implements WorkflowAPI {
@@ -1616,49 +1626,6 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return StepPackageResponse.fromJson(value);
   }
 
-  Future<AllStepsResponse> getAllSteps(AllStepsRequest allStepsRequest) async {
-    var url = "${hostname}${_pathPrefix}GetAllSteps";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(allStepsRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return AllStepsResponse.fromJson(value);
-  }
-
-  Future<AllStepsResponse> searchSteps(AllStepsRequest allStepsRequest) async {
-    var url = "${hostname}${_pathPrefix}SearchSteps";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(allStepsRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return AllStepsResponse.fromJson(value);
-  }
-
-  Future<SingleStepResponse> getSingleStep(
-      SingleStepRequest singleStepRequest) async {
-    var url = "${hostname}${_pathPrefix}GetSingleStep";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(singleStepRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return SingleStepResponse.fromJson(value);
-  }
-
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest) async {
     var url = "${hostname}${_pathPrefix}ViewJobLog";
     var uri = Uri.parse(url);
@@ -1862,6 +1829,96 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return BasicResponse.fromJson(value);
+  }
+
+  Future<SearchStepsResponse> searchStepsForLibrary(
+      SearchStepsRequest searchStepsRequest) async {
+    var url = "${hostname}${_pathPrefix}SearchStepsForLibrary";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(searchStepsRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return SearchStepsResponse.fromJson(value);
+  }
+
+  Future<GetAllStepsResponse> getAllStepsForLibrary(
+      GetAllStepsRequest getAllStepsRequest) async {
+    var url = "${hostname}${_pathPrefix}GetAllStepsForLibrary";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(getAllStepsRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return GetAllStepsResponse.fromJson(value);
+  }
+
+  Future<GetSingleStepResponse> getSingleStepForLibrary(
+      GetSingleStepRequest getSingleStepRequest) async {
+    var url = "${hostname}${_pathPrefix}GetSingleStepForLibrary";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(getSingleStepRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return GetSingleStepResponse.fromJson(value);
+  }
+
+  Future<GetStepsForPackageResponse> getStepsForPackage(
+      GetStepsForPackageRequest getStepsForPackageRequest) async {
+    var url = "${hostname}${_pathPrefix}GetStepsForPackage";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(getStepsForPackageRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return GetStepsForPackageResponse.fromJson(value);
+  }
+
+  Future<GetAllPackagesInfoResponse> getAllPackageNamesForLibrary(
+      GetAllPackagesInfoRequest getAllPackagesInfoRequest) async {
+    var url = "${hostname}${_pathPrefix}GetAllPackageNamesForLibrary";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(getAllPackagesInfoRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return GetAllPackagesInfoResponse.fromJson(value);
+  }
+
+  Future<GetPackageInfoResponse> getPackageInfoForLibrary(
+      GetPackageInfoRequest getPackageInfoRequest) async {
+    var url = "${hostname}${_pathPrefix}GetPackageInfoForLibrary";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(getPackageInfoRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return GetPackageInfoResponse.fromJson(value);
   }
 
   Exception twirpException(Response response) {

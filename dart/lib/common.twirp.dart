@@ -545,72 +545,6 @@ class CachePullResponse {
   }
 }
 
-class AllStepsRequest {
-  AllStepsRequest(
-    this.searchTerm,
-  );
-
-  String searchTerm;
-
-  factory AllStepsRequest.fromJson(Map<String, dynamic> json) {
-    return new AllStepsRequest(
-      json['searchTerm'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['searchTerm'] = searchTerm;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
-class AllStepsResponse {
-  AllStepsResponse(
-    this.success,
-    this.message,
-    this.recordCount,
-    this.items,
-  );
-
-  bool success;
-  String message;
-  String recordCount;
-  List<RegisteredStep> items;
-
-  factory AllStepsResponse.fromJson(Map<String, dynamic> json) {
-    return new AllStepsResponse(
-      json['success'] as bool,
-      json['message'] as String,
-      json['recordCount'] as String,
-      json['items'] != null
-          ? (json['items'] as List)
-              .map((d) => new RegisteredStep.fromJson(d))
-              .toList()
-          : <RegisteredStep>[],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['success'] = success;
-    map['message'] = message;
-    map['recordCount'] = recordCount;
-    map['items'] = items?.map((l) => l.toJson())?.toList();
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
 class RegisteredStep {
   RegisteredStep(
     this.step,
@@ -760,6 +694,33 @@ class Empty {
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class AllPackagesNamesResponse {
+  AllPackagesNamesResponse(
+    this.packages,
+  );
+
+  List<String> packages;
+
+  factory AllPackagesNamesResponse.fromJson(Map<String, dynamic> json) {
+    return new AllPackagesNamesResponse(
+      json['packages'] != null
+          ? (json['packages'] as List).cast<String>()
+          : <String>[],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['packages'] = packages?.map((l) => l)?.toList();
     return map;
   }
 

@@ -104,17 +104,6 @@ message CachePullResponse {
     bool notFound = 3;
 }
 
-message AllStepsRequest {
-    string searchTerm = 1;
-}
-
-message AllStepsResponse {
-    bool success = 1;
-    string message = 2;
-    string recordCount = 3;
-    repeated RegisteredStep items = 4;
-}
-
 message RegisteredStep {
     PackageStep step = 1;
     string location = 2;
@@ -124,6 +113,8 @@ message RegisteredStep {
     string packageName = 6;
     string StepName = 7;
 }
+
+
 
 message SingleStepRequest {
     string packageName = 1;
@@ -143,4 +134,8 @@ message RunStepRequest {
 
 message Empty {
 
+}
+
+message AllPackagesNamesResponse {
+    repeated string packages = 1;
 }
