@@ -160,3 +160,7 @@ message RunStepRequest {
 message Empty {
 
 }
+
+message AllPackagesNamesResponse {
+    repeated string packages = 1;
+}
