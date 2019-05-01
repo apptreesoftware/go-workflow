@@ -4,8 +4,6 @@ option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
 
 package core;
 
-
-
 message LibraryPackage {
     string packageName = 1;
     string description = 2;

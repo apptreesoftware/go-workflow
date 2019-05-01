@@ -58,21 +58,19 @@ namespace Core {
             "cG9uc2UiWQoQQ2FjaGVQdWxsUmVxdWVzdBIKCgJpZBgBIAEoCRIRCgljYWNo",
             "ZU5hbWUYAiABKAkSJgoLZW52aXJvbm1lbnQYAyABKAsyES5jb3JlLkVudmly",
             "b25tZW50IkcKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQ",
-            "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCIlCg9BbGxTdGVw",
-            "c1JlcXVlc3QSEgoKc2VhcmNoVGVybRgBIAEoCSJuChBBbGxTdGVwc1Jlc3Bv",
-            "bnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEoCRITCgtyZWNv",
-            "cmRDb3VudBgDIAEoCRIjCgVpdGVtcxgEIAMoCzIULmNvcmUuUmVnaXN0ZXJl",
-            "ZFN0ZXAiowEKDlJlZ2lzdGVyZWRTdGVwEh8KBHN0ZXAYASABKAsyES5jb3Jl",
-            "LlBhY2thZ2VTdGVwEhAKCGxvY2F0aW9uGAIgASgJEhQKDGxvY2F0aW9uVHlw",
-            "ZRgDIAEoCRIRCglwdWJsaXNoSWQYBCABKAkSDgoGYXV0aG9yGAUgASgJEhMK",
-            "C3BhY2thZ2VOYW1lGAYgASgJEhAKCFN0ZXBOYW1lGAcgASgJIksKEVNpbmds",
-            "ZVN0ZXBSZXF1ZXN0EhMKC3BhY2thZ2VOYW1lGAEgASgJEhAKCHN0ZXBOYW1l",
-            "GAIgASgJEg8KB3ZlcnNpb24YAyABKAkiOAoSU2luZ2xlU3RlcFJlc3BvbnNl",
-            "EiIKBHN0ZXAYASABKAsyFC5jb3JlLlJlZ2lzdGVyZWRTdGVwIlsKDlJ1blN0",
-            "ZXBSZXF1ZXN0EiYKC2Vudmlyb25tZW50GAEgASgLMhEuY29yZS5FbnZpcm9u",
-            "bWVudBINCgVpbnB1dBgCIAEoDBISCgpzdGVwQ29uZmlnGAMgASgMIgcKBUVt",
-            "cHR5QjFaL2dpdGh1Yi5jb20vYXBwdHJlZXNvZnR3YXJlL2dvLXdvcmtmbG93",
-            "L3BrZy9jb3JlYgZwcm90bzM="));
+            "CghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEoCCKjAQoOUmVnaXN0",
+            "ZXJlZFN0ZXASHwoEc3RlcBgBIAEoCzIRLmNvcmUuUGFja2FnZVN0ZXASEAoI",
+            "bG9jYXRpb24YAiABKAkSFAoMbG9jYXRpb25UeXBlGAMgASgJEhEKCXB1Ymxp",
+            "c2hJZBgEIAEoCRIOCgZhdXRob3IYBSABKAkSEwoLcGFja2FnZU5hbWUYBiAB",
+            "KAkSEAoIU3RlcE5hbWUYByABKAkiSwoRU2luZ2xlU3RlcFJlcXVlc3QSEwoL",
+            "cGFja2FnZU5hbWUYASABKAkSEAoIc3RlcE5hbWUYAiABKAkSDwoHdmVyc2lv",
+            "bhgDIAEoCSI4ChJTaW5nbGVTdGVwUmVzcG9uc2USIgoEc3RlcBgBIAEoCzIU",
+            "LmNvcmUuUmVnaXN0ZXJlZFN0ZXAiWwoOUnVuU3RlcFJlcXVlc3QSJgoLZW52",
+            "aXJvbm1lbnQYASABKAsyES5jb3JlLkVudmlyb25tZW50Eg0KBWlucHV0GAIg",
+            "ASgMEhIKCnN0ZXBDb25maWcYAyABKAwiBwoFRW1wdHkiLAoYQWxsUGFja2Fn",
+            "ZXNOYW1lc1Jlc3BvbnNlEhAKCHBhY2thZ2VzGAEgAygJQjFaL2dpdGh1Yi5j",
+            "b20vYXBwdHJlZXNvZnR3YXJlL2dvLXdvcmtmbG93L3BrZy9jb3JlYgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -92,13 +90,12 @@ namespace Core {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CachePushResponse), global::Core.CachePushResponse.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CachePullRequest), global::Core.CachePullRequest.Parser, new[]{ "Id", "CacheName", "Environment" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CachePullResponse), global::Core.CachePullResponse.Parser, new[]{ "Record", "Metadata", "NotFound" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.AllStepsRequest), global::Core.AllStepsRequest.Parser, new[]{ "SearchTerm" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.AllStepsResponse), global::Core.AllStepsResponse.Parser, new[]{ "Success", "Message", "RecordCount", "Items" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.RegisteredStep), global::Core.RegisteredStep.Parser, new[]{ "Step", "Location", "LocationType", "PublishId", "Author", "PackageName", "StepName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.SingleStepRequest), global::Core.SingleStepRequest.Parser, new[]{ "PackageName", "StepName", "Version" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.SingleStepResponse), global::Core.SingleStepResponse.Parser, new[]{ "Step" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.RunStepRequest), global::Core.RunStepRequest.Parser, new[]{ "Environment", "Input", "StepConfig" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.Empty), global::Core.Empty.Parser, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.Empty), global::Core.Empty.Parser, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.AllPackagesNamesResponse), global::Core.AllPackagesNamesResponse.Parser, new[]{ "Packages" }, null, null, null)
           }));
     }
     #endregion
@@ -3139,340 +3136,6 @@ namespace Core {
 
   }
 
-  public sealed partial class AllStepsRequest : pb::IMessage<AllStepsRequest> {
-    private static readonly pb::MessageParser<AllStepsRequest> _parser = new pb::MessageParser<AllStepsRequest>(() => new AllStepsRequest());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<AllStepsRequest> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Core.CommonReflection.Descriptor.MessageTypes[16]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public AllStepsRequest() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public AllStepsRequest(AllStepsRequest other) : this() {
-      searchTerm_ = other.searchTerm_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public AllStepsRequest Clone() {
-      return new AllStepsRequest(this);
-    }
-
-    /// <summary>Field number for the "searchTerm" field.</summary>
-    public const int SearchTermFieldNumber = 1;
-    private string searchTerm_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string SearchTerm {
-      get { return searchTerm_; }
-      set {
-        searchTerm_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as AllStepsRequest);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(AllStepsRequest other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (SearchTerm != other.SearchTerm) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (SearchTerm.Length != 0) hash ^= SearchTerm.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (SearchTerm.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(SearchTerm);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (SearchTerm.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(SearchTerm);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(AllStepsRequest other) {
-      if (other == null) {
-        return;
-      }
-      if (other.SearchTerm.Length != 0) {
-        SearchTerm = other.SearchTerm;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            SearchTerm = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  public sealed partial class AllStepsResponse : pb::IMessage<AllStepsResponse> {
-    private static readonly pb::MessageParser<AllStepsResponse> _parser = new pb::MessageParser<AllStepsResponse>(() => new AllStepsResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<AllStepsResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Core.CommonReflection.Descriptor.MessageTypes[17]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public AllStepsResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public AllStepsResponse(AllStepsResponse other) : this() {
-      success_ = other.success_;
-      message_ = other.message_;
-      recordCount_ = other.recordCount_;
-      items_ = other.items_.Clone();
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public AllStepsResponse Clone() {
-      return new AllStepsResponse(this);
-    }
-
-    /// <summary>Field number for the "success" field.</summary>
-    public const int SuccessFieldNumber = 1;
-    private bool success_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Success {
-      get { return success_; }
-      set {
-        success_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "message" field.</summary>
-    public const int MessageFieldNumber = 2;
-    private string message_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Message {
-      get { return message_; }
-      set {
-        message_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "recordCount" field.</summary>
-    public const int RecordCountFieldNumber = 3;
-    private string recordCount_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string RecordCount {
-      get { return recordCount_; }
-      set {
-        recordCount_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "items" field.</summary>
-    public const int ItemsFieldNumber = 4;
-    private static readonly pb::FieldCodec<global::Core.RegisteredStep> _repeated_items_codec
-        = pb::FieldCodec.ForMessage(34, global::Core.RegisteredStep.Parser);
-    private readonly pbc::RepeatedField<global::Core.RegisteredStep> items_ = new pbc::RepeatedField<global::Core.RegisteredStep>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Core.RegisteredStep> Items {
-      get { return items_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as AllStepsResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(AllStepsResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Success != other.Success) return false;
-      if (Message != other.Message) return false;
-      if (RecordCount != other.RecordCount) return false;
-      if(!items_.Equals(other.items_)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Success != false) hash ^= Success.GetHashCode();
-      if (Message.Length != 0) hash ^= Message.GetHashCode();
-      if (RecordCount.Length != 0) hash ^= RecordCount.GetHashCode();
-      hash ^= items_.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (Success != false) {
-        output.WriteRawTag(8);
-        output.WriteBool(Success);
-      }
-      if (Message.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Message);
-      }
-      if (RecordCount.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(RecordCount);
-      }
-      items_.WriteTo(output, _repeated_items_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Success != false) {
-        size += 1 + 1;
-      }
-      if (Message.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Message);
-      }
-      if (RecordCount.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(RecordCount);
-      }
-      size += items_.CalculateSize(_repeated_items_codec);
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(AllStepsResponse other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Success != false) {
-        Success = other.Success;
-      }
-      if (other.Message.Length != 0) {
-        Message = other.Message;
-      }
-      if (other.RecordCount.Length != 0) {
-        RecordCount = other.RecordCount;
-      }
-      items_.Add(other.items_);
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            Success = input.ReadBool();
-            break;
-          }
-          case 18: {
-            Message = input.ReadString();
-            break;
-          }
-          case 26: {
-            RecordCount = input.ReadString();
-            break;
-          }
-          case 34: {
-            items_.AddEntriesFrom(input, _repeated_items_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
   public sealed partial class RegisteredStep : pb::IMessage<RegisteredStep> {
     private static readonly pb::MessageParser<RegisteredStep> _parser = new pb::MessageParser<RegisteredStep>(() => new RegisteredStep());
     private pb::UnknownFieldSet _unknownFields;
@@ -3481,7 +3144,7 @@ namespace Core {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Core.CommonReflection.Descriptor.MessageTypes[18]; }
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3784,7 +3447,7 @@ namespace Core {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Core.CommonReflection.Descriptor.MessageTypes[19]; }
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3969,7 +3632,7 @@ namespace Core {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Core.CommonReflection.Descriptor.MessageTypes[20]; }
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4104,7 +3767,7 @@ namespace Core {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Core.CommonReflection.Descriptor.MessageTypes[21]; }
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[19]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4295,7 +3958,7 @@ namespace Core {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Core.CommonReflection.Descriptor.MessageTypes[22]; }
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[20]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4382,6 +4045,127 @@ namespace Core {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class AllPackagesNamesResponse : pb::IMessage<AllPackagesNamesResponse> {
+    private static readonly pb::MessageParser<AllPackagesNamesResponse> _parser = new pb::MessageParser<AllPackagesNamesResponse>(() => new AllPackagesNamesResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<AllPackagesNamesResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[21]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AllPackagesNamesResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AllPackagesNamesResponse(AllPackagesNamesResponse other) : this() {
+      packages_ = other.packages_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AllPackagesNamesResponse Clone() {
+      return new AllPackagesNamesResponse(this);
+    }
+
+    /// <summary>Field number for the "packages" field.</summary>
+    public const int PackagesFieldNumber = 1;
+    private static readonly pb::FieldCodec<string> _repeated_packages_codec
+        = pb::FieldCodec.ForString(10);
+    private readonly pbc::RepeatedField<string> packages_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<string> Packages {
+      get { return packages_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as AllPackagesNamesResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(AllPackagesNamesResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!packages_.Equals(other.packages_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= packages_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      packages_.WriteTo(output, _repeated_packages_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += packages_.CalculateSize(_repeated_packages_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(AllPackagesNamesResponse other) {
+      if (other == null) {
+        return;
+      }
+      packages_.Add(other.packages_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            packages_.AddEntriesFrom(input, _repeated_packages_codec);
+            break;
+          }
         }
       }
     }

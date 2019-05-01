@@ -4,7 +4,7 @@ import 'package:requester/requester.dart';
 import 'package:twirp_dart_core/twirp_dart_core.dart';
 import 'dart:convert';
 import 'common.twirp.dart';
-import 'library.twirp.dart';
+import 'step_library.twirp.dart';
 
 class ProjectWorkflowRequest {
   ProjectWorkflowRequest(
@@ -1360,8 +1360,6 @@ abstract class WorkflowAPI {
       RemoteEngineRequest remoteEngineRequest);
   Future<StepPackageResponse> getStepPackage(
       StepPackageRequest stepPackageRequest);
-  Future<GetStepPackageResponse> getStepPackageInfo(
-      GetStepPackageRequest getStepPackageRequest);
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest);
   Future<WorkflowHistoryResponse> getWorkflowHistory(
       WorkflowHistoryRequest workflowHistoryRequest);
@@ -1626,21 +1624,6 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return StepPackageResponse.fromJson(value);
-  }
-
-  Future<GetStepPackageResponse> getStepPackageInfo(
-      GetStepPackageRequest getStepPackageRequest) async {
-    var url = "${hostname}${_pathPrefix}GetStepPackageInfo";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(getStepPackageRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return GetStepPackageResponse.fromJson(value);
   }
 
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest) async {
