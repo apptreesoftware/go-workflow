@@ -1,6 +1,8 @@
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/apptreesoftware/protoc-gen-twirp_dart v0.0.0-20181128141633-6edc59274099 h1:hPaDZeVZpnU/tQffo67qBa7j33B13Tx3KPuWT9AjBbg=
 github.com/apptreesoftware/protoc-gen-twirp_dart v0.0.0-20181128141633-6edc59274099/go.mod h1:xAEJEsgy9Ld15ye31hb7uLyI5uTfdOlM/8CbNSEhj5w=
+github.com/apptreesoftware/protoc-gen-twirp_dart v0.0.0-20190501115218-4aa481ad603f h1:oCAdA9uVLjUFTdl8lfAcbDy/H8qatKBK29oUrOuYRp4=
+github.com/apptreesoftware/protoc-gen-twirp_dart v0.0.0-20190501115218-4aa481ad603f/go.mod h1:xAEJEsgy9Ld15ye31hb7uLyI5uTfdOlM/8CbNSEhj5w=
 github.com/client9/misspell v0.3.4/go.mod h1:qj6jICC3Q7zFZvVWo7KLAzC3yx5G7kyvSDkc90ppPyw=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=

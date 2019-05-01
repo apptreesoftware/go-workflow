@@ -1,7 +1,7 @@
 module github.com/apptreesoftware/go-workflow
 
 require (
-	github.com/apptreesoftware/protoc-gen-twirp_dart v0.0.0-20181128141633-6edc59274099 // indirect
+	github.com/apptreesoftware/protoc-gen-twirp_dart v0.0.0-20190501115218-4aa481ad603f // indirect
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/gogo/protobuf v1.2.1 // indirect
 	github.com/golang/protobuf v1.2.0

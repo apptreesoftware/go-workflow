@@ -25,7 +25,7 @@ class Package {
       json['name'] as String,
       json['lang'] as String,
       json['version'] as String,
-      new Exec.fromJson(json),
+      new Exec.fromJson(json['executables']),
       stepsMap,
     );
   }
@@ -59,9 +59,9 @@ class Exec {
 
   factory Exec.fromJson(Map<String, dynamic> json) {
     return new Exec(
-      new Binary.fromJson(json),
-      new Binary.fromJson(json),
-      new Binary.fromJson(json),
+      new Binary.fromJson(json['darwin']),
+      new Binary.fromJson(json['linux']),
+      new Binary.fromJson(json['windows']),
     );
   }
 
@@ -404,7 +404,7 @@ class GetStepPackageResponse {
 
   factory GetStepPackageResponse.fromJson(Map<String, dynamic> json) {
     return new GetStepPackageResponse(
-      new Package.fromJson(json),
+      new Package.fromJson(json['package']),
     );
   }
 
@@ -441,7 +441,7 @@ class CachePushRequest {
       json['metadata'] as String,
       json['record'] as String,
       json['cacheName'] as String,
-      new Environment.fromJson(json),
+      new Environment.fromJson(json['environment']),
     );
   }
 
@@ -494,7 +494,7 @@ class CachePullRequest {
     return new CachePullRequest(
       json['id'] as String,
       json['cacheName'] as String,
-      new Environment.fromJson(json),
+      new Environment.fromJson(json['environment']),
     );
   }
 
@@ -560,7 +560,7 @@ class CacheSearchRequest {
     return new CacheSearchRequest(
       json['cacheName'] as String,
       json['searchFilter'] as String,
-      new Environment.fromJson(json),
+      new Environment.fromJson(json['environment']),
     );
   }
 
@@ -723,7 +723,7 @@ class RegisteredStep {
 
   factory RegisteredStep.fromJson(Map<String, dynamic> json) {
     return new RegisteredStep(
-      new PackageStep.fromJson(json),
+      new PackageStep.fromJson(json['step']),
       json['location'] as String,
       json['locationType'] as String,
       json['publishId'] as String,
@@ -793,7 +793,7 @@ class SingleStepResponse {
 
   factory SingleStepResponse.fromJson(Map<String, dynamic> json) {
     return new SingleStepResponse(
-      new RegisteredStep.fromJson(json),
+      new RegisteredStep.fromJson(json['step']),
     );
   }
 
@@ -822,7 +822,7 @@ class RunStepRequest {
 
   factory RunStepRequest.fromJson(Map<String, dynamic> json) {
     return new RunStepRequest(
-      new Environment.fromJson(json),
+      new Environment.fromJson(json['environment']),
       json['input'] as String,
       json['stepConfig'] as String,
     );
