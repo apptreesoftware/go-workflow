@@ -27,3 +27,8 @@ func (NoOpEngine) CachePull(ctx context.Context, in *CachePullRequest, opts ...g
 	println("NoOpEngine - CachePull")
 	return &CachePullResponse{}, nil
 }
+
+func (NoOpEngine) CacheSearch(ctx context.Context, in *CacheSearchRequest, opts ...grpc.CallOption) (*CacheSearchResponse, error) {
+	println("NoOpEngine - CacheSearch")
+	return &CacheSearchResponse{}, nil
+}

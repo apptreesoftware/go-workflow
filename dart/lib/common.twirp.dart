@@ -545,6 +545,167 @@ class CachePullResponse {
   }
 }
 
+class CacheSearchRequest {
+  CacheSearchRequest(
+    this.cacheName,
+    this.searchFilter,
+    this.environment,
+    this.limit,
+  );
+
+  String cacheName;
+  String searchFilter;
+  Environment environment;
+  int limit;
+
+  factory CacheSearchRequest.fromJson(Map<String, dynamic> json) {
+    return new CacheSearchRequest(
+      json['cacheName'] as String,
+      json['searchFilter'] as String,
+      new Environment.fromJson(json['environment']),
+      json['limit'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['cacheName'] = cacheName;
+    map['searchFilter'] = searchFilter;
+    map['environment'] = environment.toJson();
+    map['limit'] = limit;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class CacheSearchResponse {
+  CacheSearchResponse(
+    this.records,
+  );
+
+  List<RawRecord> records;
+
+  factory CacheSearchResponse.fromJson(Map<String, dynamic> json) {
+    return new CacheSearchResponse(
+      json['records'] != null
+          ? (json['records'] as List)
+              .map((d) => new RawRecord.fromJson(d))
+              .toList()
+          : <RawRecord>[],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['records'] = records?.map((l) => l.toJson())?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class RawRecord {
+  RawRecord(
+    this.record,
+    this.metadata,
+  );
+
+  String record;
+  String metadata;
+
+  factory RawRecord.fromJson(Map<String, dynamic> json) {
+    return new RawRecord(
+      json['record'] as String,
+      json['metadata'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['record'] = record;
+    map['metadata'] = metadata;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class AllStepsRequest {
+  AllStepsRequest(
+    this.searchTerm,
+  );
+
+  String searchTerm;
+
+  factory AllStepsRequest.fromJson(Map<String, dynamic> json) {
+    return new AllStepsRequest(
+      json['searchTerm'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['searchTerm'] = searchTerm;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class AllStepsResponse {
+  AllStepsResponse(
+    this.success,
+    this.message,
+    this.recordCount,
+    this.items,
+  );
+
+  bool success;
+  String message;
+  int recordCount;
+  List<RegisteredStep> items;
+
+  factory AllStepsResponse.fromJson(Map<String, dynamic> json) {
+    return new AllStepsResponse(
+      json['success'] as bool,
+      json['message'] as String,
+      json['recordCount'] as int,
+      json['items'] != null
+          ? (json['items'] as List)
+              .map((d) => new RegisteredStep.fromJson(d))
+              .toList()
+          : <RegisteredStep>[],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['success'] = success;
+    map['message'] = message;
+    map['recordCount'] = recordCount;
+    map['items'] = items?.map((l) => l.toJson())?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 class RegisteredStep {
   RegisteredStep(
     this.step,
