@@ -205,6 +205,7 @@ message RunWorkflowRequest {
     string projectId = 1;
     string workflowId = 2;
     bytes triggerBody = 3;
+    int64 count = 4;
 }
 
 message PublishWorkflowRequest {
