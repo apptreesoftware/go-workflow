@@ -321,7 +321,7 @@ class WorkflowHistory {
     map['parentItem'] = parentItem;
     map['input'] = input;
     return map;
-  }e
+  }
 
   @override
   String toString() {
