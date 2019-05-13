@@ -6,25 +6,21 @@ import 'dart:convert';
 import 'common.twirp.dart';
 import 'step_library.twirp.dart';
 
-class ProjectWorkflowRequest {
-  ProjectWorkflowRequest(
-    this.project,
+class WorkflowRequest {
+  WorkflowRequest(
     this.workflow,
   );
 
-  String project;
   String workflow;
 
-  factory ProjectWorkflowRequest.fromJson(Map<String, dynamic> json) {
-    return new ProjectWorkflowRequest(
-      json['project'] as String,
+  factory WorkflowRequest.fromJson(Map<String, dynamic> json) {
+    return new WorkflowRequest(
       json['workflow'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['workflow'] = workflow;
     return map;
   }
@@ -39,20 +35,17 @@ class StoreValueRequest {
   StoreValueRequest(
     this.key,
     this.value,
-    this.project,
     this.isSecret,
   );
 
   String key;
   String value;
-  String project;
   bool isSecret;
 
   factory StoreValueRequest.fromJson(Map<String, dynamic> json) {
     return new StoreValueRequest(
       json['key'] as String,
       json['value'] as String,
-      json['project'] as String,
       json['isSecret'] as bool,
     );
   }
@@ -61,7 +54,6 @@ class StoreValueRequest {
     var map = new Map<String, dynamic>();
     map['key'] = key;
     map['value'] = value;
-    map['project'] = project;
     map['isSecret'] = isSecret;
     return map;
   }
@@ -75,23 +67,19 @@ class StoreValueRequest {
 class DeleteValueRequest {
   DeleteValueRequest(
     this.key,
-    this.project,
   );
 
   String key;
-  String project;
 
   factory DeleteValueRequest.fromJson(Map<String, dynamic> json) {
     return new DeleteValueRequest(
       json['key'] as String,
-      json['project'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['key'] = key;
-    map['project'] = project;
     return map;
   }
 
@@ -161,20 +149,17 @@ class ProjectValue {
   ProjectValue(
     this.key,
     this.value,
-    this.project,
     this.isEncrypted,
   );
 
   String key;
   String value;
-  String project;
   bool isEncrypted;
 
   factory ProjectValue.fromJson(Map<String, dynamic> json) {
     return new ProjectValue(
       json['key'] as String,
       json['value'] as String,
-      json['project'] as String,
       json['isEncrypted'] as bool,
     );
   }
@@ -183,7 +168,6 @@ class ProjectValue {
     var map = new Map<String, dynamic>();
     map['key'] = key;
     map['value'] = value;
-    map['project'] = project;
     map['isEncrypted'] = isEncrypted;
     return map;
   }
@@ -196,14 +180,12 @@ class ProjectValue {
 
 class WorkflowHistoryRequest {
   WorkflowHistoryRequest(
-    this.project,
     this.workflow,
     this.offset,
     this.count,
     this.jobId,
   );
 
-  String project;
   String workflow;
   int offset;
   int count;
@@ -211,7 +193,6 @@ class WorkflowHistoryRequest {
 
   factory WorkflowHistoryRequest.fromJson(Map<String, dynamic> json) {
     return new WorkflowHistoryRequest(
-      json['project'] as String,
       json['workflow'] as String,
       json['offset'] as int,
       json['count'] as int,
@@ -221,7 +202,6 @@ class WorkflowHistoryRequest {
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['workflow'] = workflow;
     map['offset'] = offset;
     map['count'] = count;
@@ -272,7 +252,6 @@ class WorkflowHistory {
     this.end,
     this.duration,
     this.failureReason,
-    this.project,
     this.workflow,
     this.triggerType,
     this.parentItem,
@@ -285,7 +264,6 @@ class WorkflowHistory {
   int end;
   double duration;
   String failureReason;
-  String project;
   String workflow;
   String triggerType;
   String parentItem;
@@ -299,7 +277,6 @@ class WorkflowHistory {
       json['end'] as int,
       json['duration'] as double,
       json['failureReason'] as String,
-      json['project'] as String,
       json['workflow'] as String,
       json['triggerType'] as String,
       json['parentItem'] as String,
@@ -315,7 +292,6 @@ class WorkflowHistory {
     map['end'] = end;
     map['duration'] = duration;
     map['failureReason'] = failureReason;
-    map['project'] = project;
     map['workflow'] = workflow;
     map['triggerType'] = triggerType;
     map['parentItem'] = parentItem;
@@ -332,20 +308,17 @@ class WorkflowHistory {
 class RemoteEngineUpdateRequest {
   RemoteEngineUpdateRequest(
     this.name,
-    this.project,
     this.forceUpdate,
     this.waitForVersion,
   );
 
   String name;
-  String project;
   bool forceUpdate;
   bool waitForVersion;
 
   factory RemoteEngineUpdateRequest.fromJson(Map<String, dynamic> json) {
     return new RemoteEngineUpdateRequest(
       json['name'] as String,
-      json['project'] as String,
       json['forceUpdate'] as bool,
       json['waitForVersion'] as bool,
     );
@@ -354,7 +327,6 @@ class RemoteEngineUpdateRequest {
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['name'] = name;
-    map['project'] = project;
     map['forceUpdate'] = forceUpdate;
     map['waitForVersion'] = waitForVersion;
     return map;
@@ -394,35 +366,6 @@ class RemoteEngineUpdateResponse {
     map['version'] = version;
     map['os'] = os;
     map['arch'] = arch;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
-class RemoteEngineHealthRequest {
-  RemoteEngineHealthRequest(
-    this.name,
-    this.project,
-  );
-
-  String name;
-  String project;
-
-  factory RemoteEngineHealthRequest.fromJson(Map<String, dynamic> json) {
-    return new RemoteEngineHealthRequest(
-      json['name'] as String,
-      json['project'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['name'] = name;
-    map['project'] = project;
     return map;
   }
 
@@ -537,23 +480,19 @@ class RemoteEngine {
 
 class RemoteEngineRequest {
   RemoteEngineRequest(
-    this.project,
     this.engine,
   );
 
-  String project;
   String engine;
 
   factory RemoteEngineRequest.fromJson(Map<String, dynamic> json) {
     return new RemoteEngineRequest(
-      json['project'] as String,
       json['engine'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['engine'] = engine;
     return map;
   }
@@ -570,14 +509,12 @@ class RegisterRemoteEngineRequest {
     this.host,
     this.clientCert,
     this.apiKey,
-    this.project,
   );
 
   String name;
   String host;
   String clientCert;
   String apiKey;
-  String project;
 
   factory RegisterRemoteEngineRequest.fromJson(Map<String, dynamic> json) {
     return new RegisterRemoteEngineRequest(
@@ -585,7 +522,6 @@ class RegisterRemoteEngineRequest {
       json['host'] as String,
       json['clientCert'] as String,
       json['apiKey'] as String,
-      json['project'] as String,
     );
   }
 
@@ -595,32 +531,6 @@ class RegisterRemoteEngineRequest {
     map['host'] = host;
     map['clientCert'] = clientCert;
     map['apiKey'] = apiKey;
-    map['project'] = project;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
-class ProjectRequest {
-  ProjectRequest(
-    this.project,
-  );
-
-  String project;
-
-  factory ProjectRequest.fromJson(Map<String, dynamic> json) {
-    return new ProjectRequest(
-      json['project'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['project'] = project;
     return map;
   }
 
@@ -632,23 +542,19 @@ class ProjectRequest {
 
 class ProjectValueRequest {
   ProjectValueRequest(
-    this.project,
     this.key,
   );
 
-  String project;
   String key;
 
   factory ProjectValueRequest.fromJson(Map<String, dynamic> json) {
     return new ProjectValueRequest(
-      json['project'] as String,
       json['key'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['key'] = key;
     return map;
   }
@@ -661,23 +567,19 @@ class ProjectValueRequest {
 
 class ProjectValuesRequest {
   ProjectValuesRequest(
-    this.project,
     this.decrypt,
   );
 
-  String project;
   bool decrypt;
 
   factory ProjectValuesRequest.fromJson(Map<String, dynamic> json) {
     return new ProjectValuesRequest(
-      json['project'] as String,
       json['decrypt'] as bool,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['decrypt'] = decrypt;
     return map;
   }
@@ -720,20 +622,17 @@ class ListWorkflowResponse {
 class WorkflowOverview {
   WorkflowOverview(
     this.id,
-    this.project,
     this.dependencies,
     this.triggers,
   );
 
   String id;
-  String project;
   String dependencies;
   String triggers;
 
   factory WorkflowOverview.fromJson(Map<String, dynamic> json) {
     return new WorkflowOverview(
       json['id'] as String,
-      json['project'] as String,
       json['dependencies'] as String,
       json['triggers'] as String,
     );
@@ -742,7 +641,6 @@ class WorkflowOverview {
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['id'] = id;
-    map['project'] = project;
     map['dependencies'] = dependencies;
     map['triggers'] = triggers;
     return map;
@@ -754,51 +652,19 @@ class WorkflowOverview {
   }
 }
 
-class BasicResponse {
-  BasicResponse(
-    this.success,
-    this.message,
-  );
-
-  bool success;
-  String message;
-
-  factory BasicResponse.fromJson(Map<String, dynamic> json) {
-    return new BasicResponse(
-      json['success'] as bool,
-      json['message'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['success'] = success;
-    map['message'] = message;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
 class RunWorkflowRequest {
   RunWorkflowRequest(
-    this.projectId,
     this.workflowId,
     this.triggerBody,
     this.count,
   );
 
-  String projectId;
   String workflowId;
   String triggerBody;
   int count;
 
   factory RunWorkflowRequest.fromJson(Map<String, dynamic> json) {
     return new RunWorkflowRequest(
-      json['projectId'] as String,
       json['workflowId'] as String,
       json['triggerBody'] as String,
       json['count'] as int,
@@ -807,7 +673,6 @@ class RunWorkflowRequest {
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['projectId'] = projectId;
     map['workflowId'] = workflowId;
     map['triggerBody'] = triggerBody;
     map['count'] = count;
@@ -822,78 +687,24 @@ class RunWorkflowRequest {
 
 class PublishWorkflowRequest {
   PublishWorkflowRequest(
-    this.projectId,
     this.data,
+    this.name,
   );
 
-  String projectId;
   String data;
+  String name;
 
   factory PublishWorkflowRequest.fromJson(Map<String, dynamic> json) {
     return new PublishWorkflowRequest(
-      json['projectId'] as String,
       json['data'] as String,
+      json['name'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['projectId'] = projectId;
     map['data'] = data;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
-class AddUserRequest {
-  AddUserRequest(
-    this.username,
-    this.projectId,
-  );
-
-  String username;
-  String projectId;
-
-  factory AddUserRequest.fromJson(Map<String, dynamic> json) {
-    return new AddUserRequest(
-      json['username'] as String,
-      json['projectId'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['username'] = username;
-    map['projectId'] = projectId;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
-class UserRequest {
-  UserRequest(
-    this.username,
-  );
-
-  String username;
-
-  factory UserRequest.fromJson(Map<String, dynamic> json) {
-    return new UserRequest(
-      json['username'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['username'] = username;
+    map['name'] = name;
     return map;
   }
 
@@ -905,7 +716,6 @@ class UserRequest {
 
 class QueueItem {
   QueueItem(
-    this.project,
     this.workflow,
     this.runContext,
     this.running,
@@ -913,7 +723,6 @@ class QueueItem {
     this.triggeredBy,
   );
 
-  String project;
   String workflow;
   Map<String, String> runContext;
   bool running;
@@ -928,7 +737,6 @@ class QueueItem {
     });
 
     return new QueueItem(
-      json['project'] as String,
       json['workflow'] as String,
       runContextMap,
       json['running'] as bool,
@@ -939,7 +747,6 @@ class QueueItem {
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['workflow'] = workflow;
     map['runContext'] = json.decode(json.encode(runContext));
     map['running'] = running;
@@ -997,18 +804,15 @@ class QueueResponse {
 
 class ViewQueueRequest {
   ViewQueueRequest(
-    this.project,
     this.workflow,
     this.triggerType,
   );
 
-  String project;
   String workflow;
   String triggerType;
 
   factory ViewQueueRequest.fromJson(Map<String, dynamic> json) {
     return new ViewQueueRequest(
-      json['project'] as String,
       json['workflow'] as String,
       json['triggerType'] as String,
     );
@@ -1016,7 +820,6 @@ class ViewQueueRequest {
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['workflow'] = workflow;
     map['triggerType'] = triggerType;
     return map;
@@ -1030,18 +833,15 @@ class ViewQueueRequest {
 
 class ViewLogRequest {
   ViewLogRequest(
-    this.project,
     this.jobId,
     this.logLevel,
   );
 
-  String project;
   String jobId;
   String logLevel;
 
   factory ViewLogRequest.fromJson(Map<String, dynamic> json) {
     return new ViewLogRequest(
-      json['project'] as String,
       json['jobId'] as String,
       json['logLevel'] as String,
     );
@@ -1049,7 +849,6 @@ class ViewLogRequest {
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['jobId'] = jobId;
     map['logLevel'] = logLevel;
     return map;
@@ -1133,20 +932,17 @@ class TriggerResponse {
   TriggerResponse(
     this.success,
     this.message,
-    this.project,
     this.jobId,
   );
 
   bool success;
   String message;
-  String project;
   String jobId;
 
   factory TriggerResponse.fromJson(Map<String, dynamic> json) {
     return new TriggerResponse(
       json['success'] as bool,
       json['message'] as String,
-      json['project'] as String,
       json['jobId'] as String,
     );
   }
@@ -1155,7 +951,6 @@ class TriggerResponse {
     var map = new Map<String, dynamic>();
     map['success'] = success;
     map['message'] = message;
-    map['project'] = project;
     map['jobId'] = jobId;
     return map;
   }
@@ -1168,14 +963,12 @@ class TriggerResponse {
 
 class CancelJobRequest {
   CancelJobRequest(
-    this.project,
     this.workflow,
     this.jobId,
     this.allPending,
     this.allRunning,
   );
 
-  String project;
   String workflow;
   String jobId;
   bool allPending;
@@ -1183,7 +976,6 @@ class CancelJobRequest {
 
   factory CancelJobRequest.fromJson(Map<String, dynamic> json) {
     return new CancelJobRequest(
-      json['project'] as String,
       json['workflow'] as String,
       json['jobId'] as String,
       json['allPending'] as bool,
@@ -1193,7 +985,6 @@ class CancelJobRequest {
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
-    map['project'] = project;
     map['workflow'] = workflow;
     map['jobId'] = jobId;
     map['allPending'] = allPending;
@@ -1306,64 +1097,23 @@ class UpdateAvailableResponse {
   }
 }
 
-class ListProjectResponse {
-  ListProjectResponse(
-    this.success,
-    this.message,
-    this.projects,
-  );
-
-  bool success;
-  String message;
-  List<String> projects;
-
-  factory ListProjectResponse.fromJson(Map<String, dynamic> json) {
-    return new ListProjectResponse(
-      json['success'] as bool,
-      json['message'] as String,
-      json['projects'] != null
-          ? (json['projects'] as List).cast<String>()
-          : <String>[],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['success'] = success;
-    map['message'] = message;
-    map['projects'] = projects?.map((l) => l)?.toList();
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
 abstract class WorkflowAPI {
   Future<TriggerResponse> runWorkflow(RunWorkflowRequest runWorkflowRequest);
   Future<BasicResponse> ping(EmptyMessage emptyMessage);
   Future<BasicResponse> publishWorkflow(
       PublishWorkflowRequest publishWorkflowRequest);
   Future<ListWorkflowResponse> listWorkflows(ProjectRequest projectRequest);
-  Future<BasicResponse> createProject(ProjectRequest projectRequest);
-  Future<BasicResponse> addUserToProject(AddUserRequest addUserRequest);
-  Future<BasicResponse> addSuperUser(UserRequest userRequest);
-  Future<ListProjectResponse> listProjects(Empty empty);
   Future<ListRemoteEnginesResponse> listRemoteEngines(
       ProjectRequest projectRequest);
   Future<BasicResponse> registerRemoteEngine(
       RegisterRemoteEngineRequest registerRemoteEngineRequest);
   Future<RemoteEngine> getRemoteEngine(RemoteEngineRequest remoteEngineRequest);
   Future<RemoteEngineHealthResponse> remoteEngineHealthCheck(
-      RemoteEngineHealthRequest remoteEngineHealthRequest);
+      RemoteEngineRequest remoteEngineRequest);
   Future<RemoteEngineUpdateResponse> updateRemoteEngine(
       RemoteEngineUpdateRequest remoteEngineUpdateRequest);
   Future<BasicResponse> removeRemoteEngine(
       RemoteEngineRequest remoteEngineRequest);
-  Future<StepPackageResponse> getStepPackage(
-      StepPackageRequest stepPackageRequest);
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest);
   Future<WorkflowHistoryResponse> getWorkflowHistory(
       WorkflowHistoryRequest workflowHistoryRequest);
@@ -1373,16 +1123,15 @@ abstract class WorkflowAPI {
   Future<SingleValueResponse> getValue(ProjectValueRequest projectValueRequest);
   Future<QueueResponse> viewQueue(ViewQueueRequest viewQueueRequest);
   Future<CancelJobResponse> cancelJobs(CancelJobRequest cancelJobRequest);
-  Future<BasicResponse> disableWorkflow(
-      ProjectWorkflowRequest projectWorkflowRequest);
-  Future<BasicResponse> enableWorkflow(
-      ProjectWorkflowRequest projectWorkflowRequest);
-  Future<BasicResponse> removeWorkflow(
-      ProjectWorkflowRequest projectWorkflowRequest);
+  Future<BasicResponse> disableWorkflow(WorkflowRequest workflowRequest);
+  Future<BasicResponse> enableWorkflow(WorkflowRequest workflowRequest);
+  Future<BasicResponse> removeWorkflow(WorkflowRequest workflowRequest);
   Future<UpdateAvailableResponse> updateAvailable(
       UpdateAvailableRequest updateAvailableRequest);
   Future<BasicResponse> pauseEngines(Empty empty);
   Future<BasicResponse> unpauseEngines(Empty empty);
+  Future<StepPackageResponse> getStepPackage(
+      StepPackageRequest stepPackageRequest);
   Future<SearchStepsResponse> searchStepsForLibrary(
       SearchStepsRequest searchStepsRequest);
   Future<GetAllStepsResponse> getAllStepsForLibrary(
@@ -1469,62 +1218,6 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return ListWorkflowResponse.fromJson(value);
   }
 
-  Future<BasicResponse> createProject(ProjectRequest projectRequest) async {
-    var url = "${hostname}${_pathPrefix}CreateProject";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(projectRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return BasicResponse.fromJson(value);
-  }
-
-  Future<BasicResponse> addUserToProject(AddUserRequest addUserRequest) async {
-    var url = "${hostname}${_pathPrefix}AddUserToProject";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(addUserRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return BasicResponse.fromJson(value);
-  }
-
-  Future<BasicResponse> addSuperUser(UserRequest userRequest) async {
-    var url = "${hostname}${_pathPrefix}AddSuperUser";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(userRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return BasicResponse.fromJson(value);
-  }
-
-  Future<ListProjectResponse> listProjects(Empty empty) async {
-    var url = "${hostname}${_pathPrefix}ListProjects";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(empty.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return ListProjectResponse.fromJson(value);
-  }
-
   Future<ListRemoteEnginesResponse> listRemoteEngines(
       ProjectRequest projectRequest) async {
     var url = "${hostname}${_pathPrefix}ListRemoteEngines";
@@ -1571,12 +1264,12 @@ class DefaultWorkflowAPI implements WorkflowAPI {
   }
 
   Future<RemoteEngineHealthResponse> remoteEngineHealthCheck(
-      RemoteEngineHealthRequest remoteEngineHealthRequest) async {
+      RemoteEngineRequest remoteEngineRequest) async {
     var url = "${hostname}${_pathPrefix}RemoteEngineHealthCheck";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(remoteEngineHealthRequest.toJson());
+    request.body = json.encode(remoteEngineRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
@@ -1613,21 +1306,6 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return BasicResponse.fromJson(value);
-  }
-
-  Future<StepPackageResponse> getStepPackage(
-      StepPackageRequest stepPackageRequest) async {
-    var url = "${hostname}${_pathPrefix}GetStepPackage";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(stepPackageRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return StepPackageResponse.fromJson(value);
   }
 
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest) async {
@@ -1747,13 +1425,12 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return CancelJobResponse.fromJson(value);
   }
 
-  Future<BasicResponse> disableWorkflow(
-      ProjectWorkflowRequest projectWorkflowRequest) async {
+  Future<BasicResponse> disableWorkflow(WorkflowRequest workflowRequest) async {
     var url = "${hostname}${_pathPrefix}DisableWorkflow";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(projectWorkflowRequest.toJson());
+    request.body = json.encode(workflowRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
@@ -1762,13 +1439,12 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return BasicResponse.fromJson(value);
   }
 
-  Future<BasicResponse> enableWorkflow(
-      ProjectWorkflowRequest projectWorkflowRequest) async {
+  Future<BasicResponse> enableWorkflow(WorkflowRequest workflowRequest) async {
     var url = "${hostname}${_pathPrefix}EnableWorkflow";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(projectWorkflowRequest.toJson());
+    request.body = json.encode(workflowRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
@@ -1777,13 +1453,12 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return BasicResponse.fromJson(value);
   }
 
-  Future<BasicResponse> removeWorkflow(
-      ProjectWorkflowRequest projectWorkflowRequest) async {
+  Future<BasicResponse> removeWorkflow(WorkflowRequest workflowRequest) async {
     var url = "${hostname}${_pathPrefix}RemoveWorkflow";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(projectWorkflowRequest.toJson());
+    request.body = json.encode(workflowRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
@@ -1833,6 +1508,21 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return BasicResponse.fromJson(value);
+  }
+
+  Future<StepPackageResponse> getStepPackage(
+      StepPackageRequest stepPackageRequest) async {
+    var url = "${hostname}${_pathPrefix}GetStepPackage";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(stepPackageRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return StepPackageResponse.fromJson(value);
   }
 
   Future<SearchStepsResponse> searchStepsForLibrary(

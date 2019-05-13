@@ -1,0 +1,40 @@
+// Base Platform API, Uses Twirp for communication
+// Only used for Customer environment -> AppTree Communication
+// Uses Twirp for communication
+
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+import "common.proto";
+import "step_library.proto";
+
+service PlatformAPI {
+    rpc Ping (EmptyMessage) returns (BasicResponse);
+
+    rpc GetProjectHost(ProjectRequest) returns (ProjectHostResponse);
+
+    rpc CreateProject (ProjectRequest) returns (ProjectCreateResponse);
+    rpc RemoveProject (ProjectRequest) returns (BasicResponse);
+
+    rpc AddUserToProject (UserRequest) returns (BasicResponse);
+    rpc ListProjects (Empty) returns (ListProjectResponse);
+    rpc AddSuperUser (UserRequest) returns (BasicResponse);
+}
+
+message ProjectHostResponse {
+    string host = 1;
+}
+
+message ProjectCreateResponse {
+    ProjectCreateStatus status = 1;
+    string message = 2;
+    string environmentUrl = 3;
+}
+
+enum ProjectCreateStatus {
+    SUCCESS = 0;
+    FAILED = 1;
+}
