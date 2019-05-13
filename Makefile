@@ -17,8 +17,8 @@ build: |
 #	#Generate Engine API
 #	#API used by the remote engine to communicate back to the host engine
 	##Twirp APIs
-	protoc -I proto --go_out=paths=source_relative:pkg/core --twirp_out=paths=source_relative:pkg/core engine_api.proto workflow_api.proto platform_api.proto step_library.proto
-	protoc -I proto --twirp_dart_out=paths=source_relative:dart/lib workflow_api.proto step_library.proto
+	protoc -I proto --go_out=paths=source_relative:pkg/core --twirp_out=paths=source_relative:pkg/core engine_api.proto workflow_api.proto platform_api.proto step_library.proto step_package_api.proto
+	protoc -I proto --twirp_dart_out=paths=source_relative:dart/lib workflow_api.proto step_library.proto step_package_api.proto
 	dartfmt -w dart/lib/.
 
 
@@ -29,6 +29,7 @@ build: |
 	protoc-go-inject-tag -input=pkg/core/engine_api.pb.go -XXX_skip=yaml,xml,bson
 	protoc-go-inject-tag -input=pkg/core/step.pb.go -XXX_skip=yaml,xml,bson
 	protoc-go-inject-tag -input=pkg/core/step_library.pb.go -XXX_skip=yaml,xml,bson
+	protoc-go-inject-tag -input=pkg/core/step_package_api.pb.go -XXX_skip=yaml,xml,bson
 #
 #	#Generate Client API
 #	#API used by clients (cli, web) to request data from the workflow system

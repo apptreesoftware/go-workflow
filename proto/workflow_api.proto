@@ -26,7 +26,6 @@ service WorkflowAPI {
 
 
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
-
     rpc GetWorkflowHistory (WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
 
     rpc StoreValue (StoreValueRequest) returns (BasicResponse);
@@ -44,15 +43,6 @@ service WorkflowAPI {
 
     rpc PauseEngines (Empty) returns (BasicResponse);
     rpc UnpauseEngines (Empty) returns (BasicResponse);
-
-    rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
-    // API for step library site
-    rpc SearchStepsForLibrary (SearchStepsRequest) returns (SearchStepsResponse);
-    rpc GetAllStepsForLibrary (GetAllStepsRequest) returns (GetAllStepsResponse);
-    rpc GetSingleStepForLibrary (GetSingleStepRequest) returns (GetSingleStepResponse);
-    rpc GetStepsForPackage (GetStepsForPackageRequest) returns (GetStepsForPackageResponse);
-    rpc GetAllPackageNamesForLibrary (GetAllPackagesInfoRequest) returns (GetAllPackagesInfoResponse);
-    rpc GetPackageInfoForLibrary (GetPackageInfoRequest) returns (GetPackageInfoResponse);
 }
 
 message WorkflowRequest {

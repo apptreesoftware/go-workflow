@@ -10,6 +10,7 @@ It is generated from these files:
 	workflow_api.proto
 	platform_api.proto
 	step_library.proto
+	step_package_api.proto
 */
 package core
 

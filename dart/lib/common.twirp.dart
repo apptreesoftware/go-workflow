@@ -337,6 +337,31 @@ class StepPackageRequest {
   }
 }
 
+class StepPackageIdRequest {
+  StepPackageIdRequest(
+    this.id,
+  );
+
+  String id;
+
+  factory StepPackageIdRequest.fromJson(Map<String, dynamic> json) {
+    return new StepPackageIdRequest(
+      json['id'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['id'] = id;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 class StepPackageResponse {
   StepPackageResponse(
     this.packageUrl,

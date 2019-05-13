@@ -66,6 +66,10 @@ message StepPackageRequest {
     string arch = 4;
 }
 
+message StepPackageIdRequest {
+    string id = 1;
+}
+
 message StepPackageResponse {
     string packageUrl = 1;
     string publishId = 2;
