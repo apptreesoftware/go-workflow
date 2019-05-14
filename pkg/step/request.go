@@ -37,6 +37,7 @@ func getDefaultOutput() (io.WriteCloser, error) {
 
 func WriteOutputsTo(writer io.Writer, data interface{}) error {
 	enc := jsoniter.NewEncoder(writer)
+	enc.SetEscapeHTML(false)
 	return enc.Encode(data)
 }
 
