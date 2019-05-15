@@ -11,12 +11,12 @@ package core;
 import "common.proto";
 import "step_library.proto";
 
-service PlatformAPI {
+service EnvironmentManagement {
     rpc Ping (EmptyMessage) returns (BasicResponse);
-    rpc CreateEnvironment(EnvironmentConfiguration) returns (EnvironmentInfo);
-    rpc DeleteEnvironment(EnvironmentRequest) returns (DeleteEnvironmentResponse);
-    rpc UpdateEnvironment(EnvironmentConfiguration) returns (EnvironmentInfo);
-    rpc GetEnvironmentStatus(EnvironmentRequest) returns (EnvironmentInfo);
+    rpc CreateEnvironment (EnvironmentConfiguration) returns (EnvironmentInfo);
+    rpc DeleteEnvironment (EnvironmentRequest) returns (DeleteEnvironmentResponse);
+    rpc UpdateEnvironment (EnvironmentConfiguration) returns (EnvironmentInfo);
+    rpc GetEnvironment (EnvironmentRequest) returns (EnvironmentInfo);
 
     rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
 }

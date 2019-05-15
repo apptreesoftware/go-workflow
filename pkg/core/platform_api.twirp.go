@@ -15,11 +15,11 @@ import proto "github.com/golang/protobuf/proto"
 import twirp "github.com/twitchtv/twirp"
 import ctxsetters "github.com/twitchtv/twirp/ctxsetters"
 
-// =====================
-// PlatformAPI Interface
-// =====================
+// ===============================
+// EnvironmentManagement Interface
+// ===============================
 
-type PlatformAPI interface {
+type EnvironmentManagement interface {
 	Ping(context.Context, *EmptyMessage) (*BasicResponse, error)
 
 	CreateEnvironment(context.Context, *EnvironmentConfiguration) (*EnvironmentInfo, error)
@@ -28,47 +28,47 @@ type PlatformAPI interface {
 
 	UpdateEnvironment(context.Context, *EnvironmentConfiguration) (*EnvironmentInfo, error)
 
-	GetEnvironmentStatus(context.Context, *EnvironmentRequest) (*EnvironmentInfo, error)
+	GetEnvironment(context.Context, *EnvironmentRequest) (*EnvironmentInfo, error)
 
 	UpdateAvailable(context.Context, *UpdateAvailableRequest) (*UpdateAvailableResponse, error)
 }
 
-// ===========================
-// PlatformAPI Protobuf Client
-// ===========================
+// =====================================
+// EnvironmentManagement Protobuf Client
+// =====================================
 
-type platformAPIProtobufClient struct {
+type environmentManagementProtobufClient struct {
 	client HTTPClient
 	urls   [6]string
 }
 
-// NewPlatformAPIProtobufClient creates a Protobuf client that implements the PlatformAPI interface.
+// NewEnvironmentManagementProtobufClient creates a Protobuf client that implements the EnvironmentManagement interface.
 // It communicates using Protobuf and can be configured with a custom HTTPClient.
-func NewPlatformAPIProtobufClient(addr string, client HTTPClient) PlatformAPI {
-	prefix := urlBase(addr) + PlatformAPIPathPrefix
+func NewEnvironmentManagementProtobufClient(addr string, client HTTPClient) EnvironmentManagement {
+	prefix := urlBase(addr) + EnvironmentManagementPathPrefix
 	urls := [6]string{
 		prefix + "Ping",
 		prefix + "CreateEnvironment",
 		prefix + "DeleteEnvironment",
 		prefix + "UpdateEnvironment",
-		prefix + "GetEnvironmentStatus",
+		prefix + "GetEnvironment",
 		prefix + "UpdateAvailable",
 	}
 	if httpClient, ok := client.(*http.Client); ok {
-		return &platformAPIProtobufClient{
+		return &environmentManagementProtobufClient{
 			client: withoutRedirects(httpClient),
 			urls:   urls,
 		}
 	}
-	return &platformAPIProtobufClient{
+	return &environmentManagementProtobufClient{
 		client: client,
 		urls:   urls,
 	}
 }
 
-func (c *platformAPIProtobufClient) Ping(ctx context.Context, in *EmptyMessage) (*BasicResponse, error) {
+func (c *environmentManagementProtobufClient) Ping(ctx context.Context, in *EmptyMessage) (*BasicResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "Ping")
 	out := new(BasicResponse)
 	err := doProtobufRequest(ctx, c.client, c.urls[0], in, out)
@@ -78,9 +78,9 @@ func (c *platformAPIProtobufClient) Ping(ctx context.Context, in *EmptyMessage) 
 	return out, nil
 }
 
-func (c *platformAPIProtobufClient) CreateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
+func (c *environmentManagementProtobufClient) CreateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "CreateEnvironment")
 	out := new(EnvironmentInfo)
 	err := doProtobufRequest(ctx, c.client, c.urls[1], in, out)
@@ -90,9 +90,9 @@ func (c *platformAPIProtobufClient) CreateEnvironment(ctx context.Context, in *E
 	return out, nil
 }
 
-func (c *platformAPIProtobufClient) DeleteEnvironment(ctx context.Context, in *EnvironmentRequest) (*DeleteEnvironmentResponse, error) {
+func (c *environmentManagementProtobufClient) DeleteEnvironment(ctx context.Context, in *EnvironmentRequest) (*DeleteEnvironmentResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "DeleteEnvironment")
 	out := new(DeleteEnvironmentResponse)
 	err := doProtobufRequest(ctx, c.client, c.urls[2], in, out)
@@ -102,9 +102,9 @@ func (c *platformAPIProtobufClient) DeleteEnvironment(ctx context.Context, in *E
 	return out, nil
 }
 
-func (c *platformAPIProtobufClient) UpdateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
+func (c *environmentManagementProtobufClient) UpdateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateEnvironment")
 	out := new(EnvironmentInfo)
 	err := doProtobufRequest(ctx, c.client, c.urls[3], in, out)
@@ -114,10 +114,10 @@ func (c *platformAPIProtobufClient) UpdateEnvironment(ctx context.Context, in *E
 	return out, nil
 }
 
-func (c *platformAPIProtobufClient) GetEnvironmentStatus(ctx context.Context, in *EnvironmentRequest) (*EnvironmentInfo, error) {
+func (c *environmentManagementProtobufClient) GetEnvironment(ctx context.Context, in *EnvironmentRequest) (*EnvironmentInfo, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironmentStatus")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironment")
 	out := new(EnvironmentInfo)
 	err := doProtobufRequest(ctx, c.client, c.urls[4], in, out)
 	if err != nil {
@@ -126,9 +126,9 @@ func (c *platformAPIProtobufClient) GetEnvironmentStatus(ctx context.Context, in
 	return out, nil
 }
 
-func (c *platformAPIProtobufClient) UpdateAvailable(ctx context.Context, in *UpdateAvailableRequest) (*UpdateAvailableResponse, error) {
+func (c *environmentManagementProtobufClient) UpdateAvailable(ctx context.Context, in *UpdateAvailableRequest) (*UpdateAvailableResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
 	out := new(UpdateAvailableResponse)
 	err := doProtobufRequest(ctx, c.client, c.urls[5], in, out)
@@ -138,42 +138,42 @@ func (c *platformAPIProtobufClient) UpdateAvailable(ctx context.Context, in *Upd
 	return out, nil
 }
 
-// =======================
-// PlatformAPI JSON Client
-// =======================
+// =================================
+// EnvironmentManagement JSON Client
+// =================================
 
-type platformAPIJSONClient struct {
+type environmentManagementJSONClient struct {
 	client HTTPClient
 	urls   [6]string
 }
 
-// NewPlatformAPIJSONClient creates a JSON client that implements the PlatformAPI interface.
+// NewEnvironmentManagementJSONClient creates a JSON client that implements the EnvironmentManagement interface.
 // It communicates using JSON and can be configured with a custom HTTPClient.
-func NewPlatformAPIJSONClient(addr string, client HTTPClient) PlatformAPI {
-	prefix := urlBase(addr) + PlatformAPIPathPrefix
+func NewEnvironmentManagementJSONClient(addr string, client HTTPClient) EnvironmentManagement {
+	prefix := urlBase(addr) + EnvironmentManagementPathPrefix
 	urls := [6]string{
 		prefix + "Ping",
 		prefix + "CreateEnvironment",
 		prefix + "DeleteEnvironment",
 		prefix + "UpdateEnvironment",
-		prefix + "GetEnvironmentStatus",
+		prefix + "GetEnvironment",
 		prefix + "UpdateAvailable",
 	}
 	if httpClient, ok := client.(*http.Client); ok {
-		return &platformAPIJSONClient{
+		return &environmentManagementJSONClient{
 			client: withoutRedirects(httpClient),
 			urls:   urls,
 		}
 	}
-	return &platformAPIJSONClient{
+	return &environmentManagementJSONClient{
 		client: client,
 		urls:   urls,
 	}
 }
 
-func (c *platformAPIJSONClient) Ping(ctx context.Context, in *EmptyMessage) (*BasicResponse, error) {
+func (c *environmentManagementJSONClient) Ping(ctx context.Context, in *EmptyMessage) (*BasicResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "Ping")
 	out := new(BasicResponse)
 	err := doJSONRequest(ctx, c.client, c.urls[0], in, out)
@@ -183,9 +183,9 @@ func (c *platformAPIJSONClient) Ping(ctx context.Context, in *EmptyMessage) (*Ba
 	return out, nil
 }
 
-func (c *platformAPIJSONClient) CreateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
+func (c *environmentManagementJSONClient) CreateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "CreateEnvironment")
 	out := new(EnvironmentInfo)
 	err := doJSONRequest(ctx, c.client, c.urls[1], in, out)
@@ -195,9 +195,9 @@ func (c *platformAPIJSONClient) CreateEnvironment(ctx context.Context, in *Envir
 	return out, nil
 }
 
-func (c *platformAPIJSONClient) DeleteEnvironment(ctx context.Context, in *EnvironmentRequest) (*DeleteEnvironmentResponse, error) {
+func (c *environmentManagementJSONClient) DeleteEnvironment(ctx context.Context, in *EnvironmentRequest) (*DeleteEnvironmentResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "DeleteEnvironment")
 	out := new(DeleteEnvironmentResponse)
 	err := doJSONRequest(ctx, c.client, c.urls[2], in, out)
@@ -207,9 +207,9 @@ func (c *platformAPIJSONClient) DeleteEnvironment(ctx context.Context, in *Envir
 	return out, nil
 }
 
-func (c *platformAPIJSONClient) UpdateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
+func (c *environmentManagementJSONClient) UpdateEnvironment(ctx context.Context, in *EnvironmentConfiguration) (*EnvironmentInfo, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateEnvironment")
 	out := new(EnvironmentInfo)
 	err := doJSONRequest(ctx, c.client, c.urls[3], in, out)
@@ -219,10 +219,10 @@ func (c *platformAPIJSONClient) UpdateEnvironment(ctx context.Context, in *Envir
 	return out, nil
 }
 
-func (c *platformAPIJSONClient) GetEnvironmentStatus(ctx context.Context, in *EnvironmentRequest) (*EnvironmentInfo, error) {
+func (c *environmentManagementJSONClient) GetEnvironment(ctx context.Context, in *EnvironmentRequest) (*EnvironmentInfo, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
-	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironmentStatus")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironment")
 	out := new(EnvironmentInfo)
 	err := doJSONRequest(ctx, c.client, c.urls[4], in, out)
 	if err != nil {
@@ -231,9 +231,9 @@ func (c *platformAPIJSONClient) GetEnvironmentStatus(ctx context.Context, in *En
 	return out, nil
 }
 
-func (c *platformAPIJSONClient) UpdateAvailable(ctx context.Context, in *UpdateAvailableRequest) (*UpdateAvailableResponse, error) {
+func (c *environmentManagementJSONClient) UpdateAvailable(ctx context.Context, in *UpdateAvailableRequest) (*UpdateAvailableResponse, error) {
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
 	out := new(UpdateAvailableResponse)
 	err := doJSONRequest(ctx, c.client, c.urls[5], in, out)
@@ -243,37 +243,37 @@ func (c *platformAPIJSONClient) UpdateAvailable(ctx context.Context, in *UpdateA
 	return out, nil
 }
 
-// ==========================
-// PlatformAPI Server Handler
-// ==========================
+// ====================================
+// EnvironmentManagement Server Handler
+// ====================================
 
-type platformAPIServer struct {
-	PlatformAPI
+type environmentManagementServer struct {
+	EnvironmentManagement
 	hooks *twirp.ServerHooks
 }
 
-func NewPlatformAPIServer(svc PlatformAPI, hooks *twirp.ServerHooks) TwirpServer {
-	return &platformAPIServer{
-		PlatformAPI: svc,
-		hooks:       hooks,
+func NewEnvironmentManagementServer(svc EnvironmentManagement, hooks *twirp.ServerHooks) TwirpServer {
+	return &environmentManagementServer{
+		EnvironmentManagement: svc,
+		hooks:                 hooks,
 	}
 }
 
 // writeError writes an HTTP response with a valid Twirp error format, and triggers hooks.
 // If err is not a twirp.Error, it will get wrapped with twirp.InternalErrorWith(err)
-func (s *platformAPIServer) writeError(ctx context.Context, resp http.ResponseWriter, err error) {
+func (s *environmentManagementServer) writeError(ctx context.Context, resp http.ResponseWriter, err error) {
 	writeError(ctx, resp, err, s.hooks)
 }
 
-// PlatformAPIPathPrefix is used for all URL paths on a twirp PlatformAPI server.
-// Requests are always: POST PlatformAPIPathPrefix/method
+// EnvironmentManagementPathPrefix is used for all URL paths on a twirp EnvironmentManagement server.
+// Requests are always: POST EnvironmentManagementPathPrefix/method
 // It can be used in an HTTP mux to route twirp requests along with non-twirp requests on other routes.
-const PlatformAPIPathPrefix = "/twirp/core.PlatformAPI/"
+const EnvironmentManagementPathPrefix = "/twirp/core.EnvironmentManagement/"
 
-func (s *platformAPIServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 	ctx := req.Context()
 	ctx = ctxsetters.WithPackageName(ctx, "core")
-	ctx = ctxsetters.WithServiceName(ctx, "PlatformAPI")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
 	ctx = ctxsetters.WithResponseWriter(ctx, resp)
 
 	var err error
@@ -291,22 +291,22 @@ func (s *platformAPIServer) ServeHTTP(resp http.ResponseWriter, req *http.Reques
 	}
 
 	switch req.URL.Path {
-	case "/twirp/core.PlatformAPI/Ping":
+	case "/twirp/core.EnvironmentManagement/Ping":
 		s.servePing(ctx, resp, req)
 		return
-	case "/twirp/core.PlatformAPI/CreateEnvironment":
+	case "/twirp/core.EnvironmentManagement/CreateEnvironment":
 		s.serveCreateEnvironment(ctx, resp, req)
 		return
-	case "/twirp/core.PlatformAPI/DeleteEnvironment":
+	case "/twirp/core.EnvironmentManagement/DeleteEnvironment":
 		s.serveDeleteEnvironment(ctx, resp, req)
 		return
-	case "/twirp/core.PlatformAPI/UpdateEnvironment":
+	case "/twirp/core.EnvironmentManagement/UpdateEnvironment":
 		s.serveUpdateEnvironment(ctx, resp, req)
 		return
-	case "/twirp/core.PlatformAPI/GetEnvironmentStatus":
-		s.serveGetEnvironmentStatus(ctx, resp, req)
+	case "/twirp/core.EnvironmentManagement/GetEnvironment":
+		s.serveGetEnvironment(ctx, resp, req)
 		return
-	case "/twirp/core.PlatformAPI/UpdateAvailable":
+	case "/twirp/core.EnvironmentManagement/UpdateAvailable":
 		s.serveUpdateAvailable(ctx, resp, req)
 		return
 	default:
@@ -317,7 +317,7 @@ func (s *platformAPIServer) ServeHTTP(resp http.ResponseWriter, req *http.Reques
 	}
 }
 
-func (s *platformAPIServer) servePing(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) servePing(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -335,7 +335,7 @@ func (s *platformAPIServer) servePing(ctx context.Context, resp http.ResponseWri
 	}
 }
 
-func (s *platformAPIServer) servePingJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) servePingJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "Ping")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -362,7 +362,7 @@ func (s *platformAPIServer) servePingJSON(ctx context.Context, resp http.Respons
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.Ping(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.Ping(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -397,7 +397,7 @@ func (s *platformAPIServer) servePingJSON(ctx context.Context, resp http.Respons
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) servePingProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) servePingProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "Ping")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -429,7 +429,7 @@ func (s *platformAPIServer) servePingProtobuf(ctx context.Context, resp http.Res
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.Ping(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.Ping(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -461,7 +461,7 @@ func (s *platformAPIServer) servePingProtobuf(ctx context.Context, resp http.Res
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveCreateEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveCreateEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -479,7 +479,7 @@ func (s *platformAPIServer) serveCreateEnvironment(ctx context.Context, resp htt
 	}
 }
 
-func (s *platformAPIServer) serveCreateEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveCreateEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "CreateEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -506,7 +506,7 @@ func (s *platformAPIServer) serveCreateEnvironmentJSON(ctx context.Context, resp
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.CreateEnvironment(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.CreateEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -541,7 +541,7 @@ func (s *platformAPIServer) serveCreateEnvironmentJSON(ctx context.Context, resp
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveCreateEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveCreateEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "CreateEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -573,7 +573,7 @@ func (s *platformAPIServer) serveCreateEnvironmentProtobuf(ctx context.Context, 
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.CreateEnvironment(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.CreateEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -605,7 +605,7 @@ func (s *platformAPIServer) serveCreateEnvironmentProtobuf(ctx context.Context, 
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveDeleteEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveDeleteEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -623,7 +623,7 @@ func (s *platformAPIServer) serveDeleteEnvironment(ctx context.Context, resp htt
 	}
 }
 
-func (s *platformAPIServer) serveDeleteEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveDeleteEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "DeleteEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -650,7 +650,7 @@ func (s *platformAPIServer) serveDeleteEnvironmentJSON(ctx context.Context, resp
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.DeleteEnvironment(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.DeleteEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -685,7 +685,7 @@ func (s *platformAPIServer) serveDeleteEnvironmentJSON(ctx context.Context, resp
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveDeleteEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveDeleteEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "DeleteEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -717,7 +717,7 @@ func (s *platformAPIServer) serveDeleteEnvironmentProtobuf(ctx context.Context, 
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.DeleteEnvironment(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.DeleteEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -749,7 +749,7 @@ func (s *platformAPIServer) serveDeleteEnvironmentProtobuf(ctx context.Context, 
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveUpdateEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveUpdateEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -767,7 +767,7 @@ func (s *platformAPIServer) serveUpdateEnvironment(ctx context.Context, resp htt
 	}
 }
 
-func (s *platformAPIServer) serveUpdateEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveUpdateEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -794,7 +794,7 @@ func (s *platformAPIServer) serveUpdateEnvironmentJSON(ctx context.Context, resp
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.UpdateEnvironment(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.UpdateEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -829,7 +829,7 @@ func (s *platformAPIServer) serveUpdateEnvironmentJSON(ctx context.Context, resp
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveUpdateEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveUpdateEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -861,7 +861,7 @@ func (s *platformAPIServer) serveUpdateEnvironmentProtobuf(ctx context.Context, 
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.UpdateEnvironment(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.UpdateEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -893,7 +893,7 @@ func (s *platformAPIServer) serveUpdateEnvironmentProtobuf(ctx context.Context, 
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveGetEnvironmentStatus(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveGetEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -901,9 +901,9 @@ func (s *platformAPIServer) serveGetEnvironmentStatus(ctx context.Context, resp 
 	}
 	switch strings.TrimSpace(strings.ToLower(header[:i])) {
 	case "application/json":
-		s.serveGetEnvironmentStatusJSON(ctx, resp, req)
+		s.serveGetEnvironmentJSON(ctx, resp, req)
 	case "application/protobuf":
-		s.serveGetEnvironmentStatusProtobuf(ctx, resp, req)
+		s.serveGetEnvironmentProtobuf(ctx, resp, req)
 	default:
 		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
 		twerr := badRouteError(msg, req.Method, req.URL.Path)
@@ -911,9 +911,9 @@ func (s *platformAPIServer) serveGetEnvironmentStatus(ctx context.Context, resp 
 	}
 }
 
-func (s *platformAPIServer) serveGetEnvironmentStatusJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveGetEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironmentStatus")
+	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
@@ -938,7 +938,7 @@ func (s *platformAPIServer) serveGetEnvironmentStatusJSON(ctx context.Context, r
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.GetEnvironmentStatus(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.GetEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -946,7 +946,7 @@ func (s *platformAPIServer) serveGetEnvironmentStatusJSON(ctx context.Context, r
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *EnvironmentInfo and nil error while calling GetEnvironmentStatus. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *EnvironmentInfo and nil error while calling GetEnvironment. nil responses are not supported"))
 		return
 	}
 
@@ -973,9 +973,9 @@ func (s *platformAPIServer) serveGetEnvironmentStatusJSON(ctx context.Context, r
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveGetEnvironmentStatusProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveGetEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
-	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironmentStatus")
+	ctx = ctxsetters.WithMethodName(ctx, "GetEnvironment")
 	ctx, err = callRequestRouted(ctx, s.hooks)
 	if err != nil {
 		s.writeError(ctx, resp, err)
@@ -1005,7 +1005,7 @@ func (s *platformAPIServer) serveGetEnvironmentStatusProtobuf(ctx context.Contex
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.GetEnvironmentStatus(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.GetEnvironment(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -1013,7 +1013,7 @@ func (s *platformAPIServer) serveGetEnvironmentStatusProtobuf(ctx context.Contex
 		return
 	}
 	if respContent == nil {
-		s.writeError(ctx, resp, twirp.InternalError("received a nil *EnvironmentInfo and nil error while calling GetEnvironmentStatus. nil responses are not supported"))
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *EnvironmentInfo and nil error while calling GetEnvironment. nil responses are not supported"))
 		return
 	}
 
@@ -1037,7 +1037,7 @@ func (s *platformAPIServer) serveGetEnvironmentStatusProtobuf(ctx context.Contex
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveUpdateAvailable(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveUpdateAvailable(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	header := req.Header.Get("Content-Type")
 	i := strings.Index(header, ";")
 	if i == -1 {
@@ -1055,7 +1055,7 @@ func (s *platformAPIServer) serveUpdateAvailable(ctx context.Context, resp http.
 	}
 }
 
-func (s *platformAPIServer) serveUpdateAvailableJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveUpdateAvailableJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -1082,7 +1082,7 @@ func (s *platformAPIServer) serveUpdateAvailableJSON(ctx context.Context, resp h
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.UpdateAvailable(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.UpdateAvailable(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -1117,7 +1117,7 @@ func (s *platformAPIServer) serveUpdateAvailableJSON(ctx context.Context, resp h
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) serveUpdateAvailableProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+func (s *environmentManagementServer) serveUpdateAvailableProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
 	var err error
 	ctx = ctxsetters.WithMethodName(ctx, "UpdateAvailable")
 	ctx, err = callRequestRouted(ctx, s.hooks)
@@ -1149,7 +1149,7 @@ func (s *platformAPIServer) serveUpdateAvailableProtobuf(ctx context.Context, re
 				panic(r)
 			}
 		}()
-		respContent, err = s.PlatformAPI.UpdateAvailable(ctx, reqContent)
+		respContent, err = s.EnvironmentManagement.UpdateAvailable(ctx, reqContent)
 	}()
 
 	if err != nil {
@@ -1181,47 +1181,47 @@ func (s *platformAPIServer) serveUpdateAvailableProtobuf(ctx context.Context, re
 	callResponseSent(ctx, s.hooks)
 }
 
-func (s *platformAPIServer) ServiceDescriptor() ([]byte, int) {
+func (s *environmentManagementServer) ServiceDescriptor() ([]byte, int) {
 	return twirpFileDescriptor2, 0
 }
 
-func (s *platformAPIServer) ProtocGenTwirpVersion() string {
+func (s *environmentManagementServer) ProtocGenTwirpVersion() string {
 	return "v5.5.0"
 }
 
 var twirpFileDescriptor2 = []byte{
-	// 517 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0xdb, 0x6e, 0xd3, 0x40,
-	0x10, 0x25, 0x17, 0x4a, 0x33, 0x84, 0x36, 0x19, 0x2e, 0x35, 0xa6, 0x5c, 0xe4, 0xa7, 0x0a, 0x89,
-	0x58, 0x94, 0x77, 0xa4, 0xb6, 0x40, 0x54, 0x24, 0xaa, 0xc8, 0xa8, 0x3c, 0xf0, 0x52, 0x6d, 0x9c,
-	0x89, 0xb3, 0xaa, 0xbd, 0xbb, 0xec, 0xae, 0x13, 0xe5, 0x37, 0xf8, 0x21, 0x7e, 0x0d, 0xf9, 0x12,
-	0xb0, 0xeb, 0x46, 0xe2, 0x81, 0xb7, 0xdd, 0x33, 0x67, 0x67, 0xce, 0x99, 0x19, 0x2d, 0xa0, 0x8a,
-	0x99, 0x9d, 0x4b, 0x9d, 0x5c, 0x31, 0xc5, 0x47, 0x4a, 0x4b, 0x2b, 0xb1, 0x1b, 0x4a, 0x4d, 0x6e,
-	0x3f, 0x94, 0x49, 0x22, 0x45, 0x81, 0xb9, 0x68, 0x2c, 0xa9, 0xab, 0x98, 0x4f, 0x35, 0xd3, 0xeb,
-	0x02, 0xf3, 0x16, 0xe0, 0x7c, 0x14, 0x4b, 0xae, 0xa5, 0x48, 0x48, 0xd8, 0x33, 0x29, 0xe6, 0x3c,
-	0x4a, 0x35, 0xb3, 0x5c, 0x0a, 0x3c, 0x82, 0xfd, 0x4a, 0xec, 0x82, 0x25, 0xe4, 0xb4, 0x5e, 0xb5,
-	0x8e, 0x7a, 0xc1, 0x4d, 0x18, 0x3d, 0xe8, 0x07, 0x64, 0x64, 0xaa, 0x43, 0x9a, 0xc4, 0x4c, 0x38,
-	0xed, 0x9c, 0x56, 0xc3, 0xbc, 0xf7, 0x80, 0x95, 0x67, 0x01, 0xfd, 0x48, 0xc9, 0xd8, 0x7f, 0xaf,
-	0xe1, 0xfd, 0x6c, 0xd5, 0xa8, 0xe7, 0x62, 0x2e, 0xd1, 0x87, 0x1d, 0x63, 0x99, 0x4d, 0x4d, 0xfe,
-	0x68, 0xef, 0xf8, 0x60, 0x94, 0xd9, 0x1e, 0x55, 0x68, 0x5f, 0xf3, 0x70, 0x50, 0xd2, 0x32, 0xa1,
-	0xfa, 0x16, 0xa1, 0x55, 0x0c, 0x07, 0xd0, 0x49, 0x75, 0xec, 0x74, 0xf2, 0x50, 0x76, 0x44, 0x07,
-	0xee, 0x25, 0x64, 0x0c, 0x8b, 0xc8, 0xe9, 0xe6, 0xe8, 0xe6, 0xea, 0x3d, 0x83, 0xa7, 0x1f, 0x28,
-	0x26, 0x4b, 0x35, 0x6b, 0x46, 0x49, 0x61, 0xc8, 0xfb, 0x06, 0x4f, 0x2e, 0xd5, 0x8c, 0x59, 0x3a,
-	0x59, 0x32, 0x1e, 0xb3, 0x69, 0x4c, 0x1b, 0xd7, 0x7b, 0xd0, 0x96, 0xa6, 0x34, 0xda, 0x96, 0x06,
-	0x11, 0xba, 0x4c, 0x87, 0x8b, 0x52, 0x4e, 0x7e, 0xce, 0x8a, 0x2e, 0x49, 0x1b, 0x2e, 0x45, 0x29,
-	0x65, 0x73, 0xf5, 0x42, 0x38, 0x68, 0xe4, 0x2d, 0x4a, 0xe2, 0x21, 0xf4, 0xd8, 0x06, 0xcc, 0xf3,
-	0xef, 0x06, 0x7f, 0x81, 0x6a, 0xca, 0x76, 0x2d, 0x65, 0xd3, 0xf3, 0xeb, 0x31, 0x0c, 0x1b, 0x6d,
-	0xc4, 0x3e, 0xec, 0x9e, 0x69, 0x62, 0x96, 0x8b, 0x68, 0x70, 0x07, 0x7b, 0x70, 0x37, 0x20, 0x36,
-	0x5b, 0x0f, 0x5a, 0x08, 0xb0, 0xf3, 0x89, 0xf1, 0x98, 0x66, 0x83, 0x36, 0x3e, 0x80, 0xde, 0xa5,
-	0x8a, 0x34, 0x9b, 0x65, 0xac, 0xce, 0xf1, 0xaf, 0x0e, 0xdc, 0x9f, 0x94, 0x0b, 0x7a, 0x32, 0x39,
-	0x47, 0x1f, 0xba, 0x13, 0x2e, 0x22, 0xc4, 0x72, 0x56, 0x89, 0xb2, 0xeb, 0x2f, 0x45, 0x3b, 0xdd,
-	0x87, 0x05, 0x76, 0xca, 0x0c, 0x0f, 0xff, 0x78, 0xfa, 0x0c, 0xc3, 0xbc, 0x68, 0xb5, 0xc7, 0xf8,
-	0xa2, 0x31, 0xe9, 0xda, 0xee, 0xba, 0x8f, 0x1b, 0xf1, 0x7c, 0x61, 0x2e, 0x60, 0xd8, 0x98, 0x17,
-	0x3a, 0x0d, 0x6e, 0x39, 0x27, 0xf7, 0x65, 0x11, 0xd9, 0x3a, 0xe2, 0x4c, 0x5b, 0x31, 0x8a, 0xff,
-	0xa0, 0x6d, 0x0c, 0x8f, 0xc6, 0x64, 0x9b, 0x4d, 0xdf, 0x2e, 0x6f, 0xab, 0xc9, 0xfd, 0x1b, 0xfb,
-	0x81, 0x87, 0x05, 0xf3, 0xf6, 0x75, 0x74, 0x9f, 0x6f, 0x89, 0x16, 0x26, 0x4f, 0xdf, 0x7e, 0xf7,
-	0x23, 0x6e, 0x17, 0xe9, 0x74, 0x14, 0xca, 0xc4, 0x67, 0x4a, 0x59, 0x4d, 0x64, 0xe4, 0xdc, 0xae,
-	0x98, 0x26, 0x3f, 0x92, 0x6f, 0x56, 0x52, 0x5f, 0xcf, 0x63, 0xb9, 0xf2, 0xd5, 0x75, 0xe4, 0x67,
-	0xa9, 0xa6, 0x3b, 0xf9, 0xef, 0xf2, 0xee, 0x77, 0x00, 0x00, 0x00, 0xff, 0xff, 0xad, 0xd5, 0xc3,
-	0x86, 0x9b, 0x04, 0x00, 0x00,
+	// 516 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0x4d, 0x6f, 0xd3, 0x40,
+	0x10, 0x25, 0x1f, 0x94, 0x66, 0x54, 0xd2, 0x64, 0x50, 0xa9, 0x31, 0xe5, 0x43, 0x3e, 0x55, 0x48,
+	0xc4, 0xa2, 0xdc, 0x91, 0xda, 0x02, 0x15, 0x48, 0xad, 0x2a, 0xa3, 0x72, 0xe0, 0x52, 0x4d, 0x9c,
+	0x89, 0xb3, 0xaa, 0xbd, 0x6b, 0x76, 0xd7, 0x89, 0xf2, 0x37, 0xf8, 0x4b, 0xfc, 0x31, 0xe4, 0x8f,
+	0x80, 0x53, 0x37, 0x52, 0x0f, 0xdc, 0xd6, 0x6f, 0xde, 0xce, 0xbc, 0xb7, 0x6f, 0x64, 0xc0, 0x34,
+	0x26, 0x3b, 0x55, 0x3a, 0xb9, 0xa6, 0x54, 0x8c, 0x52, 0xad, 0xac, 0xc2, 0x6e, 0xa8, 0x34, 0xbb,
+	0x3b, 0xa1, 0x4a, 0x12, 0x25, 0x4b, 0xcc, 0x45, 0x63, 0x39, 0xbd, 0x8e, 0xc5, 0x58, 0x93, 0x5e,
+	0x96, 0x98, 0x37, 0x03, 0xe7, 0x93, 0x9c, 0x0b, 0xad, 0x64, 0xc2, 0xd2, 0x9e, 0x2a, 0x39, 0x15,
+	0x51, 0xa6, 0xc9, 0x0a, 0x25, 0xf1, 0x10, 0x76, 0x6b, 0xb5, 0x0b, 0x4a, 0xd8, 0x69, 0xbd, 0x6e,
+	0x1d, 0xf6, 0x82, 0xdb, 0x30, 0x7a, 0xb0, 0x13, 0xb0, 0x51, 0x99, 0x0e, 0xf9, 0x32, 0x26, 0xe9,
+	0xb4, 0x0b, 0xda, 0x1a, 0xe6, 0x7d, 0x00, 0xac, 0x5d, 0x0b, 0xf8, 0x67, 0xc6, 0xc6, 0xde, 0x7f,
+	0x86, 0xf7, 0xab, 0xb5, 0x46, 0xfd, 0x22, 0xa7, 0x0a, 0x7d, 0xd8, 0x32, 0x96, 0x6c, 0x66, 0x8a,
+	0x4b, 0xfd, 0xa3, 0xfd, 0x51, 0x6e, 0x7b, 0x54, 0xa3, 0x7d, 0x2b, 0xca, 0x41, 0x45, 0xcb, 0x85,
+	0xea, 0x3b, 0x84, 0xd6, 0x31, 0x1c, 0x40, 0x27, 0xd3, 0xb1, 0xd3, 0x29, 0x4a, 0xf9, 0x11, 0x1d,
+	0x78, 0x94, 0xb0, 0x31, 0x14, 0xb1, 0xd3, 0x2d, 0xd0, 0xd5, 0xa7, 0xf7, 0x1c, 0x9e, 0x7d, 0xe4,
+	0x98, 0x2d, 0xaf, 0x59, 0x33, 0xa9, 0x92, 0x86, 0xbd, 0xef, 0xf0, 0xf4, 0x2a, 0x9d, 0x90, 0xe5,
+	0xe3, 0x39, 0x89, 0x98, 0xc6, 0x31, 0xaf, 0x5c, 0xf7, 0xa1, 0xad, 0x4c, 0x65, 0xb4, 0xad, 0x0c,
+	0x22, 0x74, 0x49, 0x87, 0xb3, 0x4a, 0x4e, 0x71, 0xce, 0x87, 0xce, 0x59, 0x1b, 0xa1, 0x64, 0x25,
+	0x65, 0xf5, 0xe9, 0x85, 0xb0, 0xdf, 0xe8, 0x5b, 0x8e, 0xc4, 0x03, 0xe8, 0xd1, 0x0a, 0x2c, 0xfa,
+	0x6f, 0x07, 0xff, 0x80, 0x7a, 0xcb, 0xf6, 0x5a, 0xcb, 0xa6, 0xe7, 0x37, 0x67, 0x30, 0x6c, 0x3c,
+	0x23, 0xee, 0xc0, 0xf6, 0xa9, 0x66, 0xb2, 0x42, 0x46, 0x83, 0x07, 0xd8, 0x83, 0x87, 0x01, 0xd3,
+	0x64, 0x39, 0x68, 0x21, 0xc0, 0xd6, 0x67, 0x12, 0x31, 0x4f, 0x06, 0x6d, 0x7c, 0x0c, 0xbd, 0xab,
+	0x34, 0xd2, 0x34, 0xc9, 0x59, 0x9d, 0xa3, 0xdf, 0x1d, 0xd8, 0xab, 0x75, 0x3a, 0x27, 0x49, 0x11,
+	0xe7, 0x27, 0xf4, 0xa1, 0x7b, 0x29, 0x64, 0x84, 0x58, 0xa5, 0x96, 0xa4, 0x76, 0x79, 0x5e, 0x3e,
+	0xac, 0xfb, 0xa4, 0xc4, 0x4e, 0xc8, 0x88, 0xf0, 0xaf, 0xbb, 0xaf, 0x30, 0x2c, 0xc6, 0xd7, 0x5f,
+	0x1b, 0x5f, 0x36, 0x32, 0x5f, 0xdb, 0x62, 0x77, 0xaf, 0x51, 0x2f, 0x56, 0xe7, 0x02, 0x86, 0x8d,
+	0xe4, 0xd0, 0x69, 0x70, 0xab, 0xc4, 0xdc, 0x57, 0x65, 0x65, 0x63, 0xd8, 0xb9, 0xb6, 0x32, 0x94,
+	0xff, 0xa0, 0xed, 0x18, 0xfa, 0x67, 0x6c, 0xef, 0x27, 0x6c, 0xa3, 0xbd, 0xdd, 0x5b, 0x3b, 0x82,
+	0x07, 0x25, 0xf3, 0xee, 0x95, 0x74, 0x5f, 0x6c, 0xa8, 0x96, 0xf6, 0x4e, 0xde, 0xfd, 0xf0, 0x23,
+	0x61, 0x67, 0xd9, 0x78, 0x14, 0xaa, 0xc4, 0xa7, 0x34, 0xb5, 0x9a, 0xd9, 0xa8, 0xa9, 0x5d, 0x90,
+	0x66, 0x3f, 0x52, 0x6f, 0x17, 0x4a, 0xdf, 0x4c, 0x63, 0xb5, 0xf0, 0xd3, 0x9b, 0xc8, 0xcf, 0x5b,
+	0x8d, 0xb7, 0x8a, 0x3f, 0xcc, 0xfb, 0x3f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x9b, 0x9e, 0x26, 0x77,
+	0x9f, 0x04, 0x00, 0x00,
 }
