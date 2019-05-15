@@ -17,13 +17,13 @@ service EnvironmentManagement {
     rpc DeleteEnvironment (EnvironmentRequest) returns (DeleteEnvironmentResponse);
     rpc UpdateEnvironment (EnvironmentConfiguration) returns (EnvironmentInfo);
     rpc GetEnvironment (EnvironmentRequest) returns (EnvironmentInfo);
-
     rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
 }
 
 message EnvironmentConfiguration {
     string EnvironmentName = 1;
     string ResourcePlan = 2;
+    string Region = 3;
 }
 
 message EnvironmentRequest {
