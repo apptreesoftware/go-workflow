@@ -2,8 +2,13 @@ package core
 
 import (
 	"context"
+	"fmt"
 	"github.com/twitchtv/twirp"
+	"gopkg.in/yaml.v2"
+	"io/ioutil"
 	"net/http"
+	"os"
+	"path/filepath"
 	"time"
 )
 
@@ -23,4 +28,15 @@ func CopyTwirpClientAuthorization(ctx context.Context) context.Context  {
 		return outCtx
 	}
 	return ctx
+}
+
+func ReadPackageYaml(dir string) (Package, error) {
+	yamlFile := filepath.Join(dir, "package.yaml")
+	b, err := ioutil.ReadFile(yamlFile)
+	if err != nil && os.IsNotExist(err) {
+		return Package{}, fmt.Errorf("Could not find a package.yaml in %s", dir)
+	}
+	pkg := Package{}
+	err = yaml.Unmarshal(b, &pkg)
+	return pkg, err
 }
