@@ -75,5 +75,7 @@ message GetPackageInfoResponse {
     LibraryPackage package = 1;
 }
 
-
+message StepPublishedPackageRequest {
+    string publishId = 1;
+}
 

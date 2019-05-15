@@ -7,8 +7,10 @@ This code was generated with github.com/twitchtv/twirp/protoc-gen-twirp v5.5.0.
 
 It is generated from these files:
 	engine_api.proto
-	api.proto
+	workflow_api.proto
+	platform_api.proto
 	step_library.proto
+	step_package_api.proto
 */
 package core
 

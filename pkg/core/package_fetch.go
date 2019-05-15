@@ -12,7 +12,7 @@ type PackageFetcher interface {
 func (pkg *Package) GetOSArchBinaryPath(os, arch string) (string, error) {
 	binary := pkg.getOSBinaries(os)
 	if binary == nil {
-		return "", NewExecutableNotFoundError(os, arch)
+		return "", NewPackageNotFoundErr(pkg.Name, pkg.Version, os, arch)
 	}
 	path := ""
 	switch arch {
@@ -22,7 +22,7 @@ func (pkg *Package) GetOSArchBinaryPath(os, arch string) (string, error) {
 		path = binary.I386
 	}
 	if path == "" {
-		return "", NewExecutableNotFoundError(os, arch)
+		return "", NewPackageNotFoundErr(pkg.Name, pkg.Version, os, arch)
 	}
 	return path, nil
 }
@@ -40,17 +40,19 @@ func (pkg *Package) getOSBinaries(os string) *Binary {
 	return binary
 }
 
-type ExecutableNotFound struct {
-	os, arch string
+
+type PackageNotFoundErr struct {
+	Id      string
+	Version string
+	Os      string
+	Arch    string
 }
 
-func NewExecutableNotFoundError(os, arch string) error {
-	return ExecutableNotFound{
-		os:   os,
-		arch: arch,
-	}
+func NewPackageNotFoundErr(id string, version string, os string, arch string) *PackageNotFoundErr {
+	return &PackageNotFoundErr{Id: id, Version: version, Os: os, Arch: arch}
 }
 
-func (e ExecutableNotFound) Error() string {
-	return fmt.Sprintf("Executable not found OS: %s, ARCH: %s", e.os, e.arch)
+func (e PackageNotFoundErr) Error() string {
+	return fmt.Sprintf("Package not found %s@%s for OS: %s, ARCH: %s", e.Id, e.Version, e.Os, e.Arch)
 }
+

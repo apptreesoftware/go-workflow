@@ -9,7 +9,6 @@ option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
 package core;
 
 import "common.proto";
-import "step_library.proto";
 
 service WorkflowAPI {
     rpc RunWorkflow (RunWorkflowRequest) returns (TriggerResponse);
@@ -46,18 +45,8 @@ service WorkflowAPI {
     rpc EnableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
     rpc RemoveWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
 
-    rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
-
     rpc PauseEngines (Empty) returns (BasicResponse);
     rpc UnpauseEngines (Empty) returns (BasicResponse);
-
-    // API for step library site
-    rpc SearchStepsForLibrary (SearchStepsRequest) returns (SearchStepsResponse);
-    rpc GetAllStepsForLibrary (GetAllStepsRequest) returns (GetAllStepsResponse);
-    rpc GetSingleStepForLibrary (GetSingleStepRequest) returns (GetSingleStepResponse);
-    rpc GetStepsForPackage (GetStepsForPackageRequest) returns (GetStepsForPackageResponse);
-    rpc GetAllPackageNamesForLibrary (GetAllPackagesInfoRequest) returns (GetAllPackagesInfoResponse);
-    rpc GetPackageInfoForLibrary (GetPackageInfoRequest) returns (GetPackageInfoResponse);
 }
 
 message ProjectWorkflowRequest {
@@ -171,9 +160,6 @@ message RegisterRemoteEngineRequest {
     string project = 5;
 }
 
-message ProjectRequest {
-    string project = 1;
-}
 
 message ProjectValueRequest {
     string project = 1;
@@ -196,11 +182,6 @@ message WorkflowOverview {
     string triggers = 4;
 }
 
-message BasicResponse {
-    bool success = 1;
-    string message = 2;
-}
-
 message RunWorkflowRequest {
     string projectId = 1;
     string workflowId = 2;
@@ -216,10 +197,6 @@ message PublishWorkflowRequest {
 message AddUserRequest {
     string username = 1;
     string projectId = 2;
-}
-
-message UserRequest {
-    string username = 1;
 }
 
 message QueueItem {
@@ -281,22 +258,4 @@ message CancelJobResponse {
     bool success = 1;
     string message = 2;
     int64 canceledCount = 3;
-}
-
-message UpdateAvailableRequest {
-    string os = 1;
-    string arch = 2;
-    string version = 3;
-}
-
-message UpdateAvailableResponse {
-    bool available = 1;
-    string version = 2;
-    string url = 3;
-}
-
-message ListProjectResponse {
-    bool success = 1;
-    string message = 2;
-    repeated string projects = 3;
 }
