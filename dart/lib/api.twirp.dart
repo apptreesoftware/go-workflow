@@ -788,17 +788,20 @@ class RunWorkflowRequest {
     this.projectId,
     this.workflowId,
     this.triggerBody,
+    this.count,
   );
 
   String projectId;
   String workflowId;
   String triggerBody;
+  int count;
 
   factory RunWorkflowRequest.fromJson(Map<String, dynamic> json) {
     return new RunWorkflowRequest(
       json['projectId'] as String,
       json['workflowId'] as String,
       json['triggerBody'] as String,
+      json['count'] as int,
     );
   }
 
@@ -807,6 +810,7 @@ class RunWorkflowRequest {
     map['projectId'] = projectId;
     map['workflowId'] = workflowId;
     map['triggerBody'] = triggerBody;
+    map['count'] = count;
     return map;
   }
 
