@@ -13,28 +13,38 @@ import "step_library.proto";
 
 service EnvironmentManagement {
     rpc Ping (EmptyMessage) returns (BasicResponse);
-    rpc CreateEnvironment (EnvironmentConfiguration) returns (EnvironmentInfo);
+    rpc CreateEnvironment (CreateEnvironmentRequest) returns (EnvironmentConfiguration);
     rpc DeleteEnvironment (EnvironmentRequest) returns (DeleteEnvironmentResponse);
-    rpc UpdateEnvironment (EnvironmentConfiguration) returns (EnvironmentInfo);
-    rpc GetEnvironment (EnvironmentRequest) returns (EnvironmentInfo);
+    rpc UpdateEnvironment (UpdateEnvironmentRequest) returns (EnvironmentConfiguration);
+    rpc GetEnvironment (EnvironmentRequest) returns (EnvironmentConfiguration);
     rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
 }
 
 message EnvironmentConfiguration {
-    string EnvironmentName = 1;
-    string ResourcePlan = 2;
-    string Region = 3;
+    string environmentName = 1;
+    string resourcePlan = 2;
+    string region = 3;
+    string url = 4;
+    EnvironmentStatus status = 5;
+    string statusMessage = 6;
+}
+
+message UpdateEnvironmentRequest {
+    string environmentName = 1;
+    string resourcePlan = 2;
+    EnvironmentStatus status = 3;
+    string url = 4;
+    string statusMessage = 5;
 }
 
 message EnvironmentRequest {
-    string EnvironmentName = 1;
+    string environmentName = 1;
 }
 
-message EnvironmentInfo {
-    EnvironmentStatus status = 1;
+message CreateEnvironmentRequest {
+    string environmentName = 1;
     string resourcePlan = 2;
-    string url = 3;
-    string message = 4;
+    string region = 3;
 }
 
 message DeleteEnvironmentResponse {
