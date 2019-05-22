@@ -7,6 +7,7 @@ class Package {
     this.version,
     this.executables,
     this.steps,
+    this.description,
   );
 
   String name;
@@ -14,6 +15,7 @@ class Package {
   String version;
   Exec executables;
   Map<String, PackageStep> steps;
+  String description;
 
   factory Package.fromJson(Map<String, dynamic> json) {
     var stepsMap = new Map<String, PackageStep>();
@@ -27,6 +29,7 @@ class Package {
       json['version'] as String,
       new Exec.fromJson(json['executables']),
       stepsMap,
+      json['description'] as String,
     );
   }
 
@@ -37,6 +40,7 @@ class Package {
     map['version'] = version;
     map['executables'] = executables.toJson();
     map['steps'] = json.decode(json.encode(steps));
+    map['description'] = description;
     return map;
   }
 

@@ -10,6 +10,7 @@ message Package {
     string version = 3;
     Exec executables = 4;
     map<string, PackageStep> steps = 5;
+    string description = 6;
 }
 
 message Exec {
