@@ -1,0 +1,72 @@
+// Base Platform API, Uses Twirp for communication
+// Only used for Customer environment -> AppTree Communication
+// Uses Twirp for communication
+
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+import "common.proto";
+import "step_library.proto";
+
+service EnvironmentManagement {
+    rpc Ping (EmptyMessage) returns (BasicResponse);
+    rpc CreateEnvironment (CreateEnvironmentRequest) returns (EnvironmentConfiguration);
+    rpc DeleteEnvironment (EnvironmentRequest) returns (DeleteEnvironmentResponse);
+    rpc UpdateEnvironment (UpdateEnvironmentRequest) returns (EnvironmentConfiguration);
+    rpc GetEnvironment (EnvironmentRequest) returns (EnvironmentConfiguration);
+    rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
+}
+
+message EnvironmentConfiguration {
+    string environmentName = 1;
+    string resourcePlan = 2;
+    string region = 3;
+    string url = 4;
+    EnvironmentStatus status = 5;
+    string statusMessage = 6;
+}
+
+message UpdateEnvironmentRequest {
+    string environmentName = 1;
+    string resourcePlan = 2;
+    EnvironmentStatus status = 3;
+    string url = 4;
+    string statusMessage = 5;
+}
+
+message EnvironmentRequest {
+    string environmentName = 1;
+}
+
+message CreateEnvironmentRequest {
+    string environmentName = 1;
+    string resourcePlan = 2;
+    string region = 3;
+}
+
+message DeleteEnvironmentResponse {
+
+}
+
+enum EnvironmentStatus {
+    Creating = 0;
+    Ready = 1;
+    Failed = 2;
+    Upgrading = 3;
+}
+
+message UpdateAvailableRequest {
+    string os = 1;
+    string arch = 2;
+    string version = 3;
+}
+
+message UpdateAvailableResponse {
+    bool available = 1;
+    string version = 2;
+    string url = 3;
+}
+

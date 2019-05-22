@@ -463,3 +463,28 @@ class GetPackageInfoResponse {
     return json.encode(toJson());
   }
 }
+
+class StepPublishedPackageRequest {
+  StepPublishedPackageRequest(
+    this.publishId,
+  );
+
+  String publishId;
+
+  factory StepPublishedPackageRequest.fromJson(Map<String, dynamic> json) {
+    return new StepPublishedPackageRequest(
+      json['publishId'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['publishId'] = publishId;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}

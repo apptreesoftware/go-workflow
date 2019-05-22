@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option go_package = "github.com/apptreesoftware/go-workflow/pkg/core";
+
+package core;
+
+import "common.proto";
+import "step_library.proto";
+
+service PackageRegistry {
+    rpc Ping (EmptyMessage) returns (BasicResponse);
+    rpc GetPackage (StepPackageRequest) returns (RegisteredPackage);
+    rpc GetPackageById(StepPackageIdRequest) returns (RegisteredPackage);
+
+    rpc GetStep (GetSingleStepRequest) returns (GetSingleStepResponse);
+    rpc SearchStepsForLibrary (SearchStepsRequest) returns (SearchStepsResponse);
+    rpc GetAllStepsForLibrary (GetAllStepsRequest) returns (GetAllStepsResponse);
+    rpc GetPackageSteps (GetStepsForPackageRequest) returns (GetStepsForPackageResponse);
+    rpc GetAllPackageNamesForLibrary (GetAllPackagesInfoRequest) returns (GetAllPackagesInfoResponse);
+    rpc GetPackageInfoForLibrary (GetPackageInfoRequest) returns (GetPackageInfoResponse);
+}
+
+message RegisteredPackage {
+    Package packageDefinition = 1;
+    string locationType = 2;
+    string location = 3;
+    string publishId = 4;
+    string author = 5;
+}
