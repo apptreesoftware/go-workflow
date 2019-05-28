@@ -25,6 +25,7 @@ service EngineAPI {
     rpc StepCompleted (StepCompleteRequest) returns (StepCompleteResponse);
 
     rpc LogMessage (LogRequest) returns (LogResponse);
+    rpc LogError (LogErrorRequest) returns (LogResponse);
 }
 
 
@@ -55,6 +56,12 @@ message LogRequest {
     string logLevel = 3;
     string project = 4;
     string workflow = 5;
+}
+
+message LogErrorRequest {
+    string error = 1;
+    string stackTrace = 2;
+    string message = 3;
 }
 
 message LogResponse {
