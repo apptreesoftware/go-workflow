@@ -17,20 +17,63 @@
   KEYURL="https://s3.amazonaws.com/apptree-binaries/server.key"
   LOCATION="/usr/local/bin/apptree"
 
-  echo '1) Enter the location for the .apptree folder: '
+  echo '1) Enter the location for the .apptree folder (ie. /Users/alphahlee/apptree): '
   read INSTALL_DIR
   echo "You entered $INSTALL_DIR for the .apptree folder."
   echo "......"
-  #echo '2) Enter the Port for the Engine (Optional when installing CLI only): '
+  #echo '2) Enter the Port for the Engine (Default: 9000. Optional when installing CLI only): '
   echo '2) Enter the Port for the Engine: '
   read ENGINE_PORT
   echo "You entered $ENGINE_PORT for the Engine."
   echo "......"
-  #echo '3) Enter the Port for the Step Internal Port (Optional when installing CLI only): '
+  #echo '3) Enter the Port for the Step Internal Port (Default: 5006. Optional when installing CLI only): '
   echo '3) Enter the Port for the Step Internal Port: '
   read STEP_PORT
   echo "You entered $STEP_PORT for the Step Internal Port."
   echo "......"
+  echo '4) Enter the URL for your AppTree Host Engine (DEFAULT: https://uscentral1.apptreeio.com): '
+  read HOST_ENGINE
+  echo "You entered $HOST_ENGINE for the AppTree Host Engine."
+  echo "......"
+
+  # Check if string is empty using -z. For more 'help test'
+  if [[ -z "$ENGINE_PORT" ]]; then
+   printf '%s\n' "No ENGINE_PORT defined. Setting ENGINE_PORT to 9000"
+   ENGINE_PORT=9000
+   echo ENGINE_PORT=9000
+  else
+  # If userInput is not empty show what the user typed in and run ls -l
+   # printf "You entered %s " "$ENGINE_PORT
+   echo ENGINE_PORT=$ENGINE_PORT
+   #ls -l
+  fi
+
+  # Check if string is empty using -z. For more 'help test'
+  if [[ -z "$STEP_PORT" ]]; then
+   printf '%s\n' "No STEP_PORT defined. Setting STEP_PORT to 5006"
+   STEP_PORT=5006
+   echo STEP_PORT=$STEP_PORT
+  else
+  # If userInput is not empty show what the user typed in and run ls -l
+   # printf "You entered %s " "$HOST_ENGINE"
+   echo STEP_PORT=$STEP_PORT
+   #ls -l
+  fi
+
+  # Check if string is empty using -z. For more 'help test'    
+  if [[ -z "$HOST_ENGINE" ]]; then
+   printf '%s\n' "No HOST_ENGINE defined. Setting HOST_ENGINE to https://uscentral1.apptreeio.com"
+   HOST_ENGINE=https://uscentral1.apptreeio.com
+   echo HOST_ENGINE=$HOST_ENGINE
+   #exit 1
+  else
+  # If userInput is not empty show what the user typed in and run ls -l
+   # printf "You entered %s " "$HOST_ENGINE"
+   echo HOST_ENGINE=$HOST_ENGINE
+   #ls -l
+   exit 1
+  fi
+
   APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_install_env_$ENGINE_PORT-$STEP_PORT.sh
   LOGFILE=$CURRENT_DIR/apptree_engine_$ENGINE_PORT-$STEP_PORT-install.log
   APPTREE_DIR=$INSTALL_DIR/.apptree
@@ -49,11 +92,13 @@
   echo INSTALL_DIR $INSTALL_DIR
   echo ENGINE_PORT $ENGINE_PORT
   echo STEP_PORT $STEP_PORT
+  echo HOST_ENGINE $HOST_ENGINE
   echo LOCATION $LOCATION
   echo DARWIN_PLIST $DARWIN_PLIST
   echo DARWIN_LAUNCH_CMD $DARWIN_LAUNCH_CMD
   echo DARWIN_UNLAUNCH_CMD $DARWIN_UNLAUNCH_CMD
-  ENGINE_INSTALL_CMD="apptree install engine --host https://io.apptreesoftware.com --home \$INSTALL_DIR --port \$ENGINE_PORT --step_port \$STEP_PORT -f \$LOCATION"
+  #ENGINE_INSTALL_CMD="apptree install engine --host https://io.apptreesoftware.com --home \$INSTALL_DIR --port \$ENGINE_PORT --step_port \$STEP_PORT -f \$LOCATION"
+  ENGINE_INSTALL_CMD="apptree install engine --host "\$HOST_ENGINE" --home \$INSTALL_DIR --port \$ENGINE_PORT --step_port \$STEP_PORT -f \$LOCATION"
   echo ENGINE_INSTALL_CMD $ENGINE_INSTALL_CMD
   CHOWN_CMD="chown -R \$INSTALL_USER:\$INSTALL_USER_GROUP \$INSTALL_DIR"
   echo CHOWN_CMD $CHOWN_CMD
@@ -69,6 +114,7 @@
   echo "export APPTREE_DIR=$INSTALL_DIR/.apptree" >> $APPTREE_PARAM_FILE
   echo "export ENGINE_PORT=$ENGINE_PORT" >> $APPTREE_PARAM_FILE
   echo "export STEP_PORT=$STEP_PORT" >> $APPTREE_PARAM_FILE
+  echo "export HOST_ENGINE=$HOST_ENGINE" >> $APPTREE_PARAM_FILE
   echo "export LOGFILE=$LOGFILE" >> $APPTREE_PARAM_FILE
   echo "export LINUXURL=$LINUXURL" >> $APPTREE_PARAM_FILE
   echo "export DARWINURL=$DARWINURL" >> $APPTREE_PARAM_FILE
@@ -97,6 +143,7 @@
   echo Installation Directory: $INSTALL_DIR >> $LOGFILE
   echo Engine Port: $ENGINE_PORT >> $LOGFILE
   echo Step Port: $STEP_PORT >> $LOGFILE
+  echo Host Engine: $HOST_ENGINE >> $LOGFILE
   echo Working Directory: $CURRENT_DIR >> $LOGFILE
   
   if [ -z "$INSTALL_DIR" ]; then
@@ -286,6 +333,7 @@
   echo sudo \$DARWIN_UNLAUNCH_CMD
   fi
 
+  #elsif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
   if [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
   echo "Starting apptree engine service"
   echo "Starting apptree engine service" >> $LOGFILE
