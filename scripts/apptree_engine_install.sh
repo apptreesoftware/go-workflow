@@ -37,10 +37,23 @@
   echo "......"
 
   # Check if string is empty using -z. For more 'help test'
+  if [[ -z "$INSTALL_DIR" ]]; then
+   printf '%s\n' "No INSTALL_DIR defined. Setting INSTALL_DIR to $HOME/apptree"
+   INSTALL_DIR=$HOME/apptree
+   echo INSTALL_DIR=$INSTALL_DIR
+   #exit 1
+  else
+  # If userInput is not empty show what the user typed in and run ls -l
+   # printf "You entered %s " "$INSTALL_DIR
+   echo INSTALL_DIR=$INSTALL_DIR
+   #ls -l
+  fi
+
+  # Check if string is empty using -z. For more 'help test'
   if [[ -z "$ENGINE_PORT" ]]; then
    printf '%s\n' "No ENGINE_PORT defined. Setting ENGINE_PORT to 9000"
    ENGINE_PORT=9000
-   echo ENGINE_PORT=9000
+   echo ENGINE_PORT=$ENGINE_PORT
   else
   # If userInput is not empty show what the user typed in and run ls -l
    # printf "You entered %s " "$ENGINE_PORT
@@ -71,7 +84,7 @@
    # printf "You entered %s " "$HOST_ENGINE"
    echo HOST_ENGINE=$HOST_ENGINE
    #ls -l
-   exit 1
+   #exit 1
   fi
 
   APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_install_env_$ENGINE_PORT-$STEP_PORT.sh
@@ -334,7 +347,8 @@
   fi
 
   #elsif [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
-  if [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
+  #if [ "\$(expr substr \$(uname -s) 1 5)" == "Linux" ]; then
+  if [ "\$OS" == "Linux" ]; then
   echo "Starting apptree engine service"
   echo "Starting apptree engine service" >> $LOGFILE
   #echo sudo \$LINUX_LAUNCH_CMD
