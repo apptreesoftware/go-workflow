@@ -16,10 +16,24 @@
   KEYURL="https://s3.amazonaws.com/apptree-binaries/server.key"
   LOCATION="/usr/local/bin/apptree"
 
-  echo '1) Enter the location for the .apptree folder: '
+  echo '1) Enter the location for the .apptree folder (ie. /Users/alphahlee/apptree): '
   read INSTALL_DIR
   echo "You entered $INSTALL_DIR for the .apptree folder."
   echo "......"
+
+  # Check if string is empty using -z. For more 'help test'
+  if [[ -z "$INSTALL_DIR" ]]; then
+   printf '%s\n' "No INSTALL_DIR defined. Setting INSTALL_DIR to $HOME/apptree"
+   INSTALL_DIR=$HOME/apptree
+   echo INSTALL_DIR=$INSTALL_DIR
+   #exit 1
+  else
+  # If userInput is not empty show what the user typed in and run ls -l
+   # printf "You entered %s " "$INSTALL_DIR
+   echo INSTALL_DIR=$INSTALL_DIR
+   #ls -l
+  fi
+
   APPTREE_PARAM_FILE=$CURRENT_DIR/apptree_install_env_$ENGINE_PORT-$STEP_PORT.sh
   LOGFILE=$CURRENT_DIR/apptree_engine_$ENGINE_PORT-$STEP_PORT-install.log
   APPTREE_DIR=$INSTALL_DIR/.apptree
