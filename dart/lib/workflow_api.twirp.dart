@@ -1049,6 +1049,176 @@ class ViewLogResponse {
   }
 }
 
+class ViewJobDetailRequest {
+  ViewJobDetailRequest(
+    this.project,
+    this.job,
+  );
+
+  String project;
+  String job;
+
+  factory ViewJobDetailRequest.fromJson(Map<String, dynamic> json) {
+    return new ViewJobDetailRequest(
+      json['project'] as String,
+      json['job'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['job'] = job;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class ViewJobDetailResponse {
+  ViewJobDetailResponse(
+    this.success,
+    this.message,
+    this.jobDetail,
+  );
+
+  bool success;
+  String message;
+  JobDetail jobDetail;
+
+  factory ViewJobDetailResponse.fromJson(Map<String, dynamic> json) {
+    return new ViewJobDetailResponse(
+      json['success'] as bool,
+      json['message'] as String,
+      new JobDetail.fromJson(json['jobDetail']),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['success'] = success;
+    map['message'] = message;
+    map['jobDetail'] = jobDetail.toJson();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class JobDetail {
+  JobDetail(
+    this.startTime,
+    this.endTime,
+    this.duration,
+    this.storage,
+    this.stepResults,
+  );
+
+  String startTime;
+  String endTime;
+  double duration;
+  Map<String, String> storage;
+  List<StepResult> stepResults;
+
+  factory JobDetail.fromJson(Map<String, dynamic> json) {
+    var storageMap = new Map<String, String>();
+    (json['storage'] as Map<String, dynamic>)?.forEach((key, val) {
+      if (val is String) {
+      } else if (val is num) {}
+    });
+
+    return new JobDetail(
+      json['startTime'] as String,
+      json['endTime'] as String,
+      json['duration'] as double,
+      storageMap,
+      json['stepResults'] != null
+          ? (json['stepResults'] as List)
+              .map((d) => new StepResult.fromJson(d))
+              .toList()
+          : <StepResult>[],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['startTime'] = startTime;
+    map['endTime'] = endTime;
+    map['duration'] = duration;
+    map['storage'] = json.decode(json.encode(storage));
+    map['stepResults'] = stepResults?.map((l) => l.toJson())?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class StepResult {
+  StepResult(
+    this.stepId,
+    this.duration,
+    this.status,
+    this.message,
+    this.inputs,
+    this.outputs,
+  );
+
+  String stepId;
+  int duration;
+  String status;
+  String message;
+  Map<String, String> inputs;
+  Map<String, String> outputs;
+
+  factory StepResult.fromJson(Map<String, dynamic> json) {
+    var inputsMap = new Map<String, String>();
+    (json['inputs'] as Map<String, dynamic>)?.forEach((key, val) {
+      if (val is String) {
+      } else if (val is num) {}
+    });
+
+    var outputsMap = new Map<String, String>();
+    (json['outputs'] as Map<String, dynamic>)?.forEach((key, val) {
+      if (val is String) {
+      } else if (val is num) {}
+    });
+
+    return new StepResult(
+      json['stepId'] as String,
+      json['duration'] as int,
+      json['status'] as String,
+      json['message'] as String,
+      inputsMap,
+      outputsMap,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['stepId'] = stepId;
+    map['duration'] = duration;
+    map['status'] = status;
+    map['message'] = message;
+    map['inputs'] = json.decode(json.encode(inputs));
+    map['outputs'] = json.decode(json.encode(outputs));
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 class TriggerResponse {
   TriggerResponse(
     this.success,
@@ -1184,6 +1354,8 @@ abstract class WorkflowAPI {
   Future<StepPackageResponse> getStepPackage(
       StepPackageRequest stepPackageRequest);
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest);
+  Future<ViewJobDetailResponse> viewJobDetail(
+      ViewJobDetailRequest viewJobDetailRequest);
   Future<WorkflowHistoryResponse> getWorkflowHistory(
       WorkflowHistoryRequest workflowHistoryRequest);
   Future<BasicResponse> storeValue(StoreValueRequest storeValueRequest);
@@ -1447,6 +1619,21 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return ViewLogResponse.fromJson(value);
+  }
+
+  Future<ViewJobDetailResponse> viewJobDetail(
+      ViewJobDetailRequest viewJobDetailRequest) async {
+    var url = "${hostname}${_pathPrefix}ViewJobDetail";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(viewJobDetailRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return ViewJobDetailResponse.fromJson(value);
   }
 
   Future<WorkflowHistoryResponse> getWorkflowHistory(

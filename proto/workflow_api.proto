@@ -31,6 +31,7 @@ service WorkflowAPI {
     rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
 
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
+    rpc ViewJobDetail (ViewJobDetailRequest) returns (ViewJobDetailResponse);
 
     rpc GetWorkflowHistory (WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
 
@@ -237,6 +238,34 @@ message ViewLogResponse {
     bool success = 1;
     string message = 2;
     repeated Log logs = 3;
+}
+
+message ViewJobDetailRequest {
+    string project = 1;
+    string job = 2;
+}
+
+message ViewJobDetailResponse {
+    bool success = 1;
+    string message = 2;
+    JobDetail jobDetail = 3;
+}
+
+message JobDetail {
+    string startTime = 1;
+    string endTime = 2;
+    double duration = 3;
+    map<string, string> storage = 4;
+    repeated StepResult stepResults = 5;
+}
+
+message StepResult {
+    string stepId = 1;
+    int64 duration = 2;
+    string status = 3;
+    string message = 4;
+    map<string, string> inputs = 5;
+    map<string, string> outputs = 6;
 }
 
 message TriggerResponse {
