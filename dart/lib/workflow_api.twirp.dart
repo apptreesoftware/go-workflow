@@ -765,6 +765,109 @@ class RunWorkflowRequest {
   }
 }
 
+class RetryWorkflowRequest {
+  RetryWorkflowRequest(
+    this.project,
+    this.workflow,
+    this.fromDate,
+    this.toDate,
+  );
+
+  String project;
+  String workflow;
+  int fromDate;
+  int toDate;
+
+  factory RetryWorkflowRequest.fromJson(Map<String, dynamic> json) {
+    return new RetryWorkflowRequest(
+      json['project'] as String,
+      json['workflow'] as String,
+      json['fromDate'] as int,
+      json['toDate'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['workflow'] = workflow;
+    map['fromDate'] = fromDate;
+    map['toDate'] = toDate;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class RetryWorkflowResponse {
+  RetryWorkflowResponse(
+    this.count,
+    this.jobIds,
+    this.errors,
+  );
+
+  int count;
+  List<String> jobIds;
+  List<String> errors;
+
+  factory RetryWorkflowResponse.fromJson(Map<String, dynamic> json) {
+    return new RetryWorkflowResponse(
+      json['count'] as int,
+      json['jobIds'] != null
+          ? (json['jobIds'] as List).cast<String>()
+          : <String>[],
+      json['errors'] != null
+          ? (json['errors'] as List).cast<String>()
+          : <String>[],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['count'] = count;
+    map['jobIds'] = jobIds?.map((l) => l)?.toList();
+    map['errors'] = errors?.map((l) => l)?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class RetryJobRequest {
+  RetryJobRequest(
+    this.project,
+    this.jobId,
+  );
+
+  String project;
+  String jobId;
+
+  factory RetryJobRequest.fromJson(Map<String, dynamic> json) {
+    return new RetryJobRequest(
+      json['project'] as String,
+      json['jobId'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['jobId'] = jobId;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 class PublishWorkflowRequest {
   PublishWorkflowRequest(
     this.projectId,
@@ -1332,6 +1435,9 @@ class CancelJobResponse {
 
 abstract class WorkflowAPI {
   Future<TriggerResponse> runWorkflow(RunWorkflowRequest runWorkflowRequest);
+  Future<RetryWorkflowResponse> retryWorkflow(
+      RetryWorkflowRequest retryWorkflowRequest);
+  Future<TriggerResponse> retryJob(RetryJobRequest retryJobRequest);
   Future<BasicResponse> ping(EmptyMessage emptyMessage);
   Future<BasicResponse> publishWorkflow(
       PublishWorkflowRequest publishWorkflowRequest);
@@ -1394,6 +1500,35 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
     request.body = json.encode(runWorkflowRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return TriggerResponse.fromJson(value);
+  }
+
+  Future<RetryWorkflowResponse> retryWorkflow(
+      RetryWorkflowRequest retryWorkflowRequest) async {
+    var url = "${hostname}${_pathPrefix}RetryWorkflow";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(retryWorkflowRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return RetryWorkflowResponse.fromJson(value);
+  }
+
+  Future<TriggerResponse> retryJob(RetryJobRequest retryJobRequest) async {
+    var url = "${hostname}${_pathPrefix}RetryJob";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(retryJobRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
