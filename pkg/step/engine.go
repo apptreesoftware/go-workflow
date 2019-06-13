@@ -3,7 +3,7 @@ package step
 import (
 	"context"
 	. "github.com/apptreesoftware/go-workflow/pkg/core"
-	"github.com/json-iterator/go"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/mongodb/mongo-go-driver/bson"
 	"google.golang.org/grpc"
 )
@@ -74,9 +74,13 @@ func (c *Engine) PullRecord(id string, record interface{}, cacheName string) (fo
 func (c *Engine) AddToQueue(workflow string, record interface{}) (err error) {
 	var recordBytes []byte
 	if record != nil {
-		recordBytes, err = jsoniter.Marshal(record)
-		if err != nil {
-			return err
+		if str, ok := record.(string); ok {
+			recordBytes = []byte(str)
+		} else {
+			recordBytes, err = jsoniter.Marshal(record)
+			if err != nil {
+				return err
+			}
 		}
 	}
 
