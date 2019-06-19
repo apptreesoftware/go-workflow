@@ -1433,6 +1433,98 @@ class CancelJobResponse {
   }
 }
 
+class NotificationRequest {
+  NotificationRequest(
+    this.project,
+    this.type,
+    this.onStart,
+    this.onFailure,
+    this.onSuccess,
+    this.dailySummary,
+    this.address,
+    this.options,
+  );
+
+  String project;
+  String type;
+  bool onStart;
+  bool onFailure;
+  bool onSuccess;
+  bool dailySummary;
+  String address;
+  Map<String, String> options;
+
+  factory NotificationRequest.fromJson(Map<String, dynamic> json) {
+    var optionsMap = new Map<String, String>();
+    (json['options'] as Map<String, dynamic>)?.forEach((key, val) {
+      if (val is String) {
+      } else if (val is num) {}
+    });
+
+    return new NotificationRequest(
+      json['project'] as String,
+      json['type'] as String,
+      json['onStart'] as bool,
+      json['onFailure'] as bool,
+      json['onSuccess'] as bool,
+      json['dailySummary'] as bool,
+      json['address'] as String,
+      optionsMap,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['type'] = type;
+    map['onStart'] = onStart;
+    map['onFailure'] = onFailure;
+    map['onSuccess'] = onSuccess;
+    map['dailySummary'] = dailySummary;
+    map['address'] = address;
+    map['options'] = json.decode(json.encode(options));
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class RemoveNotificationRequest {
+  RemoveNotificationRequest(
+    this.project,
+    this.type,
+    this.address,
+  );
+
+  String project;
+  String type;
+  String address;
+
+  factory RemoveNotificationRequest.fromJson(Map<String, dynamic> json) {
+    return new RemoveNotificationRequest(
+      json['project'] as String,
+      json['type'] as String,
+      json['address'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['type'] = type;
+    map['address'] = address;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 abstract class WorkflowAPI {
   Future<TriggerResponse> runWorkflow(RunWorkflowRequest runWorkflowRequest);
   Future<RetryWorkflowResponse> retryWorkflow(
@@ -1478,6 +1570,10 @@ abstract class WorkflowAPI {
       ProjectWorkflowRequest projectWorkflowRequest);
   Future<BasicResponse> pauseEngines(Empty empty);
   Future<BasicResponse> unpauseEngines(Empty empty);
+  Future<BasicResponse> createNotification(
+      NotificationRequest notificationRequest);
+  Future<BasicResponse> removeNotification(
+      RemoveNotificationRequest removeNotificationRequest);
 }
 
 class DefaultWorkflowAPI implements WorkflowAPI {
@@ -1939,6 +2035,36 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
     request.body = json.encode(empty.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> createNotification(
+      NotificationRequest notificationRequest) async {
+    var url = "${hostname}${_pathPrefix}CreateNotification";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(notificationRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> removeNotification(
+      RemoveNotificationRequest removeNotificationRequest) async {
+    var url = "${hostname}${_pathPrefix}RemoveNotification";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(removeNotificationRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
