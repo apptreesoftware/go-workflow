@@ -1433,56 +1433,52 @@ class CancelJobResponse {
   }
 }
 
-class NotificationRequest {
-  NotificationRequest(
+class AddEventRequest {
+  AddEventRequest(
     this.project,
-    this.type,
     this.onStart,
     this.onFailure,
     this.onSuccess,
     this.dailySummary,
-    this.address,
-    this.options,
+    this.url,
+    this.extraHeaders,
   );
 
   String project;
-  String type;
   bool onStart;
   bool onFailure;
   bool onSuccess;
   bool dailySummary;
-  String address;
-  Map<String, String> options;
+  String url;
+  Map<String, String> extraHeaders;
 
-  factory NotificationRequest.fromJson(Map<String, dynamic> json) {
-    var optionsMap = new Map<String, String>();
-    (json['options'] as Map<String, dynamic>)?.forEach((key, val) {
+  factory AddEventRequest.fromJson(Map<String, dynamic> json) {
+    var extraHeadersMap = new Map<String, String>();
+    (json['extraHeaders'] as Map<String, dynamic>)?.forEach((key, val) {
       if (val is String) {
       } else if (val is num) {}
     });
 
-    return new NotificationRequest(
+    return new AddEventRequest(
       json['project'] as String,
-      json['type'] as String,
       json['onStart'] as bool,
       json['onFailure'] as bool,
       json['onSuccess'] as bool,
       json['dailySummary'] as bool,
-      json['address'] as String,
-      optionsMap,
+      json['url'] as String,
+      extraHeadersMap,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['project'] = project;
-    map['type'] = type;
     map['onStart'] = onStart;
     map['onFailure'] = onFailure;
     map['onSuccess'] = onSuccess;
     map['dailySummary'] = dailySummary;
-    map['address'] = address;
-    map['options'] = json.decode(json.encode(options));
+    map['url'] = url;
+    map['extraHeaders'] = json.decode(json.encode(extraHeaders));
     return map;
   }
 
@@ -1492,30 +1488,26 @@ class NotificationRequest {
   }
 }
 
-class RemoveNotificationRequest {
-  RemoveNotificationRequest(
+class RemoveEventRequest {
+  RemoveEventRequest(
     this.project,
-    this.type,
-    this.address,
+    this.url,
   );
 
   String project;
-  String type;
-  String address;
+  String url;
 
-  factory RemoveNotificationRequest.fromJson(Map<String, dynamic> json) {
-    return new RemoveNotificationRequest(
+  factory RemoveEventRequest.fromJson(Map<String, dynamic> json) {
+    return new RemoveEventRequest(
       json['project'] as String,
-      json['type'] as String,
-      json['address'] as String,
+      json['url'] as String,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['project'] = project;
-    map['type'] = type;
-    map['address'] = address;
+    map['url'] = url;
     return map;
   }
 
@@ -1570,10 +1562,8 @@ abstract class WorkflowAPI {
       ProjectWorkflowRequest projectWorkflowRequest);
   Future<BasicResponse> pauseEngines(Empty empty);
   Future<BasicResponse> unpauseEngines(Empty empty);
-  Future<BasicResponse> createNotification(
-      NotificationRequest notificationRequest);
-  Future<BasicResponse> removeNotification(
-      RemoveNotificationRequest removeNotificationRequest);
+  Future<BasicResponse> addEvent(AddEventRequest addEventRequest);
+  Future<BasicResponse> removeEvent(RemoveEventRequest removeEventRequest);
 }
 
 class DefaultWorkflowAPI implements WorkflowAPI {
@@ -2043,13 +2033,12 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return BasicResponse.fromJson(value);
   }
 
-  Future<BasicResponse> createNotification(
-      NotificationRequest notificationRequest) async {
-    var url = "${hostname}${_pathPrefix}CreateNotification";
+  Future<BasicResponse> addEvent(AddEventRequest addEventRequest) async {
+    var url = "${hostname}${_pathPrefix}AddEvent";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(notificationRequest.toJson());
+    request.body = json.encode(addEventRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
@@ -2058,13 +2047,13 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return BasicResponse.fromJson(value);
   }
 
-  Future<BasicResponse> removeNotification(
-      RemoveNotificationRequest removeNotificationRequest) async {
-    var url = "${hostname}${_pathPrefix}RemoveNotification";
+  Future<BasicResponse> removeEvent(
+      RemoveEventRequest removeEventRequest) async {
+    var url = "${hostname}${_pathPrefix}RemoveEvent";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(removeNotificationRequest.toJson());
+    request.body = json.encode(removeEventRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);

@@ -52,8 +52,8 @@ service WorkflowAPI {
     rpc PauseEngines (Empty) returns (BasicResponse);
     rpc UnpauseEngines (Empty) returns (BasicResponse);
 
-    rpc CreateNotification (NotificationRequest) returns (BasicResponse);
-    rpc RemoveNotification (RemoveNotificationRequest) returns (BasicResponse);
+    rpc AddEvent (AddEventRequest) returns (BasicResponse);
+    rpc RemoveEvent (RemoveEventRequest) returns (BasicResponse);
 }
 
 message ProjectWorkflowRequest {
@@ -313,19 +313,17 @@ message CancelJobResponse {
     int64 canceledCount = 3;
 }
 
-message NotificationRequest {
+message AddEventRequest {
     string project = 1;
-    string type = 2;
-    bool onStart = 3;
-    bool onFailure = 4;
-    bool onSuccess = 5;
-    bool dailySummary = 6;
-    string address = 7;
-    map<string, string> options = 8;
+    bool onStart = 2;
+    bool onFailure = 3;
+    bool onSuccess = 4;
+    bool dailySummary = 5;
+    string url = 6;
+    map<string, string> extraHeaders = 7;
 }
 
-message RemoveNotificationRequest {
+message RemoveEventRequest {
     string project = 1;
-    string type = 2;
-    string address = 3;
+    string url = 2;
 }
