@@ -29,7 +29,7 @@ namespace Core {
             "bnZpcm9ubWVudBIQCgh3b3JrZmxvdxgCIAEoCRINCgVpbnB1dBgDIAEoDCIb",
             "ChlTdGVwUXVldWVXb3JrZmxvd1Jlc3BvbnNlIkkKDlN0ZXBMb2dSZXF1ZXN0",
             "Eg8KB21lc3NhZ2UYASABKAkSJgoLZW52aXJvbm1lbnQYAiABKAsyES5jb3Jl",
-            "LkVudmlyb25tZW50IhwKClN0ZXBPdXRwdXQSDgoGb3V0cHV0GAEgASgMMtEC",
+            "LkVudmlyb25tZW50IhwKClN0ZXBPdXRwdXQSDgoGb3V0cHV0GAEgASgMMp4D",
             "Cg1FbmdpbmVTdGVwQVBJEi4KBFBpbmcSEi5jb3JlLkVtcHR5TWVzc2FnZRoS",
             "LmNvcmUuRW1wdHlNZXNzYWdlEjwKCUNhY2hlUHVzaBIWLmNvcmUuQ2FjaGVQ",
             "dXNoUmVxdWVzdBoXLmNvcmUuQ2FjaGVQdXNoUmVzcG9uc2USPAoJQ2FjaGVQ",
@@ -37,11 +37,13 @@ namespace Core {
             "ZXNwb25zZRJCCgtDYWNoZVNlYXJjaBIYLmNvcmUuQ2FjaGVTZWFyY2hSZXF1",
             "ZXN0GhkuY29yZS5DYWNoZVNlYXJjaFJlc3BvbnNlElAKDVF1ZXVlV29ya2Zs",
             "b3cSHi5jb3JlLlN0ZXBRdWV1ZVdvcmtmbG93UmVxdWVzdBofLmNvcmUuU3Rl",
-            "cFF1ZXVlV29ya2Zsb3dSZXNwb25zZTJyCghTdGVwSG9zdBIxCgdSdW5TdGVw",
-            "EhQuY29yZS5SdW5TdGVwUmVxdWVzdBoQLmNvcmUuU3RlcE91dHB1dBIzCg5H",
-            "ZXRQYWNrYWdlSW5mbxISLmNvcmUuRW1wdHlNZXNzYWdlGg0uY29yZS5QYWNr",
-            "YWdlQjFaL2dpdGh1Yi5jb20vYXBwdHJlZXNvZnR3YXJlL2dvLXdvcmtmbG93",
-            "L3BrZy9jb3JlYgZwcm90bzM="));
+            "cFF1ZXVlV29ya2Zsb3dSZXNwb25zZRJLCg5HZXRXb3JrZmxvd1VybBIbLmNv",
+            "cmUuR2V0V29ya2Zsb3dVcmxSZXF1ZXN0GhwuY29yZS5HZXRXb3JrZmxvd1Vy",
+            "bFJlc3BvbnNlMnIKCFN0ZXBIb3N0EjEKB1J1blN0ZXASFC5jb3JlLlJ1blN0",
+            "ZXBSZXF1ZXN0GhAuY29yZS5TdGVwT3V0cHV0EjMKDkdldFBhY2thZ2VJbmZv",
+            "EhIuY29yZS5FbXB0eU1lc3NhZ2UaDS5jb3JlLlBhY2thZ2VCMVovZ2l0aHVi",
+            "LmNvbS9hcHB0cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtnL2NvcmViBnBy",
+            "b3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Core.CommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {

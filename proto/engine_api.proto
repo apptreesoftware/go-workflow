@@ -17,6 +17,7 @@ service EngineAPI {
     rpc GetStepPackage (StepPackageRequest) returns (StepPackageResponse);
 
     rpc SpawnWorkflow (SpawnWorkflowRequest) returns (SpawnWorkflowResponse);
+    rpc GetWorkflowUrl (GetWorkflowUrlRequest) returns (GetWorkflowUrlResponse);
 
     rpc CachePush (CachePushRequest) returns (CachePushResponse);
     rpc CachePull (CachePullRequest) returns (CachePullResponse);
@@ -27,7 +28,6 @@ service EngineAPI {
     rpc LogMessage (LogRequest) returns (LogResponse);
     rpc LogError (LogErrorRequest) returns (LogResponse);
 }
-
 
 message SpawnWorkflowRequest {
     Environment environment = 1;

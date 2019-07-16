@@ -1033,3 +1033,67 @@ class ListProjectResponse {
     return json.encode(toJson());
   }
 }
+
+class GetWorkflowUrlRequest {
+  GetWorkflowUrlRequest(
+    this.environment,
+    this.workflow,
+    this.params,
+  );
+
+  Environment environment;
+  String workflow;
+  Map<String, String> params;
+
+  factory GetWorkflowUrlRequest.fromJson(Map<String, dynamic> json) {
+    var paramsMap = new Map<String, String>();
+    (json['params'] as Map<String, dynamic>)?.forEach((key, val) {
+      if (val is String) {
+      } else if (val is num) {}
+    });
+
+    return new GetWorkflowUrlRequest(
+      new Environment.fromJson(json['environment']),
+      json['workflow'] as String,
+      paramsMap,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['environment'] = environment.toJson();
+    map['workflow'] = workflow;
+    map['params'] = json.decode(json.encode(params));
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class GetWorkflowUrlResponse {
+  GetWorkflowUrlResponse(
+    this.workflowUrl,
+  );
+
+  String workflowUrl;
+
+  factory GetWorkflowUrlResponse.fromJson(Map<String, dynamic> json) {
+    return new GetWorkflowUrlResponse(
+      json['workflowUrl'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['workflowUrl'] = workflowUrl;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}

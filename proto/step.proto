@@ -16,7 +16,7 @@ service EngineStepAPI {
     rpc CacheSearch (CacheSearchRequest) returns (CacheSearchResponse);
 
     rpc QueueWorkflow (StepQueueWorkflowRequest) returns (StepQueueWorkflowResponse);
-
+    rpc GetWorkflowUrl (GetWorkflowUrlRequest) returns (GetWorkflowUrlResponse);
 }
 
 service StepHost {

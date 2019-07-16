@@ -32,3 +32,8 @@ func (NoOpEngine) CacheSearch(ctx context.Context, in *CacheSearchRequest, opts 
 	println("NoOpEngine - CacheSearch")
 	return &CacheSearchResponse{}, nil
 }
+
+func (NoOpEngine) GetWorkflowUrl(ctx context.Context, in *GetWorkflowUrlRequest, opts ...grpc.CallOption) (*GetWorkflowUrlResponse, error) {
+	println("NoOpEngine - GetWorkflowUrl")
+	return &GetWorkflowUrlResponse{}, nil
+}
