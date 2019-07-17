@@ -82,8 +82,14 @@ namespace Core {
             "CgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAkiBwoFRW1wdHkiLAoY",
             "QWxsUGFja2FnZXNOYW1lc1Jlc3BvbnNlEhAKCHBhY2thZ2VzGAEgAygJIkkK",
             "E0xpc3RQcm9qZWN0UmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNz",
-            "YWdlGAIgASgJEhAKCHByb2plY3RzGAMgAygJQjFaL2dpdGh1Yi5jb20vYXBw",
-            "dHJlZXNvZnR3YXJlL2dvLXdvcmtmbG93L3BrZy9jb3JlYgZwcm90bzM="));
+            "YWdlGAIgASgJEhAKCHByb2plY3RzGAMgAygJIrkBChVHZXRXb3JrZmxvd1Vy",
+            "bFJlcXVlc3QSJgoLZW52aXJvbm1lbnQYASABKAsyES5jb3JlLkVudmlyb25t",
+            "ZW50EhAKCHdvcmtmbG93GAIgASgJEjcKBnBhcmFtcxgDIAMoCzInLmNvcmUu",
+            "R2V0V29ya2Zsb3dVcmxSZXF1ZXN0LlBhcmFtc0VudHJ5Gi0KC1BhcmFtc0Vu",
+            "dHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEiLQoWR2V0V29y",
+            "a2Zsb3dVcmxSZXNwb25zZRITCgt3b3JrZmxvd1VybBgBIAEoCUIxWi9naXRo",
+            "dWIuY29tL2FwcHRyZWVzb2Z0d2FyZS9nby13b3JrZmxvdy9wa2cvY29yZWIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -118,7 +124,9 @@ namespace Core {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.BasicResponse), global::Core.BasicResponse.Parser, new[]{ "Success", "Message" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.Empty), global::Core.Empty.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.AllPackagesNamesResponse), global::Core.AllPackagesNamesResponse.Parser, new[]{ "Packages" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.ListProjectResponse), global::Core.ListProjectResponse.Parser, new[]{ "Success", "Message", "Projects" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.ListProjectResponse), global::Core.ListProjectResponse.Parser, new[]{ "Success", "Message", "Projects" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.GetWorkflowUrlRequest), global::Core.GetWorkflowUrlRequest.Parser, new[]{ "Environment", "Workflow", "Params" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.GetWorkflowUrlResponse), global::Core.GetWorkflowUrlResponse.Parser, new[]{ "WorkflowUrl" }, null, null, null)
           }));
     }
     #endregion
@@ -5767,6 +5775,318 @@ namespace Core {
           }
           case 26: {
             projects_.AddEntriesFrom(input, _repeated_projects_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GetWorkflowUrlRequest : pb::IMessage<GetWorkflowUrlRequest> {
+    private static readonly pb::MessageParser<GetWorkflowUrlRequest> _parser = new pb::MessageParser<GetWorkflowUrlRequest>(() => new GetWorkflowUrlRequest());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GetWorkflowUrlRequest> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[32]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetWorkflowUrlRequest() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetWorkflowUrlRequest(GetWorkflowUrlRequest other) : this() {
+      environment_ = other.environment_ != null ? other.environment_.Clone() : null;
+      workflow_ = other.workflow_;
+      params_ = other.params_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetWorkflowUrlRequest Clone() {
+      return new GetWorkflowUrlRequest(this);
+    }
+
+    /// <summary>Field number for the "environment" field.</summary>
+    public const int EnvironmentFieldNumber = 1;
+    private global::Core.Environment environment_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Core.Environment Environment {
+      get { return environment_; }
+      set {
+        environment_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "workflow" field.</summary>
+    public const int WorkflowFieldNumber = 2;
+    private string workflow_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Workflow {
+      get { return workflow_; }
+      set {
+        workflow_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "params" field.</summary>
+    public const int ParamsFieldNumber = 3;
+    private static readonly pbc::MapField<string, string>.Codec _map_params_codec
+        = new pbc::MapField<string, string>.Codec(pb::FieldCodec.ForString(10), pb::FieldCodec.ForString(18), 26);
+    private readonly pbc::MapField<string, string> params_ = new pbc::MapField<string, string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::MapField<string, string> Params {
+      get { return params_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GetWorkflowUrlRequest);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GetWorkflowUrlRequest other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (!object.Equals(Environment, other.Environment)) return false;
+      if (Workflow != other.Workflow) return false;
+      if (!Params.Equals(other.Params)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (environment_ != null) hash ^= Environment.GetHashCode();
+      if (Workflow.Length != 0) hash ^= Workflow.GetHashCode();
+      hash ^= Params.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (environment_ != null) {
+        output.WriteRawTag(10);
+        output.WriteMessage(Environment);
+      }
+      if (Workflow.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Workflow);
+      }
+      params_.WriteTo(output, _map_params_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (environment_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Environment);
+      }
+      if (Workflow.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Workflow);
+      }
+      size += params_.CalculateSize(_map_params_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GetWorkflowUrlRequest other) {
+      if (other == null) {
+        return;
+      }
+      if (other.environment_ != null) {
+        if (environment_ == null) {
+          environment_ = new global::Core.Environment();
+        }
+        Environment.MergeFrom(other.Environment);
+      }
+      if (other.Workflow.Length != 0) {
+        Workflow = other.Workflow;
+      }
+      params_.Add(other.params_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            if (environment_ == null) {
+              environment_ = new global::Core.Environment();
+            }
+            input.ReadMessage(environment_);
+            break;
+          }
+          case 18: {
+            Workflow = input.ReadString();
+            break;
+          }
+          case 26: {
+            params_.AddEntriesFrom(input, _map_params_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class GetWorkflowUrlResponse : pb::IMessage<GetWorkflowUrlResponse> {
+    private static readonly pb::MessageParser<GetWorkflowUrlResponse> _parser = new pb::MessageParser<GetWorkflowUrlResponse>(() => new GetWorkflowUrlResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GetWorkflowUrlResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[33]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetWorkflowUrlResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetWorkflowUrlResponse(GetWorkflowUrlResponse other) : this() {
+      workflowUrl_ = other.workflowUrl_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GetWorkflowUrlResponse Clone() {
+      return new GetWorkflowUrlResponse(this);
+    }
+
+    /// <summary>Field number for the "workflowUrl" field.</summary>
+    public const int WorkflowUrlFieldNumber = 1;
+    private string workflowUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string WorkflowUrl {
+      get { return workflowUrl_; }
+      set {
+        workflowUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GetWorkflowUrlResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GetWorkflowUrlResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (WorkflowUrl != other.WorkflowUrl) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (WorkflowUrl.Length != 0) hash ^= WorkflowUrl.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (WorkflowUrl.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(WorkflowUrl);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (WorkflowUrl.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(WorkflowUrl);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GetWorkflowUrlResponse other) {
+      if (other == null) {
+        return;
+      }
+      if (other.WorkflowUrl.Length != 0) {
+        WorkflowUrl = other.WorkflowUrl;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            WorkflowUrl = input.ReadString();
             break;
           }
         }

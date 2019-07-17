@@ -110,3 +110,17 @@ func (c *Engine) Find(filter interface{}, cacheName string, limit int64) ([]*Raw
 	}
 	return resp.Records, nil
 }
+
+func (c *Engine) GetWorkflowUrl(workflow string, params map[string]string) (string, error) {
+	urlRequest := &GetWorkflowUrlRequest{
+		Environment: c.environment,
+		Workflow: workflow,
+		Params: params,
+	}
+
+	resp, err := c.client.GetWorkflowUrl(context.Background(), urlRequest)
+	if err != nil {
+		return "", err
+	}
+	return resp.WorkflowUrl, nil
+}

@@ -189,3 +189,12 @@ message ListProjectResponse {
     repeated string projects = 3;
 }
 
+message GetWorkflowUrlRequest {
+    Environment environment = 1;
+    string workflow = 2;
+    map<string, string> params = 3;
+}
+
+message GetWorkflowUrlResponse {
+    string workflowUrl = 1;
+}

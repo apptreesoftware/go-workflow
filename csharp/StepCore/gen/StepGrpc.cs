@@ -24,6 +24,8 @@ namespace Core {
     static readonly grpc::Marshaller<global::Core.CacheSearchResponse> __Marshaller_core_CacheSearchResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.CacheSearchResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.StepQueueWorkflowRequest> __Marshaller_core_StepQueueWorkflowRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.StepQueueWorkflowRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Core.StepQueueWorkflowResponse> __Marshaller_core_StepQueueWorkflowResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.StepQueueWorkflowResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Core.GetWorkflowUrlRequest> __Marshaller_core_GetWorkflowUrlRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.GetWorkflowUrlRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Core.GetWorkflowUrlResponse> __Marshaller_core_GetWorkflowUrlResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Core.GetWorkflowUrlResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::Core.EmptyMessage, global::Core.EmptyMessage> __Method_Ping = new grpc::Method<global::Core.EmptyMessage, global::Core.EmptyMessage>(
         grpc::MethodType.Unary,
@@ -60,6 +62,13 @@ namespace Core {
         __Marshaller_core_StepQueueWorkflowRequest,
         __Marshaller_core_StepQueueWorkflowResponse);
 
+    static readonly grpc::Method<global::Core.GetWorkflowUrlRequest, global::Core.GetWorkflowUrlResponse> __Method_GetWorkflowUrl = new grpc::Method<global::Core.GetWorkflowUrlRequest, global::Core.GetWorkflowUrlResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "GetWorkflowUrl",
+        __Marshaller_core_GetWorkflowUrlRequest,
+        __Marshaller_core_GetWorkflowUrlResponse);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -90,6 +99,11 @@ namespace Core {
       }
 
       public virtual global::System.Threading.Tasks.Task<global::Core.StepQueueWorkflowResponse> QueueWorkflow(global::Core.StepQueueWorkflowRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Core.GetWorkflowUrlResponse> GetWorkflowUrl(global::Core.GetWorkflowUrlRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -199,6 +213,22 @@ namespace Core {
       {
         return CallInvoker.AsyncUnaryCall(__Method_QueueWorkflow, null, options, request);
       }
+      public virtual global::Core.GetWorkflowUrlResponse GetWorkflowUrl(global::Core.GetWorkflowUrlRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetWorkflowUrl(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Core.GetWorkflowUrlResponse GetWorkflowUrl(global::Core.GetWorkflowUrlRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_GetWorkflowUrl, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.GetWorkflowUrlResponse> GetWorkflowUrlAsync(global::Core.GetWorkflowUrlRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return GetWorkflowUrlAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Core.GetWorkflowUrlResponse> GetWorkflowUrlAsync(global::Core.GetWorkflowUrlRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_GetWorkflowUrl, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override EngineStepAPIClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -215,7 +245,8 @@ namespace Core {
           .AddMethod(__Method_CachePush, serviceImpl.CachePush)
           .AddMethod(__Method_CachePull, serviceImpl.CachePull)
           .AddMethod(__Method_CacheSearch, serviceImpl.CacheSearch)
-          .AddMethod(__Method_QueueWorkflow, serviceImpl.QueueWorkflow).Build();
+          .AddMethod(__Method_QueueWorkflow, serviceImpl.QueueWorkflow)
+          .AddMethod(__Method_GetWorkflowUrl, serviceImpl.GetWorkflowUrl).Build();
     }
 
     /// <summary>Register service method implementations with a service binder. Useful when customizing the service binding logic.
@@ -229,6 +260,7 @@ namespace Core {
       serviceBinder.AddMethod(__Method_CachePull, serviceImpl.CachePull);
       serviceBinder.AddMethod(__Method_CacheSearch, serviceImpl.CacheSearch);
       serviceBinder.AddMethod(__Method_QueueWorkflow, serviceImpl.QueueWorkflow);
+      serviceBinder.AddMethod(__Method_GetWorkflowUrl, serviceImpl.GetWorkflowUrl);
     }
 
   }
