@@ -198,3 +198,8 @@ message GetWorkflowUrlRequest {
 message GetWorkflowUrlResponse {
     string workflowUrl = 1;
 }
+
+message SpawnTrailEntry {
+    string workflow = 1;
+    string jobId = 2;
+}

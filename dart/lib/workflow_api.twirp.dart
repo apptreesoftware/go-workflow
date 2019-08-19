@@ -193,28 +193,40 @@ class ProjectValue {
   }
 }
 
-class WorkflowHistoryRequest {
-  WorkflowHistoryRequest(
+class JobSearch {
+  JobSearch(
     this.project,
     this.workflow,
-    this.offset,
-    this.count,
     this.jobId,
+    this.spawnedFromJobId,
+    this.status,
+    this.fromDate,
+    this.toDate,
+    this.count,
+    this.offset,
   );
 
   String project;
   String workflow;
-  int offset;
-  int count;
   String jobId;
+  String spawnedFromJobId;
+  String status;
+  int fromDate;
+  int toDate;
+  int count;
+  int offset;
 
-  factory WorkflowHistoryRequest.fromJson(Map<String, dynamic> json) {
-    return new WorkflowHistoryRequest(
+  factory JobSearch.fromJson(Map<String, dynamic> json) {
+    return new JobSearch(
       json['project'] as String,
       json['workflow'] as String,
-      json['offset'] as int,
-      json['count'] as int,
       json['jobId'] as String,
+      json['spawnedFromJobId'] as String,
+      json['status'] as String,
+      json['fromDate'] as int,
+      json['toDate'] as int,
+      json['count'] as int,
+      json['offset'] as int,
     );
   }
 
@@ -222,9 +234,13 @@ class WorkflowHistoryRequest {
     var map = new Map<String, dynamic>();
     map['project'] = project;
     map['workflow'] = workflow;
-    map['offset'] = offset;
-    map['count'] = count;
     map['jobId'] = jobId;
+    map['spawnedFromJobId'] = spawnedFromJobId;
+    map['status'] = status;
+    map['fromDate'] = fromDate;
+    map['toDate'] = toDate;
+    map['count'] = count;
+    map['offset'] = offset;
     return map;
   }
 
@@ -234,26 +250,30 @@ class WorkflowHistoryRequest {
   }
 }
 
-class WorkflowHistoryResponse {
-  WorkflowHistoryResponse(
+class JobSearchResponse {
+  JobSearchResponse(
     this.items,
+    this.moreAvailable,
   );
 
-  List<WorkflowHistory> items;
+  List<JobSearchResult> items;
+  bool moreAvailable;
 
-  factory WorkflowHistoryResponse.fromJson(Map<String, dynamic> json) {
-    return new WorkflowHistoryResponse(
+  factory JobSearchResponse.fromJson(Map<String, dynamic> json) {
+    return new JobSearchResponse(
       json['items'] != null
           ? (json['items'] as List)
-              .map((d) => new WorkflowHistory.fromJson(d))
+              .map((d) => new JobSearchResult.fromJson(d))
               .toList()
-          : <WorkflowHistory>[],
+          : <JobSearchResult>[],
+      json['moreAvailable'] as bool,
     );
   }
 
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['items'] = items?.map((l) => l.toJson())?.toList();
+    map['moreAvailable'] = moreAvailable;
     return map;
   }
 
@@ -263,19 +283,21 @@ class WorkflowHistoryResponse {
   }
 }
 
-class WorkflowHistory {
-  WorkflowHistory(
+class JobSearchResult {
+  JobSearchResult(
     this.id,
     this.success,
     this.start,
     this.end,
     this.duration,
-    this.failureReason,
+    this.failureInfo,
     this.project,
     this.workflow,
     this.triggerType,
-    this.parentItem,
     this.input,
+    this.spawnCount,
+    this.spawnTrail,
+    this.statusMessage,
   );
 
   String id;
@@ -283,26 +305,34 @@ class WorkflowHistory {
   int start;
   int end;
   double duration;
-  String failureReason;
+  JobFailureInfo failureInfo;
   String project;
   String workflow;
   String triggerType;
-  String parentItem;
   String input;
+  int spawnCount;
+  List<SpawnTrailEntry> spawnTrail;
+  String statusMessage;
 
-  factory WorkflowHistory.fromJson(Map<String, dynamic> json) {
-    return new WorkflowHistory(
+  factory JobSearchResult.fromJson(Map<String, dynamic> json) {
+    return new JobSearchResult(
       json['id'] as String,
       json['success'] as bool,
       json['start'] as int,
       json['end'] as int,
       json['duration'] as double,
-      json['failureReason'] as String,
+      new JobFailureInfo.fromJson(json['failureInfo']),
       json['project'] as String,
       json['workflow'] as String,
       json['triggerType'] as String,
-      json['parentItem'] as String,
       json['input'] as String,
+      json['spawnCount'] as int,
+      json['spawnTrail'] != null
+          ? (json['spawnTrail'] as List)
+              .map((d) => new SpawnTrailEntry.fromJson(d))
+              .toList()
+          : <SpawnTrailEntry>[],
+      json['statusMessage'] as String,
     );
   }
 
@@ -313,12 +343,51 @@ class WorkflowHistory {
     map['start'] = start;
     map['end'] = end;
     map['duration'] = duration;
-    map['failureReason'] = failureReason;
+    map['failureInfo'] = failureInfo.toJson();
     map['project'] = project;
     map['workflow'] = workflow;
     map['triggerType'] = triggerType;
-    map['parentItem'] = parentItem;
     map['input'] = input;
+    map['spawnCount'] = spawnCount;
+    map['spawnTrail'] = spawnTrail?.map((l) => l.toJson())?.toList();
+    map['statusMessage'] = statusMessage;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class JobFailureInfo {
+  JobFailureInfo(
+    this.stepIndex,
+    this.message,
+    this.stepInput,
+    this.stepName,
+  );
+
+  int stepIndex;
+  String message;
+  String stepInput;
+  String stepName;
+
+  factory JobFailureInfo.fromJson(Map<String, dynamic> json) {
+    return new JobFailureInfo(
+      json['stepIndex'] as int,
+      json['message'] as String,
+      json['stepInput'] as String,
+      json['stepName'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['stepIndex'] = stepIndex;
+    map['message'] = message;
+    map['stepInput'] = stepInput;
+    map['stepName'] = stepName;
     return map;
   }
 
@@ -1546,8 +1615,7 @@ abstract class WorkflowAPI {
   Future<ViewLogResponse> viewJobLog(ViewLogRequest viewLogRequest);
   Future<ViewJobDetailResponse> viewJobDetail(
       ViewJobDetailRequest viewJobDetailRequest);
-  Future<WorkflowHistoryResponse> getWorkflowHistory(
-      WorkflowHistoryRequest workflowHistoryRequest);
+  Future<JobSearchResponse> searchJobs(JobSearch jobSearch);
   Future<BasicResponse> storeValue(StoreValueRequest storeValueRequest);
   Future<BasicResponse> deleteValue(DeleteValueRequest deleteValueRequest);
   Future<ValueResponse> getValues(ProjectValuesRequest projectValuesRequest);
@@ -1857,19 +1925,18 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     return ViewJobDetailResponse.fromJson(value);
   }
 
-  Future<WorkflowHistoryResponse> getWorkflowHistory(
-      WorkflowHistoryRequest workflowHistoryRequest) async {
-    var url = "${hostname}${_pathPrefix}GetWorkflowHistory";
+  Future<JobSearchResponse> searchJobs(JobSearch jobSearch) async {
+    var url = "${hostname}${_pathPrefix}SearchJobs";
     var uri = Uri.parse(url);
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(workflowHistoryRequest.toJson());
+    request.body = json.encode(jobSearch.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
     }
     var value = json.decode(response.body);
-    return WorkflowHistoryResponse.fromJson(value);
+    return JobSearchResponse.fromJson(value);
   }
 
   Future<BasicResponse> storeValue(StoreValueRequest storeValueRequest) async {

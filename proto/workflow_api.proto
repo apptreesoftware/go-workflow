@@ -36,7 +36,7 @@ service WorkflowAPI {
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
     rpc ViewJobDetail (ViewJobDetailRequest) returns (ViewJobDetailResponse);
 
-    rpc GetWorkflowHistory (WorkflowHistoryRequest) returns (WorkflowHistoryResponse);
+    rpc SearchJobs(JobSearch) returns (JobSearchResponse);
 
     rpc StoreValue (StoreValueRequest) returns (BasicResponse);
     rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
@@ -90,30 +90,43 @@ message ProjectValue {
     bool isEncrypted = 4;
 }
 
-message WorkflowHistoryRequest {
+message JobSearch {
     string project = 1;
     string workflow = 2;
-    int64 offset = 3;
-    int64 count = 4;
-    string jobId = 5;
+    string jobId = 3;
+    string spawnedFromJobId = 4;
+    JobStatus status = 5;
+    int64 fromDate = 6;
+    int64 toDate = 7;
+    int64 count = 8;
+    int64 offset = 9;
 }
 
-message WorkflowHistoryResponse {
-    repeated WorkflowHistory items = 1;
+message JobSearchResponse {
+    repeated JobSearchResult items = 1;
+    bool moreAvailable = 2;
 }
 
-message WorkflowHistory {
+message JobSearchResult {
     string id = 1;
     bool success = 2;
     int64 start = 3;
     int64 end = 4;
     double duration = 5;
-    string failureReason = 6;
+    JobFailureInfo failureInfo = 6;
     string project = 7;
     string workflow = 8;
     string triggerType = 9;
-    string parentItem = 10;
     string input = 11;
+    int64 spawnCount = 12;
+    repeated SpawnTrailEntry spawnTrail = 13;
+}
+
+message JobFailureInfo {
+    int64 stepIndex = 1;
+    string message = 2;
+    string stepInput = 3;
+    string stepName = 4;
 }
 
 message RemoteEngineUpdateRequest {
@@ -130,6 +143,11 @@ message RemoteEngineUpdateResponse {
     string arch = 4;
 }
 
+enum JobStatus {
+    ALL = 0;
+    SUCCESS = 1;
+    FAIL = 2;
+}
 
 message RemoteEngineHealthRequest {
     string name = 1;

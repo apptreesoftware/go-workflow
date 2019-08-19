@@ -1097,3 +1097,32 @@ class GetWorkflowUrlResponse {
     return json.encode(toJson());
   }
 }
+
+class SpawnTrailEntry {
+  SpawnTrailEntry(
+    this.workflow,
+    this.jobId,
+  );
+
+  String workflow;
+  String jobId;
+
+  factory SpawnTrailEntry.fromJson(Map<String, dynamic> json) {
+    return new SpawnTrailEntry(
+      json['workflow'] as String,
+      json['jobId'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['workflow'] = workflow;
+    map['jobId'] = jobId;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}

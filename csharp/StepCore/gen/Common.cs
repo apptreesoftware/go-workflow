@@ -87,9 +87,10 @@ namespace Core {
             "ZW50EhAKCHdvcmtmbG93GAIgASgJEjcKBnBhcmFtcxgDIAMoCzInLmNvcmUu",
             "R2V0V29ya2Zsb3dVcmxSZXF1ZXN0LlBhcmFtc0VudHJ5Gi0KC1BhcmFtc0Vu",
             "dHJ5EgsKA2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEiLQoWR2V0V29y",
-            "a2Zsb3dVcmxSZXNwb25zZRITCgt3b3JrZmxvd1VybBgBIAEoCUIxWi9naXRo",
-            "dWIuY29tL2FwcHRyZWVzb2Z0d2FyZS9nby13b3JrZmxvdy9wa2cvY29yZWIG",
-            "cHJvdG8z"));
+            "a2Zsb3dVcmxSZXNwb25zZRITCgt3b3JrZmxvd1VybBgBIAEoCSIyCg9TcGF3",
+            "blRyYWlsRW50cnkSEAoId29ya2Zsb3cYASABKAkSDQoFam9iSWQYAiABKAlC",
+            "MVovZ2l0aHViLmNvbS9hcHB0cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtn",
+            "L2NvcmViBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -126,7 +127,8 @@ namespace Core {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.AllPackagesNamesResponse), global::Core.AllPackagesNamesResponse.Parser, new[]{ "Packages" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.ListProjectResponse), global::Core.ListProjectResponse.Parser, new[]{ "Success", "Message", "Projects" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.GetWorkflowUrlRequest), global::Core.GetWorkflowUrlRequest.Parser, new[]{ "Environment", "Workflow", "Params" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.GetWorkflowUrlResponse), global::Core.GetWorkflowUrlResponse.Parser, new[]{ "WorkflowUrl" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.GetWorkflowUrlResponse), global::Core.GetWorkflowUrlResponse.Parser, new[]{ "WorkflowUrl" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.SpawnTrailEntry), global::Core.SpawnTrailEntry.Parser, new[]{ "Workflow", "JobId" }, null, null, null)
           }));
     }
     #endregion
@@ -6087,6 +6089,163 @@ namespace Core {
             break;
           case 10: {
             WorkflowUrl = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class SpawnTrailEntry : pb::IMessage<SpawnTrailEntry> {
+    private static readonly pb::MessageParser<SpawnTrailEntry> _parser = new pb::MessageParser<SpawnTrailEntry>(() => new SpawnTrailEntry());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<SpawnTrailEntry> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Core.CommonReflection.Descriptor.MessageTypes[34]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SpawnTrailEntry() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SpawnTrailEntry(SpawnTrailEntry other) : this() {
+      workflow_ = other.workflow_;
+      jobId_ = other.jobId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SpawnTrailEntry Clone() {
+      return new SpawnTrailEntry(this);
+    }
+
+    /// <summary>Field number for the "workflow" field.</summary>
+    public const int WorkflowFieldNumber = 1;
+    private string workflow_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Workflow {
+      get { return workflow_; }
+      set {
+        workflow_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "jobId" field.</summary>
+    public const int JobIdFieldNumber = 2;
+    private string jobId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string JobId {
+      get { return jobId_; }
+      set {
+        jobId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as SpawnTrailEntry);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(SpawnTrailEntry other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Workflow != other.Workflow) return false;
+      if (JobId != other.JobId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Workflow.Length != 0) hash ^= Workflow.GetHashCode();
+      if (JobId.Length != 0) hash ^= JobId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Workflow.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteString(Workflow);
+      }
+      if (JobId.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(JobId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Workflow.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Workflow);
+      }
+      if (JobId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(JobId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(SpawnTrailEntry other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Workflow.Length != 0) {
+        Workflow = other.Workflow;
+      }
+      if (other.JobId.Length != 0) {
+        JobId = other.JobId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            Workflow = input.ReadString();
+            break;
+          }
+          case 18: {
+            JobId = input.ReadString();
             break;
           }
         }
