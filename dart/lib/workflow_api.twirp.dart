@@ -204,6 +204,7 @@ class JobSearch {
     this.toDate,
     this.count,
     this.offset,
+    this.includeStorage,
   );
 
   String project;
@@ -215,6 +216,7 @@ class JobSearch {
   int toDate;
   int count;
   int offset;
+  bool includeStorage;
 
   factory JobSearch.fromJson(Map<String, dynamic> json) {
     return new JobSearch(
@@ -227,6 +229,7 @@ class JobSearch {
       json['toDate'] as int,
       json['count'] as int,
       json['offset'] as int,
+      json['includeStorage'] as bool,
     );
   }
 
@@ -241,6 +244,7 @@ class JobSearch {
     map['toDate'] = toDate;
     map['count'] = count;
     map['offset'] = offset;
+    map['includeStorage'] = includeStorage;
     return map;
   }
 
@@ -299,6 +303,8 @@ class JobSearchResult {
     this.spawnTrail,
     this.statusMessage,
     this.steps,
+    this.storage,
+    this.trigger,
   );
 
   String id;
@@ -315,6 +321,8 @@ class JobSearchResult {
   List<SpawnTrailEntry> spawnTrail;
   String statusMessage;
   List<JobStepSummary> steps;
+  String storage;
+  String trigger;
 
   factory JobSearchResult.fromJson(Map<String, dynamic> json) {
     return new JobSearchResult(
@@ -340,6 +348,8 @@ class JobSearchResult {
               .map((d) => new JobStepSummary.fromJson(d))
               .toList()
           : <JobStepSummary>[],
+      json['storage'] as String,
+      json['trigger'] as String,
     );
   }
 
@@ -359,6 +369,8 @@ class JobSearchResult {
     map['spawnTrail'] = spawnTrail?.map((l) => l.toJson())?.toList();
     map['statusMessage'] = statusMessage;
     map['steps'] = steps?.map((l) => l.toJson())?.toList();
+    map['storage'] = storage;
+    map['trigger'] = trigger;
     return map;
   }
 
