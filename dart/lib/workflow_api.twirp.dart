@@ -298,6 +298,7 @@ class JobSearchResult {
     this.spawnCount,
     this.spawnTrail,
     this.statusMessage,
+    this.steps,
   );
 
   String id;
@@ -313,6 +314,7 @@ class JobSearchResult {
   int spawnCount;
   List<SpawnTrailEntry> spawnTrail;
   String statusMessage;
+  List<JobStepSummary> steps;
 
   factory JobSearchResult.fromJson(Map<String, dynamic> json) {
     return new JobSearchResult(
@@ -333,6 +335,11 @@ class JobSearchResult {
               .toList()
           : <SpawnTrailEntry>[],
       json['statusMessage'] as String,
+      json['steps'] != null
+          ? (json['steps'] as List)
+              .map((d) => new JobStepSummary.fromJson(d))
+              .toList()
+          : <JobStepSummary>[],
     );
   }
 
@@ -351,6 +358,44 @@ class JobSearchResult {
     map['spawnCount'] = spawnCount;
     map['spawnTrail'] = spawnTrail?.map((l) => l.toJson())?.toList();
     map['statusMessage'] = statusMessage;
+    map['steps'] = steps?.map((l) => l.toJson())?.toList();
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class JobStepSummary {
+  JobStepSummary(
+    this.stepId,
+    this.duration,
+    this.status,
+    this.message,
+  );
+
+  String stepId;
+  double duration;
+  String status;
+  String message;
+
+  factory JobStepSummary.fromJson(Map<String, dynamic> json) {
+    return new JobStepSummary(
+      json['stepId'] as String,
+      json['duration'] as double,
+      json['status'] as String,
+      json['message'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['stepId'] = stepId;
+    map['duration'] = duration;
+    map['status'] = status;
+    map['message'] = message;
     return map;
   }
 
@@ -912,15 +957,18 @@ class RetryJobRequest {
   RetryJobRequest(
     this.project,
     this.jobId,
+    this.stepIndex,
   );
 
   String project;
   String jobId;
+  int stepIndex;
 
   factory RetryJobRequest.fromJson(Map<String, dynamic> json) {
     return new RetryJobRequest(
       json['project'] as String,
       json['jobId'] as String,
+      json['stepIndex'] as int,
     );
   }
 
@@ -928,6 +976,7 @@ class RetryJobRequest {
     var map = new Map<String, dynamic>();
     map['project'] = project;
     map['jobId'] = jobId;
+    map['stepIndex'] = stepIndex;
     return map;
   }
 

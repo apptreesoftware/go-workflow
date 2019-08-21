@@ -36,7 +36,7 @@ service WorkflowAPI {
     rpc ViewJobLog (ViewLogRequest) returns (ViewLogResponse);
     rpc ViewJobDetail (ViewJobDetailRequest) returns (ViewJobDetailResponse);
 
-    rpc SearchJobs(JobSearch) returns (JobSearchResponse);
+    rpc SearchJobs (JobSearch) returns (JobSearchResponse);
 
     rpc StoreValue (StoreValueRequest) returns (BasicResponse);
     rpc DeleteValue (DeleteValueRequest) returns (BasicResponse);
@@ -120,6 +120,15 @@ message JobSearchResult {
     string input = 11;
     int64 spawnCount = 12;
     repeated SpawnTrailEntry spawnTrail = 13;
+    string statusMessage = 14;
+    repeated JobStepSummary steps = 15;
+}
+
+message JobStepSummary {
+    string stepId = 1;
+    double duration = 2;
+    string status = 3;
+    string message = 4;
 }
 
 message JobFailureInfo {
@@ -230,6 +239,7 @@ message RetryWorkflowResponse {
 message RetryJobRequest {
     string project = 1;
     string jobId = 2;
+    int64 stepIndex = 3;
 }
 
 message PublishWorkflowRequest {
