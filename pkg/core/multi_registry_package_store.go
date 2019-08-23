@@ -1,6 +1,5 @@
 package core
 
-
 import (
 	"context"
 	"fmt"
@@ -122,4 +121,13 @@ func (p MultiRegistryPackageStore) GetPackageInfoForLibrary(ctx context.Context,
 		}
 	}
 	return nil, xerrors.Errorf("Package not found: %s", req.PackageName)
+}
+
+func (p MultiRegistryPackageStore) SyncPackageSteps(ctx context.Context, req *Empty) (*Empty, error) {
+	for _, v := range p.registries {
+		if _, err := v.SyncPackageSteps(ctx, req); err != nil {
+			return &Empty{}, xerrors.Errorf("Unable to sync steps from multi registry store: %v", err)
+		}
+	}
+	return &Empty{}, nil
 }

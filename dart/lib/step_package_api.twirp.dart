@@ -64,6 +64,7 @@ abstract class PackageRegistry {
       GetAllPackagesInfoRequest getAllPackagesInfoRequest);
   Future<GetPackageInfoResponse> getPackageInfoForLibrary(
       GetPackageInfoRequest getPackageInfoRequest);
+  Future<Empty> syncPackageSteps(Empty empty);
 }
 
 class DefaultPackageRegistry implements PackageRegistry {
@@ -211,6 +212,20 @@ class DefaultPackageRegistry implements PackageRegistry {
     }
     var value = json.decode(response.body);
     return GetPackageInfoResponse.fromJson(value);
+  }
+
+  Future<Empty> syncPackageSteps(Empty empty) async {
+    var url = "${hostname}${_pathPrefix}SyncPackageSteps";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(empty.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return Empty.fromJson(value);
   }
 
   Exception twirpException(Response response) {

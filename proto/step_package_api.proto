@@ -18,6 +18,8 @@ service PackageRegistry {
     rpc GetPackageSteps (GetStepsForPackageRequest) returns (GetStepsForPackageResponse);
     rpc GetAllPackageNamesForLibrary (GetAllPackagesInfoRequest) returns (GetAllPackagesInfoResponse);
     rpc GetPackageInfoForLibrary (GetPackageInfoRequest) returns (GetPackageInfoResponse);
+
+    rpc SyncPackageSteps (Empty) returns (Empty);
 }
 
 message RegisteredPackage {
