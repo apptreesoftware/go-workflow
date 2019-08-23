@@ -1,4 +1,6 @@
 all: build
+build-node: |
+	grpc_tools_node_protoc -I proto --js_out=import_style=commonjs,binary:node/gen --grpc_out=node/gen --plugin=protoc-gen-grpc=`which grpc_tools_node_protoc_plugin` common.proto step.proto
 build: |
 	#Generate common models
 	protoc -I proto --go_out=paths=source_relative:pkg/core common.proto
@@ -9,7 +11,8 @@ build: |
 
 
 	protoc -I proto --plugin=protoc-gen-grpc=${HOME}/.nuget/packages/grpc.tools/1.17.1/tools/macosx_x64/grpc_csharp_plugin --grpc_out csharp/StepCore/gen --csharp_out=csharp/StepCore/gen step.proto common.proto
-
+	
+	protoc -I proto --js_out=library=workflow,binary:node/gen  step.proto common.proto
 
 	##GRPC APIs
 	protoc -I proto --go_out=paths=source_relative,plugins=grpc:pkg/core remote_engine.proto step.proto
