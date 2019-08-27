@@ -141,7 +141,7 @@ function runStep(call, callback) {
     const reply = new proto.core.StepOutput();
     const input = call.request.getInput();
     const env = call.request.getEnvironment();
-    const stepId = `${env.getStepname()}-${env.getStepversion()}`;
+    const stepId = `${env.getStepname()}@${env.getStepversion()}`;
     const step = steps[stepId];
     const dec = new TextDecoder();
     const enc = new TextEncoder();
