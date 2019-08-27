@@ -7,8 +7,25 @@ const fs = require("fs");
 const steps = {};
 const yargs = require('yargs');
 
+
+module.exports.runId = process.env['RUN_ID'];
 module.exports.addStep = function (name, version, func) {
     steps[`${name}@${version}`] = func;
+};
+
+module.exports.validateInputs = function(...inputNames) {
+    let inputArray = [];
+    if (Array.isArray(inputNames)) {
+        inputArray = inputNames;
+    } else {
+        inputArray = [inputNames];
+    }
+    for (let name of inputArray) {
+        let val = module.exports.stepInput[name];
+        if (val == null) {
+            throw `Input '${name}' is required but not defined`;
+        }
+    }
 };
 
 module.exports.run = async function () {
@@ -48,7 +65,9 @@ function _runIPCMode() {
     if (args['step'] != null) {
         name = args['step'];
     }
-
+    if (args['debug'] === true) {
+        module.exports.debug = true
+    }
     const stepId = `${name}@${version}`;
     const step = steps[stepId];
     if (step == null) {
@@ -100,6 +119,7 @@ function _runIPCMode() {
 function _runIPCWithInput(step, input, outputPath) {
     try {
         const parsedData = JSON.parse(input);
+        module.exports.stepInput = parsedData;
         const resp = step(parsedData);
         const outData = JSON.stringify(resp);
         if (outputPath === undefined || outputPath === null) {
@@ -125,6 +145,7 @@ function runStep(call, callback) {
     const step = steps[stepId];
     const dec = new TextDecoder();
     const enc = new TextEncoder();
+    module.exports.stepInput = input;
     try {
         if (step == null) {
             callback({ message: "step not found", status: grpc.status.NOT_FOUND });
