@@ -8,7 +8,7 @@ const steps = {};
 const yargs = require('yargs');
 
 module.exports.addStep = function (name, version, func) {
-    steps[`${name}-${version}`] = func;
+    steps[`${name}@${version}`] = func;
 };
 
 module.exports.run = async function () {
@@ -48,17 +48,40 @@ function _runIPCMode() {
     if (args['step'] != null) {
         name = args['step'];
     }
+
+    const stepId = `${name}@${version}`;
+    const step = steps[stepId];
+    if (step == null) {
+        console.error(`${stepId} not found. Make sure this step is registered using 'addStep'`);
+    }
+
     let fileName = args['file'];
     let input = null;
     if (fileName != null) {
         input = fs.readFileSync(fileName, 'utf8');
     }
-
-    const stepId = `${name}-${version}`;
-    const step = steps[stepId];
-    if (step == null) {
-        console.error(`${stepId} not found. Make sure this step is registered using 'addStep'`);
+    let sampleFileName = args['samples'];
+    if (sampleFileName != null) {
+        try {
+            const sampleInput = fs.readFileSync(sampleFileName,'utf8');
+            const sampleJson = JSON.parse(sampleInput);
+            let stepInputObject = null;
+            if (sampleJson[name] != null) {
+                stepInputObject = sampleJson[name];
+            } else if (sampleJson[stepId] != null) {
+                stepInputObject = sampleJson[stepId];
+            }
+            if (stepInputObject == null) {
+                console.error(`The sample file does not contain an entry for '${name}' or '${stepId}'`);
+                return;
+            }
+            input = JSON.stringify(stepInputObject);
+        } catch (e) {
+            console.error(`A samples file was provided but data for step ${stepId} was not found. Make sure the file ${sampleFileName} exists and contains an entry for ${stepId}`)
+            return;
+        }
     }
+
     if (input == null) {
         let dataStr = "";
         process.stdin.setEncoding("utf8");
