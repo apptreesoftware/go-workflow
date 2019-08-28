@@ -19,11 +19,6 @@ service WorkflowAPI {
     rpc PublishWorkflow (PublishWorkflowRequest) returns (BasicResponse);
     rpc ListWorkflows (ProjectRequest) returns (ListWorkflowResponse);
 
-    rpc CreateProject (ProjectRequest) returns (BasicResponse);
-    rpc AddUserToProject (AddUserRequest) returns (BasicResponse);
-    rpc AddSuperUser (UserRequest) returns (BasicResponse);
-    rpc ListProjects (Empty) returns (ListProjectResponse);
-
     rpc ListRemoteEngines (ProjectRequest) returns (ListRemoteEnginesResponse);
     rpc RegisterRemoteEngine (RegisterRemoteEngineRequest) returns (BasicResponse);
     rpc GetRemoteEngine (RemoteEngineRequest) returns (RemoteEngine);
@@ -248,11 +243,6 @@ message RetryJobRequest {
 message PublishWorkflowRequest {
     string projectId = 1;
     bytes data = 2;
-}
-
-message AddUserRequest {
-    string username = 1;
-    string projectId = 2;
 }
 
 message QueueItem {

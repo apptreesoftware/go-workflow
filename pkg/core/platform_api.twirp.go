@@ -31,6 +31,18 @@ type EnvironmentManagement interface {
 	GetEnvironment(context.Context, *EnvironmentRequest) (*EnvironmentConfiguration, error)
 
 	UpdateAvailable(context.Context, *UpdateAvailableRequest) (*UpdateAvailableResponse, error)
+
+	CreateProject(context.Context, *Project) (*BasicResponse, error)
+
+	GetProject(context.Context, *ProjectRequest) (*Project, error)
+
+	GetProjectWithEnvironment(context.Context, *ProjectRequest) (*ProjectWithEnvironment, error)
+
+	AddUserToProject(context.Context, *AddUserRequest) (*BasicResponse, error)
+
+	AddSuperUser(context.Context, *UserRequest) (*BasicResponse, error)
+
+	ListProjects(context.Context, *ListProjectRequest) (*ListProjectResponse, error)
 }
 
 // =====================================
@@ -39,20 +51,26 @@ type EnvironmentManagement interface {
 
 type environmentManagementProtobufClient struct {
 	client HTTPClient
-	urls   [6]string
+	urls   [12]string
 }
 
 // NewEnvironmentManagementProtobufClient creates a Protobuf client that implements the EnvironmentManagement interface.
 // It communicates using Protobuf and can be configured with a custom HTTPClient.
 func NewEnvironmentManagementProtobufClient(addr string, client HTTPClient) EnvironmentManagement {
 	prefix := urlBase(addr) + EnvironmentManagementPathPrefix
-	urls := [6]string{
+	urls := [12]string{
 		prefix + "Ping",
 		prefix + "CreateEnvironment",
 		prefix + "DeleteEnvironment",
 		prefix + "UpdateEnvironment",
 		prefix + "GetEnvironment",
 		prefix + "UpdateAvailable",
+		prefix + "CreateProject",
+		prefix + "GetProject",
+		prefix + "GetProjectWithEnvironment",
+		prefix + "AddUserToProject",
+		prefix + "AddSuperUser",
+		prefix + "ListProjects",
 	}
 	if httpClient, ok := client.(*http.Client); ok {
 		return &environmentManagementProtobufClient{
@@ -138,26 +156,104 @@ func (c *environmentManagementProtobufClient) UpdateAvailable(ctx context.Contex
 	return out, nil
 }
 
+func (c *environmentManagementProtobufClient) CreateProject(ctx context.Context, in *Project) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "CreateProject")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[6], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementProtobufClient) GetProject(ctx context.Context, in *ProjectRequest) (*Project, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "GetProject")
+	out := new(Project)
+	err := doProtobufRequest(ctx, c.client, c.urls[7], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementProtobufClient) GetProjectWithEnvironment(ctx context.Context, in *ProjectRequest) (*ProjectWithEnvironment, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "GetProjectWithEnvironment")
+	out := new(ProjectWithEnvironment)
+	err := doProtobufRequest(ctx, c.client, c.urls[8], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementProtobufClient) AddUserToProject(ctx context.Context, in *AddUserRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "AddUserToProject")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[9], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementProtobufClient) AddSuperUser(ctx context.Context, in *UserRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	out := new(BasicResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[10], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementProtobufClient) ListProjects(ctx context.Context, in *ListProjectRequest) (*ListProjectResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	out := new(ListProjectResponse)
+	err := doProtobufRequest(ctx, c.client, c.urls[11], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // =================================
 // EnvironmentManagement JSON Client
 // =================================
 
 type environmentManagementJSONClient struct {
 	client HTTPClient
-	urls   [6]string
+	urls   [12]string
 }
 
 // NewEnvironmentManagementJSONClient creates a JSON client that implements the EnvironmentManagement interface.
 // It communicates using JSON and can be configured with a custom HTTPClient.
 func NewEnvironmentManagementJSONClient(addr string, client HTTPClient) EnvironmentManagement {
 	prefix := urlBase(addr) + EnvironmentManagementPathPrefix
-	urls := [6]string{
+	urls := [12]string{
 		prefix + "Ping",
 		prefix + "CreateEnvironment",
 		prefix + "DeleteEnvironment",
 		prefix + "UpdateEnvironment",
 		prefix + "GetEnvironment",
 		prefix + "UpdateAvailable",
+		prefix + "CreateProject",
+		prefix + "GetProject",
+		prefix + "GetProjectWithEnvironment",
+		prefix + "AddUserToProject",
+		prefix + "AddSuperUser",
+		prefix + "ListProjects",
 	}
 	if httpClient, ok := client.(*http.Client); ok {
 		return &environmentManagementJSONClient{
@@ -243,6 +339,78 @@ func (c *environmentManagementJSONClient) UpdateAvailable(ctx context.Context, i
 	return out, nil
 }
 
+func (c *environmentManagementJSONClient) CreateProject(ctx context.Context, in *Project) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "CreateProject")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[6], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementJSONClient) GetProject(ctx context.Context, in *ProjectRequest) (*Project, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "GetProject")
+	out := new(Project)
+	err := doJSONRequest(ctx, c.client, c.urls[7], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementJSONClient) GetProjectWithEnvironment(ctx context.Context, in *ProjectRequest) (*ProjectWithEnvironment, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "GetProjectWithEnvironment")
+	out := new(ProjectWithEnvironment)
+	err := doJSONRequest(ctx, c.client, c.urls[8], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementJSONClient) AddUserToProject(ctx context.Context, in *AddUserRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "AddUserToProject")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[9], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementJSONClient) AddSuperUser(ctx context.Context, in *UserRequest) (*BasicResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	out := new(BasicResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[10], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *environmentManagementJSONClient) ListProjects(ctx context.Context, in *ListProjectRequest) (*ListProjectResponse, error) {
+	ctx = ctxsetters.WithPackageName(ctx, "core")
+	ctx = ctxsetters.WithServiceName(ctx, "EnvironmentManagement")
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	out := new(ListProjectResponse)
+	err := doJSONRequest(ctx, c.client, c.urls[11], in, out)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ====================================
 // EnvironmentManagement Server Handler
 // ====================================
@@ -308,6 +476,24 @@ func (s *environmentManagementServer) ServeHTTP(resp http.ResponseWriter, req *h
 		return
 	case "/twirp/core.EnvironmentManagement/UpdateAvailable":
 		s.serveUpdateAvailable(ctx, resp, req)
+		return
+	case "/twirp/core.EnvironmentManagement/CreateProject":
+		s.serveCreateProject(ctx, resp, req)
+		return
+	case "/twirp/core.EnvironmentManagement/GetProject":
+		s.serveGetProject(ctx, resp, req)
+		return
+	case "/twirp/core.EnvironmentManagement/GetProjectWithEnvironment":
+		s.serveGetProjectWithEnvironment(ctx, resp, req)
+		return
+	case "/twirp/core.EnvironmentManagement/AddUserToProject":
+		s.serveAddUserToProject(ctx, resp, req)
+		return
+	case "/twirp/core.EnvironmentManagement/AddSuperUser":
+		s.serveAddSuperUser(ctx, resp, req)
+		return
+	case "/twirp/core.EnvironmentManagement/ListProjects":
+		s.serveListProjects(ctx, resp, req)
 		return
 	default:
 		msg := fmt.Sprintf("no handler for path %q", req.URL.Path)
@@ -1181,6 +1367,870 @@ func (s *environmentManagementServer) serveUpdateAvailableProtobuf(ctx context.C
 	callResponseSent(ctx, s.hooks)
 }
 
+func (s *environmentManagementServer) serveCreateProject(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveCreateProjectJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveCreateProjectProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *environmentManagementServer) serveCreateProjectJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "CreateProject")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(Project)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request json")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.CreateProject(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling CreateProject. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		err = wrapErr(err, "failed to marshal json response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/json")
+	resp.WriteHeader(http.StatusOK)
+
+	respBytes := buf.Bytes()
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveCreateProjectProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "CreateProject")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		err = wrapErr(err, "failed to read request body")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+	reqContent := new(Project)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request proto")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.CreateProject(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling CreateProject. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		err = wrapErr(err, "failed to marshal proto response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveGetProject(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveGetProjectJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveGetProjectProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *environmentManagementServer) serveGetProjectJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "GetProject")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ProjectRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request json")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *Project
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.GetProject(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *Project and nil error while calling GetProject. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		err = wrapErr(err, "failed to marshal json response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/json")
+	resp.WriteHeader(http.StatusOK)
+
+	respBytes := buf.Bytes()
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveGetProjectProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "GetProject")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		err = wrapErr(err, "failed to read request body")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+	reqContent := new(ProjectRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request proto")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *Project
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.GetProject(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *Project and nil error while calling GetProject. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		err = wrapErr(err, "failed to marshal proto response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveGetProjectWithEnvironment(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveGetProjectWithEnvironmentJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveGetProjectWithEnvironmentProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *environmentManagementServer) serveGetProjectWithEnvironmentJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "GetProjectWithEnvironment")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ProjectRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request json")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *ProjectWithEnvironment
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.GetProjectWithEnvironment(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ProjectWithEnvironment and nil error while calling GetProjectWithEnvironment. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		err = wrapErr(err, "failed to marshal json response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/json")
+	resp.WriteHeader(http.StatusOK)
+
+	respBytes := buf.Bytes()
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveGetProjectWithEnvironmentProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "GetProjectWithEnvironment")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		err = wrapErr(err, "failed to read request body")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+	reqContent := new(ProjectRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request proto")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *ProjectWithEnvironment
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.GetProjectWithEnvironment(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ProjectWithEnvironment and nil error while calling GetProjectWithEnvironment. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		err = wrapErr(err, "failed to marshal proto response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveAddUserToProject(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveAddUserToProjectJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveAddUserToProjectProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *environmentManagementServer) serveAddUserToProjectJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "AddUserToProject")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(AddUserRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request json")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.AddUserToProject(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling AddUserToProject. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		err = wrapErr(err, "failed to marshal json response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/json")
+	resp.WriteHeader(http.StatusOK)
+
+	respBytes := buf.Bytes()
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveAddUserToProjectProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "AddUserToProject")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		err = wrapErr(err, "failed to read request body")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+	reqContent := new(AddUserRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request proto")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.AddUserToProject(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling AddUserToProject. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		err = wrapErr(err, "failed to marshal proto response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveAddSuperUser(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveAddSuperUserJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveAddSuperUserProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *environmentManagementServer) serveAddSuperUserJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(UserRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request json")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.AddSuperUser(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling AddSuperUser. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		err = wrapErr(err, "failed to marshal json response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/json")
+	resp.WriteHeader(http.StatusOK)
+
+	respBytes := buf.Bytes()
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveAddSuperUserProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "AddSuperUser")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		err = wrapErr(err, "failed to read request body")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+	reqContent := new(UserRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request proto")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *BasicResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.AddSuperUser(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *BasicResponse and nil error while calling AddSuperUser. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		err = wrapErr(err, "failed to marshal proto response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveListProjects(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	header := req.Header.Get("Content-Type")
+	i := strings.Index(header, ";")
+	if i == -1 {
+		i = len(header)
+	}
+	switch strings.TrimSpace(strings.ToLower(header[:i])) {
+	case "application/json":
+		s.serveListProjectsJSON(ctx, resp, req)
+	case "application/protobuf":
+		s.serveListProjectsProtobuf(ctx, resp, req)
+	default:
+		msg := fmt.Sprintf("unexpected Content-Type: %q", req.Header.Get("Content-Type"))
+		twerr := badRouteError(msg, req.Method, req.URL.Path)
+		s.writeError(ctx, resp, twerr)
+	}
+}
+
+func (s *environmentManagementServer) serveListProjectsJSON(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	reqContent := new(ListProjectRequest)
+	unmarshaler := jsonpb.Unmarshaler{AllowUnknownFields: true}
+	if err = unmarshaler.Unmarshal(req.Body, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request json")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *ListProjectResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.ListProjects(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ListProjectResponse and nil error while calling ListProjects. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	var buf bytes.Buffer
+	marshaler := &jsonpb.Marshaler{OrigName: true}
+	if err = marshaler.Marshal(&buf, respContent); err != nil {
+		err = wrapErr(err, "failed to marshal json response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/json")
+	resp.WriteHeader(http.StatusOK)
+
+	respBytes := buf.Bytes()
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
+func (s *environmentManagementServer) serveListProjectsProtobuf(ctx context.Context, resp http.ResponseWriter, req *http.Request) {
+	var err error
+	ctx = ctxsetters.WithMethodName(ctx, "ListProjects")
+	ctx, err = callRequestRouted(ctx, s.hooks)
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+
+	buf, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		err = wrapErr(err, "failed to read request body")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+	reqContent := new(ListProjectRequest)
+	if err = proto.Unmarshal(buf, reqContent); err != nil {
+		err = wrapErr(err, "failed to parse request proto")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	// Call service method
+	var respContent *ListProjectResponse
+	func() {
+		defer func() {
+			// In case of a panic, serve a 500 error and then panic.
+			if r := recover(); r != nil {
+				s.writeError(ctx, resp, twirp.InternalError("Internal service panic"))
+				panic(r)
+			}
+		}()
+		respContent, err = s.EnvironmentManagement.ListProjects(ctx, reqContent)
+	}()
+
+	if err != nil {
+		s.writeError(ctx, resp, err)
+		return
+	}
+	if respContent == nil {
+		s.writeError(ctx, resp, twirp.InternalError("received a nil *ListProjectResponse and nil error while calling ListProjects. nil responses are not supported"))
+		return
+	}
+
+	ctx = callResponsePrepared(ctx, s.hooks)
+
+	respBytes, err := proto.Marshal(respContent)
+	if err != nil {
+		err = wrapErr(err, "failed to marshal proto response")
+		s.writeError(ctx, resp, twirp.InternalErrorWith(err))
+		return
+	}
+
+	ctx = ctxsetters.WithStatusCode(ctx, http.StatusOK)
+	resp.Header().Set("Content-Type", "application/protobuf")
+	resp.WriteHeader(http.StatusOK)
+	if n, err := resp.Write(respBytes); err != nil {
+		msg := fmt.Sprintf("failed to write response, %d of %d bytes written: %s", n, len(respBytes), err.Error())
+		twerr := twirp.NewError(twirp.Unknown, msg)
+		callError(ctx, s.hooks, twerr)
+	}
+	callResponseSent(ctx, s.hooks)
+}
+
 func (s *environmentManagementServer) ServiceDescriptor() ([]byte, int) {
 	return twirpFileDescriptor2, 0
 }
@@ -1190,41 +2240,58 @@ func (s *environmentManagementServer) ProtocGenTwirpVersion() string {
 }
 
 var twirpFileDescriptor2 = []byte{
-	// 561 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x54, 0x4f, 0x6f, 0xd3, 0x4e,
-	0x10, 0xfd, 0x39, 0x4e, 0xf3, 0x6b, 0x46, 0x6d, 0x9a, 0x0c, 0xa2, 0x35, 0xa1, 0x94, 0xca, 0xe2,
-	0x10, 0x21, 0x11, 0x8b, 0x72, 0x47, 0xa2, 0x05, 0x2a, 0x21, 0xb5, 0xaa, 0x52, 0x95, 0x03, 0x97,
-	0x6a, 0xe3, 0x4c, 0xdc, 0x55, 0xed, 0x5d, 0xb3, 0xbb, 0x4e, 0x94, 0x1b, 0x5f, 0x91, 0x2f, 0xc0,
-	0x9d, 0x6f, 0x81, 0xfc, 0xaf, 0xf9, 0x63, 0xa2, 0x56, 0x02, 0x71, 0x1b, 0xbf, 0x19, 0xbf, 0x7d,
-	0x6f, 0xdf, 0xd8, 0x80, 0x71, 0xc8, 0xcc, 0x58, 0xaa, 0xe8, 0x9a, 0xc5, 0xbc, 0x1f, 0x2b, 0x69,
-	0x24, 0xd6, 0x7d, 0xa9, 0xa8, 0xbb, 0xe5, 0xcb, 0x28, 0x92, 0x22, 0xc7, 0xba, 0xa8, 0x0d, 0xc5,
-	0xd7, 0x21, 0x1f, 0x2a, 0xa6, 0x66, 0x39, 0xe6, 0xfe, 0xb4, 0xc0, 0xf9, 0x20, 0x26, 0x5c, 0x49,
-	0x11, 0x91, 0x30, 0x27, 0x52, 0x8c, 0x79, 0x90, 0x28, 0x66, 0xb8, 0x14, 0xd8, 0x83, 0x1d, 0x9a,
-	0xf7, 0xce, 0x59, 0x44, 0x8e, 0x75, 0x68, 0xf5, 0x9a, 0x83, 0x55, 0x18, 0x5d, 0xd8, 0x52, 0xa4,
-	0x65, 0xa2, 0x7c, 0xba, 0x08, 0x99, 0x70, 0x6a, 0xd9, 0xd8, 0x12, 0x86, 0xbb, 0xd0, 0x50, 0x14,
-	0x70, 0x29, 0x1c, 0x3b, 0xeb, 0x16, 0x4f, 0xd8, 0x06, 0x3b, 0x51, 0xa1, 0x53, 0xcf, 0xc0, 0xb4,
-	0x44, 0x0f, 0x1a, 0xda, 0x30, 0x93, 0x68, 0x67, 0xe3, 0xd0, 0xea, 0xb5, 0x8e, 0xf6, 0xfa, 0xa9,
-	0x9b, 0xfe, 0x82, 0xce, 0xcb, 0xac, 0x3d, 0x28, 0xc6, 0xf0, 0x05, 0x6c, 0xe7, 0xd5, 0x19, 0x69,
-	0xcd, 0x02, 0x72, 0x1a, 0x19, 0xd9, 0x32, 0xe8, 0x7e, 0xb7, 0xc0, 0xb9, 0x8a, 0x47, 0xcc, 0xd0,
-	0x02, 0xd3, 0x80, 0xbe, 0x26, 0xa4, 0xcd, 0x5f, 0xf6, 0x3a, 0x77, 0x60, 0x3f, 0xcc, 0x41, 0xf5,
-	0x12, 0x2a, 0x9e, 0x36, 0x7e, 0xe7, 0xe9, 0x2d, 0xe0, 0x9f, 0x98, 0x71, 0xbf, 0x59, 0xe0, 0x9c,
-	0x28, 0xfa, 0x17, 0x77, 0xb2, 0x26, 0x7f, 0xf7, 0x29, 0x3c, 0x79, 0x4f, 0x21, 0xad, 0x28, 0xd0,
-	0xb1, 0x14, 0x9a, 0xdc, 0xcf, 0xb0, 0x9b, 0x47, 0xf6, 0x6e, 0xc2, 0x78, 0xc8, 0x86, 0x21, 0x95,
-	0xe2, 0x5a, 0x50, 0x93, 0xba, 0xd0, 0x53, 0x93, 0x1a, 0x11, 0xea, 0x4c, 0xf9, 0x37, 0xc5, 0xd1,
-	0x59, 0x8d, 0x0e, 0xfc, 0x3f, 0x21, 0xa5, 0xe7, 0x67, 0x96, 0x8f, 0xae, 0x0f, 0x7b, 0x15, 0xde,
-	0xfc, 0x48, 0xdc, 0x87, 0x26, 0x2b, 0xc1, 0x8c, 0x7f, 0x73, 0x30, 0x07, 0x16, 0x29, 0x6b, 0x4b,
-	0x94, 0x65, 0x84, 0xf6, 0x5d, 0x84, 0x2f, 0x4f, 0xa1, 0x53, 0x49, 0x1c, 0xb7, 0x60, 0x33, 0xbb,
-	0x70, 0x2e, 0x82, 0xf6, 0x7f, 0xd8, 0x84, 0x8d, 0x01, 0xb1, 0xd1, 0xac, 0x6d, 0x21, 0x40, 0xe3,
-	0x23, 0xe3, 0x21, 0x8d, 0xda, 0x35, 0xdc, 0x86, 0xe6, 0x55, 0x1c, 0x28, 0x36, 0x4a, 0xa7, 0xec,
-	0xa3, 0x1f, 0x36, 0x3c, 0x5e, 0x60, 0x3a, 0x63, 0x82, 0x05, 0x94, 0x56, 0xe8, 0x41, 0xfd, 0x82,
-	0x8b, 0x00, 0xb1, 0x58, 0xb0, 0x28, 0x36, 0xb3, 0x62, 0x37, 0xba, 0x8f, 0x72, 0xec, 0x98, 0x69,
-	0xee, 0xdf, 0xb9, 0xbb, 0x84, 0x4e, 0x25, 0x6f, 0x3c, 0xc8, 0x27, 0xd7, 0x2d, 0x42, 0xf7, 0xa0,
-	0xb2, 0xbe, 0xcb, 0x3f, 0x8a, 0x73, 0xe8, 0x54, 0x22, 0x44, 0xa7, 0xf2, 0x52, 0x49, 0xf7, 0x3c,
-	0xef, 0xac, 0x4d, 0x3d, 0x15, 0x59, 0xf9, 0x50, 0x4b, 0x91, 0xeb, 0xbe, 0xe0, 0x7b, 0x45, 0x7e,
-	0x82, 0xd6, 0x29, 0x99, 0x87, 0x29, 0xbc, 0xdf, 0xf0, 0xce, 0xca, 0xfa, 0xe0, 0xfe, 0xa2, 0xbc,
-	0xd5, 0x6d, 0xed, 0x3e, 0x5b, 0xd3, 0xcd, 0x0d, 0x1f, 0xbf, 0xfe, 0xe2, 0x05, 0xdc, 0xdc, 0x24,
-	0xc3, 0xbe, 0x2f, 0x23, 0x8f, 0xc5, 0xb1, 0x51, 0x44, 0x5a, 0x8e, 0xcd, 0x94, 0x29, 0xf2, 0x02,
-	0xf9, 0x6a, 0x2a, 0xd5, 0xed, 0x38, 0x94, 0x53, 0x2f, 0xbe, 0x0d, 0xbc, 0x94, 0x6a, 0xd8, 0xc8,
-	0x7e, 0xe0, 0x6f, 0x7e, 0x05, 0x00, 0x00, 0xff, 0xff, 0x45, 0x96, 0x55, 0x4e, 0xfe, 0x05, 0x00,
-	0x00,
+	// 836 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x56, 0x7f, 0x6f, 0xe3, 0x44,
+	0x10, 0xc5, 0x49, 0x9b, 0x36, 0xd3, 0xb4, 0x97, 0xce, 0x41, 0xcf, 0x0d, 0x05, 0x2a, 0x0b, 0x89,
+	0x1e, 0x12, 0x8d, 0xae, 0x27, 0xdd, 0x7f, 0x20, 0x7a, 0x05, 0x2a, 0x4e, 0xf4, 0xa8, 0x52, 0x0a,
+	0x12, 0x12, 0x3a, 0x6d, 0xed, 0x89, 0xbb, 0x9c, 0xed, 0x35, 0xbb, 0xeb, 0x54, 0xfd, 0x0f, 0x89,
+	0x4f, 0x88, 0xf8, 0x14, 0x7c, 0x0b, 0x64, 0x7b, 0x1d, 0xff, 0x4a, 0x94, 0x4a, 0x20, 0xfe, 0xf3,
+	0xce, 0xec, 0xbe, 0x7d, 0x6f, 0x66, 0xf6, 0x25, 0x80, 0x71, 0xc0, 0xf4, 0x54, 0xc8, 0xf0, 0x0d,
+	0x8b, 0xf9, 0x71, 0x2c, 0x85, 0x16, 0xb8, 0xe6, 0x0a, 0x49, 0xa3, 0x81, 0x2b, 0xc2, 0x50, 0x44,
+	0x79, 0x6c, 0x84, 0x4a, 0x53, 0xfc, 0x26, 0xe0, 0x37, 0x92, 0xc9, 0xfb, 0x3c, 0xe6, 0xfc, 0x6d,
+	0x81, 0xfd, 0x75, 0x34, 0xe3, 0x52, 0x44, 0x21, 0x45, 0xfa, 0x4c, 0x44, 0x53, 0xee, 0x27, 0x92,
+	0x69, 0x2e, 0x22, 0x3c, 0x82, 0x47, 0x54, 0xe6, 0x5e, 0xb3, 0x90, 0x6c, 0xeb, 0xd0, 0x3a, 0xea,
+	0x4f, 0x9a, 0x61, 0x74, 0x60, 0x20, 0x49, 0x89, 0x44, 0xba, 0x74, 0x19, 0xb0, 0xc8, 0xee, 0x64,
+	0xdb, 0x6a, 0x31, 0xdc, 0x83, 0x9e, 0x24, 0x9f, 0x8b, 0xc8, 0xee, 0x66, 0x59, 0xb3, 0xc2, 0x21,
+	0x74, 0x13, 0x19, 0xd8, 0x6b, 0x59, 0x30, 0xfd, 0xc4, 0x31, 0xf4, 0x94, 0x66, 0x3a, 0x51, 0xf6,
+	0xfa, 0xa1, 0x75, 0xb4, 0x73, 0xf2, 0xe4, 0x38, 0x55, 0x73, 0x5c, 0xe1, 0x79, 0x95, 0xa5, 0x27,
+	0x66, 0x1b, 0x7e, 0x0c, 0xdb, 0xf9, 0xd7, 0x05, 0x29, 0xc5, 0x7c, 0xb2, 0x7b, 0x19, 0x58, 0x3d,
+	0xe8, 0xfc, 0x69, 0x81, 0x7d, 0x1d, 0x7b, 0x4c, 0x53, 0x05, 0x69, 0x42, 0xbf, 0x25, 0xa4, 0xf4,
+	0x7f, 0xac, 0xb5, 0x54, 0xd0, 0x7d, 0x98, 0x82, 0x76, 0x11, 0x5a, 0x9a, 0xd6, 0x17, 0x69, 0xfa,
+	0x02, 0xf0, 0xdf, 0x88, 0x71, 0x7e, 0xb7, 0xc0, 0x3e, 0x93, 0xf4, 0x7f, 0xd4, 0x64, 0x49, 0xff,
+	0x9d, 0xf7, 0x61, 0xff, 0x2b, 0x0a, 0xa8, 0xc1, 0x40, 0xc5, 0x22, 0x52, 0xe4, 0xfc, 0x08, 0x7b,
+	0x79, 0xcb, 0x4e, 0x67, 0x8c, 0x07, 0xec, 0x26, 0xa0, 0x82, 0xdc, 0x0e, 0x74, 0x84, 0x32, 0x7c,
+	0x3a, 0x42, 0x21, 0xc2, 0x1a, 0x93, 0xee, 0xad, 0xb9, 0x3a, 0xfb, 0x46, 0x1b, 0x36, 0x66, 0x24,
+	0x55, 0x79, 0x67, 0xb1, 0x74, 0x5c, 0x78, 0xd2, 0xc2, 0xcd, 0xaf, 0xc4, 0x03, 0xe8, 0xb3, 0x22,
+	0x98, 0xe1, 0x6f, 0x4e, 0xca, 0x40, 0x15, 0xb2, 0x53, 0x83, 0x2c, 0x5a, 0xd8, 0x9d, 0xb7, 0xd0,
+	0xf9, 0x05, 0x36, 0x2e, 0xa5, 0xf8, 0x95, 0xdc, 0x8c, 0x2d, 0xf7, 0x0a, 0xb6, 0xdc, 0xc3, 0x43,
+	0xd8, 0xaa, 0xd4, 0xd0, 0x40, 0x55, 0x43, 0xe9, 0x0e, 0x8f, 0x94, 0x2b, 0x79, 0xac, 0x4b, 0xfe,
+	0xd5, 0x90, 0xf3, 0x02, 0xf0, 0x3b, 0xae, 0xb4, 0xb9, 0xa2, 0xa8, 0x4b, 0x03, 0xd9, 0x6a, 0x21,
+	0x3b, 0x1a, 0x1e, 0xd7, 0xce, 0x19, 0xdd, 0x36, 0x6c, 0xa8, 0xc4, 0x75, 0x49, 0x29, 0xa3, 0xba,
+	0x58, 0xa6, 0x99, 0xd0, 0x0c, 0xa1, 0xd1, 0x6c, 0x96, 0xf8, 0x14, 0x36, 0xe3, 0x1c, 0x26, 0x9d,
+	0xf4, 0xee, 0xd1, 0xd6, 0xc9, 0x76, 0x3e, 0xe9, 0x05, 0xf8, 0x3c, 0xed, 0xbc, 0x82, 0x9d, 0x53,
+	0xcf, 0xbb, 0x56, 0x24, 0x0b, 0xa6, 0x23, 0xd8, 0x4c, 0x14, 0xc9, 0xa8, 0x9c, 0xab, 0xf9, 0x3a,
+	0x6d, 0x82, 0x39, 0xf9, 0xad, 0x67, 0x2e, 0x2d, 0x03, 0xce, 0x53, 0xd8, 0x7a, 0x20, 0x90, 0xf3,
+	0x87, 0x05, 0x7b, 0x86, 0xcc, 0x4f, 0x5c, 0xdf, 0x56, 0x66, 0x0c, 0x3f, 0x81, 0x0d, 0x03, 0x99,
+	0x9d, 0x6a, 0x71, 0x2f, 0xb2, 0xf8, 0x65, 0xbb, 0x59, 0x5b, 0x27, 0x1f, 0xb6, 0x9e, 0x74, 0xcd,
+	0x3c, 0xeb, 0x25, 0xbf, 0x04, 0xbc, 0x10, 0x33, 0x6a, 0xb4, 0xca, 0xae, 0x13, 0xe8, 0x97, 0x37,
+	0xae, 0x1c, 0x8f, 0x4f, 0xcf, 0x61, 0xb7, 0xe5, 0x26, 0x38, 0x80, 0xcd, 0xec, 0x31, 0xf3, 0xc8,
+	0x1f, 0xbe, 0x83, 0x7d, 0x58, 0x9f, 0x10, 0xf3, 0xee, 0x87, 0x16, 0x02, 0xf4, 0xbe, 0x61, 0x3c,
+	0x20, 0x6f, 0xd8, 0xc1, 0x6d, 0xe8, 0x5f, 0xc7, 0xbe, 0x64, 0x5e, 0xba, 0xab, 0x7b, 0xf2, 0x57,
+	0x0f, 0xde, 0xab, 0x20, 0x5d, 0xb0, 0x88, 0xf9, 0x94, 0xd5, 0x67, 0x0c, 0x6b, 0x97, 0x3c, 0xf2,
+	0x11, 0x8d, 0xd2, 0x30, 0xd6, 0xf7, 0xc6, 0x77, 0x46, 0x8f, 0xf3, 0xd8, 0x4b, 0xa6, 0xb8, 0x3b,
+	0x9f, 0xa0, 0x2b, 0xd8, 0x6d, 0x79, 0x09, 0x9a, 0x3a, 0x2d, 0x33, 0x99, 0xd1, 0x8a, 0x3a, 0xe2,
+	0x6b, 0xd8, 0x6d, 0xd9, 0x03, 0xda, 0xad, 0x43, 0x05, 0xdc, 0x47, 0x79, 0x66, 0xa9, 0xa3, 0xa4,
+	0x24, 0x5b, 0x3f, 0x02, 0x05, 0xc9, 0x65, 0xbf, 0x0e, 0x2b, 0x49, 0xbe, 0x82, 0x9d, 0x73, 0xd2,
+	0x0f, 0x63, 0xb8, 0x5a, 0xf0, 0xa3, 0x86, 0x35, 0xe1, 0x41, 0x95, 0x5e, 0xd3, 0x09, 0x47, 0x1f,
+	0x2c, 0xc9, 0x1a, 0xc1, 0xcf, 0x61, 0x3b, 0x2f, 0x7e, 0xe1, 0x45, 0xf5, 0x31, 0x5f, 0xdc, 0xca,
+	0x67, 0x00, 0xe7, 0x54, 0x58, 0x04, 0xbe, 0x5b, 0x7f, 0x18, 0xe6, 0xde, 0x3a, 0x0e, 0x7e, 0x0f,
+	0xfb, 0xe5, 0x91, 0xe6, 0x5b, 0x5b, 0x8c, 0x70, 0x50, 0x8b, 0x36, 0xcf, 0x7c, 0x0e, 0x43, 0xe3,
+	0x18, 0x3f, 0x88, 0x06, 0x93, 0xba, 0x93, 0x2c, 0x96, 0xf0, 0x02, 0x06, 0xa7, 0x9e, 0x77, 0x95,
+	0xc4, 0x24, 0xd3, 0xbd, 0xb8, 0x6b, 0xca, 0xb4, 0xea, 0xdc, 0x19, 0x0c, 0x2a, 0xf6, 0xa8, 0x8a,
+	0x4e, 0xb6, 0xad, 0x76, 0xb4, 0xbf, 0x20, 0x93, 0x83, 0xbc, 0x7c, 0xf6, 0xf3, 0xd8, 0xe7, 0xfa,
+	0x36, 0xb9, 0x39, 0x76, 0x45, 0x38, 0x66, 0x71, 0xac, 0x25, 0x91, 0x12, 0x53, 0x7d, 0xc7, 0x24,
+	0x8d, 0x7d, 0xf1, 0xd9, 0x9d, 0x90, 0x6f, 0xa7, 0x81, 0xb8, 0x1b, 0xc7, 0x6f, 0xfd, 0x71, 0x0a,
+	0x73, 0xd3, 0xcb, 0xfe, 0x91, 0x3d, 0xff, 0x27, 0x00, 0x00, 0xff, 0xff, 0x29, 0x42, 0x8d, 0xbf,
+	0xcf, 0x09, 0x00, 0x00,
 }

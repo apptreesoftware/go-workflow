@@ -18,6 +18,13 @@ service EnvironmentManagement {
     rpc UpdateEnvironment (UpdateEnvironmentRequest) returns (EnvironmentConfiguration);
     rpc GetEnvironment (EnvironmentRequest) returns (EnvironmentConfiguration);
     rpc UpdateAvailable (UpdateAvailableRequest) returns (UpdateAvailableResponse);
+
+    rpc CreateProject (Project) returns (BasicResponse);
+    rpc GetProject (ProjectRequest) returns (Project);
+    rpc GetProjectWithEnvironment (ProjectRequest) returns (ProjectWithEnvironment);
+    rpc AddUserToProject (AddUserRequest) returns (BasicResponse);
+    rpc AddSuperUser (UserRequest) returns (BasicResponse);
+    rpc ListProjects (ListProjectRequest) returns (ListProjectResponse);
 }
 
 message EnvironmentConfiguration {
@@ -70,3 +77,37 @@ message UpdateAvailableResponse {
     string url = 3;
 }
 
+message Project {
+    string id = 1;
+    string environment = 2;
+    string description = 3;
+}
+
+message ListProjectRequest {
+    string environment = 1;
+}
+
+message ListProjectResponse {
+    bool success = 1;
+    string message = 2;
+    repeated Project projects = 3;
+}
+
+message AddUserRequest {
+    string username = 1;
+    string projectId = 2;
+}
+
+message UserRequest {
+    string username = 1;
+}
+
+message ProjectWithEnvironment {
+    Project project = 1;
+    EnvironmentConfiguration environment = 2;
+}
+
+message MoveProjectRequest {
+    string project = 1;
+    string environment = 2;
+}

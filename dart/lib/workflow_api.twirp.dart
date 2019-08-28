@@ -1027,35 +1027,6 @@ class PublishWorkflowRequest {
   }
 }
 
-class AddUserRequest {
-  AddUserRequest(
-    this.username,
-    this.projectId,
-  );
-
-  String username;
-  String projectId;
-
-  factory AddUserRequest.fromJson(Map<String, dynamic> json) {
-    return new AddUserRequest(
-      json['username'] as String,
-      json['projectId'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['username'] = username;
-    map['projectId'] = projectId;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
 class QueueItem {
   QueueItem(
     this.project,
@@ -1656,10 +1627,6 @@ abstract class WorkflowAPI {
   Future<BasicResponse> publishWorkflow(
       PublishWorkflowRequest publishWorkflowRequest);
   Future<ListWorkflowResponse> listWorkflows(ProjectRequest projectRequest);
-  Future<BasicResponse> createProject(ProjectRequest projectRequest);
-  Future<BasicResponse> addUserToProject(AddUserRequest addUserRequest);
-  Future<BasicResponse> addSuperUser(UserRequest userRequest);
-  Future<ListProjectResponse> listProjects(Empty empty);
   Future<ListRemoteEnginesResponse> listRemoteEngines(
       ProjectRequest projectRequest);
   Future<BasicResponse> registerRemoteEngine(
@@ -1794,62 +1761,6 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return ListWorkflowResponse.fromJson(value);
-  }
-
-  Future<BasicResponse> createProject(ProjectRequest projectRequest) async {
-    var url = "${hostname}${_pathPrefix}CreateProject";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(projectRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return BasicResponse.fromJson(value);
-  }
-
-  Future<BasicResponse> addUserToProject(AddUserRequest addUserRequest) async {
-    var url = "${hostname}${_pathPrefix}AddUserToProject";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(addUserRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return BasicResponse.fromJson(value);
-  }
-
-  Future<BasicResponse> addSuperUser(UserRequest userRequest) async {
-    var url = "${hostname}${_pathPrefix}AddSuperUser";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(userRequest.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return BasicResponse.fromJson(value);
-  }
-
-  Future<ListProjectResponse> listProjects(Empty empty) async {
-    var url = "${hostname}${_pathPrefix}ListProjects";
-    var uri = Uri.parse(url);
-    var request = new Request('POST', uri);
-    request.headers['Content-Type'] = 'application/json';
-    request.body = json.encode(empty.toJson());
-    var response = await _requester.send(request);
-    if (response.statusCode != 200) {
-      throw twirpException(response);
-    }
-    var value = json.decode(response.body);
-    return ListProjectResponse.fromJson(value);
   }
 
   Future<ListRemoteEnginesResponse> listRemoteEngines(
