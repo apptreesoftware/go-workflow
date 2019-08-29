@@ -1,6 +1,6 @@
 {
   "name": "apptree-workflow-sdk",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "A node SDK for creating an AppTree workflow step",
   "main": "index.js",
   "scripts": {

@@ -9,6 +9,9 @@ const yargs = require('yargs');
 
 
 module.exports.runId = process.env['RUN_ID'];
+module.exports.EXIT_WORKFLOW_SUCCESS_CODE = 200;
+module.exports.EXIT_WORKFLOW_FAIL_CODE = 201;
+
 module.exports.addStep = function (name, version, func) {
     steps[`${name}@${version}`] = func;
 };
@@ -145,7 +148,6 @@ function runStep(call, callback) {
     const step = steps[stepId];
     const dec = new TextDecoder();
     const enc = new TextEncoder();
-    module.exports.stepInput = input;
     try {
         if (step == null) {
             callback({ message: "step not found", status: grpc.status.NOT_FOUND });
@@ -153,6 +155,7 @@ function runStep(call, callback) {
         }
         const inputStr = dec.decode(input);
         const inputJson = JSON.parse(inputStr);
+        module.exports.stepInput = inputJson;
         const resp = step(inputJson);
         const respBytes = enc.encode(JSON.stringify(resp));
 
