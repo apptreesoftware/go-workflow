@@ -28,6 +28,9 @@ service EnvironmentManagement {
 
     rpc GetAssistantConfig (ConfigRequest) returns (Assistant);
     rpc UpdateAssistantConfig (Assistant) returns (Assistant);
+
+    rpc ValidateProjectAccess (ProjectRequest) returns (BasicResponse);
+    rpc ValidateEnvironmentAccess (EnvironmentRequest) returns (BasicResponse);
 }
 
 message EnvironmentConfiguration {
