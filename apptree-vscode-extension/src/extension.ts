@@ -17,36 +17,55 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 
 	let findStep = vscode.commands.registerCommand('extension.findStep', async () => {
-		// The code you place here will be executed every time your command is executed
-
-		// Display a message box to the user
-		var packages = await getAvailablePackages();
-		var pkg = await vscode.window.showQuickPick(packages);
-		if (pkg === undefined) {
-			return;
-		}
-		var steps = await getStepsForPackage(pkg);
-		if (steps === undefined) {
-			vscode.window.showErrorMessage("No steps found");
-		}
-
-		var items: vscode.QuickPickItem[] = steps.map((s) => {
-			return { label: s.name, description: s.author, data: s };
-		});
-
-		var step = await vscode.window.showQuickPick(items);
-		if (step === undefined) {
-			return;
-		}
-
-		const yaml = await getYamlForStep(pkg, step.label);
-		insertStep(yaml);
+		await executeFindStep();
 	});
-	context.subscriptions.push(findStep);
+	let findAssistantMessage = vscode.commands.registerCommand('extension.findAssistantMessage', async () => {
+		await executeFindAssistantStep();
+	});
+	context.subscriptions.push(findStep, findAssistantMessage);
+
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() { }
+
+async function executeFindAssistantStep() {
+	let resp = await axios.default.get('https://chat.apptreeio.com/api/messages');
+	let messageTypes: MessageType[] = resp.data;
+	var items: vscode.QuickPickItem[] = messageTypes.map((t) => {
+		return { label: t.description, description: t.type };
+	});
+	var messageType = await vscode.window.showQuickPick(items);
+
+	if (messageType === null || messageType === undefined) { return; }
+	resp = await axios.default.get(`https://chat.apptreeio.com/api/messages/${messageType.description}`);
+	let sample = resp.data['sample'];
+	insertSnippet(sample);
+}
+
+async function executeFindStep() {
+	var packages = await getAvailablePackages();
+	var pkg = await vscode.window.showQuickPick(packages);
+	if (pkg === undefined) {
+		return;
+	}
+	var steps = await getStepsForPackage(pkg);
+	if (steps === undefined) {
+		vscode.window.showErrorMessage("No steps found");
+	}
+
+	var items: vscode.QuickPickItem[] = steps.map((s) => {
+		return { label: s.name, description: s.author, data: s };
+	});
+
+	var step = await vscode.window.showQuickPick(items);
+	if (step === undefined) {
+		return;
+	}
+
+	const yaml = await getYamlForStep(pkg, step.label);
+	insertStep(yaml);
+}
 
 async function getAvailablePackages(): Promise<string[]> {
 	let resp = await axios.default.get('https://platform.apptreeio.com/api/packages');
@@ -64,13 +83,15 @@ async function getYamlForStep(pkg: string, step: string): Promise<string> {
 }
 
 function insertStep(text: string) {
+	insertSnippet(`- ${text}`);
+}
+
+function insertSnippet(text: string) {
 	let editor = vscode.window.activeTextEditor;
 	if (editor === undefined) {
 		return;
 	}
-	let activeEditor = editor;
-	let snippet = new vscode.SnippetString(`- ${text}`);
-
+	let snippet = new vscode.SnippetString(`${text}`);
 	editor.insertSnippet(snippet);
 }
 
@@ -92,4 +113,9 @@ export interface Step {
 	name: string;
 	inputs: Input[];
 	outputs: Output[];
+}
+
+export interface MessageType {
+	type: string;
+	description: string;
 }

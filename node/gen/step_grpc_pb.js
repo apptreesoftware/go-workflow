@@ -4,7 +4,7 @@
 // Defines the API for a step using the SDK to talk to an engine.
 //
 'use strict';
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var step_pb = require('./step_pb.js');
 var common_pb = require('./common_pb.js');
 

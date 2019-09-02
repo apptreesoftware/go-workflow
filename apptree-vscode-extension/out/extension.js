@@ -23,8 +23,35 @@ function activate(context) {
     // Now provide the implementation of the command with registerCommand
     // The commandId parameter must match the command field in package.json
     let findStep = vscode.commands.registerCommand('extension.findStep', () => __awaiter(this, void 0, void 0, function* () {
-        // The code you place here will be executed every time your command is executed
-        // Display a message box to the user
+        yield executeFindStep();
+    }));
+    let findAssistantMessage = vscode.commands.registerCommand('extension.findAssistantMessage', () => __awaiter(this, void 0, void 0, function* () {
+        yield executeFindAssistantStep();
+    }));
+    context.subscriptions.push(findStep, findAssistantMessage);
+}
+exports.activate = activate;
+// this method is called when your extension is deactivated
+function deactivate() { }
+exports.deactivate = deactivate;
+function executeFindAssistantStep() {
+    return __awaiter(this, void 0, void 0, function* () {
+        let resp = yield axios.default.get('https://chat.apptreeio.com/api/messages');
+        let messageTypes = resp.data;
+        var items = messageTypes.map((t) => {
+            return { label: t.description, description: t.type };
+        });
+        var messageType = yield vscode.window.showQuickPick(items);
+        if (messageType === null || messageType === undefined) {
+            return;
+        }
+        resp = yield axios.default.get(`https://chat.apptreeio.com/api/messages/${messageType.description}`);
+        let sample = resp.data['sample'];
+        insertSnippet(sample);
+    });
+}
+function executeFindStep() {
+    return __awaiter(this, void 0, void 0, function* () {
         var packages = yield getAvailablePackages();
         var pkg = yield vscode.window.showQuickPick(packages);
         if (pkg === undefined) {
@@ -43,13 +70,8 @@ function activate(context) {
         }
         const yaml = yield getYamlForStep(pkg, step.label);
         insertStep(yaml);
-    }));
-    context.subscriptions.push(findStep);
+    });
 }
-exports.activate = activate;
-// this method is called when your extension is deactivated
-function deactivate() { }
-exports.deactivate = deactivate;
 function getAvailablePackages() {
     return __awaiter(this, void 0, void 0, function* () {
         let resp = yield axios.default.get('https://platform.apptreeio.com/api/packages');
@@ -69,12 +91,14 @@ function getYamlForStep(pkg, step) {
     });
 }
 function insertStep(text) {
+    insertSnippet(`- ${text}`);
+}
+function insertSnippet(text) {
     let editor = vscode.window.activeTextEditor;
     if (editor === undefined) {
         return;
     }
-    let activeEditor = editor;
-    let snippet = new vscode.SnippetString(`- ${text}`);
+    let snippet = new vscode.SnippetString(`${text}`);
     editor.insertSnippet(snippet);
 }
 //# sourceMappingURL=extension.js.map

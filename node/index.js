@@ -2,7 +2,7 @@
 'use strict';
 const service = require('./gen/step_grpc_pb');
 const yaml = require('yaml');
-const grpc = require('grpc');
+const grpc = require('@grpc/grpc-js');
 const fs = require("fs");
 const steps = {};
 const yargs = require('yargs');
@@ -49,9 +49,13 @@ module.exports.run = async function () {
 function _runServeMode(port) {
     const server = new grpc.Server();
     server.addService(service.StepHostService, { runStep: runStep, getPackageInfo: getPackageInfo });
-    server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure());
+    server.bindAsync(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure(), function (err) {
+        if (err === null) {
+            server.start();
+        }
+    });
     console.log(`Starting step package on port ${port}`);
-    server.start();
+
 }
 
 function _runIPCMode() {

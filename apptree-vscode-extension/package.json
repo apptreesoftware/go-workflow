@@ -2,6 +2,10 @@
 	"name": "apptree-workflow",
 	"displayName": "AppTree Workflow",
 	"publisher": "AppTree",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/apptreesoftware/go-workflow"
+	},
 	"description": "Quickly search for and insert steps for AppTree workflows",
 	"version": "0.0.1",
 	"engines": {
@@ -12,7 +16,8 @@
 		"Snippets"
 	],
 	"activationEvents": [
-		"onCommand:extension.findStep"
+		"onCommand:extension.findStep",
+		"onCommand:extension.findAssistantMessage"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -20,6 +25,10 @@
 			{
 				"command": "extension.findStep",
 				"title": "AppTree: Add a step"
+			},
+			{
+				"command": "extension.findAssistantMessage",
+				"title": "AppTree Assistant: Create message"
 			}
 		]
 	},
