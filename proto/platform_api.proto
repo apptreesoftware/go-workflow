@@ -25,6 +25,8 @@ service EnvironmentManagement {
     rpc AddUserToProject (AddUserRequest) returns (BasicResponse);
     rpc AddSuperUser (UserRequest) returns (BasicResponse);
     rpc ListProjects (ListProjectRequest) returns (ListProjectResponse);
+    rpc GetProjectSecret (ProjectRequest) returns (SecretResponse);
+    rpc UpdateProjectSecret (ProjectRequest) returns (SecretResponse);
 
     rpc GetAssistantConfig (ConfigRequest) returns (Assistant);
     rpc UpdateAssistantConfig (Assistant) returns (Assistant);
@@ -120,6 +122,10 @@ message MoveProjectRequest {
 
 message ConfigRequest {
     string id = 1;
+}
+
+message SecretResponse {
+    string secretKey = 1;
 }
 
 message Assistant {
