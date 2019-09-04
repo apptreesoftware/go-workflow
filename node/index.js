@@ -42,7 +42,7 @@ module.exports.run = async function () {
     if (serveMode) {
         _runServeMode(port);
     } else {
-        _runIPCMode();
+        await _runIPCMode();
     }
 };
 
@@ -58,7 +58,7 @@ function _runServeMode(port) {
 
 }
 
-function _runIPCMode() {
+async function _runIPCMode() {
     const env = process.env;
     let name = env['STEP_NAME'];
     let version = env['STEP_VERSION'];
@@ -89,7 +89,7 @@ function _runIPCMode() {
     let sampleFileName = args['samples'];
     if (sampleFileName != null) {
         try {
-            const sampleInput = fs.readFileSync(sampleFileName,'utf8');
+            const sampleInput = fs.readFileSync(sampleFileName, 'utf8');
             const sampleJson = JSON.parse(sampleInput);
             let stepInputObject = null;
             if (sampleJson[name] != null) {
@@ -119,15 +119,18 @@ function _runIPCMode() {
             _runIPCWithInput(step, dataStr, outputPath);
         });
     } else {
-        _runIPCWithInput(step, input, outputPath);
+        await _runIPCWithInput(step, input, outputPath);
     }
 }
 
-function _runIPCWithInput(step, input, outputPath) {
+async function _runIPCWithInput(step, input, outputPath) {
     try {
         const parsedData = JSON.parse(input);
         module.exports.stepInput = parsedData;
-        const resp = step(parsedData);
+        let resp = step(parsedData);
+        if (resp instanceof Promise) {
+            resp = await resp;
+        }
         const outData = JSON.stringify(resp);
         if (outputPath === undefined || outputPath === null) {
             process.stdout.write(outData);
@@ -138,13 +141,12 @@ function _runIPCWithInput(step, input, outputPath) {
                 }
             });
         }
-    }
-    catch (e) {
+    } catch (e) {
         console.error(e);
     }
 }
 
-function runStep(call, callback) {
+async function runStep(call, callback) {
     const reply = new proto.core.StepOutput();
     const input = call.request.getInput();
     const env = call.request.getEnvironment();
@@ -154,20 +156,23 @@ function runStep(call, callback) {
     const enc = new TextEncoder();
     try {
         if (step == null) {
-            callback({ message: "step not found", status: grpc.status.NOT_FOUND });
+            callback({message: "step not found", status: grpc.status.NOT_FOUND});
             return;
         }
         const inputStr = dec.decode(input);
         const inputJson = JSON.parse(inputStr);
         module.exports.stepInput = inputJson;
-        const resp = step(inputJson);
+        let r esp = step(inputJson);
+        if (resp instanceof Promise) {
+            resp = await resp;
+        }
         const respBytes = enc.encode(JSON.stringify(resp));
 
         reply.setOutput(respBytes);
         callback(null, reply);
     } catch (e) {
         console.error(e);
-        callback({ code: 400, message: e.toString(), status: grpc.status.INTERNAL }, null);
+        callback({code: 400, message: e.toString(), status: grpc.status.INTERNAL}, null);
     }
 }
 
