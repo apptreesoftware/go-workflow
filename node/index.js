@@ -162,7 +162,7 @@ async function runStep(call, callback) {
         const inputStr = dec.decode(input);
         const inputJson = JSON.parse(inputStr);
         module.exports.stepInput = inputJson;
-        let r esp = step(inputJson);
+        let resp = step(inputJson);
         if (resp instanceof Promise) {
             resp = await resp;
         }
