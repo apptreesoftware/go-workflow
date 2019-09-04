@@ -6,7 +6,7 @@ const grpc = require('@grpc/grpc-js');
 const fs = require("fs");
 const steps = {};
 const yargs = require('yargs');
-
+const getStdin = require('get-stdin');
 
 module.exports.runId = process.env['RUN_ID'];
 module.exports.EXIT_WORKFLOW_SUCCESS_CODE = 200;
@@ -42,7 +42,13 @@ module.exports.run = async function () {
     if (serveMode) {
         _runServeMode(port);
     } else {
-        await _runIPCMode();
+        try {
+            await _runIPCMode();
+            process.exit(0);
+        } catch (e) {
+            console.error(e);
+            process.exit(1);
+        }
     }
 };
 
@@ -64,7 +70,6 @@ async function _runIPCMode() {
     let version = env['STEP_VERSION'];
     const outputPath = env['WORKFLOW_OUTPUT'];
     module.exports.debug = env['DEBUG'] === 'true';
-
     if (version === undefined || version == null) {
         version = '1.0';
     }
@@ -109,15 +114,8 @@ async function _runIPCMode() {
     }
 
     if (input == null) {
-        let dataStr = "";
-        process.stdin.setEncoding("utf8");
-        process.stdin.on('data', (data) => {
-            console.log(`Input: ${data}`);
-            dataStr += data;
-        });
-        process.stdin.on('end', () => {
-            _runIPCWithInput(step, dataStr, outputPath);
-        });
+        let dataStr = await getStdin();
+        await _runIPCWithInput(step, dataStr, outputPath);
     } else {
         await _runIPCWithInput(step, input, outputPath);
     }
@@ -127,22 +125,22 @@ async function _runIPCWithInput(step, input, outputPath) {
     try {
         const parsedData = JSON.parse(input);
         module.exports.stepInput = parsedData;
-        let resp = step(parsedData);
-        if (resp instanceof Promise) {
-            resp = await resp;
+        let respOrPromise = step(parsedData);
+        let resp;
+        if (respOrPromise instanceof Promise) {
+            resp = await respOrPromise;
+        } else {
+            resp = respOrPromise;
         }
         const outData = JSON.stringify(resp);
         if (outputPath === undefined || outputPath === null) {
             process.stdout.write(outData);
         } else {
-            fs.writeFile(outputPath, outData, (err) => {
-                if (err) {
-                    console.log(err);
-                }
-            });
+            fs.writeFileSync(outputPath, outData);
         }
     } catch (e) {
         console.error(e);
+        throw `Could not write step output: ${e}`
     }
 }
 
@@ -179,7 +177,6 @@ async function runStep(call, callback) {
 function getPackageInfo(call, callback) {
     const file = fs.readFileSync('./package.yaml', 'utf8');
     const parsed = yaml.parse(file);
-    console.log(parsed);
     const pkg = new proto.core.Package();
 
     pkg.setName(parsed['name']);
