@@ -166,10 +166,6 @@ message ProjectRequest {
     string project = 1;
 }
 
-message UserRequest {
-    string username = 1;
-}
-
 message BasicResponse {
     bool success = 1;
     string message = 2;
@@ -181,12 +177,6 @@ message Empty {
 
 message AllPackagesNamesResponse {
     repeated string packages = 1;
-}
-
-message ListProjectResponse {
-    bool success = 1;
-    string message = 2;
-    repeated string projects = 3;
 }
 
 message GetWorkflowUrlRequest {

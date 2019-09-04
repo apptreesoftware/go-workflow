@@ -900,31 +900,6 @@ class ProjectRequest {
   }
 }
 
-class UserRequest {
-  UserRequest(
-    this.username,
-  );
-
-  String username;
-
-  factory UserRequest.fromJson(Map<String, dynamic> json) {
-    return new UserRequest(
-      json['username'] as String,
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['username'] = username;
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
 class BasicResponse {
   BasicResponse(
     this.success,
@@ -990,41 +965,6 @@ class AllPackagesNamesResponse {
   Map<String, dynamic> toJson() {
     var map = new Map<String, dynamic>();
     map['packages'] = packages?.map((l) => l)?.toList();
-    return map;
-  }
-
-  @override
-  String toString() {
-    return json.encode(toJson());
-  }
-}
-
-class ListProjectResponse {
-  ListProjectResponse(
-    this.success,
-    this.message,
-    this.projects,
-  );
-
-  bool success;
-  String message;
-  List<String> projects;
-
-  factory ListProjectResponse.fromJson(Map<String, dynamic> json) {
-    return new ListProjectResponse(
-      json['success'] as bool,
-      json['message'] as String,
-      json['projects'] != null
-          ? (json['projects'] as List).cast<String>()
-          : <String>[],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    var map = new Map<String, dynamic>();
-    map['success'] = success;
-    map['message'] = message;
-    map['projects'] = projects?.map((l) => l)?.toList();
     return map;
   }
 
