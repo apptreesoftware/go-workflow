@@ -28,8 +28,8 @@ service EnvironmentManagement {
     rpc GetProjectSecret (ProjectRequest) returns (SecretResponse);
     rpc UpdateProjectSecret (ProjectRequest) returns (SecretResponse);
 
-    rpc GetAssistantConfig (ConfigRequest) returns (Assistant);
-    rpc UpdateAssistantConfig (Assistant) returns (Assistant);
+    rpc GetAssistantConfig (ConfigRequest) returns (AssistantRequest);
+    rpc UpdateAssistantConfig (AssistantRequest) returns (AssistantRequest);
 
     rpc ValidateProjectAccess (ProjectRequest) returns (BasicResponse);
     rpc ValidateEnvironmentAccess (EnvironmentRequest) returns (BasicResponse);
@@ -128,7 +128,7 @@ message SecretResponse {
     string secretKey = 1;
 }
 
-message Assistant {
+message AssistantRequest {
     // @inject_tag: firestore:"-"
     string id = 1;
     // @inject_tag: firestore:"name"
