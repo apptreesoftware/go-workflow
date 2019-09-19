@@ -28,8 +28,8 @@ service EnvironmentManagement {
     rpc GetProjectSecret (ProjectRequest) returns (SecretResponse);
     rpc UpdateProjectSecret (ProjectRequest) returns (SecretResponse);
 
-    rpc GetAssistantConfig (ConfigRequest) returns (Assistant);
-    rpc UpdateAssistantConfig (Assistant) returns (Assistant);
+    rpc GetAssistantConfig (ConfigRequest) returns (AssistantRequest);
+    rpc UpdateAssistantConfig (AssistantRequest) returns (AssistantRequest);
 
     rpc ValidateProjectAccess (ProjectRequest) returns (BasicResponse);
     rpc ValidateEnvironmentAccess (EnvironmentRequest) returns (BasicResponse);
@@ -128,17 +128,11 @@ message SecretResponse {
     string secretKey = 1;
 }
 
-message Assistant {
-    // @inject_tag: firestore:"-"
+message AssistantRequest {
     string id = 1;
-    // @inject_tag: firestore:"name"
     string name = 2;
-    // @inject_tag: firestore:"description"
     string description = 3;
-    // @inject_tag: firestore:"avatarUrl"
     string avatarUrl = 4;
-    // @inject_tag: firestore:"intentDiscoveryUrl"
     string intentDiscoveryUrl = 5;
-    // @inject_tag: firestore:"debugDiscoveryUrl"
     string debugDiscoveryUrl = 6;
 }
