@@ -342,6 +342,7 @@ message AddEventRequest {
     bool dailySummary = 5;
     string url = 6;
     map<string, string> extraHeaders = 7;
+    bool onStuck = 8;
 }
 
 message RemoveEventRequest {

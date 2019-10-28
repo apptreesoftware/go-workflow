@@ -1543,6 +1543,7 @@ class AddEventRequest {
     this.dailySummary,
     this.url,
     this.extraHeaders,
+    this.onStuck,
   );
 
   String project;
@@ -1552,6 +1553,7 @@ class AddEventRequest {
   bool dailySummary;
   String url;
   Map<String, String> extraHeaders;
+  bool onStuck;
 
   factory AddEventRequest.fromJson(Map<String, dynamic> json) {
     var extraHeadersMap = new Map<String, String>();
@@ -1568,6 +1570,7 @@ class AddEventRequest {
       json['dailySummary'] as bool,
       json['url'] as String,
       extraHeadersMap,
+      json['onStuck'] as bool,
     );
   }
 
@@ -1580,6 +1583,7 @@ class AddEventRequest {
     map['dailySummary'] = dailySummary;
     map['url'] = url;
     map['extraHeaders'] = json.decode(json.encode(extraHeaders));
+    map['onStuck'] = onStuck;
     return map;
   }
 
