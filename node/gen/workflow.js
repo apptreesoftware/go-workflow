@@ -813,7 +813,8 @@ proto.core.PackageStep.toObject = function(includeInstance, msg) {
     description: jspb.Message.getFieldWithDefault(msg, 1, ""),
     inputsMap: (f = msg.getInputsMap()) ? f.toObject(includeInstance, proto.core.InputInfo.toObject) : [],
     outputsMap: (f = msg.getOutputsMap()) ? f.toObject(includeInstance, proto.core.OutputInfo.toObject) : [],
-    sample: jspb.Message.getFieldWithDefault(msg, 4, "")
+    sample: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    url: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -870,6 +871,10 @@ proto.core.PackageStep.deserializeBinaryFromReader = function(msg, reader) {
       var value = /** @type {string} */ (reader.readString());
       msg.setSample(value);
       break;
+    case 5:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setUrl(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -918,6 +923,13 @@ proto.core.PackageStep.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       4,
+      f
+    );
+  }
+  f = message.getUrl();
+  if (f.length > 0) {
+    writer.writeString(
+      5,
       f
     );
   }
@@ -987,6 +999,21 @@ proto.core.PackageStep.prototype.getSample = function() {
 /** @param {string} value */
 proto.core.PackageStep.prototype.setSample = function(value) {
   jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional string url = 5;
+ * @return {string}
+ */
+proto.core.PackageStep.prototype.getUrl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+};
+
+
+/** @param {string} value */
+proto.core.PackageStep.prototype.setUrl = function(value) {
+  jspb.Message.setProto3StringField(this, 5, value);
 };
 
 
@@ -2302,7 +2329,9 @@ proto.core.StepPackageResponse.prototype.toObject = function(opt_includeInstance
 proto.core.StepPackageResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
     packageurl: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    publishid: jspb.Message.getFieldWithDefault(msg, 2, "")
+    publishid: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    packagedata: msg.getPackagedata_asB64(),
+    iscloudhosted: jspb.Message.getFieldWithDefault(msg, 4, false)
   };
 
   if (includeInstance) {
@@ -2347,6 +2376,14 @@ proto.core.StepPackageResponse.deserializeBinaryFromReader = function(msg, reade
       var value = /** @type {string} */ (reader.readString());
       msg.setPublishid(value);
       break;
+    case 3:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setPackagedata(value);
+      break;
+    case 4:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setIscloudhosted(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -2390,6 +2427,20 @@ proto.core.StepPackageResponse.serializeBinaryToWriter = function(message, write
       f
     );
   }
+  f = message.getPackagedata_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      3,
+      f
+    );
+  }
+  f = message.getIscloudhosted();
+  if (f) {
+    writer.writeBool(
+      4,
+      f
+    );
+  }
 };
 
 
@@ -2420,6 +2471,62 @@ proto.core.StepPackageResponse.prototype.getPublishid = function() {
 /** @param {string} value */
 proto.core.StepPackageResponse.prototype.setPublishid = function(value) {
   jspb.Message.setProto3StringField(this, 2, value);
+};
+
+
+/**
+ * optional bytes packageData = 3;
+ * @return {!(string|Uint8Array)}
+ */
+proto.core.StepPackageResponse.prototype.getPackagedata = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+};
+
+
+/**
+ * optional bytes packageData = 3;
+ * This is a type-conversion wrapper around `getPackagedata()`
+ * @return {string}
+ */
+proto.core.StepPackageResponse.prototype.getPackagedata_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getPackagedata()));
+};
+
+
+/**
+ * optional bytes packageData = 3;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getPackagedata()`
+ * @return {!Uint8Array}
+ */
+proto.core.StepPackageResponse.prototype.getPackagedata_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getPackagedata()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.core.StepPackageResponse.prototype.setPackagedata = function(value) {
+  jspb.Message.setProto3BytesField(this, 3, value);
+};
+
+
+/**
+ * optional bool isCloudHosted = 4;
+ * Note that Boolean fields may be set to 0/1 when serialized from a Java server.
+ * You should avoid comparisons like {@code val === true/false} in those cases.
+ * @return {boolean}
+ */
+proto.core.StepPackageResponse.prototype.getIscloudhosted = function() {
+  return /** @type {boolean} */ (jspb.Message.getFieldWithDefault(this, 4, false));
+};
+
+
+/** @param {boolean} value */
+proto.core.StepPackageResponse.prototype.setIscloudhosted = function(value) {
+  jspb.Message.setProto3BooleanField(this, 4, value);
 };
 
 

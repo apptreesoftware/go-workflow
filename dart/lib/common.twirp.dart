@@ -118,12 +118,14 @@ class PackageStep {
     this.inputs,
     this.outputs,
     this.sample,
+    this.url,
   );
 
   String description;
   Map<String, InputInfo> inputs;
   Map<String, OutputInfo> outputs;
   String sample;
+  String url;
 
   factory PackageStep.fromJson(Map<String, dynamic> json) {
     var inputsMap = new Map<String, InputInfo>();
@@ -141,6 +143,7 @@ class PackageStep {
       inputsMap,
       outputsMap,
       json['sample'] as String,
+      json['url'] as String,
     );
   }
 
@@ -150,6 +153,7 @@ class PackageStep {
     map['inputs'] = json.decode(json.encode(inputs));
     map['outputs'] = json.decode(json.encode(outputs));
     map['sample'] = sample;
+    map['url'] = url;
     return map;
   }
 
@@ -370,15 +374,21 @@ class StepPackageResponse {
   StepPackageResponse(
     this.packageUrl,
     this.publishId,
+    this.packageData,
+    this.isCloudHosted,
   );
 
   String packageUrl;
   String publishId;
+  String packageData;
+  bool isCloudHosted;
 
   factory StepPackageResponse.fromJson(Map<String, dynamic> json) {
     return new StepPackageResponse(
       json['packageUrl'] as String,
       json['publishId'] as String,
+      json['packageData'] as String,
+      json['isCloudHosted'] as bool,
     );
   }
 
@@ -386,6 +396,8 @@ class StepPackageResponse {
     var map = new Map<String, dynamic>();
     map['packageUrl'] = packageUrl;
     map['publishId'] = publishId;
+    map['packageData'] = packageData;
+    map['isCloudHosted'] = isCloudHosted;
     return map;
   }
 

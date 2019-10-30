@@ -2,6 +2,7 @@ package core
 
 import (
 	"fmt"
+	"golang.org/x/xerrors"
 	"strings"
 	"time"
 )
@@ -35,4 +36,33 @@ func (m JobSearchResult) SpawnTrailString() (workflowPath string, jobPath string
 
 func (m JobFailureInfo) FailureInfoString() string {
 	return fmt.Sprintf("Step %d - %s failed. Reason: %s", m.StepIndex, m.StepName, m.Message)
+}
+
+func (p Package) IsHostedPackage() bool {
+	for _, step := range p.Steps {
+		if len(step.Url) > 0 {
+			return true
+		}
+	}
+	return false
+}
+
+func (p Package) ValidatePackageType() error {
+	if p.IsHostedPackage() && p.IsExecutablePackage() {
+		return xerrors.Errorf("Package contains both executables and hosted steps. This is not currently supported")
+	}
+	if p.IsHostedPackage() {
+		for name, step := range p.Steps {
+			if len(step.Url) == 0 {
+				return xerrors.Errorf("The step %s does not contain a `url`. " +
+						"All steps must contain a url when publishing a hosted package", name)
+			}
+		}
+	}
+	return nil
+}
+
+
+func (p Package) IsExecutablePackage() bool {
+	return p.Executables != nil
 }

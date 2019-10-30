@@ -32,76 +32,78 @@ namespace Core {
             "a2FnZVN0ZXA6AjgBImAKBEV4ZWMSHAoGZGFyd2luGAEgASgLMgwuY29yZS5C",
             "aW5hcnkSGwoFbGludXgYAiABKAsyDC5jb3JlLkJpbmFyeRIdCgd3aW5kb3dz",
             "GAMgASgLMgwuY29yZS5CaW5hcnkiJQoGQmluYXJ5Eg0KBWFtZDY0GAEgASgJ",
-            "EgwKBGkzODYYAiABKAkilAIKC1BhY2thZ2VTdGVwEhMKC2Rlc2NyaXB0aW9u",
+            "EgwKBGkzODYYAiABKAkioQIKC1BhY2thZ2VTdGVwEhMKC2Rlc2NyaXB0aW9u",
             "GAEgASgJEi0KBmlucHV0cxgCIAMoCzIdLmNvcmUuUGFja2FnZVN0ZXAuSW5w",
             "dXRzRW50cnkSLwoHb3V0cHV0cxgDIAMoCzIeLmNvcmUuUGFja2FnZVN0ZXAu",
-            "T3V0cHV0c0VudHJ5Eg4KBnNhbXBsZRgEIAEoCRo+CgtJbnB1dHNFbnRyeRIL",
-            "CgNrZXkYASABKAkSHgoFdmFsdWUYAiABKAsyDy5jb3JlLklucHV0SW5mbzoC",
-            "OAEaQAoMT3V0cHV0c0VudHJ5EgsKA2tleRgBIAEoCRIfCgV2YWx1ZRgCIAEo",
-            "CzIQLmNvcmUuT3V0cHV0SW5mbzoCOAEiQgoJSW5wdXRJbmZvEhAKCHJlcXVp",
-            "cmVkGAEgASgIEhMKC2Rlc2NyaXB0aW9uGAIgASgJEg4KBnNhbXBsZRgDIAEo",
-            "CSIhCgpPdXRwdXRJbmZvEhMKC2Rlc2NyaXB0aW9uGAEgASgJIvABCgtFbnZp",
-            "cm9ubWVudBIPCgdwcm9qZWN0GAEgASgJEhAKCHdvcmtmbG93GAIgASgJEg0K",
-            "BXJ1bklkGAMgASgJEhAKCHN0ZXBOYW1lGAQgASgJEhMKC3N0ZXBWZXJzaW9u",
-            "GAUgASgJEhEKCWlucHV0RmlsZRgGIAEoCRITCgt0cmlnZ2VyVHlwZRgHIAEo",
-            "CRIWCg5zdGVwSW5zdGFuY2VJZBgIIAEoCRIPCgdwYWNrYWdlGAkgASgJEhEK",
-            "CWNhY2hlSG9zdBgKIAEoCRIVCg1hbGxvd1BhcmFsbGVsGAsgASgIEg0KBWRl",
-            "YnVnGAwgASgIIg4KDEVtcHR5TWVzc2FnZSJLChJTdGVwUGFja2FnZVJlcXVl",
-            "c3QSCgoCaWQYASABKAkSDwoHdmVyc2lvbhgCIAEoCRIKCgJvcxgDIAEoCRIM",
-            "CgRhcmNoGAQgASgJIiIKFFN0ZXBQYWNrYWdlSWRSZXF1ZXN0EgoKAmlkGAEg",
-            "ASgJIjwKE1N0ZXBQYWNrYWdlUmVzcG9uc2USEgoKcGFja2FnZVVybBgBIAEo",
-            "CRIRCglwdWJsaXNoSWQYAiABKAkiPQoVR2V0U3RlcFBhY2thZ2VSZXF1ZXN0",
-            "EhMKC3BhY2thZ2VOYW1lGAEgASgJEg8KB3ZlcnNpb24YAiABKAkiOAoWR2V0",
-            "U3RlcFBhY2thZ2VSZXNwb25zZRIeCgdwYWNrYWdlGAEgASgLMg0uY29yZS5Q",
-            "YWNrYWdlInsKEENhY2hlUHVzaFJlcXVlc3QSCgoCaWQYASABKAkSEAoIbWV0",
-            "YWRhdGEYAiABKAwSDgoGcmVjb3JkGAMgASgMEhEKCWNhY2hlTmFtZRgEIAEo",
-            "CRImCgtlbnZpcm9ubWVudBgFIAEoCzIRLmNvcmUuRW52aXJvbm1lbnQiEwoR",
-            "Q2FjaGVQdXNoUmVzcG9uc2UiWQoQQ2FjaGVQdWxsUmVxdWVzdBIKCgJpZBgB",
-            "IAEoCRIRCgljYWNoZU5hbWUYAiABKAkSJgoLZW52aXJvbm1lbnQYAyABKAsy",
-            "ES5jb3JlLkVudmlyb25tZW50IkcKEUNhY2hlUHVsbFJlc3BvbnNlEg4KBnJl",
-            "Y29yZBgBIAEoDBIQCghtZXRhZGF0YRgCIAEoDBIQCghub3RGb3VuZBgDIAEo",
-            "CCJ0ChJDYWNoZVNlYXJjaFJlcXVlc3QSEQoJY2FjaGVOYW1lGAEgASgJEhQK",
-            "DHNlYXJjaEZpbHRlchgCIAEoDBImCgtlbnZpcm9ubWVudBgDIAEoCzIRLmNv",
-            "cmUuRW52aXJvbm1lbnQSDQoFbGltaXQYBCABKAMiNwoTQ2FjaGVTZWFyY2hS",
-            "ZXNwb25zZRIgCgdyZWNvcmRzGAEgAygLMg8uY29yZS5SYXdSZWNvcmQiLQoJ",
-            "UmF3UmVjb3JkEg4KBnJlY29yZBgBIAEoDBIQCghtZXRhZGF0YRgCIAEoDCIl",
-            "Cg9BbGxTdGVwc1JlcXVlc3QSEgoKc2VhcmNoVGVybRgBIAEoCSJuChBBbGxT",
-            "dGVwc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoHbWVzc2FnZRgCIAEo",
-            "CRITCgtyZWNvcmRDb3VudBgDIAEoAxIjCgVpdGVtcxgEIAMoCzIULmNvcmUu",
-            "UmVnaXN0ZXJlZFN0ZXAiowEKDlJlZ2lzdGVyZWRTdGVwEh8KBHN0ZXAYASAB",
-            "KAsyES5jb3JlLlBhY2thZ2VTdGVwEhAKCGxvY2F0aW9uGAIgASgJEhQKDGxv",
-            "Y2F0aW9uVHlwZRgDIAEoCRIRCglwdWJsaXNoSWQYBCABKAkSDgoGYXV0aG9y",
-            "GAUgASgJEhMKC3BhY2thZ2VOYW1lGAYgASgJEhAKCFN0ZXBOYW1lGAcgASgJ",
-            "IksKEVNpbmdsZVN0ZXBSZXF1ZXN0EhMKC3BhY2thZ2VOYW1lGAEgASgJEhAK",
-            "CHN0ZXBOYW1lGAIgASgJEg8KB3ZlcnNpb24YAyABKAkiOAoSU2luZ2xlU3Rl",
-            "cFJlc3BvbnNlEiIKBHN0ZXAYASABKAsyFC5jb3JlLlJlZ2lzdGVyZWRTdGVw",
-            "IlsKDlJ1blN0ZXBSZXF1ZXN0EiYKC2Vudmlyb25tZW50GAEgASgLMhEuY29y",
-            "ZS5FbnZpcm9ubWVudBINCgVpbnB1dBgCIAEoDBISCgpzdGVwQ29uZmlnGAMg",
-            "ASgMIiEKDlByb2plY3RSZXF1ZXN0Eg8KB3Byb2plY3QYASABKAkiMQoNQmFz",
-            "aWNSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UYAiABKAki",
-            "BwoFRW1wdHkiLAoYQWxsUGFja2FnZXNOYW1lc1Jlc3BvbnNlEhAKCHBhY2th",
-            "Z2VzGAEgAygJIrkBChVHZXRXb3JrZmxvd1VybFJlcXVlc3QSJgoLZW52aXJv",
-            "bm1lbnQYASABKAsyES5jb3JlLkVudmlyb25tZW50EhAKCHdvcmtmbG93GAIg",
-            "ASgJEjcKBnBhcmFtcxgDIAMoCzInLmNvcmUuR2V0V29ya2Zsb3dVcmxSZXF1",
-            "ZXN0LlBhcmFtc0VudHJ5Gi0KC1BhcmFtc0VudHJ5EgsKA2tleRgBIAEoCRIN",
-            "CgV2YWx1ZRgCIAEoCToCOAEiLQoWR2V0V29ya2Zsb3dVcmxSZXNwb25zZRIT",
-            "Cgt3b3JrZmxvd1VybBgBIAEoCSIyCg9TcGF3blRyYWlsRW50cnkSEAoId29y",
-            "a2Zsb3cYASABKAkSDQoFam9iSWQYAiABKAlCMVovZ2l0aHViLmNvbS9hcHB0",
-            "cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtnL2NvcmViBnByb3RvMw=="));
+            "T3V0cHV0c0VudHJ5Eg4KBnNhbXBsZRgEIAEoCRILCgN1cmwYBSABKAkaPgoL",
+            "SW5wdXRzRW50cnkSCwoDa2V5GAEgASgJEh4KBXZhbHVlGAIgASgLMg8uY29y",
+            "ZS5JbnB1dEluZm86AjgBGkAKDE91dHB1dHNFbnRyeRILCgNrZXkYASABKAkS",
+            "HwoFdmFsdWUYAiABKAsyEC5jb3JlLk91dHB1dEluZm86AjgBIkIKCUlucHV0",
+            "SW5mbxIQCghyZXF1aXJlZBgBIAEoCBITCgtkZXNjcmlwdGlvbhgCIAEoCRIO",
+            "CgZzYW1wbGUYAyABKAkiIQoKT3V0cHV0SW5mbxITCgtkZXNjcmlwdGlvbhgB",
+            "IAEoCSLwAQoLRW52aXJvbm1lbnQSDwoHcHJvamVjdBgBIAEoCRIQCgh3b3Jr",
+            "ZmxvdxgCIAEoCRINCgVydW5JZBgDIAEoCRIQCghzdGVwTmFtZRgEIAEoCRIT",
+            "CgtzdGVwVmVyc2lvbhgFIAEoCRIRCglpbnB1dEZpbGUYBiABKAkSEwoLdHJp",
+            "Z2dlclR5cGUYByABKAkSFgoOc3RlcEluc3RhbmNlSWQYCCABKAkSDwoHcGFj",
+            "a2FnZRgJIAEoCRIRCgljYWNoZUhvc3QYCiABKAkSFQoNYWxsb3dQYXJhbGxl",
+            "bBgLIAEoCBINCgVkZWJ1ZxgMIAEoCCIOCgxFbXB0eU1lc3NhZ2UiSwoSU3Rl",
+            "cFBhY2thZ2VSZXF1ZXN0EgoKAmlkGAEgASgJEg8KB3ZlcnNpb24YAiABKAkS",
+            "CgoCb3MYAyABKAkSDAoEYXJjaBgEIAEoCSIiChRTdGVwUGFja2FnZUlkUmVx",
+            "dWVzdBIKCgJpZBgBIAEoCSJoChNTdGVwUGFja2FnZVJlc3BvbnNlEhIKCnBh",
+            "Y2thZ2VVcmwYASABKAkSEQoJcHVibGlzaElkGAIgASgJEhMKC3BhY2thZ2VE",
+            "YXRhGAMgASgMEhUKDWlzQ2xvdWRIb3N0ZWQYBCABKAgiPQoVR2V0U3RlcFBh",
+            "Y2thZ2VSZXF1ZXN0EhMKC3BhY2thZ2VOYW1lGAEgASgJEg8KB3ZlcnNpb24Y",
+            "AiABKAkiOAoWR2V0U3RlcFBhY2thZ2VSZXNwb25zZRIeCgdwYWNrYWdlGAEg",
+            "ASgLMg0uY29yZS5QYWNrYWdlInsKEENhY2hlUHVzaFJlcXVlc3QSCgoCaWQY",
+            "ASABKAkSEAoIbWV0YWRhdGEYAiABKAwSDgoGcmVjb3JkGAMgASgMEhEKCWNh",
+            "Y2hlTmFtZRgEIAEoCRImCgtlbnZpcm9ubWVudBgFIAEoCzIRLmNvcmUuRW52",
+            "aXJvbm1lbnQiEwoRQ2FjaGVQdXNoUmVzcG9uc2UiWQoQQ2FjaGVQdWxsUmVx",
+            "dWVzdBIKCgJpZBgBIAEoCRIRCgljYWNoZU5hbWUYAiABKAkSJgoLZW52aXJv",
+            "bm1lbnQYAyABKAsyES5jb3JlLkVudmlyb25tZW50IkcKEUNhY2hlUHVsbFJl",
+            "c3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQCghtZXRhZGF0YRgCIAEoDBIQCghu",
+            "b3RGb3VuZBgDIAEoCCJ0ChJDYWNoZVNlYXJjaFJlcXVlc3QSEQoJY2FjaGVO",
+            "YW1lGAEgASgJEhQKDHNlYXJjaEZpbHRlchgCIAEoDBImCgtlbnZpcm9ubWVu",
+            "dBgDIAEoCzIRLmNvcmUuRW52aXJvbm1lbnQSDQoFbGltaXQYBCABKAMiNwoT",
+            "Q2FjaGVTZWFyY2hSZXNwb25zZRIgCgdyZWNvcmRzGAEgAygLMg8uY29yZS5S",
+            "YXdSZWNvcmQiLQoJUmF3UmVjb3JkEg4KBnJlY29yZBgBIAEoDBIQCghtZXRh",
+            "ZGF0YRgCIAEoDCIlCg9BbGxTdGVwc1JlcXVlc3QSEgoKc2VhcmNoVGVybRgB",
+            "IAEoCSJuChBBbGxTdGVwc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoH",
+            "bWVzc2FnZRgCIAEoCRITCgtyZWNvcmRDb3VudBgDIAEoAxIjCgVpdGVtcxgE",
+            "IAMoCzIULmNvcmUuUmVnaXN0ZXJlZFN0ZXAiowEKDlJlZ2lzdGVyZWRTdGVw",
+            "Eh8KBHN0ZXAYASABKAsyES5jb3JlLlBhY2thZ2VTdGVwEhAKCGxvY2F0aW9u",
+            "GAIgASgJEhQKDGxvY2F0aW9uVHlwZRgDIAEoCRIRCglwdWJsaXNoSWQYBCAB",
+            "KAkSDgoGYXV0aG9yGAUgASgJEhMKC3BhY2thZ2VOYW1lGAYgASgJEhAKCFN0",
+            "ZXBOYW1lGAcgASgJIksKEVNpbmdsZVN0ZXBSZXF1ZXN0EhMKC3BhY2thZ2VO",
+            "YW1lGAEgASgJEhAKCHN0ZXBOYW1lGAIgASgJEg8KB3ZlcnNpb24YAyABKAki",
+            "OAoSU2luZ2xlU3RlcFJlc3BvbnNlEiIKBHN0ZXAYASABKAsyFC5jb3JlLlJl",
+            "Z2lzdGVyZWRTdGVwIlsKDlJ1blN0ZXBSZXF1ZXN0EiYKC2Vudmlyb25tZW50",
+            "GAEgASgLMhEuY29yZS5FbnZpcm9ubWVudBINCgVpbnB1dBgCIAEoDBISCgpz",
+            "dGVwQ29uZmlnGAMgASgMIiEKDlByb2plY3RSZXF1ZXN0Eg8KB3Byb2plY3QY",
+            "ASABKAkiMQoNQmFzaWNSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21l",
+            "c3NhZ2UYAiABKAkiBwoFRW1wdHkiLAoYQWxsUGFja2FnZXNOYW1lc1Jlc3Bv",
+            "bnNlEhAKCHBhY2thZ2VzGAEgAygJIrkBChVHZXRXb3JrZmxvd1VybFJlcXVl",
+            "c3QSJgoLZW52aXJvbm1lbnQYASABKAsyES5jb3JlLkVudmlyb25tZW50EhAK",
+            "CHdvcmtmbG93GAIgASgJEjcKBnBhcmFtcxgDIAMoCzInLmNvcmUuR2V0V29y",
+            "a2Zsb3dVcmxSZXF1ZXN0LlBhcmFtc0VudHJ5Gi0KC1BhcmFtc0VudHJ5EgsK",
+            "A2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEiLQoWR2V0V29ya2Zsb3dV",
+            "cmxSZXNwb25zZRITCgt3b3JrZmxvd1VybBgBIAEoCSIyCg9TcGF3blRyYWls",
+            "RW50cnkSEAoId29ya2Zsb3cYASABKAkSDQoFam9iSWQYAiABKAlCMVovZ2l0",
+            "aHViLmNvbS9hcHB0cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtnL2NvcmVi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.Package), global::Core.Package.Parser, new[]{ "Name", "Lang", "Version", "Executables", "Steps", "Description" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.Exec), global::Core.Exec.Parser, new[]{ "Darwin", "Linux", "Windows" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.Binary), global::Core.Binary.Parser, new[]{ "Amd64", "I386" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.PackageStep), global::Core.PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs", "Sample" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.PackageStep), global::Core.PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs", "Sample", "Url" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.InputInfo), global::Core.InputInfo.Parser, new[]{ "Required", "Description", "Sample" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.OutputInfo), global::Core.OutputInfo.Parser, new[]{ "Description" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.Environment), global::Core.Environment.Parser, new[]{ "Project", "Workflow", "RunId", "StepName", "StepVersion", "InputFile", "TriggerType", "StepInstanceId", "Package", "CacheHost", "AllowParallel", "Debug" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.EmptyMessage), global::Core.EmptyMessage.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageRequest), global::Core.StepPackageRequest.Parser, new[]{ "Id", "Version", "Os", "Arch" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageIdRequest), global::Core.StepPackageIdRequest.Parser, new[]{ "Id" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageResponse), global::Core.StepPackageResponse.Parser, new[]{ "PackageUrl", "PublishId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageResponse), global::Core.StepPackageResponse.Parser, new[]{ "PackageUrl", "PublishId", "PackageData", "IsCloudHosted" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.GetStepPackageRequest), global::Core.GetStepPackageRequest.Parser, new[]{ "PackageName", "Version" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.GetStepPackageResponse), global::Core.GetStepPackageResponse.Parser, new[]{ "Package" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.CachePushRequest), global::Core.CachePushRequest.Parser, new[]{ "Id", "Metadata", "Record", "CacheName", "Environment" }, null, null, null),
@@ -786,6 +788,7 @@ namespace Core {
       inputs_ = other.inputs_.Clone();
       outputs_ = other.outputs_.Clone();
       sample_ = other.sample_;
+      url_ = other.url_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -836,6 +839,17 @@ namespace Core {
       }
     }
 
+    /// <summary>Field number for the "url" field.</summary>
+    public const int UrlFieldNumber = 5;
+    private string url_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Url {
+      get { return url_; }
+      set {
+        url_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as PackageStep);
@@ -853,6 +867,7 @@ namespace Core {
       if (!Inputs.Equals(other.Inputs)) return false;
       if (!Outputs.Equals(other.Outputs)) return false;
       if (Sample != other.Sample) return false;
+      if (Url != other.Url) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -863,6 +878,7 @@ namespace Core {
       hash ^= Inputs.GetHashCode();
       hash ^= Outputs.GetHashCode();
       if (Sample.Length != 0) hash ^= Sample.GetHashCode();
+      if (Url.Length != 0) hash ^= Url.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -886,6 +902,10 @@ namespace Core {
         output.WriteRawTag(34);
         output.WriteString(Sample);
       }
+      if (Url.Length != 0) {
+        output.WriteRawTag(42);
+        output.WriteString(Url);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -901,6 +921,9 @@ namespace Core {
       size += outputs_.CalculateSize(_map_outputs_codec);
       if (Sample.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Sample);
+      }
+      if (Url.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Url);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -920,6 +943,9 @@ namespace Core {
       outputs_.Add(other.outputs_);
       if (other.Sample.Length != 0) {
         Sample = other.Sample;
+      }
+      if (other.Url.Length != 0) {
+        Url = other.Url;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -946,6 +972,10 @@ namespace Core {
           }
           case 34: {
             Sample = input.ReadString();
+            break;
+          }
+          case 42: {
+            Url = input.ReadString();
             break;
           }
         }
@@ -2175,6 +2205,8 @@ namespace Core {
     public StepPackageResponse(StepPackageResponse other) : this() {
       packageUrl_ = other.packageUrl_;
       publishId_ = other.publishId_;
+      packageData_ = other.packageData_;
+      isCloudHosted_ = other.isCloudHosted_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -2205,6 +2237,28 @@ namespace Core {
       }
     }
 
+    /// <summary>Field number for the "packageData" field.</summary>
+    public const int PackageDataFieldNumber = 3;
+    private pb::ByteString packageData_ = pb::ByteString.Empty;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pb::ByteString PackageData {
+      get { return packageData_; }
+      set {
+        packageData_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "isCloudHosted" field.</summary>
+    public const int IsCloudHostedFieldNumber = 4;
+    private bool isCloudHosted_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool IsCloudHosted {
+      get { return isCloudHosted_; }
+      set {
+        isCloudHosted_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as StepPackageResponse);
@@ -2220,6 +2274,8 @@ namespace Core {
       }
       if (PackageUrl != other.PackageUrl) return false;
       if (PublishId != other.PublishId) return false;
+      if (PackageData != other.PackageData) return false;
+      if (IsCloudHosted != other.IsCloudHosted) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -2228,6 +2284,8 @@ namespace Core {
       int hash = 1;
       if (PackageUrl.Length != 0) hash ^= PackageUrl.GetHashCode();
       if (PublishId.Length != 0) hash ^= PublishId.GetHashCode();
+      if (PackageData.Length != 0) hash ^= PackageData.GetHashCode();
+      if (IsCloudHosted != false) hash ^= IsCloudHosted.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -2249,6 +2307,14 @@ namespace Core {
         output.WriteRawTag(18);
         output.WriteString(PublishId);
       }
+      if (PackageData.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteBytes(PackageData);
+      }
+      if (IsCloudHosted != false) {
+        output.WriteRawTag(32);
+        output.WriteBool(IsCloudHosted);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -2262,6 +2328,12 @@ namespace Core {
       }
       if (PublishId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(PublishId);
+      }
+      if (PackageData.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(PackageData);
+      }
+      if (IsCloudHosted != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -2280,6 +2352,12 @@ namespace Core {
       if (other.PublishId.Length != 0) {
         PublishId = other.PublishId;
       }
+      if (other.PackageData.Length != 0) {
+        PackageData = other.PackageData;
+      }
+      if (other.IsCloudHosted != false) {
+        IsCloudHosted = other.IsCloudHosted;
+      }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -2297,6 +2375,14 @@ namespace Core {
           }
           case 18: {
             PublishId = input.ReadString();
+            break;
+          }
+          case 26: {
+            PackageData = input.ReadBytes();
+            break;
+          }
+          case 32: {
+            IsCloudHosted = input.ReadBool();
             break;
           }
         }
