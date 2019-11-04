@@ -55,6 +55,10 @@ message Environment {
     string cacheHost = 10;
     bool allowParallel = 11;
     bool debug = 12;
+    string rootJobId = 13;
+    string spawnApiUrl = 14;
+    string logApiUrl = 15;
+    string authorization = 16;
 }
 
 message EmptyMessage {

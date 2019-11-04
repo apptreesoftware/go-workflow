@@ -1415,7 +1415,11 @@ proto.core.Environment.toObject = function(includeInstance, msg) {
     pb_package: jspb.Message.getFieldWithDefault(msg, 9, ""),
     cachehost: jspb.Message.getFieldWithDefault(msg, 10, ""),
     allowparallel: jspb.Message.getFieldWithDefault(msg, 11, false),
-    debug: jspb.Message.getFieldWithDefault(msg, 12, false)
+    debug: jspb.Message.getFieldWithDefault(msg, 12, false),
+    rootjobid: jspb.Message.getFieldWithDefault(msg, 13, ""),
+    spawnapiurl: jspb.Message.getFieldWithDefault(msg, 14, ""),
+    logapiurl: jspb.Message.getFieldWithDefault(msg, 15, ""),
+    authorization: jspb.Message.getFieldWithDefault(msg, 16, "")
   };
 
   if (includeInstance) {
@@ -1499,6 +1503,22 @@ proto.core.Environment.deserializeBinaryFromReader = function(msg, reader) {
     case 12:
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setDebug(value);
+      break;
+    case 13:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setRootjobid(value);
+      break;
+    case 14:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSpawnapiurl(value);
+      break;
+    case 15:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setLogapiurl(value);
+      break;
+    case 16:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setAuthorization(value);
       break;
     default:
       reader.skipField();
@@ -1610,6 +1630,34 @@ proto.core.Environment.serializeBinaryToWriter = function(message, writer) {
   if (f) {
     writer.writeBool(
       12,
+      f
+    );
+  }
+  f = message.getRootjobid();
+  if (f.length > 0) {
+    writer.writeString(
+      13,
+      f
+    );
+  }
+  f = message.getSpawnapiurl();
+  if (f.length > 0) {
+    writer.writeString(
+      14,
+      f
+    );
+  }
+  f = message.getLogapiurl();
+  if (f.length > 0) {
+    writer.writeString(
+      15,
+      f
+    );
+  }
+  f = message.getAuthorization();
+  if (f.length > 0) {
+    writer.writeString(
+      16,
       f
     );
   }
@@ -1797,6 +1845,66 @@ proto.core.Environment.prototype.getDebug = function() {
 /** @param {boolean} value */
 proto.core.Environment.prototype.setDebug = function(value) {
   jspb.Message.setProto3BooleanField(this, 12, value);
+};
+
+
+/**
+ * optional string rootJobId = 13;
+ * @return {string}
+ */
+proto.core.Environment.prototype.getRootjobid = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 13, ""));
+};
+
+
+/** @param {string} value */
+proto.core.Environment.prototype.setRootjobid = function(value) {
+  jspb.Message.setProto3StringField(this, 13, value);
+};
+
+
+/**
+ * optional string spawnApiUrl = 14;
+ * @return {string}
+ */
+proto.core.Environment.prototype.getSpawnapiurl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 14, ""));
+};
+
+
+/** @param {string} value */
+proto.core.Environment.prototype.setSpawnapiurl = function(value) {
+  jspb.Message.setProto3StringField(this, 14, value);
+};
+
+
+/**
+ * optional string logApiUrl = 15;
+ * @return {string}
+ */
+proto.core.Environment.prototype.getLogapiurl = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 15, ""));
+};
+
+
+/** @param {string} value */
+proto.core.Environment.prototype.setLogapiurl = function(value) {
+  jspb.Message.setProto3StringField(this, 15, value);
+};
+
+
+/**
+ * optional string authorization = 16;
+ * @return {string}
+ */
+proto.core.Environment.prototype.getAuthorization = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 16, ""));
+};
+
+
+/** @param {string} value */
+proto.core.Environment.prototype.setAuthorization = function(value) {
+  jspb.Message.setProto3StringField(this, 16, value);
 };
 
 

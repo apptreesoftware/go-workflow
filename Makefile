@@ -22,6 +22,7 @@ build: |
 	##Twirp APIs
 	protoc -I proto --go_out=paths=source_relative:pkg/core --twirp_out=paths=source_relative:pkg/core engine_api.proto workflow_api.proto platform_api.proto step_library.proto step_package_api.proto
 	protoc -I proto --twirp_dart_out=paths=source_relative:dart/lib workflow_api.proto step_library.proto step_package_api.proto
+
 	dartfmt -w dart/lib/.
 
 

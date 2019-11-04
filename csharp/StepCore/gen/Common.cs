@@ -41,55 +41,56 @@ namespace Core {
             "HwoFdmFsdWUYAiABKAsyEC5jb3JlLk91dHB1dEluZm86AjgBIkIKCUlucHV0",
             "SW5mbxIQCghyZXF1aXJlZBgBIAEoCBITCgtkZXNjcmlwdGlvbhgCIAEoCRIO",
             "CgZzYW1wbGUYAyABKAkiIQoKT3V0cHV0SW5mbxITCgtkZXNjcmlwdGlvbhgB",
-            "IAEoCSLwAQoLRW52aXJvbm1lbnQSDwoHcHJvamVjdBgBIAEoCRIQCgh3b3Jr",
+            "IAEoCSLCAgoLRW52aXJvbm1lbnQSDwoHcHJvamVjdBgBIAEoCRIQCgh3b3Jr",
             "ZmxvdxgCIAEoCRINCgVydW5JZBgDIAEoCRIQCghzdGVwTmFtZRgEIAEoCRIT",
             "CgtzdGVwVmVyc2lvbhgFIAEoCRIRCglpbnB1dEZpbGUYBiABKAkSEwoLdHJp",
             "Z2dlclR5cGUYByABKAkSFgoOc3RlcEluc3RhbmNlSWQYCCABKAkSDwoHcGFj",
             "a2FnZRgJIAEoCRIRCgljYWNoZUhvc3QYCiABKAkSFQoNYWxsb3dQYXJhbGxl",
-            "bBgLIAEoCBINCgVkZWJ1ZxgMIAEoCCIOCgxFbXB0eU1lc3NhZ2UiSwoSU3Rl",
-            "cFBhY2thZ2VSZXF1ZXN0EgoKAmlkGAEgASgJEg8KB3ZlcnNpb24YAiABKAkS",
-            "CgoCb3MYAyABKAkSDAoEYXJjaBgEIAEoCSIiChRTdGVwUGFja2FnZUlkUmVx",
-            "dWVzdBIKCgJpZBgBIAEoCSJoChNTdGVwUGFja2FnZVJlc3BvbnNlEhIKCnBh",
-            "Y2thZ2VVcmwYASABKAkSEQoJcHVibGlzaElkGAIgASgJEhMKC3BhY2thZ2VE",
-            "YXRhGAMgASgMEhUKDWlzQ2xvdWRIb3N0ZWQYBCABKAgiPQoVR2V0U3RlcFBh",
-            "Y2thZ2VSZXF1ZXN0EhMKC3BhY2thZ2VOYW1lGAEgASgJEg8KB3ZlcnNpb24Y",
-            "AiABKAkiOAoWR2V0U3RlcFBhY2thZ2VSZXNwb25zZRIeCgdwYWNrYWdlGAEg",
-            "ASgLMg0uY29yZS5QYWNrYWdlInsKEENhY2hlUHVzaFJlcXVlc3QSCgoCaWQY",
-            "ASABKAkSEAoIbWV0YWRhdGEYAiABKAwSDgoGcmVjb3JkGAMgASgMEhEKCWNh",
-            "Y2hlTmFtZRgEIAEoCRImCgtlbnZpcm9ubWVudBgFIAEoCzIRLmNvcmUuRW52",
-            "aXJvbm1lbnQiEwoRQ2FjaGVQdXNoUmVzcG9uc2UiWQoQQ2FjaGVQdWxsUmVx",
-            "dWVzdBIKCgJpZBgBIAEoCRIRCgljYWNoZU5hbWUYAiABKAkSJgoLZW52aXJv",
-            "bm1lbnQYAyABKAsyES5jb3JlLkVudmlyb25tZW50IkcKEUNhY2hlUHVsbFJl",
-            "c3BvbnNlEg4KBnJlY29yZBgBIAEoDBIQCghtZXRhZGF0YRgCIAEoDBIQCghu",
-            "b3RGb3VuZBgDIAEoCCJ0ChJDYWNoZVNlYXJjaFJlcXVlc3QSEQoJY2FjaGVO",
-            "YW1lGAEgASgJEhQKDHNlYXJjaEZpbHRlchgCIAEoDBImCgtlbnZpcm9ubWVu",
-            "dBgDIAEoCzIRLmNvcmUuRW52aXJvbm1lbnQSDQoFbGltaXQYBCABKAMiNwoT",
-            "Q2FjaGVTZWFyY2hSZXNwb25zZRIgCgdyZWNvcmRzGAEgAygLMg8uY29yZS5S",
-            "YXdSZWNvcmQiLQoJUmF3UmVjb3JkEg4KBnJlY29yZBgBIAEoDBIQCghtZXRh",
-            "ZGF0YRgCIAEoDCIlCg9BbGxTdGVwc1JlcXVlc3QSEgoKc2VhcmNoVGVybRgB",
-            "IAEoCSJuChBBbGxTdGVwc1Jlc3BvbnNlEg8KB3N1Y2Nlc3MYASABKAgSDwoH",
-            "bWVzc2FnZRgCIAEoCRITCgtyZWNvcmRDb3VudBgDIAEoAxIjCgVpdGVtcxgE",
-            "IAMoCzIULmNvcmUuUmVnaXN0ZXJlZFN0ZXAiowEKDlJlZ2lzdGVyZWRTdGVw",
-            "Eh8KBHN0ZXAYASABKAsyES5jb3JlLlBhY2thZ2VTdGVwEhAKCGxvY2F0aW9u",
-            "GAIgASgJEhQKDGxvY2F0aW9uVHlwZRgDIAEoCRIRCglwdWJsaXNoSWQYBCAB",
-            "KAkSDgoGYXV0aG9yGAUgASgJEhMKC3BhY2thZ2VOYW1lGAYgASgJEhAKCFN0",
-            "ZXBOYW1lGAcgASgJIksKEVNpbmdsZVN0ZXBSZXF1ZXN0EhMKC3BhY2thZ2VO",
-            "YW1lGAEgASgJEhAKCHN0ZXBOYW1lGAIgASgJEg8KB3ZlcnNpb24YAyABKAki",
-            "OAoSU2luZ2xlU3RlcFJlc3BvbnNlEiIKBHN0ZXAYASABKAsyFC5jb3JlLlJl",
-            "Z2lzdGVyZWRTdGVwIlsKDlJ1blN0ZXBSZXF1ZXN0EiYKC2Vudmlyb25tZW50",
-            "GAEgASgLMhEuY29yZS5FbnZpcm9ubWVudBINCgVpbnB1dBgCIAEoDBISCgpz",
-            "dGVwQ29uZmlnGAMgASgMIiEKDlByb2plY3RSZXF1ZXN0Eg8KB3Byb2plY3QY",
-            "ASABKAkiMQoNQmFzaWNSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21l",
-            "c3NhZ2UYAiABKAkiBwoFRW1wdHkiLAoYQWxsUGFja2FnZXNOYW1lc1Jlc3Bv",
-            "bnNlEhAKCHBhY2thZ2VzGAEgAygJIrkBChVHZXRXb3JrZmxvd1VybFJlcXVl",
-            "c3QSJgoLZW52aXJvbm1lbnQYASABKAsyES5jb3JlLkVudmlyb25tZW50EhAK",
-            "CHdvcmtmbG93GAIgASgJEjcKBnBhcmFtcxgDIAMoCzInLmNvcmUuR2V0V29y",
-            "a2Zsb3dVcmxSZXF1ZXN0LlBhcmFtc0VudHJ5Gi0KC1BhcmFtc0VudHJ5EgsK",
-            "A2tleRgBIAEoCRINCgV2YWx1ZRgCIAEoCToCOAEiLQoWR2V0V29ya2Zsb3dV",
-            "cmxSZXNwb25zZRITCgt3b3JrZmxvd1VybBgBIAEoCSIyCg9TcGF3blRyYWls",
-            "RW50cnkSEAoId29ya2Zsb3cYASABKAkSDQoFam9iSWQYAiABKAlCMVovZ2l0",
-            "aHViLmNvbS9hcHB0cmVlc29mdHdhcmUvZ28td29ya2Zsb3cvcGtnL2NvcmVi",
-            "BnByb3RvMw=="));
+            "bBgLIAEoCBINCgVkZWJ1ZxgMIAEoCBIRCglyb290Sm9iSWQYDSABKAkSEwoL",
+            "c3Bhd25BcGlVcmwYDiABKAkSEQoJbG9nQXBpVXJsGA8gASgJEhUKDWF1dGhv",
+            "cml6YXRpb24YECABKAkiDgoMRW1wdHlNZXNzYWdlIksKElN0ZXBQYWNrYWdl",
+            "UmVxdWVzdBIKCgJpZBgBIAEoCRIPCgd2ZXJzaW9uGAIgASgJEgoKAm9zGAMg",
+            "ASgJEgwKBGFyY2gYBCABKAkiIgoUU3RlcFBhY2thZ2VJZFJlcXVlc3QSCgoC",
+            "aWQYASABKAkiaAoTU3RlcFBhY2thZ2VSZXNwb25zZRISCgpwYWNrYWdlVXJs",
+            "GAEgASgJEhEKCXB1Ymxpc2hJZBgCIAEoCRITCgtwYWNrYWdlRGF0YRgDIAEo",
+            "DBIVCg1pc0Nsb3VkSG9zdGVkGAQgASgIIj0KFUdldFN0ZXBQYWNrYWdlUmVx",
+            "dWVzdBITCgtwYWNrYWdlTmFtZRgBIAEoCRIPCgd2ZXJzaW9uGAIgASgJIjgK",
+            "FkdldFN0ZXBQYWNrYWdlUmVzcG9uc2USHgoHcGFja2FnZRgBIAEoCzINLmNv",
+            "cmUuUGFja2FnZSJ7ChBDYWNoZVB1c2hSZXF1ZXN0EgoKAmlkGAEgASgJEhAK",
+            "CG1ldGFkYXRhGAIgASgMEg4KBnJlY29yZBgDIAEoDBIRCgljYWNoZU5hbWUY",
+            "BCABKAkSJgoLZW52aXJvbm1lbnQYBSABKAsyES5jb3JlLkVudmlyb25tZW50",
+            "IhMKEUNhY2hlUHVzaFJlc3BvbnNlIlkKEENhY2hlUHVsbFJlcXVlc3QSCgoC",
+            "aWQYASABKAkSEQoJY2FjaGVOYW1lGAIgASgJEiYKC2Vudmlyb25tZW50GAMg",
+            "ASgLMhEuY29yZS5FbnZpcm9ubWVudCJHChFDYWNoZVB1bGxSZXNwb25zZRIO",
+            "CgZyZWNvcmQYASABKAwSEAoIbWV0YWRhdGEYAiABKAwSEAoIbm90Rm91bmQY",
+            "AyABKAgidAoSQ2FjaGVTZWFyY2hSZXF1ZXN0EhEKCWNhY2hlTmFtZRgBIAEo",
+            "CRIUCgxzZWFyY2hGaWx0ZXIYAiABKAwSJgoLZW52aXJvbm1lbnQYAyABKAsy",
+            "ES5jb3JlLkVudmlyb25tZW50Eg0KBWxpbWl0GAQgASgDIjcKE0NhY2hlU2Vh",
+            "cmNoUmVzcG9uc2USIAoHcmVjb3JkcxgBIAMoCzIPLmNvcmUuUmF3UmVjb3Jk",
+            "Ii0KCVJhd1JlY29yZBIOCgZyZWNvcmQYASABKAwSEAoIbWV0YWRhdGEYAiAB",
+            "KAwiJQoPQWxsU3RlcHNSZXF1ZXN0EhIKCnNlYXJjaFRlcm0YASABKAkibgoQ",
+            "QWxsU3RlcHNSZXNwb25zZRIPCgdzdWNjZXNzGAEgASgIEg8KB21lc3NhZ2UY",
+            "AiABKAkSEwoLcmVjb3JkQ291bnQYAyABKAMSIwoFaXRlbXMYBCADKAsyFC5j",
+            "b3JlLlJlZ2lzdGVyZWRTdGVwIqMBCg5SZWdpc3RlcmVkU3RlcBIfCgRzdGVw",
+            "GAEgASgLMhEuY29yZS5QYWNrYWdlU3RlcBIQCghsb2NhdGlvbhgCIAEoCRIU",
+            "Cgxsb2NhdGlvblR5cGUYAyABKAkSEQoJcHVibGlzaElkGAQgASgJEg4KBmF1",
+            "dGhvchgFIAEoCRITCgtwYWNrYWdlTmFtZRgGIAEoCRIQCghTdGVwTmFtZRgH",
+            "IAEoCSJLChFTaW5nbGVTdGVwUmVxdWVzdBITCgtwYWNrYWdlTmFtZRgBIAEo",
+            "CRIQCghzdGVwTmFtZRgCIAEoCRIPCgd2ZXJzaW9uGAMgASgJIjgKElNpbmds",
+            "ZVN0ZXBSZXNwb25zZRIiCgRzdGVwGAEgASgLMhQuY29yZS5SZWdpc3RlcmVk",
+            "U3RlcCJbCg5SdW5TdGVwUmVxdWVzdBImCgtlbnZpcm9ubWVudBgBIAEoCzIR",
+            "LmNvcmUuRW52aXJvbm1lbnQSDQoFaW5wdXQYAiABKAwSEgoKc3RlcENvbmZp",
+            "ZxgDIAEoDCIhCg5Qcm9qZWN0UmVxdWVzdBIPCgdwcm9qZWN0GAEgASgJIjEK",
+            "DUJhc2ljUmVzcG9uc2USDwoHc3VjY2VzcxgBIAEoCBIPCgdtZXNzYWdlGAIg",
+            "ASgJIgcKBUVtcHR5IiwKGEFsbFBhY2thZ2VzTmFtZXNSZXNwb25zZRIQCghw",
+            "YWNrYWdlcxgBIAMoCSK5AQoVR2V0V29ya2Zsb3dVcmxSZXF1ZXN0EiYKC2Vu",
+            "dmlyb25tZW50GAEgASgLMhEuY29yZS5FbnZpcm9ubWVudBIQCgh3b3JrZmxv",
+            "dxgCIAEoCRI3CgZwYXJhbXMYAyADKAsyJy5jb3JlLkdldFdvcmtmbG93VXJs",
+            "UmVxdWVzdC5QYXJhbXNFbnRyeRotCgtQYXJhbXNFbnRyeRILCgNrZXkYASAB",
+            "KAkSDQoFdmFsdWUYAiABKAk6AjgBIi0KFkdldFdvcmtmbG93VXJsUmVzcG9u",
+            "c2USEwoLd29ya2Zsb3dVcmwYASABKAkiMgoPU3Bhd25UcmFpbEVudHJ5EhAK",
+            "CHdvcmtmbG93GAEgASgJEg0KBWpvYklkGAIgASgJQjFaL2dpdGh1Yi5jb20v",
+            "YXBwdHJlZXNvZnR3YXJlL2dvLXdvcmtmbG93L3BrZy9jb3JlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -99,7 +100,7 @@ namespace Core {
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.PackageStep), global::Core.PackageStep.Parser, new[]{ "Description", "Inputs", "Outputs", "Sample", "Url" }, null, null, new pbr::GeneratedClrTypeInfo[] { null, null, }),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.InputInfo), global::Core.InputInfo.Parser, new[]{ "Required", "Description", "Sample" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.OutputInfo), global::Core.OutputInfo.Parser, new[]{ "Description" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Core.Environment), global::Core.Environment.Parser, new[]{ "Project", "Workflow", "RunId", "StepName", "StepVersion", "InputFile", "TriggerType", "StepInstanceId", "Package", "CacheHost", "AllowParallel", "Debug" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Core.Environment), global::Core.Environment.Parser, new[]{ "Project", "Workflow", "RunId", "StepName", "StepVersion", "InputFile", "TriggerType", "StepInstanceId", "Package", "CacheHost", "AllowParallel", "Debug", "RootJobId", "SpawnApiUrl", "LogApiUrl", "Authorization" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.EmptyMessage), global::Core.EmptyMessage.Parser, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageRequest), global::Core.StepPackageRequest.Parser, new[]{ "Id", "Version", "Os", "Arch" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Core.StepPackageIdRequest), global::Core.StepPackageIdRequest.Parser, new[]{ "Id" }, null, null, null),
@@ -1335,6 +1336,10 @@ namespace Core {
       cacheHost_ = other.cacheHost_;
       allowParallel_ = other.allowParallel_;
       debug_ = other.debug_;
+      rootJobId_ = other.rootJobId_;
+      spawnApiUrl_ = other.spawnApiUrl_;
+      logApiUrl_ = other.logApiUrl_;
+      authorization_ = other.authorization_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1475,6 +1480,50 @@ namespace Core {
       }
     }
 
+    /// <summary>Field number for the "rootJobId" field.</summary>
+    public const int RootJobIdFieldNumber = 13;
+    private string rootJobId_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string RootJobId {
+      get { return rootJobId_; }
+      set {
+        rootJobId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "spawnApiUrl" field.</summary>
+    public const int SpawnApiUrlFieldNumber = 14;
+    private string spawnApiUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string SpawnApiUrl {
+      get { return spawnApiUrl_; }
+      set {
+        spawnApiUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "logApiUrl" field.</summary>
+    public const int LogApiUrlFieldNumber = 15;
+    private string logApiUrl_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string LogApiUrl {
+      get { return logApiUrl_; }
+      set {
+        logApiUrl_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "authorization" field.</summary>
+    public const int AuthorizationFieldNumber = 16;
+    private string authorization_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string Authorization {
+      get { return authorization_; }
+      set {
+        authorization_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as Environment);
@@ -1500,6 +1549,10 @@ namespace Core {
       if (CacheHost != other.CacheHost) return false;
       if (AllowParallel != other.AllowParallel) return false;
       if (Debug != other.Debug) return false;
+      if (RootJobId != other.RootJobId) return false;
+      if (SpawnApiUrl != other.SpawnApiUrl) return false;
+      if (LogApiUrl != other.LogApiUrl) return false;
+      if (Authorization != other.Authorization) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1518,6 +1571,10 @@ namespace Core {
       if (CacheHost.Length != 0) hash ^= CacheHost.GetHashCode();
       if (AllowParallel != false) hash ^= AllowParallel.GetHashCode();
       if (Debug != false) hash ^= Debug.GetHashCode();
+      if (RootJobId.Length != 0) hash ^= RootJobId.GetHashCode();
+      if (SpawnApiUrl.Length != 0) hash ^= SpawnApiUrl.GetHashCode();
+      if (LogApiUrl.Length != 0) hash ^= LogApiUrl.GetHashCode();
+      if (Authorization.Length != 0) hash ^= Authorization.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1579,6 +1636,22 @@ namespace Core {
         output.WriteRawTag(96);
         output.WriteBool(Debug);
       }
+      if (RootJobId.Length != 0) {
+        output.WriteRawTag(106);
+        output.WriteString(RootJobId);
+      }
+      if (SpawnApiUrl.Length != 0) {
+        output.WriteRawTag(114);
+        output.WriteString(SpawnApiUrl);
+      }
+      if (LogApiUrl.Length != 0) {
+        output.WriteRawTag(122);
+        output.WriteString(LogApiUrl);
+      }
+      if (Authorization.Length != 0) {
+        output.WriteRawTag(130, 1);
+        output.WriteString(Authorization);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1622,6 +1695,18 @@ namespace Core {
       }
       if (Debug != false) {
         size += 1 + 1;
+      }
+      if (RootJobId.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(RootJobId);
+      }
+      if (SpawnApiUrl.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SpawnApiUrl);
+      }
+      if (LogApiUrl.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(LogApiUrl);
+      }
+      if (Authorization.Length != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeStringSize(Authorization);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1669,6 +1754,18 @@ namespace Core {
       }
       if (other.Debug != false) {
         Debug = other.Debug;
+      }
+      if (other.RootJobId.Length != 0) {
+        RootJobId = other.RootJobId;
+      }
+      if (other.SpawnApiUrl.Length != 0) {
+        SpawnApiUrl = other.SpawnApiUrl;
+      }
+      if (other.LogApiUrl.Length != 0) {
+        LogApiUrl = other.LogApiUrl;
+      }
+      if (other.Authorization.Length != 0) {
+        Authorization = other.Authorization;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1727,6 +1824,22 @@ namespace Core {
           }
           case 96: {
             Debug = input.ReadBool();
+            break;
+          }
+          case 106: {
+            RootJobId = input.ReadString();
+            break;
+          }
+          case 114: {
+            SpawnApiUrl = input.ReadString();
+            break;
+          }
+          case 122: {
+            LogApiUrl = input.ReadString();
+            break;
+          }
+          case 130: {
+            Authorization = input.ReadString();
             break;
           }
         }

@@ -235,6 +235,10 @@ class Environment {
     this.cacheHost,
     this.allowParallel,
     this.debug,
+    this.rootJobId,
+    this.spawnApiUrl,
+    this.logApiUrl,
+    this.authorization,
   );
 
   String project;
@@ -249,6 +253,10 @@ class Environment {
   String cacheHost;
   bool allowParallel;
   bool debug;
+  String rootJobId;
+  String spawnApiUrl;
+  String logApiUrl;
+  String authorization;
 
   factory Environment.fromJson(Map<String, dynamic> json) {
     return new Environment(
@@ -264,6 +272,10 @@ class Environment {
       json['cacheHost'] as String,
       json['allowParallel'] as bool,
       json['debug'] as bool,
+      json['rootJobId'] as String,
+      json['spawnApiUrl'] as String,
+      json['logApiUrl'] as String,
+      json['authorization'] as String,
     );
   }
 
@@ -281,6 +293,10 @@ class Environment {
     map['cacheHost'] = cacheHost;
     map['allowParallel'] = allowParallel;
     map['debug'] = debug;
+    map['rootJobId'] = rootJobId;
+    map['spawnApiUrl'] = spawnApiUrl;
+    map['logApiUrl'] = logApiUrl;
+    map['authorization'] = authorization;
     return map;
   }
 
