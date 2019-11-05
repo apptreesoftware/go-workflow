@@ -1,0 +1,14 @@
+{
+  "name": "apptreeio",
+  "version": "1.0.0-beta1",
+  "description": "A lightweight SDK for building serverless steps for the AppTree IO platform",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
