@@ -14,6 +14,7 @@ service WorkflowAPI {
     rpc RunWorkflow (RunWorkflowRequest) returns (TriggerResponse);
     rpc RetryWorkflow (RetryWorkflowRequest) returns (RetryWorkflowResponse);
     rpc RetryJob (RetryJobRequest) returns (TriggerResponse);
+    rpc RetryFailedChildJobs (RetryChildJobsRequest) returns (TriggerChildrenResponse);
 
     rpc Ping (EmptyMessage) returns (BasicResponse);
     rpc PublishWorkflow (PublishWorkflowRequest) returns (BasicResponse);
@@ -49,6 +50,18 @@ service WorkflowAPI {
 
     rpc AddEvent (AddEventRequest) returns (BasicResponse);
     rpc RemoveEvent (RemoveEventRequest) returns (BasicResponse);
+}
+
+message RetryChildJobsRequest {
+    string parentId = 1;
+    string project = 2;
+}
+
+message TriggerChildrenResponse {
+    bool success = 1;
+    string message = 2;
+    string project = 3;
+    int64 retryCount = 4;
 }
 
 message ProjectWorkflowRequest {

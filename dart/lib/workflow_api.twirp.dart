@@ -5,6 +5,72 @@ import 'package:twirp_dart_core/twirp_dart_core.dart';
 import 'dart:convert';
 import 'common.twirp.dart';
 
+class RetryChildJobsRequest {
+  RetryChildJobsRequest(
+    this.parentId,
+    this.project,
+  );
+
+  String parentId;
+  String project;
+
+  factory RetryChildJobsRequest.fromJson(Map<String, dynamic> json) {
+    return new RetryChildJobsRequest(
+      json['parentId'] as String,
+      json['project'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['parentId'] = parentId;
+    map['project'] = project;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
+class TriggerChildrenResponse {
+  TriggerChildrenResponse(
+    this.success,
+    this.message,
+    this.project,
+    this.retryCount,
+  );
+
+  bool success;
+  String message;
+  String project;
+  int retryCount;
+
+  factory TriggerChildrenResponse.fromJson(Map<String, dynamic> json) {
+    return new TriggerChildrenResponse(
+      json['success'] as bool,
+      json['message'] as String,
+      json['project'] as String,
+      json['retryCount'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['success'] = success;
+    map['message'] = message;
+    map['project'] = project;
+    map['retryCount'] = retryCount;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 class ProjectWorkflowRequest {
   ProjectWorkflowRequest(
     this.project,
@@ -1627,6 +1693,8 @@ abstract class WorkflowAPI {
   Future<RetryWorkflowResponse> retryWorkflow(
       RetryWorkflowRequest retryWorkflowRequest);
   Future<TriggerResponse> retryJob(RetryJobRequest retryJobRequest);
+  Future<TriggerChildrenResponse> retryFailedChildJobs(
+      RetryChildJobsRequest retryChildJobsRequest);
   Future<BasicResponse> ping(EmptyMessage emptyMessage);
   Future<BasicResponse> publishWorkflow(
       PublishWorkflowRequest publishWorkflowRequest);
@@ -1721,6 +1789,21 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     }
     var value = json.decode(response.body);
     return TriggerResponse.fromJson(value);
+  }
+
+  Future<TriggerChildrenResponse> retryFailedChildJobs(
+      RetryChildJobsRequest retryChildJobsRequest) async {
+    var url = "${hostname}${_pathPrefix}RetryFailedChildJobs";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(retryChildJobsRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return TriggerChildrenResponse.fromJson(value);
   }
 
   Future<BasicResponse> ping(EmptyMessage emptyMessage) async {
