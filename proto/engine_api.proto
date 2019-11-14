@@ -56,6 +56,7 @@ message LogRequest {
     string logLevel = 3;
     string project = 4;
     string workflow = 5;
+    string stepInstanceId = 6;
 }
 
 message LogErrorRequest {
