@@ -5,6 +5,39 @@ import 'package:twirp_dart_core/twirp_dart_core.dart';
 import 'dart:convert';
 import 'common.twirp.dart';
 
+class DisableProjectRequest {
+  DisableProjectRequest(
+    this.project,
+    this.startDate,
+    this.endDate,
+  );
+
+  String project;
+  int startDate;
+  int endDate;
+
+  factory DisableProjectRequest.fromJson(Map<String, dynamic> json) {
+    return new DisableProjectRequest(
+      json['project'] as String,
+      json['startDate'] as int,
+      json['endDate'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    var map = new Map<String, dynamic>();
+    map['project'] = project;
+    map['startDate'] = startDate;
+    map['endDate'] = endDate;
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
+  }
+}
+
 class ProjectWorkflowRequest {
   ProjectWorkflowRequest(
     this.project,
@@ -970,17 +1003,20 @@ class RetryJobRequest {
     this.project,
     this.jobId,
     this.stepIndex,
+    this.children,
   );
 
   String project;
   String jobId;
   int stepIndex;
+  bool children;
 
   factory RetryJobRequest.fromJson(Map<String, dynamic> json) {
     return new RetryJobRequest(
       json['project'] as String,
       json['jobId'] as String,
       json['stepIndex'] as int,
+      json['children'] as bool,
     );
   }
 
@@ -989,6 +1025,7 @@ class RetryJobRequest {
     map['project'] = project;
     map['jobId'] = jobId;
     map['stepIndex'] = stepIndex;
+    map['children'] = children;
     return map;
   }
 
@@ -1660,6 +1697,8 @@ abstract class WorkflowAPI {
       ProjectWorkflowRequest projectWorkflowRequest);
   Future<BasicResponse> removeWorkflow(
       ProjectWorkflowRequest projectWorkflowRequest);
+  Future<BasicResponse> disableWorkflows(
+      DisableProjectRequest disableProjectRequest);
   Future<BasicResponse> pauseEngines(Empty empty);
   Future<BasicResponse> unpauseEngines(Empty empty);
   Future<BasicResponse> addEvent(AddEventRequest addEventRequest);
@@ -2040,6 +2079,21 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
     request.body = json.encode(projectWorkflowRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> disableWorkflows(
+      DisableProjectRequest disableProjectRequest) async {
+    var url = "${hostname}${_pathPrefix}DisableWorkflows";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(disableProjectRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);
