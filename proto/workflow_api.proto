@@ -43,12 +43,19 @@ service WorkflowAPI {
     rpc DisableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
     rpc EnableWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
     rpc RemoveWorkflow (ProjectWorkflowRequest) returns (BasicResponse);
+    rpc DisableWorkflows (DisableProjectRequest) returns (BasicResponse);
 
     rpc PauseEngines (Empty) returns (BasicResponse);
     rpc UnpauseEngines (Empty) returns (BasicResponse);
 
     rpc AddEvent (AddEventRequest) returns (BasicResponse);
     rpc RemoveEvent (RemoveEventRequest) returns (BasicResponse);
+}
+
+message DisableProjectRequest {
+    string project = 1;
+    int64 startDate = 2;
+    int64 endDate = 3;
 }
 
 message ProjectWorkflowRequest {
@@ -238,6 +245,7 @@ message RetryJobRequest {
     string project = 1;
     string jobId = 2;
     int64 stepIndex = 3;
+    bool children = 4;
 }
 
 message PublishWorkflowRequest {
