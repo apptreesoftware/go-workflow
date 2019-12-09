@@ -1703,6 +1703,7 @@ abstract class WorkflowAPI {
   Future<BasicResponse> unpauseEngines(Empty empty);
   Future<BasicResponse> addEvent(AddEventRequest addEventRequest);
   Future<BasicResponse> removeEvent(RemoveEventRequest removeEventRequest);
+  Future<BasicResponse> deleteProject(ProjectRequest projectRequest);
 }
 
 class DefaultWorkflowAPI implements WorkflowAPI {
@@ -2151,6 +2152,20 @@ class DefaultWorkflowAPI implements WorkflowAPI {
     var request = new Request('POST', uri);
     request.headers['Content-Type'] = 'application/json';
     request.body = json.encode(removeEventRequest.toJson());
+    var response = await _requester.send(request);
+    if (response.statusCode != 200) {
+      throw twirpException(response);
+    }
+    var value = json.decode(response.body);
+    return BasicResponse.fromJson(value);
+  }
+
+  Future<BasicResponse> deleteProject(ProjectRequest projectRequest) async {
+    var url = "${hostname}${_pathPrefix}DeleteProject";
+    var uri = Uri.parse(url);
+    var request = new Request('POST', uri);
+    request.headers['Content-Type'] = 'application/json';
+    request.body = json.encode(projectRequest.toJson());
     var response = await _requester.send(request);
     if (response.statusCode != 200) {
       throw twirpException(response);

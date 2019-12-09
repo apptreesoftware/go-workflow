@@ -27,6 +27,7 @@ service EnvironmentManagement {
     rpc ListProjects (ListProjectRequest) returns (ListProjectResponse);
     rpc GetProjectSecret (ProjectRequest) returns (SecretResponse);
     rpc UpdateProjectSecret (ProjectRequest) returns (SecretResponse);
+    rpc DeleteProject (ProjectRequest) returns (BasicResponse);
 
     rpc GetAssistantConfig (ConfigRequest) returns (AssistantRequest);
     rpc UpdateAssistantConfig (AssistantRequest) returns (AssistantRequest);
