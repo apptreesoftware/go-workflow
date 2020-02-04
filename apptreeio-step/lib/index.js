@@ -22,6 +22,15 @@ function getEnvironment(req) {
     return env;
 }
 exports.getEnvironment = getEnvironment;
+function validateInputs(req, ...inputs) {
+    const body = req.body;
+    for (let input of inputs) {
+        if (!body[input]) {
+            throw Error(`required input '${input}' was not provided`);
+        }
+    }
+}
+exports.validateInputs = validateInputs;
 function isRequest(data) {
     if (!data) {
         return false;

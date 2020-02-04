@@ -21,6 +21,15 @@ export function getEnvironment(req: express.Request): Environment {
   return env;
 }
 
+export function validateInputs(req: express.Request, ...inputs: string[]) {
+  const body = req.body;
+  for (let input of inputs) {
+    if (!body[input]) {
+      throw Error(`required input '${input}' was not provided`);
+    }
+  }
+}
+
 function isRequest(data: any): boolean {
   if (!data) {
     return false;

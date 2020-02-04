@@ -1,6 +1,6 @@
 {
   "name": "apptreeio",
-  "version": "1.0.0-beta2",
+  "version": "1.0.0-beta3",
   "description": "A lightweight SDK for building serverless steps for the AppTree IO platform",
   "main": "lib/index.js",
   "scripts": {
