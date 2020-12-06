@@ -50,6 +50,7 @@ service WorkflowAPI {
 
     rpc AddEvent (AddEventRequest) returns (BasicResponse);
     rpc RemoveEvent (RemoveEventRequest) returns (BasicResponse);
+    rpc DeleteProject (ProjectRequest) returns (BasicResponse);
 }
 
 message DisableProjectRequest {
