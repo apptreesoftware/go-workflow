@@ -17,7 +17,7 @@
   "author": "AppTree Software",
   "license": "ISC",
   "dependencies": {
-    "@grpc/grpc-js": "^0.5.2",
+    "@grpc/grpc-js": "^1.1.8",
     "get-stdin": "^7.0.0",
     "google-protobuf": "^3.9.1",
     "yaml": "^1.6.0",
